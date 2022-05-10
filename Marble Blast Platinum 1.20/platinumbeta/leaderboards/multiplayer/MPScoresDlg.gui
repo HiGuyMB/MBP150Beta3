@@ -1,0 +1,51 @@
+//--- OBJECT WRITE BEGIN ---
+new GuiBitmapCtrl(MPScoresDlg) {
+   profile = "GuiDefaultProfile";
+   horizSizing = "width";
+   vertSizing = "height";
+   position = "0 0";
+   extent = "640 480";
+   minExtent = "8 8";
+   visible = "1";
+   helpTag = "0";
+   bitmap = "~/client/ui/black";
+   wrap = "0";
+      noCursor = "1";
+
+   new GuiControl() {
+      profile = "GuiDefaultProfile";
+      horizSizing = "center";
+      vertSizing = "height";
+      position = "70 80";
+      extent = "500 320";
+      minExtent = "8 8";
+      visible = "1";
+      helpTag = "0";
+
+      new GuiControl(MPScoreListContainer) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "center";
+         vertSizing = "height";
+         position = "0 55";
+         extent = "500 265";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+      };
+      new GuiMLTextCtrl(MPScoreHeader) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "width";
+         vertSizing = "bottom";
+         position = "8 4";
+         extent = "489 39";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+   };
+};
+//--- OBJECT WRITE END ---
+

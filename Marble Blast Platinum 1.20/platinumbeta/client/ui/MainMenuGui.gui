@@ -1,0 +1,239 @@
+//--- OBJECT WRITE BEGIN ---
+new GuiChunkedBitmapCtrl(MainMenuGui) {
+   profile = "GuiContentProfile";
+   horizSizing = "width";
+   vertSizing = "height";
+   position = "0 0";
+   extent = "640 480";
+   minExtent = "8 8";
+   visible = "1";
+   helpTag = "0";
+   bitmap = "./backgrounds/platinum/31";
+   useVariable = "0";
+   tile = "0";
+
+   new GuiMLTextCtrl(VersionText) {
+      profile = "GuiMLTextProfile";
+      horizSizing = "right";
+      vertSizing = "top";
+      position = "16 445";
+      extent = "400 50";
+      minExtent = "8 8";
+      visible = "1";
+      helpTag = "0";
+      lineSpacing = "2";
+      allowColorChars = "0";
+      maxChars = "-1";
+   };
+   new GuiBitmapButtonCtrl() {
+      profile = "GuiDefaultProfile";
+      horizSizing = "center";
+      vertSizing = "top";
+      position = "189 440";
+      extent = "262 38";
+      minExtent = "8 8";
+      visible = "1";
+      command = "gotoWebPage(\"http://marbleblast.com\");";
+      helpTag = "0";
+      text = "button";
+      groupNum = "-1";
+      buttonType = "PushButton";
+      repeatPeriod = "1000";
+      repeatDecay = "1";
+      bitmap = "./website";
+   };
+   new GuiBitmapCtrl() {
+      profile = "GuiDefaultProfile";
+      horizSizing = "center";
+      vertSizing = "center";
+      position = "144 -23";
+      extent = "352 525";
+      minExtent = "8 8";
+      visible = "1";
+      helpTag = "0";
+      bitmap = "./home/HomeBase.png";
+      wrap = "0";
+
+      new GuiBitmapButtonCtrl() {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "45 109";
+         extent = "226 93";
+         minExtent = "8 8";
+         visible = "1";
+         command = "Canvas.setContent(playMissionGui);";
+         accelerator = "enter";
+         helpTag = "0";
+         text = "play";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./home/play";
+      };
+      new GuiBitmapButtonCtrl(ManualButton) {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "76 211";
+         extent = "226 93";
+         minExtent = "8 8";
+         visible = "1";
+         command = "Canvas.setContent(gameManualGui);";
+         helpTag = "0";
+         text = "highscore";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./home/help";
+      };
+      new GuiBitmapButtonCtrl() {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "44 310";
+         extent = "226 93";
+         minExtent = "8 8";
+         visible = "1";
+         command = "Canvas.setContent(optionsDlg);";
+         helpTag = "0";
+         text = "options";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./home/options";
+      };
+      new GuiBitmapButtonCtrl() {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "79 408";
+         extent = "226 93";
+         minExtent = "8 8";
+         visible = "1";
+         command = "quit();";
+         accelerator = "escape";
+         helpTag = "0";
+         text = "exit";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./home/exit";
+      };
+   };
+   new GuiBitmapButtonCtrl(MOTDButton) {
+      profile = "GuiButtonProfile";
+      horizSizing = "left";
+      vertSizing = "top";
+      position = "527 377";
+      extent = "106 97";
+      minExtent = "8 8";
+      visible = "0";
+      command = "showMotd();";
+      helpTag = "0";
+      text = "play";
+      groupNum = "-1";
+      buttonType = "PushButton";
+      repeatPeriod = "1000";
+      repeatDecay = "1";
+      bitmap = "./motd/mess_buttn";
+   };
+   new GuiBitmapButtonCtrl() {
+      profile = "GuiDefaultProfile";
+      horizSizing = "left";
+      vertSizing = "top";
+      position = "503 393";
+      extent = "135 80";
+      minExtent = "8 8";
+      visible = "1";
+      command = "Canvas.setContent(PlayDemoGui);";
+      helpTag = "0";
+      text = "button";
+      groupNum = "-1";
+      buttonType = "PushButton";
+      repeatPeriod = "1000";
+      repeatDecay = "1";
+      bitmap = "./home/replaycentre";
+   };
+   new GuiBitmapButtonCtrl(MOTDButton) {
+      profile = "GuiDefaultProfile";
+      horizSizing = "left";
+      vertSizing = "top";
+      position = "518 292";
+      extent = "102 97";
+      minExtent = "8 8";
+      visible = "1";
+      command = "Canvas.pushDialog(MOTDGui);";
+      helpTag = "0";
+      text = "button";
+      groupNum = "-1";
+      buttonType = "PushButton";
+      repeatPeriod = "1000";
+      repeatDecay = "1";
+      bitmap = "./motd/mess_buttn";
+   };
+   new GuiBitmapButtonCtrl() {
+      profile = "GuiDefaultProfile";
+      horizSizing = "left";
+      vertSizing = "top";
+      position = "500 199";
+      extent = "141 100";
+      minExtent = "8 8";
+      visible = "1";
+      command = "initLeaderboards();";
+      helpTag = "0";
+      text = "Leaderboards";
+      groupNum = "-1";
+      buttonType = "PushButton";
+      repeatPeriod = "1000";
+      repeatDecay = "1";
+      bitmap = $usermods @ "/leaderboards/core/lb_menutext";
+   };
+};
+//--- OBJECT WRITE END ---
+
+function MainMenuGui::onWake(%this)
+{
+	if ($Pref::FirstRun[$THIS_VERSION])
+	{
+		%bob = new GuiFadeinBitmapCtrl()
+		{
+			extent = "640 480";
+			horizSizing = "width";
+			vertSizing = "height";
+			fadeInTime = 1000;
+			waitTime = 0;
+			fadeOutTime = 0;
+			done = false;
+		};
+
+		Canvas.add(%bob);
+
+		%bob.schedule(2250, delete);
+	}
+
+   if($MOTDChecked)
+      MOTDButton.setActive(true);
+   else
+      MOTDButton.setActive(false);
+
+   ManualButton.setActive(false);
+   VersionText.setText("<font:DomCasualD:24><color:ffffff><shadow:1:1><shadowcolor:333333>"
+							  @ "v" @ $THIS_VERSION_NAME @ "\n");
+   if ($platform !$= "macos") //HiGuy: Doesn't work in macos, just gives error
+      enableJoystick();
+
+	if($Pref::FirstRun[$THIS_VERSION])
+	  	MOTDGui::showWelcome();
+	else
+	   schedule(1000, 0, startVersionCheck);
+
+	if ($pref::OpenALWarning $= "" && alGetString("AL_VENDOR") $= "Apple Computer Inc." && $platform $= "windows") { //HiGuy: Good chance they're on a WineSkin / Crossover
+	   MessageBoxOk("OpenAL Notice", "We\'re sorry for the inconvenience, but in some cases, sound effects have been reported to not work with WinE / CrossOver. Some or all sounds do not play, although menu music should still work. If you are not on WinE/Crossover, or if your sounds work, you can disregard this message.", "", true);
+	   $pref::OpenALWarning = true;
+	}
+}

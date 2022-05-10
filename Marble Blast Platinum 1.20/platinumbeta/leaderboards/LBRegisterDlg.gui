@@ -1,0 +1,542 @@
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(LBRegisterDlg) {
+   profile = "GuiDefaultProfile";
+   horizSizing = "width";
+   vertSizing = "height";
+   position = "0 0";
+   extent = "640 480";
+   minExtent = "8 8";
+   visible = "1";
+   helpTag = "0";
+
+   new GuiBitmapCtrl() {
+      profile = "GuiDefaultProfile";
+      horizSizing = "center";
+      vertSizing = "center";
+      position = "47 -6";
+      extent = "546 492";
+      minExtent = "8 8";
+      visible = "1";
+      helpTag = "0";
+      bitmap = "./play/big_window";
+      wrap = "0";
+
+      new GuiBitmapCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "405 163";
+         extent = "80 41";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "./login/show_text";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "98 85";
+         extent = "436 52";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "./login/text_field_long";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "12 92";
+         extent = "89 36";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "./login/name_text";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "12 126";
+         extent = "130 41";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "./login/password_text";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "137 117";
+         extent = "400 60";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "./login/text_field_notaslong";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "10 162";
+         extent = "80 41";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "./login/email_text";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "98 155";
+         extent = "323 60";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "./login/text_field_notaslong";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "center";
+         vertSizing = "bottom";
+         position = "123 17";
+         extent = "300 77";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "./login/register_text";
+         wrap = "0";
+      };
+      new GuiBitmapButtonCtrl(LBR_EmailShow) {
+         profile = "GuiCheckBoxProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "491 168";
+         extent = "31 31";
+         minExtent = "8 8";
+         visible = "1";
+         variable = "$LB::Register::ShowEmail";
+         helpTag = "0";
+         text = "button";
+         groupNum = "-1";
+         buttonType = "ToggleButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./core/lb_chkbx";
+      };
+      new GuiControl() {
+         profile = "GuiTransparency75Profile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "12 213";
+         extent = "510 202";
+         minExtent = "27 27";
+         visible = "1";
+         helpTag = "0";
+
+         new GuiControl() {
+            profile = "GuiDefaultProfile";
+            horizSizing = "width";
+            vertSizing = "height";
+            position = "0 0";
+            extent = "512 205";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+
+            new GuiScrollCtrl() {
+               profile = "GuiBacklessScrollProfile";
+               horizSizing = "width";
+               vertSizing = "height";
+               position = "4 4";
+               extent = "502 196";
+               minExtent = "8 8";
+               visible = "1";
+               helpTag = "0";
+               willFirstRespond = "1";
+               hScrollBar = "alwaysOff";
+               vScrollBar = "alwaysOn";
+               constantThumbHeight = "0";
+               childMargin = "2 2";
+
+               new GuiMLTextCtrl(LBR_Tos) {
+                  profile = "GuiMLTextProfile";
+                  horizSizing = "width";
+                  vertSizing = "bottom";
+                  position = "2 2";
+                  extent = "483 624";
+                  minExtent = "8 8";
+                  visible = "1";
+                  helpTag = "0";
+                  lineSpacing = "2";
+                  allowColorChars = "0";
+                  maxChars = "-1";
+               };
+               new GuiCheckBoxCtrl(LBR_Accept) {
+                  profile = "GuiCheckBoxProfile";
+                  horizSizing = "right";
+                  vertSizing = "bottom";
+                  position = "7 608";
+                  extent = "162 16";
+                  minExtent = "8 8";
+                  visible = "1";
+                  variable = "$LB::Register::AcceptTOS";
+                  command = "LBRegisterDlg.check();";
+                  helpTag = "0";
+                  text = " I accept the Terms of Service";
+                  groupNum = "-1";
+                  buttonType = "ToggleButton";
+                  repeatPeriod = "1000";
+                  repeatDecay = "1";
+               };
+            };
+         };
+      };
+      new GuiBitmapButtonCtrl(LBR_Cancel) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "399 416";
+         extent = "135 56";
+         minExtent = "8 8";
+         visible = "1";
+         command = "LBRegisterDlg.cancel();";
+         helpTag = "0";
+         text = "Cancel";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./login/cancel";
+      };
+      new GuiBitmapButtonCtrl(LBR_Create) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "274 414";
+         extent = "141 61";
+         minExtent = "8 8";
+         visible = "1";
+         command = "LBRegisterDlg.create();";
+         helpTag = "0";
+         text = "Create";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./login/create";
+      };
+      new GuiMLTextCtrl(LBR_ErrorMessage) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "29 430";
+         extent = "242 25";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiTextEditCtrl(LBR_Username) {
+         profile = "GuiBigTextEditProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "107 91";
+         extent = "415 38";
+         minExtent = "8 8";
+         visible = "1";
+         variable = "$LB::Register::Name";
+         command = "LBRegisterDlg.check();";
+         helpTag = "0";
+         maxLength = "32";
+         maxPixelWidth = "0";
+         historySize = "0";
+         password = "0";
+         tabComplete = "0";
+         sinkAllKeyEvents = "0";
+      };
+      new GuiTextEditCtrl(LBR_Password) {
+         profile = "GuiBigTextEditProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "146 129";
+         extent = "376 38";
+         minExtent = "8 8";
+         visible = "1";
+         variable = "$LB::Register::Password";
+         command = "LBRegisterDlg.check();";
+         helpTag = "0";
+         maxLength = "255";
+         maxPixelWidth = "0";
+         historySize = "0";
+         password = "1";
+         tabComplete = "0";
+         sinkAllKeyEvents = "0";
+      };
+      new GuiTextEditCtrl(LBR_Email) {
+         profile = "GuiBigTextEditProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "105 165";
+         extent = "306 38";
+         minExtent = "8 8";
+         visible = "1";
+         variable = "$LB::Register::Email";
+         command = "LBRegisterDlg.check();";
+         helpTag = "0";
+         maxLength = "255";
+         maxPixelWidth = "0";
+         historySize = "0";
+         password = "0";
+         tabComplete = "0";
+         sinkAllKeyEvents = "0";
+      };
+      new GuiObjectView(LBR_Spinner) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "372 355";
+         extent = "64 64";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         cameraZRot = "0";
+         forceFOV = "20";
+         model = "~/data/shapes/balls/ball-superball.dts";
+         skin = "base";
+         cameraRotX = "0.3";
+         cameraZRotSpeed = "0.004";
+         orbitDistance = "1.75";
+         autoSize = "0";
+      };
+   };
+};
+//--- OBJECT WRITE END ---
+
+function LBRegisterDlg::onWake(%this) {
+   %this.reset();
+   %this.loadTOS();
+   %this.check();
+}
+
+function LBRegisterDlg::reset(%this) {
+   $LB::Register::Name = "";
+   $LB::Register::Password = "";
+   $LB::Register::Email = "";
+   $LB::Register::AcceptTOS = false;
+   $LB::Register::ShowEmail = false;
+   LBR_EmailShow.setValue(0);
+   LBR_Accept.setValue(0);
+   LBR_Username.setValue("");
+   LBR_Password.setValue("");
+   LBR_Email.setValue("");
+	%this.positionCheck();
+}
+
+function LBRegisterDlg::loadTOS(%this) {
+   %file = new FileObject();
+   %tosPath = expandFilename("./login/tos.txt");
+   %tos = "";
+   if (%file.openForRead(%tosPath)) {
+      while (!%file.isEOF()) {
+         %line = trim(%file.readLine()) @ "\n";
+         %tos = %tos @ %line;
+      }
+      %file.close();
+      %file.delete();
+      %tos = %tos @ "\n";
+      $LBRDPos = %this.schedule(100, "positionCheck");
+   } else {
+      %file.close();
+      %file.delete();
+      %tos = "Could not load Terms of Service! File missing or damaged!\n";
+      %tos = %tos NL "Please register for an account online at <a:http://" @
+         $LB::Server @ $LB::serverPath @ "login.php>this URL</a>";
+      LBR_Accept.setVisible(false);
+   }
+   LBR_Tos.setText(%tos);
+	%this.positionCheck();
+}
+
+function LBRegisterDlg::positionCheck(%this) {
+   LBR_Accept.setVisible(true);
+   LBR_Accept.resize(7, getWord(LBR_Tos.extent, 1) + getWord(LBR_Tos.position, 1) - 16, 162, 16); //Bottom
+}
+
+function LBRegisterDlg::check(%this) {
+	%this.positionCheck();
+   %errorMessageBase = "<font:DomCasualD:24><color:ffffff><just:center>";
+   %error[1] = "Please Enter a Username";
+   %error[2] = "Please Enter a Password";
+   %error[3] = "Please Enter an Email Address";
+//   %error[4] = "Please Enter a Secret Question";
+//   %error[5] = "Please Enter a Secret Answer";
+   %error[6] = "Please Accept the Terms of Service";
+   %error[7] = "Please Enter a Valid Email Address";
+   LBR_Create.setActive(1);
+   LBR_ErrorMessage.setText("");
+   $LB::Register::Name = fixName($LB::Register::Name);
+   LBR_Username.setValue($LB::Register::Name);
+   if ($LB::Register::Name $= "") {
+      LBR_Create.setActive(0);
+      LBR_ErrorMessage.setText(%errorMessageBase @ %error[1]);
+      return;
+   }
+   if ($LB::Register::Password $= "") {
+      LBR_Create.setActive(0);
+      LBR_ErrorMessage.setText(%errorMessageBase @ %error[2]);
+      return;
+   }
+   if ($LB::Register::Email $= "") {
+      LBR_Create.setActive(0);
+      LBR_ErrorMessage.setText(%errorMessageBase @ %error[3]);
+      return;
+   }
+   %atIndex = strrpos($LB::Register::Email, "@");
+   if (%atIndex == -1) {
+      LBR_Create.setActive(0);
+      LBR_ErrorMessage.setText(%errorMessageBase @ %error[7]);
+      return;
+   }
+   $LB::Register::Name = strReplace($LB::Register::Name, "-SPC-", " ");
+   %domain = getSubStr($LB::Register::Email, %atIndex + 1, strLen($LB::Register::Email));
+   %local = getSubStr($LB::Register::Email, 0, %atIndex);
+
+   if (%domain $= "" || %local $= "") {
+      LBR_Create.setActive(0);
+      LBR_ErrorMessage.setText(%errorMessageBase @ %error[7]);
+      return;
+   }
+   //devecho(%local SPC %domain);
+
+   %validEmail = true;
+   //HiGuy: We don't want them specifying a bad email, now do we?
+   if (strLen(%domain) > 255)
+      %validEmail = false;
+   if (strLen(%local) > 64)
+      %validEmail = false;
+   if (getSubStr(%local, 0, 1) $= "." || getSubStr(%local, strLen(%local) - 1, 1) $= ".")
+      %validEmail = false;
+   if (strPos(%local, "..") != -1)
+      %validEmail = false;
+   if (strPos(%domain, "..") != -1)
+      %validEmail = false;
+   if (strPos($LB::Register::Email, "@") != %atIndex)
+      %validEmail = false;
+
+   //HiGuy: So apparently,
+   //"()<>[]:,;@\\\"!#$%&'*+-/=?^_`{}|\ \ ~\ \ \ ?\ \ \ ^_`{}|~.a"@example.org
+   // is a valid email address, so I'm just gonna stop the validation
+   // here.
+   if (!%validEmail) {
+      LBR_Create.setActive(0);
+      LBR_ErrorMessage.setText(%errorMessageBase @ %error[7]);
+      return;
+   }
+   if (!$LB::Register::AcceptTOS) {
+      LBR_Create.setActive(0);
+      LBR_ErrorMessage.setText(%errorMessageBase @ %error[6]);
+      return;
+   }
+}
+
+function LBRegisterDlg::cancel(%this) {
+   Canvas.popDialog(%this);
+   %this.reset();
+}
+
+function jeffsbutt(%success) {
+   LBR_Cancel.setActive(0);
+   LBR_Create.setVisible(0);
+   LBR_ErrorMessage.setText("<font:DomCasualD:24><color:ffffff><just:center>" @
+      "Creating account...");
+   LBR_Spinner.setVisible(1);
+   new TCPObject(LBRegisterSock);
+   LBRegisterSock.schedule(3000, "onLine", %success ? "Account Created" : "Username");
+   LBRegisterSock.schedule(3500, "onDisconnect");
+}
+
+function LBRegisterDlg::create(%this) {
+   $LB::Register::Name = getSubStr($LB::Register::Name, 0, 32);
+   new TCPObject(LBRegisterSock);
+   %args = LBDefaultQuery($LB::Register::Name, $LB::Register::Password) @
+          "&email="     @ $LB::Register::Email @
+          "&showemail=" @ $LB::Register::ShowEmail;
+   LBRegisterSock.post($LB::server, $LB::serverPath @ "register.php", %args);
+   LBR_Cancel.setActive(0);
+   LBR_Create.setVisible(0);
+   LBR_ErrorMessage.setText("<font:DomCasualD:24><color:ffffff><just:center>" @
+      "Creating account...");
+   LBR_Spinner.setVisible(1);
+}
+
+function LBRegisterSock::onLine(%this, %line) {
+   //Success: Sig 5
+   //Failure: Sig 2, 3, 4
+   Parent::onLine(%this, %line);
+
+   %this.parseSigs(%line);
+
+   %cmd = firstword(%line);
+   if (%cmd $= "SIG") {
+      %sig = getWord(%line, 1);
+      switch (%sig) {
+      case 0:
+         //HiGuy: Server Error!
+         LBR_ErrorMessage.setText("<font:DomCasualD:24><color:ffffff><just:center> There was an internal server error!");
+         $lbr_finish = schedule(3000, 0, lb_register_finish, 0);
+      case 2:
+         //HiGuy: Problem!
+         LBR_ErrorMessage.setText("<font:DomCasualD:24><color:ffffff><just:center> There was an unknown error!");
+         $lbr_finish = schedule(3000, 0, lb_register_finish, 0);
+      case 3:
+         //HiGuy: Username has been used!
+         if (!isEventPending($lbr_finish)) {
+            LBR_ErrorMessage.setText("<font:DomCasualD:24><color:ffffff><just:center> That username has already been used!");
+            $lbr_finish = schedule(3000, 0, lb_register_finish, 0);
+         }
+      case 4:
+         //HiGuy: Email has been used!
+         if (!isEventPending($lbr_finish)) {
+            LBR_ErrorMessage.setText("<font:DomCasualD:24><color:ffffff><just:center> That email has already been used!");
+            $lbr_finish = schedule(3000, 0, lb_register_finish, 0);
+         }
+      case 5:
+         //HiGuy: Hooray!
+         LBR_ErrorMessage.setText("<font:DomCasualD:24><color:ffffff><just:center> Account Created!");
+         $lbr_finish = schedule(3000, 0, lb_register_finish, 1);
+      }
+   }
+}
+
+function LB_Register_Finish(%success) {
+   if (%success) {
+      Canvas.popDialog(LBRegisterDlg);
+      $LB::Username = $LB::Register::Name;
+      $LB::Password = "";
+      $LBPref::Username = $LB::Register::Name;
+      $LBPref::Password = "";
+      LBLoginUsername.setValue($LB::Register::Name);
+      LBLoginPassword.setValue("");
+   }
+   LBR_Spinner.setVisible(0);
+   LBR_Cancel.setActive(1);
+   LBR_Create.setVisible(1);
+   %this.disconnect();
+}
+
+function LBRegisterDlg::onDisconnect(%this) {
+   %this.delete();
+}

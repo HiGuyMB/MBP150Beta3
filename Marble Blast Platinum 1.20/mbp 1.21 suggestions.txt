@@ -1,0 +1,35 @@
+Get rid of description + author field for demos? Also remove from Replay Center
+
+Auto-fill Name field at end of demo recording with name of level? The user can obviously change it
+
+Control + up/down arrow to scroll through list should also work in the Manual and take you to the next page
+
+Need to fix the start and end pad images not being fitted to the pad (ugly black border on one side)
+
+Can we make sure the top of the powerup HUD aligns with the top of the # of gems indicator? Seems like it is a bit low
+
+The OOB text is buggy. Sometimes it stays for the duration it should (from time of OOB until a bit before respawn), but lots of the time it will flash then quickly disappear.
+
+Can we round the FPS indicator number to the nearest digit? No reason for decimals; not needed to be that precise, would be more readable without it.
+
+The buttons in Jukebox in-level pop-up GUI look a bit off. The first 4 are large and the Cancel button is smaller. The bottoms of the buttons align. Would it look better with Cancel vertically center-aligned? Or make it larger to match the size of the other buttons.
+
+Control-up/down arrow should also apply for navigating the jukebox songs
+
+Column of buttons under the Home button on the level select GUI should be horizontally centered under the Home button (looks a bit off as is). Also, "on hover" image should have a tooltip that appears to the right of the buttons (lining up with the side of the GUI box), slightly transparent
+
+How about a little better looking padding in the level info box of the select level GUI? Times list below Top Times: has too much top padding/border. Also needs more padding between Author: and Par Time:
+
+Make the 99:59:99 just 59:99? 99.9% of the time they aren't going to have any times over an hour (even BC Finale has a Par Time of 15 minutes) so it's just wasted text
+
+The easter egg indicator in the Level Select GUI looks very low quality. Wouldn't hurt to replace that with a better image.
+
+Suggest changing the "active" button image for the level categories in the Level Select gui to be more obvious which category you are in. Just an aesthetic thing, right now it's hard to tell which category you are in just by looking at the category buttons.
+
+Right-click (or if not possible, Control-click) on Prev and Next buttons to jump to first/last level
+
+Change new demo GUI to read: "What filename should your demo recording have?" (to differentiate that from the Name field that shows up when beating a level)
+- Text under it saying: "A new demo will automatically be created for you when restarting the level" (should also work with backspace/hot key to restart level)
+- If filename already in use, pop-up warning allowing them to proceed or cancel the demo so they don't overwrite it
+
+1.20's level editor looks odd with all gray except the two orange scrollbars at the far right.

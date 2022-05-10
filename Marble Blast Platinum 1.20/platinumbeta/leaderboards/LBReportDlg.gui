@@ -1,0 +1,259 @@
+//-----------------------------------------------------------------------------
+// LBReportDlg.gui
+// Copyright (c) The Platinum Team
+// Mainly written by Jeff
+// References from Spy47
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(LBReportDlg) {
+   profile = "GuiDefaultProfile";
+   horizSizing = "width";
+   vertSizing = "height";
+   position = "0 0";
+   extent = "640 480";
+   minExtent = "8 8";
+   visible = "1";
+   helpTag = "0";
+      checkSchedule = "2867";
+
+   new GuiControl() {
+      profile = "GuiDefaultProfile";
+      horizSizing = "center";
+      vertSizing = "center";
+      position = "3 3";
+      extent = "634 473";
+      minExtent = "8 8";
+      visible = "1";
+      helpTag = "0";
+
+      new GuiBitmapCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "center";
+         vertSizing = "center";
+         position = "125 41";
+         extent = "384 391";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "./friends/friends_window";
+         wrap = "0";
+
+         new GuiMLTextCtrl(LBReportTitle) {
+            profile = "GuiComic24Profile";
+            horizSizing = "center";
+            vertSizing = "bottom";
+            position = "76 19";
+            extent = "232 29";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            lineSpacing = "2";
+            allowColorChars = "0";
+            maxChars = "-1";
+         };
+         new GuiMLTextCtrl(LBReportWarning) {
+            profile = "GuiMLTextProfile";
+            horizSizing = "left";
+            vertSizing = "bottom";
+            position = "244 59";
+            extent = "103 98";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            lineSpacing = "2";
+            allowColorChars = "0";
+            maxChars = "-1";
+         };
+         new GuiBitmapCtrl() {
+            profile = "GuiDefaultProfile";
+            horizSizing = "right";
+            vertSizing = "top";
+            position = "23 219";
+            extent = "336 96";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            bitmap = "./play/times_transparency";
+            wrap = "0";
+
+            new GuiScrollCtrl() {
+               profile = "GuiBacklessScrollProfile";
+               horizSizing = "center";
+               vertSizing = "bottom";
+               position = "8 7";
+               extent = "319 83";
+               minExtent = "8 8";
+               visible = "1";
+               helpTag = "0";
+               willFirstRespond = "1";
+               hScrollBar = "alwaysOn";
+               vScrollBar = "alwaysOn";
+               constantThumbHeight = "0";
+               childMargin = "0 0";
+
+               new GuiMLTextEditCtrl(LBReportReason) {
+                  profile = "GuiMLTextEditProfile";
+                  horizSizing = "right";
+                  vertSizing = "bottom";
+                  position = "0 0";
+                  extent = "318 83";
+                  minExtent = "8 8";
+                  visible = "1";
+                  helpTag = "0";
+                  lineSpacing = "2";
+                  allowColorChars = "0";
+                  maxChars = "-1";
+               };
+            };
+         };
+         new GuiBitmapButtonCtrl(LBReportSubmit) {
+            profile = "GuiButtonProfile";
+            horizSizing = "left";
+            vertSizing = "top";
+            position = "234 313";
+            extent = "113 60";
+            minExtent = "8 8";
+            visible = "1";
+            command = "LBReportDlg.submit();";
+            helpTag = "0";
+            text = "Submit";
+            groupNum = "-1";
+            buttonType = "PushButton";
+            repeatPeriod = "1000";
+            repeatDecay = "1";
+         };
+         new GuiBitmapButtonCtrl() {
+            profile = "GuiButtonProfile";
+            horizSizing = "right";
+            vertSizing = "top";
+            position = "20 315";
+            extent = "113 60";
+            minExtent = "8 8";
+            visible = "1";
+            command = "Canvas.popDialog(LBReportDlg);";
+            helpTag = "0";
+            text = "cancel";
+            groupNum = "-1";
+            buttonType = "PushButton";
+            repeatPeriod = "1000";
+            repeatDecay = "1";
+            bitmap = "./friends/cancel";
+         };
+         new GuiScrollCtrl() {
+            profile = "GuiScrollProfile";
+            horizSizing = "right";
+            vertSizing = "bottom";
+            position = "27 55";
+            extent = "212 162";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            willFirstRespond = "1";
+            hScrollBar = "alwaysOn";
+            vScrollBar = "alwaysOn";
+            constantThumbHeight = "0";
+            childMargin = "0 0";
+
+            new GuiTextListCtrl(LBReportList) {
+               profile = "GuiTextListProfile";
+               horizSizing = "right";
+               vertSizing = "bottom";
+               position = "2 2";
+               extent = "190 16";
+               minExtent = "8 8";
+               visible = "1";
+               helpTag = "0";
+               enumerate = "0";
+               resizeCell = "1";
+               columns = "0";
+               fitParentWidth = "1";
+               clipColumnText = "0";
+            };
+         };
+      };
+   };
+};
+//--- OBJECT WRITE END ---
+
+function LBReportDlg::onWake(%this) {
+   LBReportReason.setValue("");
+   LBReportTitle.setText("<just:center>Report a Person");
+   LBReportWarning.setText("<just:center>Abuse of the leaderboard\'s report area may have consequences. Only report someone if you have a legitimate reason to.");
+   %this.check();
+   %this.loadList();
+}
+
+function LBReportDlg::onSleep(%this) {
+   cancel(%this.checkSchedule);
+}
+
+function LBReportDlg::loadList(%this) {
+   LBReportList.clear();
+   for (%i = 0; %i < $LB::UserlistCount; %i ++) {
+      %user = getWord($LB::UserListUser[%i], 0);
+      if (%user !$= $LB::username)
+         LBReportList.addRow(LBReportList.rowCount(), %user);
+   }
+   LBReportList.sort(0, true);
+}
+
+function LBReportDlg::submit(%this) {
+   LBAssertYesNo("Warning!","Are you sure you want to report this person?","reportToMod();","Canvas.popDialog(LBReportDlg);");
+}
+
+// Jeff: activate/deactivate submit button
+function LBReportDlg::check(%this) {
+   cancel(%this.checkSchedule);
+   %active = LBCanReport();
+   LBReportSubmit.setActive(%active);
+   // Jeff: keep this recursive and cancel it onSleep
+   %this.checkSchedule = %this.schedule(50, "check");
+}
+
+// Jeff: check to see if we can report a person.
+function LBCanReport() {
+   %reason = trim(LBReportReason.getValue());
+   %person = trim(LBReportList.getRowTextById(LBReportList.getSelectedId()));
+   %active = (%person !$= "" && %reason !$= "");
+   return %active;
+}
+
+// Jeff: send the request to the server
+//       report a person for being mean
+function reportToMod() {
+   // Jeff: failsafe check
+   %canReport = LBCanReport();
+   if (!%canReport)
+      return;
+
+   %server = $LB::server;
+   %page   = $LB::serverPath @ "report.php";
+
+   // Jeff: encrypt these values to stop packet sniffers
+   %message  = garbledeguck(trim(LBReportReason.getValue()));
+   %harasser = garbledeguck(trim(LBReportList.getRowTextById(LBReportList.getSelectedId())));
+
+   %query = LBDefaultQuery() @ "&reason=" @ %message @ "&person=" @ %harasser;
+
+   if (!isObject(LBReportNetwork))
+      new TCPObject(LBReportNetwork);
+   LBReportNetwork.post(%server, %page, %query);
+}
+
+function LBReportNetwork::onLine(%this,%line) {
+   Parent::onLine(%this,%line);
+   %this.parseSigs(%line);
+   if (getWord(%line,0) $= "SIG") {
+      switch (getWord(%line,1)) {
+         case 2: // Jeff: missing information
+            %this.echo("Missing Information");
+            %this.disconnect();
+         case 18: // Jeff: success
+            %this.echo("Report Sent. Success!");
+         case 19: // Jeff: no access allowed
+            %this.echo("no access allowed!");
+            LBAssert("Warning!","You do not have permission to send reports to the server.");
+      }
+   }
+}

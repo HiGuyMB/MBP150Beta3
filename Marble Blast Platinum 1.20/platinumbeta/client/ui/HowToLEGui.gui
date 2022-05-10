@@ -1,0 +1,119 @@
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(HowToLEGui) {
+   profile = "GuiDialogProfile";
+   horizSizing = "width";
+   vertSizing = "height";
+   position = "0 0";
+   extent = "640 480";
+   minExtent = "8 8";
+   visible = "1";
+   helpTag = "0";
+      bitmap = "./menubackground";
+      useVariable = "0";
+      tile = "0";
+
+   new GuiBitmapCtrl() {
+      profile = "GuiDefaultProfile";
+      horizSizing = "center";
+      vertSizing = "center";
+      position = "150 128";
+      extent = "339 224";
+      minExtent = "48 92";
+      visible = "1";
+      helpTag = "0";
+      bitmap = "./LE/new_mess_base";
+      wrap = "0";
+         canMove = "1";
+         minSize = "50 50";
+         canClose = "0";
+         maxLength = "255";
+         resizeWidth = "1";
+         canMinimize = "0";
+         resizeHeight = "1";
+         canMaximize = "0";
+
+      new GuiBitmapButtonCtrl() {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "top";
+         position = "235 171";
+         extent = "88 41";
+         minExtent = "8 8";
+         visible = "1";
+         command = "Canvas.popDialog(HowToLEGui);";
+         accelerator = "return";
+         helpTag = "0";
+         text = "OK";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./LE/ok";
+            simpleStyle = "0";
+      };
+      new GuiMLTextCtrl(HowToLEGuiText) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "27 30";
+         extent = "281 24";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiBitmapButtonCtrl(EditorTipCheck) {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "17 174";
+         extent = "31 31";
+         minExtent = "8 8";
+         visible = "1";
+         variable = "$pref::checkLETip";
+         helpTag = "0";
+         text = "OK";
+         groupNum = "-1";
+         buttonType = "ToggleButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./LE/mess_chkbx";
+      };
+      new GuiMLTextCtrl(EditorTipCheckText) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "86 158";
+         extent = "226 14";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+   };
+};
+//--- OBJECT WRITE END ---
+
+function askThemMaybe(%text, %idx) {
+	if (!$pref::checkTip[%idx])
+		return;
+
+	Canvas.pushDialog(HowToLEGui);
+   HowToLEGuiText.setText("<font:DomCasualD:24><just:center>" @ %text);
+   EditorTipCheck.variable = "$pref::checkTip" @ %idx;
+   EditorTipCheck.setValue(1);
+}
+
+function HowToLEGui::onWake()
+{
+   HowToLEGuiText.setText("<font:DomCasualD:24><just:center>Level editor is now activated.\nPress F11 on your keyboard while inside a mission/level in order to activate the level editor.");
+}
+
+function HowToLEGui::onSleep()
+{
+   EditorTipCheck.variable = "$pref::checkLETip";
+}

@@ -1,0 +1,276 @@
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(MPUserKickDlg) {
+   profile = "GuiDefaultProfile";
+   horizSizing = "width";
+   vertSizing = "height";
+   position = "0 0";
+   extent = "800 600";
+   minExtent = "8 8";
+   visible = "1";
+   helpTag = "0";
+
+   new GuiBitmapCtrl() {
+      profile = "GuiDefaultProfile";
+      horizSizing = "center";
+      vertSizing = "center";
+      position = "226 137";
+      extent = "409 316";
+      minExtent = "8 8";
+      visible = "1";
+      helpTag = "0";
+      bitmap = "~/leaderboards/mp/kickban/window";
+      wrap = "0";
+
+      new GuiBitmapButtonCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "center";
+         vertSizing = "bottom";
+         position = "157 254";
+         extent = "94 45";
+         minExtent = "8 8";
+         visible = "1";
+         command = "MPUserKickDlg.close();";
+         helpTag = "0";
+         text = "close";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "~/leaderboards/mp/team/close";
+      };
+      new GuiControl() {
+         profile = "GuiTransparencyProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "14 57";
+         extent = "192 149";
+         minExtent = "27 27";
+         visible = "1";
+         helpTag = "0";
+
+         new GuiScrollCtrl() {
+            profile = "GuiBacklessScrollProfile";
+            horizSizing = "right";
+            vertSizing = "bottom";
+            position = "4 8";
+            extent = "184 133";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            willFirstRespond = "1";
+            hScrollBar = "alwaysOff";
+            vScrollBar = "dynamic";
+            constantThumbHeight = "0";
+            childMargin = "0 0";
+
+            new GuiTextListCtrl(MPKickbanUserList) {
+               profile = "GuiMPPlayerlistProfile";
+               horizSizing = "right";
+               vertSizing = "bottom";
+               position = "0 0";
+               extent = "184 8";
+               minExtent = "8 8";
+               visible = "1";
+               command = "MPUserKickDlg.updateButtons();";
+               helpTag = "0";
+               enumerate = "0";
+               resizeCell = "1";
+               columns = "0";
+               fitParentWidth = "1";
+               clipColumnText = "0";
+            };
+         };
+      };
+      new GuiBitmapButtonCtrl(MPUnbanUser) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "left";
+         vertSizing = "bottom";
+         position = "255 207";
+         extent = "94 45";
+         minExtent = "8 8";
+         visible = "1";
+         command = "MPUserKickDlg.unban();";
+         helpTag = "0";
+         text = "close";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "~/leaderboards/mp/kickban/unban";
+      };
+      new GuiBitmapButtonCtrl(MPKickUser) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "16 207";
+         extent = "94 45";
+         minExtent = "8 8";
+         visible = "1";
+         command = "MPUserKickDlg.kick();";
+         helpTag = "0";
+         text = "close";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "~/leaderboards/mp/kickban/kick";
+      };
+      new GuiBitmapButtonCtrl(MPBanUser) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "110 207";
+         extent = "94 45";
+         minExtent = "8 8";
+         visible = "1";
+         command = "MPUserKickDlg.ban();";
+         helpTag = "0";
+         text = "close";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "~/leaderboards/mp/kickban/ban";
+      };
+      new GuiControl() {
+         profile = "GuiTransparencyProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "204 57";
+         extent = "192 149";
+         minExtent = "27 27";
+         visible = "1";
+         helpTag = "0";
+
+         new GuiScrollCtrl() {
+            profile = "GuiBacklessScrollProfile";
+            horizSizing = "right";
+            vertSizing = "bottom";
+            position = "4 8";
+            extent = "184 133";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            willFirstRespond = "1";
+            hScrollBar = "alwaysOff";
+            vScrollBar = "dynamic";
+            constantThumbHeight = "0";
+            childMargin = "0 0";
+
+            new GuiTextListCtrl(MPBannedUserList) {
+               profile = "GuiMPPlayerlistProfile";
+               horizSizing = "right";
+               vertSizing = "bottom";
+               position = "0 0";
+               extent = "184 8";
+               minExtent = "8 8";
+               visible = "1";
+               command = "MPUserKickDlg.updateButtons();";
+               helpTag = "0";
+               enumerate = "0";
+               resizeCell = "1";
+               columns = "0";
+               fitParentWidth = "1";
+               clipColumnText = "0";
+            };
+         };
+      };
+      new GuiMLTextCtrl(MPKickTitle) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "11 17";
+         extent = "388 14";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+   };
+};
+//--- OBJECT WRITE END ---
+
+function MPUserKickDlg::show(%this) {
+   Canvas.pushDialog(%this);
+}
+
+function MPUserKickDlg::close(%this) {
+   Canvas.popDialog(%this);
+}
+
+function MPUserKickDlg::onWake(%this) {
+   MPKickTitle.setValue("<shadow:1:1><shadowcolor:0000007f><font:Marker Felt:32><color:ffffff><just:center>Kick Players");
+   %this.updatePlayerList();
+   %this.updateButtons();
+}
+
+function MPUserKickDlg::updatePlayerList(%this) {
+   MPKickbanUserList.clear();
+
+   %count = $MP::ClientIndexMax;
+   for (%i = 0; %i <= %count; %i ++) {
+      %player = getRecord(PlayerList.getEntry(%i), 0);
+      if (%player $= "")
+         continue;
+      if (%player $= $LB::Username)
+         continue;
+
+      MPKickbanUserList.addRow(%i, LBResolveName(%player, true) TAB %player);
+   }
+   MPKickbanUserList.sort(0, true);
+   MPKickbanUserList.setSelectedRow(0);
+
+   MPBannedUserList.clear();
+
+   tryCreateBanlist();
+
+   %count = BanList.getSize();
+   for (%i = 0; %i < %count; %i ++) {
+      %player = getRecord(BanList.getEntry(%i), 0);
+      if (%player $= "")
+         continue;
+      if (%player $= $LB::Username)
+         continue;
+
+      MPBannedUserList.addRow(%i, LBResolveName(%player, true) TAB %player);
+   }
+   MPBannedUserList.sort(0, true);
+
+   MPBannedUserList.setSelectedRow(0);
+}
+
+function MPUserKickDlg::updateButtons(%this) {
+   MPKickUser.setActive(MPKickbanUserList.rowCount() && MPKickbanUserList.getSelectedId() != -1);
+   MPBanUser.setActive(MPKickbanUserList.rowCount() && MPKickbanUserList.getSelectedId() != -1);
+   MPUnbanUser.setActive(MPBannedUserList.rowCount() && MPBannedUserList.getSelectedId() != -1);
+}
+
+
+function MPUserKickDlg::kick(%this) {
+   %selected = MPKickbanUserList.getRowTextById(MPKickbanUserList.getSelectedId());
+   %name = getField(%selected, 1);
+   %client = GameConnection::resolveName(%name);
+   if (isObject(%client)) {
+      kick(%client);
+   }
+   %this.updatePlayerList();
+}
+
+function MPUserKickDlg::ban(%this) {
+   %selected = MPKickbanUserList.getRowTextById(MPKickbanUserList.getSelectedId());
+   %name = getField(%selected, 1);
+   %client = GameConnection::resolveName(%name);
+   if (isObject(%client)) {
+      ban(%client);
+   }
+   %this.updatePlayerList();
+}
+
+function MPUserKickDlg::unban(%this) {
+   %selected = MPBannedUserList.getRowTextById(MPBannedUserList.getSelectedId());
+   %name = getField(%selected, 1);
+   unban(%name);
+   %this.updatePlayerList();
+}

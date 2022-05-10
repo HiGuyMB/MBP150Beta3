@@ -1,0 +1,714 @@
+//-----------------------------------------------------------------------------
+// LBAchievementsDlg.gui
+// Copyright (c) The Platinum Team
+// Mainly written by Jeff & Spy47
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(LBAchievementsDlg) {
+   profile = "GuiDefaultProfile";
+   horizSizing = "width";
+   vertSizing = "height";
+   position = "0 0";
+   extent = "640 480";
+   minExtent = "8 8";
+   visible = "1";
+   helpTag = "0";
+      title[1] = "Egg Seeker";
+      title[2] = "Easter Bunny";
+      title[3] = "Timely Marble";
+      title[4] = "Stopped Time";
+      title[5] = "The Citadel";
+      title[6] = "King of the Speed";
+      title[7] = "Pinball Maniac";
+      title[8] = "Beating the Impossible";
+      title[9] = "Diving to Eternity";
+      title[10] = "Acrobat";
+      title[11] = "Rebounded Headache";
+      title[12] = "Gravity defyer";
+      title[13] = "All Your Pathway are Belong to Us";
+      title[14] = "The Looter";
+      title[15] = "No looking down";
+      title[16] = "Power of the Powerups";
+      title[17] = "The Ultimate Heist";
+      title[18] = "Winner of the Space Race";
+      title[19] = "Endurance Battle";
+      title[20] = "Schadenfreude";
+      title[21] = "Carelessness";
+      title[22] = "Sign Hit";
+      title[23] = "Highway to Hell";
+      title[24] = "Macarena";
+      title[25] = "Glitch Abuser";
+      title[26] = "The Dragon Awakes";
+      title[27] = "7 Million";
+      title[28] = "12 Million";
+      title[29] = "30 Million";
+      title[30] = "The Dragon\'s Destiny";
+      descr[1] = "Find any Easter Egg.";
+      descr[2] = "Find all of the Easter Eggs.";
+      descr[3] = "Beat any level with a specified par time.";
+      descr[4] = "Beat Learn the Time Modifier under 1.75 seconds.";
+      descr[5] = "Beat Arch Acropolis under 7 seconds.";
+      descr[6] = "Beat King of the Mountain under 9 seconds.";
+      descr[7] = "Beat Pinball Wizard under 10 seconds.";
+      descr[8] = "Beat Ramps Reloaded original gold time of 15 seconds.";
+      descr[9] = "Beat Dive! under 17 seconds.";
+      descr[10] = "Beat Acrobat under 18 seconds.";
+      descr[11] = "Beat Icarus under 20 seconds.";
+      descr[12] = "Beat Airwalk under 25 seconds.";
+      descr[13] = "Beat Pathways under 30 seconds.";
+      descr[14] = "Beat Siege under 40 seconds.";
+      descr[15] = "Beat tightrope\'s gold time.";
+      descr[16] = "Beat Combo Course in less than a minute!";
+      descr[17] = "Beat Thief in less than a minute!";
+      descr[18] = "Beat Space Station\'s Ultimate Time.";
+      descr[19] = "Beat Battlecube Finale\'s Ultimate Time.";
+      descr[20] = "Beat Battlecube Finale in less than 8:30 minutes.";
+      descr[21] = "Beat Catwalks\'s Ultimate Time and Slowropes\'s Ultimate Time.";
+      descr[22] = "Achieve under 3.50 seconds on \'Learn the Super Jump\' and under 10.00 seconds on \'There and Back Again\' by using the World Record methods.";
+      descr[23] = "Beat Moto-marblecross in less than 5 seconds, Monster Speedway Qualifying in less than 20 seconds and Monster Speedway in less than 15 seconds.";
+      descr[24] = "Beat Shimmy under 3 seconds, Path of Least Resistance under 10 seconds, Daedalus under 15 seconds & Tango under 14 seconds.";
+      descr[25] = "Achieve ANY of the TWO of the following times:\nunder 1 minute on Skyscraper, under 30 seconds Survival of the Fittest, under 30 seconds Great Divide Revisited, under 20 seconds Tower Maze, under 17 seconds Battlements or under 20 seconds Natural Selection.";
+      descr[26] = "Get a first place on any leaderboard on any level.";
+      descr[27] = "Reach 7 million points on your ranking for the MBG Leaderboards.";
+      descr[28] = "Reach 12 million points on your ranking for the MBP Leaderboards or MBP GG Marble Leaderboards.";
+      descr[29] = "Achieve 30 million points on your username from the total of all leaderboards.";
+      descr[30] = "Achieve 75 million points on your username from the total of all leaderboards";
+
+      pages[0] = "1 2 3 4 5 6 7";
+      pages[1] = "8 9 10 11 12 13 14";
+      pages[2] = "15 16 17 18 19 20 21";
+      pages[3] = "22 23 24 25";
+      pages[4] = "26 27 28 29 30";
+
+      page = 0;
+
+   new GuiBitmapCtrl() {
+      profile = "GuiDefaultProfile";
+      horizSizing = "center";
+      vertSizing = "center";
+      position = "52 -5";
+      extent = "535 490";
+      minExtent = "48 92";
+      visible = "1";
+      helpTag = "0";
+      bitmap = $usermods @ "/leaderboards/marbleSelect/marblebox.png";
+      wrap = "0";
+         resizeHeight = "1";
+         canMaximize = "0";
+         canMove = "1";
+         minSize = "50 50";
+         maxLength = "255";
+         canClose = "0";
+         resizeWidth = "1";
+         canMinimize = "0";
+
+      new GuiMLTextCtrl() {
+         profile = "GuiComic24Profile";
+         horizSizing = "center";
+         vertSizing = "bottom";
+         position = "161 17";
+         extent = "213 29";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiBitmapCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "8 17";
+         extent = "197 53";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = $usermods @ "/client/ui/achiev/achiev";
+         wrap = "0";
+      };
+      new GuiMLTextCtrl(LBAchiv_LoadingText) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "left";
+         vertSizing = "bottom";
+         position = "185 29";
+         extent = "320 14";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiMLTextCtrl(LBachiv_maintext) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "129 58";
+         extent = "373 14";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "5";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiBitmapCtrl(LBachiv_bitmap1) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 58";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = $usermods @ "/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBachiv_bitmap2) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 110";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = $usermods @ "/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapButtonCtrl(Joke) {
+         profile = "GuiButtonProfile";
+         horizSizing = "relative";
+         vertSizing = "relative";
+         position = "18 24";
+         extent = "172 28";
+         minExtent = "8 8";
+         visible = "1";
+         command = "showJoke(13);";
+         helpTag = "0";
+         text = "button";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = $usermods @ "/client/help/transparent";
+      };
+      new GuiBitmapCtrl(LBachiv_bitmap3) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 162";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = $usermods @ "/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBachiv_bitmap4) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 214";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = $usermods @ "/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBachiv_bitmap5) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 266";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = $usermods @ "/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBachiv_bitmap6) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 318";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = $usermods @ "/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBachiv_bitmap7) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 369";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = $usermods @ "/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBachiv_bitmap8) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 58";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = $usermods @ "/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBachiv_bitmap9) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 110";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = $usermods @ "/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBachiv_bitmap10) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 162";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = $usermods @ "/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBachiv_bitmap11) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 214";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = $usermods @ "/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBachiv_bitmap12) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 266";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = $usermods @ "/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBachiv_bitmap13) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 318";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = $usermods @ "/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBachiv_bitmap14) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 369";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = $usermods @ "/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBachiv_bitmap15) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 58";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = $usermods @ "/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBachiv_bitmap16) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 110";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = $usermods @ "/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBachiv_bitmap17) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 162";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = $usermods @ "/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBachiv_bitmap18) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 214";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = $usermods @ "/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBachiv_bitmap19) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 266";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = $usermods @ "/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBachiv_bitmap20) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 318";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = $usermods @ "/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBachiv_bitmap21) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 369";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = $usermods @ "/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBachiv_bitmap22) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "14 77";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = $usermods @ "/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBachiv_bitmap23) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "14 156";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = $usermods @ "/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBachiv_bitmap24) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 228";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = $usermods @ "/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBachiv_bitmap25) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 317";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = $usermods @ "/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBachiv_bitmap26) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 56";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = $usermods @ "/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBachiv_bitmap27) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 108";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = $usermods @ "/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBachiv_bitmap28) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 170";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = $usermods @ "/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBachiv_bitmap29) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 234";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = $usermods @ "/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBachiv_bitmap30) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 300";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = $usermods @ "/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapButtonCtrl(LBAchievementsDlg_prev) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "161 428";
+         extent = "65 32";
+         minExtent = "8 8";
+         visible = "1";
+         command = "";
+         helpTag = "0";
+         text = "prev";
+         command = "LBAchievementsDlg.prev();";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = $usermods @ "/client/help/prev";
+      };
+      new GuiBitmapButtonCtrl() {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "229 425";
+         extent = "73 37";
+         minExtent = "8 8";
+         visible = "1";
+         command = "";
+         helpTag = "0";
+         text = "OK";
+         command = "Canvas.popDialog(LBAchievementsDlg);";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = $usermods @ "/client/ui/LE/ok";
+      };
+      new GuiBitmapButtonCtrl(LBAchievementsDlg_next) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "304 428";
+         extent = "65 32";
+         minExtent = "8 8";
+         visible = "1";
+         command = "";
+         helpTag = "0";
+         text = "next";
+         command = "LBAchievementsDlg.next();";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = $usermods @ "/client/help/next";
+      };
+   };
+};
+//--- OBJECT WRITE END ---
+
+//-----------------------------------------------------------------------------
+// Jeff: this is going to be a nightmare to code, because there are SOOOOO
+//       many achievements!
+//-----------------------------------------------------------------------------
+
+function LBAchievementsDlg::show(%this, %user, %wrap) {
+   if (%user $= "")
+      %user = $LB::Username;
+   %this.user = %user;
+   %this.wrap = !!(%wrap);
+
+   for (%i = 0; %i < 30; %i ++)
+      $LB::Achievement[%i] = false;
+
+   %this.page = 0;
+   if (%wrap == 2)
+      %this.page = 4;
+   LBAchievementsDlg_prev.setActive(false);
+   LBAchievementsDlg_next.setActive(true);
+   %this.getAchievements();
+   %this.update();
+
+   Canvas.pushDialog(%this);
+}
+
+function LBAchievementsDlg::onSleep(%this) {
+   %this.user = "";
+}
+
+// Jeff: next button
+function LBAchievementsDlg::next(%this) {
+   %this.page ++;
+   if (%this.page > 4) {
+      if (%this.wrap) {
+         Canvas.popDialog(%this);
+         LBSCAchievementsDlg.show(%this.user, 1);
+         return;
+      }
+      %this.page = 0;
+   }
+   %this.update();
+}
+
+// Jeff: next button
+function LBAchievementsDlg::prev(%this) {
+   %this.page --;
+   if (%this.page < 0) {
+      if (%this.wrap) {
+         Canvas.popDialog(%this);
+         MPAchievementsDlg.show(%this.user, 2);
+         return;
+      }
+      %this.page = 4;
+   }
+   %this.update();
+}
+
+function LBAchievementsDlg::update(%this) {
+   for (%i = 0; %i < 30; %i ++) {
+      %bitmap = "LBachiv_bitmap" @ (%i + 1);
+      %bitmap.setVisible(!%this.updating);
+      if (!%this.updating)
+         %bitmap.setBitmap($usermods @ "/client/ui/achiev/nonachiev");
+   }
+   LBAchiv_maintext.setText("");
+   if (!%this.updating)
+      LBAchiv_LoadingText.setText("<font:DomCasualD:24><just:right>Loading...");
+   else {
+      LBAchiv_LoadingText.setText("<font:DomCasualD:24><just:right>" @ (%this.user $= $LB::Username ? "My" : %this.user @ "\'s") SPC "Achievements (" @ %this.page + 1 SPC "of 5)");
+
+      %text = "";
+
+      %pages = %this.pages[%this.page];
+
+      for (%i = 0; %i < getWordCount(%pages); %i ++) {
+         %on = getWord(%pages, %i);
+         %bitmap = "LBachiv_bitmap" @ %on;
+         %bitmap.setVisible(true);
+         if ($LB::Achievement[%on - 1])
+            %bitmap.setBitmap($usermods @ "/client/ui/achiev/" @ %on);
+
+         %text = %text @ "<lmargin:0><font:DomCasualD:24>" @ %this.title[%on] @ "<lmargin:10><font:Arial Bold:14>\n" @ %this.descr[%on] @ "\n\n";
+      }
+
+      LBachiv_maintext.setText(%text);
+   }
+}
+
+function LBAchievementsDlg::getAchievements(%this) {
+   %server = $LB::server;
+   %page = $LB::serverPath @ "achievements.php";
+   %user = %this.user;
+   %query = LBDefaultQuery() @ "&user=" @ %user;
+
+   %this.updating = true;
+
+   if (!isObject(LBAchievementsNetwork))
+      new TCPObject(LBAchievementsNetwork);
+   LBAchievementsNetwork.post(%server,%page,%query);
+}
+
+function LBAchievementsNetwork::onLine(%this,%line) {
+   Parent::onLine(%this,%line);
+   %this.parseSigs(%line);
+   if (getWord(%line,0) $= "SIG") {
+      switch (getWord(%line,1)) {
+         case 1: // Jeff: page finish
+            %this.echo("Finish");
+            LBAchievementsDlg.update();
+            //%this.disconnect();
+            %this.updating = false;
+         case 16: // Jeff: starting list
+            %this.echo("Starting list");
+
+            for (%i = 0; %i < 30; %i ++)
+               $LB::Achievement[%i] = false;
+      }
+   } else if (getWord(%line,0) $= "ACHIEVEMENT") {
+      %achievementNum = getWord(%line, 1);
+      %this.echo("Has achievement" SPC %achievementNum);
+      $LB::Achievement[%achievementNum] = true;
+   }
+}

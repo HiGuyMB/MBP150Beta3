@@ -1,0 +1,288 @@
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(LBTotalDlg) {
+   profile = "GuiDefaultProfile";
+   horizSizing = "width";
+   vertSizing = "height";
+   position = "0 0";
+   extent = "640 480";
+   minExtent = "8 8";
+   visible = "1";
+   helpTag = "0";
+
+   new GuiControl() {
+      profile = "GuiDefaultProfile";
+      horizSizing = "width";
+      vertSizing = "height";
+      position = "0 0";
+      extent = "640 480";
+      minExtent = "8 8";
+      visible = "1";
+      helpTag = "0";
+
+      new GuiBitmapCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "center";
+         vertSizing = "center";
+         position = "99 23";
+         extent = "442 434";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "./marbleSelect/marblebox";
+         wrap = "0";
+
+         new GuiMLTextCtrl(LB_TotalScoresText) {
+            profile = "GuiMLTextProfile";
+            horizSizing = "right";
+            vertSizing = "bottom";
+            position = "17 19";
+            extent = "406 14";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            lineSpacing = "2";
+            allowColorChars = "0";
+            maxChars = "-1";
+         };
+         new GuiBitmapButtonCtrl(LB_TotalPrevPage) {
+            profile = "GuiDefaultProfile";
+            horizSizing = "right";
+            vertSizing = "top";
+            position = "24 346";
+            extent = "116 54";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            text = "Prev";
+            command = "LBTotalDlg.prev();";
+            groupNum = "-1";
+            buttonType = "RepeaterButton";
+            repeatPeriod = "1000";
+            repeatDecay = "1";
+            bitmap = "./marbleSelect/prev";
+         };
+         new GuiBitmapButtonCtrl(LB_TotalNextPage) {
+            profile = "GuiDefaultProfile";
+            horizSizing = "left";
+            vertSizing = "top";
+            position = "300 346";
+            extent = "116 54";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            text = "Next";
+            command = "LBTotalDlg.next();";
+            groupNum = "-1";
+            buttonType = "RepeaterButton";
+            repeatPeriod = "1000";
+            repeatDecay = "1";
+            bitmap = "./marbleSelect/next";
+         };
+         new GuiBitmapButtonCtrl() {
+            profile = "GuiDefaultProfile";
+            horizSizing = "center";
+            vertSizing = "top";
+            position = "163 346";
+            extent = "116 54";
+            minExtent = "8 8";
+            visible = "1";
+            command = "Canvas.popDialog(LBTotalDlg);";
+            helpTag = "0";
+            text = "Okay";
+            groupNum = "-1";
+            buttonType = "PushButton";
+            repeatPeriod = "1000";
+            repeatDecay = "1";
+            bitmap = "./marbleSelect/okay";
+         };
+         new GuiBitmapButtonCtrl(LB_TotalNext) {
+            profile = "GuiDefaultProfile";
+            horizSizing = "right";
+            vertSizing = "bottom";
+            position = "388 16";
+            extent = "41 36";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            text = "Next";
+            command = "LBTotalDlg.nextPage();";
+            groupNum = "-1";
+            buttonType = "RepeaterButton";
+            repeatPeriod = "450";
+            repeatDecay = "0.958";
+            bitmap = "./core/rarrow";
+         };
+         new GuiBitmapButtonCtrl(LB_TotalPrev) {
+            profile = "GuiDefaultProfile";
+            horizSizing = "left";
+            vertSizing = "bottom";
+            position = "355 16";
+            extent = "41 36";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            text = "Prev";
+            command = "LBTotalDlg.prevPage();";
+            groupNum = "-1";
+            buttonType = "RepeaterButton";
+            repeatPeriod = "450";
+            repeatDecay = "0.958";
+            bitmap = "./core/larrow";
+         };
+      };
+   };
+};
+//--- OBJECT WRITE END ---
+
+$LB::InitTotalConstants = false;
+
+function LBTotalDlg::onWake(%this) {
+   %this.init();
+   %this.reset();
+   %this.bracket = 0;
+   %this.loadData();
+   %this.updatePage();
+}
+
+// Jeff: added mac name support
+function LBTotalDlg::init(%this) {
+   if ($LB::InitTotalConstants)
+      return;
+   %name = ($platform $= "macos") ? "MarbleBlast" : "Marble Blast";
+   $LB::TotalBracket[0, "display"] = %name SPC "Platinum";
+   $LB::TotalBracket[0,    "name"] = "mbp";
+   $LB::TotalBracket[1, "display"] = %name SPC "Gold";
+   $LB::TotalBracket[1,    "name"] = "mbg";
+   $LB::TotalBracket[2, "display"] = "Custom Levels";
+   $LB::TotalBracket[2,    "name"] = "custom";
+   $LB::TotalBracket[3, "display"] = "Multiplayer Levels";
+   $LB::TotalBracket[3,    "name"] = "mp";
+   $LB::InitTotalConstants = true;
+}
+
+function LBTotalDlg::onSleep(%this) {
+   %this.reset();
+}
+
+function LBTotalDlg::reset(%this) {
+   for (%i = 0; %i < %this.scores; %i ++) {
+      %this.score["rating", %i] = "";
+      %this.score["user", %i] = "";
+   }
+   %this.scores = 0;
+   %this.page = 0;
+   %this.loading = false;
+}
+
+function LBTotalDlg::next(%this) {
+   %this.bracket ++;
+   if (%this.bracket == 4)
+      %this.bracket = 0;
+   %this.loadData();
+   %this.updatePage();
+}
+
+function LBTotalDlg::prev(%this) {
+   %this.bracket --;
+   if (%this.bracket == -1)
+      %this.bracket = 3;
+   %this.loadData();
+   %this.updatePage();
+}
+
+function LBTotalDlg::nextPage(%this) {
+   %this.page ++;
+   %this.updatePage();
+}
+
+function LBTotalDlg::prevPage(%this) {
+   %this.page --;
+   %this.updatePage();
+}
+
+function LBTotalDlg::updatePage(%this) {
+   LB_TotalPrev.setActive(true);
+   LB_TotalNext.setActive(true);
+   if (%this.page <= 0) {
+      %this.page = 0;
+      LB_TotalPrev.setActive(false);
+   } else if (%this.page >= 124) {
+      %this.page = 124;
+      LB_TotalNext.setActive(false);
+   }
+   %this.showPage();
+}
+
+function LBTotalDlg::showPage(%this) {
+   if (%this.loading) {
+      %text = "<spush><font:DomCasualD:24><just:center>Please Wait...";
+      LB_TotalScoresText.setText(%text);
+      return;
+   }
+   %title = $LB::TotalBracket[%this.bracket, "display"] SPC (%this.page * 20) + 1 @ " - " @ (%this.page * 20) + 20;
+   %text = "<spush><font:DomCasualD:24><just:center>" @ %title @ "<spop>\n<just:left><shadow:1:1><color:000000><shadowcolor:ffffff4f>" @ (%this.bracket == 3 ? "<tab:34>" : "<tab:34>") @ "<font:Arial Bold:14>Place\t\Player\t<just:right>Rating<just:left>";
+   for (%i = 1; %i <= 20; %i ++) {
+      %text = %text NL "<spush><just:left>" @ LBSpecialColor(%i + (%this.page * 20), true) @ %i + (%this.page * 20) TAB clipPx("<font:Arial Bold:14>" @ %this.score["user", %i + (%this.page * 20)], 300, true) @ "<just:right>" @  %this.score["rating", %i + (%this.page * 20)] @ "<spop>";
+   }
+   LB_TotalScoresText.setText(%text);
+}
+
+function LBTotalDlg::fixScores(%this) {
+   for (%i = 0; %i <= 2500; %i ++) {
+      if (%this.score["user", %i] $= "")
+         %this.score["user", %i] = decodeName($LB::DefaultHSName);
+      if (%this.score["rating", %i] $= "")
+         %this.score["rating", %i] = "0";
+   }
+}
+
+function LBTotalDlg::loadData(%this) {
+   if (!isObject(LBTotalNetwork))
+      new TCPObject(LBTotalNetwork);
+   %server = $LB::server;
+   %page = $LB::serverPath @ "totalscores.php";
+   %bracket = $LB::TotalBracket[%this.bracket, "name"];
+
+   //echo("Loading bracket" SPC %bracket);
+
+   %query = LBDefaultQuery() @ "&thousand=true&start=0&bracket=" @ %bracket;
+   LBTotalNetwork.post(%server,%page,%query);
+
+   %this.loading = true;
+}
+
+function LBTotalNetwork::onLine(%this,%line) {
+   Parent::onLine(%this,%line);
+   devecho(%line);
+   %this.parseSigs(%line);
+   if (getWord(%line,0) $= "SIG") {
+      switch (getWord(%line,1)) {
+         case 1: //HiGuy: page finish
+            //%this.disconnect();
+            LBTotalDlg.loading = false;
+            LBTotalDlg.fixScores();
+            LBTotalDlg.showPage();
+         case 6: //HiGuy: invalid username/password
+            %this.echo("Invalid Username or Password");
+            LBAssert("Error!","Invalid username or password, please try again!","");
+            %this.disconnect();
+         case 16: //Start list
+            LBTotalDlg.reset();
+         case 28: //HiGuy: No Category
+            %this.disconnect();
+            LBTotalDlg.loading = false;
+            LBTotalDlg.fixScores();
+            LBTotalDlg.showPage();
+      }
+   } else if (getWord(%line,0) $= "SCORE") { // HiGuy: Scores!
+      %user = decodeName(getWord(%line, 1));
+      %rating = decodeName(getWord(%line, 2));
+      %place = decodeName(getWord(%line, 3));
+
+      LBTotalDlg.score["user", %place] = %user;
+      LBTotalDlg.score["rating", %place] = %rating;
+
+      LBTotalDlg.scores = max(LBTotalDlg.scores, %place);
+      //HiGuy: *Incase* we have a blank—
+   }
+}

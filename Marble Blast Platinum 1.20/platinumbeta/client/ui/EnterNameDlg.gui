@@ -1,0 +1,87 @@
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(EnterNameDlg) {
+   profile = "GuiDialogProfile";
+   horizSizing = "right";
+   vertSizing = "bottom";
+   position = "0 0";
+   extent = "640 480";
+   minExtent = "8 8";
+   visible = "1";
+   helpTag = "0";
+
+   new GuiBitmapCtrl() {
+      profile = "GuiDefaultProfile";
+      horizSizing = "center";
+      vertSizing = "center";
+      position = "110 112";
+      extent = "420 256";
+      minExtent = "8 8";
+      visible = "1";
+      helpTag = "0";
+      bitmap = "./enternamebox";
+      wrap = "0";
+
+      new GuiBitmapButtonCtrl(EnterNameAcceptButton) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "151 184";
+         extent = "110 55";
+         minExtent = "8 8";
+         visible = "1";
+         command = "highScoreNameAccept();";
+         helpTag = "0";
+         text = "Button";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./ok";
+      };
+      new GuiBitmapCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "width";
+         vertSizing = "height";
+         position = "16 119";
+         extent = "388 56";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "./window";
+         wrap = "0";
+      };
+      new GuiMLTextCtrl(EnterNameText) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "37 23";
+         extent = "345 78";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiTextEditCtrl(EnterNameEdit) {
+         profile = "GuiBigTextEditProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "28 130";
+         extent = "363 36";
+         minExtent = "8 8";
+         visible = "1";
+         variable = "$pref::HighScoreName";
+         command = "highScoreNameChanged();";
+         altCommand = "if ($pref::HighScoreName !$= \"\") { highScoreNameAccept(); }";
+         helpTag = "0";
+         maxLength = "255";
+         maxPixelWidth = "145";
+         historySize = "0";
+         password = "0";
+         tabComplete = "0";
+         sinkAllKeyEvents = "0";
+      };
+   };
+};
+//--- OBJECT WRITE END ---

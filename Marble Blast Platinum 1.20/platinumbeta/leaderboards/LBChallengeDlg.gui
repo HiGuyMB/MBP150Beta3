@@ -1,0 +1,1697 @@
+//-----------------------------------------------------------------------------
+// LBChallengeDlg.gui
+//
+// Copyright (c) The Platinum Team
+// Mainly written by Jeff
+// References from Spy47
+//
+// Jeff: documentation on (almost) all challenge variables
+//
+// DISCLAIMER :: I may have forgotten a variable or two because I use so many.
+// If I did and you wish to know, let me know and I'll fix it.
+// HiGuy: (╯°□°）╯︵ ┻━┻
+//
+// $LB::ChallengeMode     - Boolean - Lets us know if we are currently in challenge mode
+// $LB::LastChallengeType - String  - Used whenever the client exits the options, restores which type
+// $LB::ChallengeHasList  - Boolean - If the challenge list has at least one person, then it is true
+//
+// challenge :: namespace variables
+//
+// Type                           - String  - The type of the challenge, race or attempts
+// AskingPlayer                   - String  - The opponent to the challenger
+// Level                          - String  - The mission file for the challenge
+// ID                             - Integer - The server ID value for the current challenge
+// Name                           - String  - The level name for the challenge
+// IsAskingClient                 - Boolean - If the person is the one asking the other to challenge
+// Playing                        - Boolean - If the challenge is playing
+// HasLoaded                      - Boolean - If the challenge has gone through the loading screen
+// Winner                         - Integer - If you are the winner of the challenge, it becomes 1, loser becomes 0, tie is -1
+// CurrentAttempts                - Integer - The current number attempts used
+// AskReceiveEvent                - Boolean - If we have been asked or got an answer, it becomes true
+// Canceler                       - Boolean - If your the one who canceled, then its true
+// CancelHappened                 - Boolean - Cancel successfully happened.
+// HasEnded                       - Boolean - The challenge has ended
+// HasGems                        - Boolean - Does the level we are playing contain gems?
+// HasLostAttempts                - Boolean - Lost because you ran out of attempts
+// Ahead                          - Boolean - Lets the client know who is ahead of the other client
+// Ready                          - Boolean - The challenges are ready to begin
+// CurrentAttempts                - Integer - The current amount of attempts that are used
+// WaitingOnEndGame               - Boolean - The client is waiting on the end game screen waiting for others to finish
+// ReceiveUpdatesForEndGameStatus - Boolean - If the client is on end game screen, they receive their updates there, else they receive them in playGui
+// MaxAttempts                    - Integer - The maximum amount of attempts for a challenge
+// Timeout                        - Integer - The timeout period (in minutes) in which you can finish after your opponent
+// GameType                       - String  - The game type, if we are platinum or gold.
+// ScoreHelper                    - Boolean - If we are attempts mode, and the last attempt was used, this lets us know that we can end the challenge from sendscore.
+// CalledEnd                      - Boolean - If we called the LBEndChallenge script side
+// DisableGameStates              - Boolean - Tells us if gamestates are enabled or disabled for the challenge, used for attempts ending.
+// GetThoseUpdates                - Boolean - Tells us if we are in attempts mode and we need to get the END query from the server. yay this is the last one i think we'll need.
+//
+// These are used for status updates, 1 and 2 is by challenger and opponent, respectivly.
+// They are syncronized on both clients, so even if you are the opponent, you would still
+// be number 2 on your side.
+//
+// Player1                        - String  - The challenger's name
+// Player2                        - String  - The opponent's name
+// Gem1                           - Integer - The challenger's gem count
+// Gem2                           - Integer - The opponent's gem count
+// Time1                          - Integer - The challenger's time
+// Time2                          - Integer - The opponent's time
+// Attempts1                      - Integer - The challenger's attempts used
+// Attempts2                      - Integer - The opponent's attempts used
+// Best1                          - Integer - The challenger's best time
+// Best2                          - Integer - The opponent's best time
+// Points1                        - Integer - The challenger's received points
+// Points2                        - Integer - The opponent's received points
+// Score1                         - Integer - The challenger's total points
+// Score2                         - Integer - The opponent's total points
+// EndScore[player, number]       - Int[][] - End scores for attempts mode for a specific player and number (in best-to-worst order)
+//
+//
+// LB::CCI:: namespace do the same thing as variables mentioned above, but
+// are used for chat notifications for challenges.  I am not going to redocument
+// them all as that is redundant and boring, plus matan if you need to know a
+// variable, then start reading code :3
+//
+// DISCLAIMER: Jeff may or may not change the variable names between the
+// $LB::Challenge:: and $LB::CCI:: namespaces. In the event of a gouey brain
+// explosion, please call your local emergency services. 0118-999-881-990-119-7253
+//
+// HiGuy: Matan isn't the one who has to deal with this shit
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(LBChallengeDlg) {
+   profile = "GuiDefaultProfile";
+   horizSizing = "right";
+   vertSizing = "bottom";
+   position = "0 0";
+   extent = "640 480";
+   minExtent = "8 8";
+   visible = "1";
+   helpTag = "0";
+      previousFrame = "wait";
+      accept = "no";
+      frame = "moment";
+
+   new GuiBitmapCtrl(LBCD_ChallengeFrame) {
+      profile = "GuiDefaultProfile";
+      horizSizing = "center";
+      vertSizing = "center";
+      position = "107 105";
+      extent = "426 270";
+      minExtent = "8 8";
+      visible = "0";
+      helpTag = "0";
+      bitmap = "./error/errorbox";
+      wrap = "0";
+
+      new GuiBitmapCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "282 180";
+         extent = "127 16";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "~/client/ui/Options/minibar";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "282 155";
+         extent = "127 16";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "~/client/ui/Options/minibar";
+         wrap = "0";
+      };
+      new GuiMLTextCtrl(LBCD_ChallengeTitle) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "width";
+         vertSizing = "bottom";
+         position = "20 18";
+         extent = "390 28";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiMLTextCtrl(LBCD_PlayerTitle) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "24 50";
+         extent = "174 14";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiBitmapButtonCtrl(LBCD_Mode1) {
+         profile = "GuiButtonProfile";
+         horizSizing = "left";
+         vertSizing = "bottom";
+         position = "200 52";
+         extent = "208 42";
+         minExtent = "8 8";
+         visible = "1";
+         command = "LBChallengeDlg.setModeRace();";
+         helpTag = "0";
+         text = "Race to the Finish";
+         groupNum = "-1";
+         buttonType = "ToggleButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./challenge/racemode";
+      };
+      new GuiBitmapButtonCtrl(LBCD_Mode2) {
+         profile = "GuiButtonProfile";
+         horizSizing = "left";
+         vertSizing = "bottom";
+         position = "200 94";
+         extent = "208 42";
+         minExtent = "8 8";
+         visible = "1";
+         command = "LBChallengeDlg.setModeAttempts();";
+         helpTag = "0";
+         text = "Attempts Mode";
+         groupNum = "-1";
+         buttonType = "ToggleButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./challenge/attemptsmode";
+      };
+      new GuiBitmapButtonCtrl(LBCD_Ok) {
+         profile = "GuiButtonProfile";
+         horizSizing = "left";
+         vertSizing = "top";
+         position = "299 209";
+         extent = "116 54";
+         minExtent = "8 8";
+         visible = "1";
+         command = "LBChallengeDlg.sendAskRequest();";
+         helpTag = "0";
+         text = "Okay";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./challenge/start";
+      };
+      new GuiBitmapButtonCtrl(LBCD_Cancel) {
+         profile = "GuiButtonProfile";
+         horizSizing = "left";
+         vertSizing = "top";
+         position = "193 209";
+         extent = "116 54";
+         minExtent = "8 8";
+         visible = "1";
+         command = "closeLBChallengeDlg(); clearChallengeData(false);";
+         helpTag = "0";
+         text = "cancel";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./challenge/cancel";
+      };
+      new GuiScrollCtrl() {
+         profile = "GuiScrollProfile";
+         horizSizing = "right";
+         vertSizing = "height";
+         position = "16 53";
+         extent = "174 195";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         willFirstRespond = "1";
+         hScrollBar = "alwaysOff";
+         vScrollBar = "alwaysOn";
+         constantThumbHeight = "0";
+         childMargin = "0 0";
+
+         new GuiTextListCtrl(LBCD_PlayerList) {
+            profile = "GuiTextListProfile";
+            horizSizing = "right";
+            vertSizing = "bottom";
+            position = "2 2";
+            extent = "152 16";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            enumerate = "0";
+            resizeCell = "1";
+            columns = "0";
+            fitParentWidth = "1";
+            clipColumnText = "0";
+         };
+      };
+      new GuiSliderCtrl(LBCD_OptionsSlider) {
+         profile = "GuiSliderProfile";
+         horizSizing = "left";
+         vertSizing = "bottom";
+         position = "285 147";
+         extent = "121 31";
+         minExtent = "8 8";
+         visible = "1";
+         variable = "$LBPref::ChallengeAttempts";
+         command = "LBChallengeDlg.updateOptions();";
+         altCommand = "LBChallengeDlg.updateOptionsAlt();";
+         helpTag = "0";
+         range = "1.000000 10.000000";
+         ticks = "3";
+         value = "2";
+         bitmap = "~/client/ui/Options/value";
+      };
+      new GuiSliderCtrl(LBCD_OptionsTimeOutSlider) {
+         profile = "GuiSliderProfile";
+         horizSizing = "left";
+         vertSizing = "bottom";
+         position = "285 172";
+         extent = "121 31";
+         minExtent = "8 8";
+         visible = "1";
+         variable = "$LBPref::ChallengeTimeOut";
+         command = "LBChallengeDlg.updateOptions();";
+         altCommand = "LBChallengeDlg.updateOptionsAlt();";
+         helpTag = "0";
+         range = "1.000000 10.000000";
+         ticks = "3";
+         value = "2";
+         bitmap = "~/client/ui/Options/value";
+      };
+      new GuiMLTextCtrl(LBCD_OptionsMessage) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "202 149";
+         extent = "80 50";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+   };
+   new GuiBitmapCtrl(LBCD_ForfeitFrame) {
+      profile = "GuiDefaultProfile";
+      horizSizing = "center";
+      vertSizing = "center";
+      position = "118 133";
+      extent = "404 213";
+      minExtent = "8 8";
+      visible = "0";
+      helpTag = "0";
+      bitmap = "./error/errorbox";
+      wrap = "0";
+
+      new GuiMLTextCtrl(LBCD_ForfeitTitle) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "20 20";
+         extent = "364 25";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiMLTextCtrl(LBCD_ForfeitMessage) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "center";
+         vertSizing = "bottom";
+         position = "22 59";
+         extent = "360 14";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiBitmapButtonCtrl(LBCD_ForfeitOk) {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "273 148";
+         extent = "116 54";
+         minExtent = "8 8";
+         visible = "1";
+         command = "forfeitChallenge();";
+         helpTag = "0";
+         text = "Okay";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./challenge/forfeit";
+      };
+      new GuiBitmapButtonCtrl(LBCD_ForfeitCancel) {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "168 148";
+         extent = "116 54";
+         minExtent = "8 8";
+         visible = "1";
+         command = "LBChallengeDlg.forfeitNope();";
+         helpTag = "0";
+         text = "cancel";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./challenge/cancel";
+      };
+   };
+   new GuiBitmapCtrl(LBCD_WaitFrame) {
+      profile = "GuiDefaultProfile";
+      horizSizing = "center";
+      vertSizing = "center";
+      position = "101 72";
+      extent = "437 336";
+      minExtent = "8 8";
+      visible = "0";
+      helpTag = "0";
+      bitmap = "./error/errorbox";
+      wrap = "0";
+
+      new GuiBitmapCtrl(LBCD_WaitImage) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "top";
+         position = "215 105";
+         extent = "202 167";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "~/data/missions_mbg/beginner/PlatformParty";
+         wrap = "0";
+
+         new GuiBitmapCtrl() {
+            profile = "GuiDefaultProfile";
+            horizSizing = "right";
+            vertSizing = "bottom";
+            position = "0 0";
+            extent = "202 167";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            bitmap = "./challenge/levelwindow-ch";
+            wrap = "0";
+         };
+      };
+      new GuiMLTextCtrl(LBCD_WaitTitle) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "20 18";
+         extent = "364 25";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiBitmapButtonCtrl(LBCD_WaitCancel2) {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "top";
+         position = "256 273";
+         extent = "116 54";
+         minExtent = "8 8";
+         visible = "1";
+         command = "exitChallenge();";
+         helpTag = "0";
+         text = "cancel";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./challenge/cancel";
+      };
+      new GuiMLTextCtrl(LBCD_WaitStatus) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "center";
+         vertSizing = "bottom";
+         position = "23 50";
+         extent = "391 50";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiBitmapButtonCtrl(LBCD_WaitAccept) {
+         profile = "GuiButtonProfile";
+         horizSizing = "left";
+         vertSizing = "top";
+         position = "310 270";
+         extent = "116 54";
+         minExtent = "8 8";
+         visible = "0";
+         command = "LBChallengeDlg.acceptRequest();";
+         helpTag = "0";
+         text = "Okay";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./challenge/accept";
+      };
+      new GuiBitmapButtonCtrl(LBCD_WaitDeny) {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "204 270";
+         extent = "116 54";
+         minExtent = "8 8";
+         visible = "0";
+         command = "LBChallengeDlg.denyRequest();";
+         helpTag = "0";
+         text = "cancel";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./challenge/decline";
+      };
+      new GuiMLTextCtrl(LBCD_WaitInfo) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "20 111";
+         extent = "183 89";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiBitmapButtonCtrl(LBCD_WaitStart) {
+         profile = "GuiButtonProfile";
+         horizSizing = "left";
+         vertSizing = "top";
+         position = "310 273";
+         extent = "116 54";
+         minExtent = "8 8";
+         visible = "0";
+         command = "challengeStartOk();";
+         helpTag = "0";
+         text = "Okay";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./challenge/start";
+      };
+      new GuiBitmapButtonCtrl(LBCD_WaitCancel) {
+         profile = "GuiButtonProfile";
+         horizSizing = "left";
+         vertSizing = "top";
+         position = "204 273";
+         extent = "116 54";
+         minExtent = "8 8";
+         visible = "0";
+         command = "exitChallenge();";
+         helpTag = "0";
+         text = "cancel";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./challenge/cancel";
+      };
+   };
+};
+//--- OBJECT WRITE END ---
+
+//HiGuy: I am the king of the lazy
+// Jeff: no way <3
+function ccd() { clearChallengeData(false); }
+
+// Jeff: initalize challenge variables
+// I like variables.  This is looking like spy47 code now.
+function clearChallengeData(%isFinishing) {
+	$LB::Challenge::Type = "";
+	$LB::Challenge::AskingPlayer = "";
+	$LB::Challenge::Level = "";
+	$LB::Challenge::ID = "";
+	$LB::Challenge::Name = "";
+	$LB::Challenge::IsAskingClient = false;
+	$LB::Challenge::Playing = false;
+	$LB::Challenge::HasLoaded = false;
+	$LB::Challenge::Winner = false;
+
+	// Jeff: only clear if we are / are not finishing
+	if (%isFinishing) {
+		$LB::ChallengeMode = false;
+      $LB::Challenge::CalledEnd = false;
+      $LB::Challenge::GetThoseUpdates = false;
+   } else {
+      $LB::Challenge::AskReceiveEvent = false;
+      $LB::Challenge::Canceler = false;
+      $LB::Challenge::CancelHappened = false;
+      $LB::Challenge::HasEnded = false;
+      $LB::Challenge::HasGems = false;
+      $LB::Challenge::HasLostAttempts = false;
+      $LB::Challenge::Player1   = "";
+      $LB::Challenge::Player2   = "";
+      $LB::Challenge::Gem1      = "";
+      $LB::Challenge::Gem2      = "";
+      $LB::Challenge::Time1     = "";
+      $LB::Challenge::Time2     = "";
+      $LB::Challenge::Attempts1 = "";
+      $LB::Challenge::Best1     = "";
+      $LB::Challenge::Best2     = "";
+      $LB::Challenge::Attempts2 = "";
+      $LB::Challenge::Ahead     = false;
+      $LB::Challenge::Ready     = false;
+      $LB::Challenge::CurrentAttempts = 0;
+      $LB::Challenge::Timeout   = 0;
+      $LB::Challenge::WaitingOnEndGame = false;
+      $LB::Challenge::ReceiveUpdatesForEndGameStatus = false;
+      $LB::Challenge::ScoreHelper = false;
+      $LB::Challenge::DisableGameStates = false;
+   }
+}
+
+//HiGuy: I feel that this function name correctly reflects Jeff's feelings
+// towards the problem that it solves.
+function GuiControl::setActiveDamnit(%this, %active) {
+   // Jeff: odd but works.
+   for (%i = 0; %i < 1000; %i += 10)
+      %this.schedule(%i, setActive, %active);
+   %this.setActive(%active);
+}
+
+// Jeff: default settings upon execution, when the script loads, these
+// values will be the defaults stored in memory.
+$LB::ChallengeMode = false;
+$LB::LastChallengeType = "";
+$LB::Challenge::ScoreHelper = false;
+$LB::Challenge::CalledEnd = false;
+$LB::Challenge::GetThoseUpdates = false;
+clearChallengeData(false);
+LBCD_Ok.setActive(false);
+
+// Jeff: set different panes to see for challenges
+function LBChallengeDlg::setLBChallengeDlgPane(%this, %frame) {
+   // Jeff: hide *all* the frames and then we select the appropriate one specified
+   // by the parameter
+   %this.previousFrame = %this.frame;
+   %this.hideFrames();
+   %this.frame = %frame;
+
+   switch$ (%frame) {
+   case "challenge":
+      // Jeff: chose a challenge make the list of the users who
+      // could be potential victims...I mean players
+      %this.buildList();
+      %this.accept = "no";
+      %this.adjustAttempts();
+
+      // Jeff: select which mode we should be using.
+      if ($LB::LastChallengeType $= "")
+         $LB::LastChallengeType = "race";
+      %this.call("setMode" @ $LB::LastChallengeType);
+
+      // Jeff: if the list is not empty, select the first row
+      if ($LB::ChallengeHasList) {
+         LBCD_PlayerList.setSelectedById(0);
+         LBCD_Ok.setActive(true);
+      } else
+         LBCD_Ok.setActiveDamnit(false);
+
+      %this.updateOptions();
+      LBCD_ChallengeTitle.setText("<just:center><font:DomCasualD:28>Challenge a Player");
+      LBCD_PlayerTitle.setText("Choose a Player:");
+      LBCD_ChallengeFrame.setVisible(true);
+   case "accept":
+      // Jeff: accept challenge
+      LBCD_WaitTitle.setText("<just:center><font:DomCasualD:24>Received Challenge Request!");
+      $LB::Challenge::Player1 = $LB::Challenge::AskingPlayer;
+      $LB::Challenge::Player2 = $LB::Username;
+      $LB::Challenge::WaitStatus = 0;
+      LBUpdateChallengeWaitStatus();
+      LBCD_WaitFrame.setVisible(true);
+      LBCD_WaitStart.setVisible(false);
+      LBCD_WaitCancel.setVisible(false);
+      LBCD_WaitCancel2.setVisible(false);
+      LBCD_WaitAccept.setVisible(true);
+      LBCD_WaitDeny.setVisible(true);
+      LBCD_WaitStart.setActive(false);
+   case "wait":
+      // Jeff: whenever the asker is waiting for the opponent
+      $LB::Challenge::WaitStatus = 0;
+      $LB::Challenge::Player1 = $LB::Username;
+      $LB::Challenge::Player2 = $LB::Challenge::AskingPlayer;
+      LBUpdateChallengeWaitStatus();
+      LBCD_WaitTitle.setText("<just:center><font:DomCasualD:24>Waiting for Opponent to Accept");
+      LBCD_WaitFrame.setVisible(true);
+      LBCD_WaitStart.setVisible(true);
+      LBCD_WaitCancel.setVisible(true);
+      LBCD_WaitCancel2.setVisible(false);
+      LBCD_WaitAccept.setVisible(false);
+      LBCD_WaitDeny.setVisible(false);
+      LBCD_WaitStart.setActive(false);
+
+      // Jeff: Oh HiGuy and your function names :3
+      LBCD_WaitStart.setActiveDamnit(false);
+   case "moment": // Jeff: waiting for challenge to begin
+      LBCD_WaitTitle.setText("<just:center><font:DomCasualD:24>Your challenge will begin in a moment.");
+      $LB::Challenge::WaitStatus = 1;
+      LBUpdateChallengeWaitStatus();
+      LBCD_WaitFrame.setVisible(true);
+      LBCD_WaitStart.setVisible(false);
+      LBCD_WaitCancel.setVisible(false);
+      LBCD_WaitCancel2.setVisible(true);
+      LBCD_WaitAccept.setVisible(false);
+      LBCD_WaitDeny.setVisible(false);
+   case "forfeit":
+      // Jeff: when a player wants to forfeit a match.
+      LBCD_ForfeitTitle.setText("<just:center><font:DomCasualD:24>Forfeit Challenge?");
+      if (!$LB::Challenge::IsAskingClient && !$LB::Challenge::HasLoaded)
+         LBCD_ForfeitMessage.setText("<just:center>Are you sure you want to deny the challenge?");
+      else
+         LBCD_ForfeitMessage.setText("<just:center>Are you sure you want to forfeit?");
+      LBCD_ForfeitFrame.setVisible(true);
+   case "denied":
+      // Jeff: for when a client denies a challenge
+      LBCD_WaitTitle.setText("<just:center><font:DomCasualD:24>Your opponent has denied the challenge.");
+      //HiGuy: This already has updated.
+      if ($LB::Challenge::WaitStatus != 2) {
+            $LB::Challenge::WaitStatus = 2;
+            LBUpdateChallengeWaitStatus();
+      }
+      LBCD_WaitFrame.setVisible(true);
+      LBCD_WaitStart.setVisible(false);
+      LBCD_WaitCancel.setVisible(false);
+      LBCD_WaitCancel2.setVisible(true);
+      LBCD_WaitAccept.setVisible(false);
+      LBCD_WaitDeny.setVisible(false);
+   default:
+      // Jeff: just in case someone tries to push this...which would mean they hacked
+      LBAssert("Invalid Entry", "There is no frame named \"" @ %frame @ "\" in the challenge dialog.");
+      return;
+   }
+
+   // Jeff: show the dialog
+   Canvas.pushDialog(%this);
+}
+
+function LBResolveChallengeStatus(%status) {
+   switch (%status) {
+      case 0:       return "Waiting";
+      case 1:       return "Accepted";
+      case 2 or -1: return "Denied";
+   }
+}
+
+// Jeff: this is for the status of when a client is waiting for the
+// other opponent to play a match
+function LBUpdateChallengeWaitStatus() {
+   %name1   = upperFirst($LB::Challenge::Player1);
+   %name2   = upperFirst($LB::Challenge::Player2);
+   %level   = upperFirst($LB::Challenge::Level);
+   %type    = upperFirst($LB::Challenge::Type);
+   %game    = upperFirst($LB::Challenge::GameType);
+   %status  = LBResolveChallengeStatus($LB::Challenge::WaitStatus);
+
+   %name = $LB::Challenge::AskingPlayer;
+   %text = "<just:left><font:DomCasualD:24>" @ upperFirst(LBResolveName(%name1, true)) SPC "<just:right><spush><shadow:1:1><shadowcolor:0000007f><color:00ff00>Accepted<spop>\n<just:left>" @ upperFirst(LBResolveName(%name2, true)) SPC "<just:right><spush><shadow:1:1><shadowcolor:0000007f>";
+
+   // Jeff: add the coloring
+   switch ($LB::Challenge::WaitStatus) {
+      case 0: %text = %text SPC "<color:ffff00>"; //Pending
+      case 1: %text = %text SPC "<color:00ff00>"; //Accepted
+      case 2: %text = %text SPC "<color:ff6666>"; //Denied
+   }
+
+   %text = %text @ %status @ "<spop>";
+   %mission = getMissionInfo(%level);
+
+   LBCD_WaitStatus.setText(%text);
+   LBCD_WaitImage.setBitmap(LBGetLevelBitmap(%mission));
+
+   // Jeff: mission description
+   %desc = "<just:center><font:DomCasualD:24>" @ %mission.name NL
+           "<just:left><font:Arial:14>" @ %mission.desc NL
+           "<font:Arial Bold:14>Author:<font:Arial:14>" SPC ((%mission.artist !$= "") ? %mission.artist : "No Author") @
+           (%mission.time ? "\n<font:Arial Bold:18>Par Time:" SPC  formatTime(%mission.time) : "") @
+           "<just:left>\n<font:Arial Bold:18>Timeout:<just:right>" @ $LB::Challenge::Timeout SPC "Minutes" NL
+           ($LB::Challenge::Type $= "attempts" ? "<just:left>Max Attempts:<just:right>" @ $LB::Challenge::MaxAttempts : "");
+   LBCD_WaitInfo.setText(%desc);
+}
+
+// Jeff: whenever the options is updated for attempts
+function LBChallengeDlg::updateOptions(%this) {
+   %this.adjustAttempts();
+   %this.updateOptionsAlt();
+   LBCD_OptionsSlider.setValue($LBPref::ChallengeAttempts);
+   LBCD_OptionsTimeOutSlider.setValue($LBPref::ChallengeTimeOut);
+}
+
+function LBChallengeDlg::updateOptionsAlt(%this) {
+   %text = "<font:DomCasualD:24>Attempts:<just:right>" @ mRound($LBPref::ChallengeAttempts) NL
+           "<just:left>Timeout:<just:right>" @ mRound($LBPref::ChallengeTimeOut);
+   LBCD_OptionsMessage.setText(%text);
+}
+
+function openChallengeOptions() {
+   LBChallengeDlg.setLBChallengeDlgPane("options");
+}
+
+function closeChallengeOptions() {
+   closeLBChallengeDlg();
+   $LB::Challenge::ChallengeFrameAttempts = true;
+   savePrefs(true);
+   LBChallengeDlg.schedule(20, "setLBChallengeDlgPane", "challenge");
+}
+
+// Jeff: wrap the challenge variables
+function LBChallengeDlg::adjustAttempts(%this) {
+   $LBPref::ChallengeAttempts = mRound($LBPref::ChallengeAttempts);
+   $LBPref::ChallengeTimeOut  = mRound($LBPref::ChallengeTimeOut);
+
+   // Jeff: wrap the value, if we are out of range
+   %save = false;
+   if (!$LBPref::ChallengeAttempts) {
+      $LBPref::ChallengeAttempts = 1;
+      %save = true;
+   }
+   if (!$LBPref::ChallengeTimeOut) {
+      $LBPref::ChallengeTimeOut = 1;
+      %save = true;
+   }
+   if (%save)
+      savePrefs(true);
+
+   $LBPref::ChallengeAttempts = ($LBPref::ChallengeAttempts < 1) ? 1 : (($LBPref::ChallengeAttempts > 10) ? 10 : $LBPref::ChallengeAttempts);
+   $LBPref::ChallengeTimeOut  = ($LBPref::ChallengeTimeOut  < 1) ? 1 : (($LBPref::ChallengeTimeOut  > 10) ? 10 : $LBPref::ChallengeTimeOut);
+}
+
+// Jeff: close the dialog
+function closeLBChallengeDlg() {
+   Canvas.popDialog(LBChallengeDlg);
+}
+
+// Jeff: reset the panes by hiding all the frames
+function LBChallengeDlg::hideFrames(%this) {
+   LBCD_ChallengeFrame.setVisible(false);
+   LBCD_ForfeitFrame.setVisible(false);
+   LBCD_WaitFrame.setVisible(false);
+}
+
+// Jeff: show usernames
+function LBChallengeDlg::buildList(%this) {
+   LBCD_PlayerList.clear();
+   $LB::ChallengeHasList = false;
+   for (%i = 0; %i < $LB::UserlistCount; %i ++) {
+      %line = $LB::UserListUser[%i];
+      %user = decodeName(getWord(%line, 0));
+      %status = getWord(%line, 2);
+
+      //HiGuy: You can\'t challenge yourself!
+      if (%user $= $LB::username)
+         continue;
+
+      //HiGuy: You can\'t send to webchat, and nobody wants to be interrupted while playing!
+      // Jeff: or invisible status or already playing challenge/schallegenge
+      if (%status < 0 || %status > 1)
+         continue;
+
+      $LB::ChallengeHasList = true;
+      LBCD_PlayerList.addRow(LBCD_PlayerList.rowCount(), LBResolveName(%user, true) TAB %user);
+   }
+
+   // Jeff: if the list is not empty, select the first row
+   if ($LB::ChallengeHasList) {
+      LBCD_PlayerList.sort(0, true);
+      LBCD_PlayerList.setSelectedById(0);
+      LBCD_Ok.setActive(true);
+   } else
+      LBCD_Ok.setActive(false);
+}
+
+function LBChallengeDlg::setModeRace(%this) {
+   LBCD_Mode1.setValue(true);
+   LBCD_Mode2.setValue(false);
+   $LB::LastChallengeType = "race";
+   $LB::Challenge::Type = "race";
+}
+
+function LBChallengeDlg::setModeAttempts(%this) {
+   LBCD_Mode1.setValue(false);
+   LBCD_Mode2.setValue(true);
+
+   // Jeff: hack this so that our pref is at least defined!
+   %this.adjustAttempts();
+   $LB::LastChallengeType = "attempts";
+   $LB::Challenge::Type = "attempts";
+}
+
+//-----------------------------------------------------------------------------
+
+// Jeff: called from the chat,
+// does not have the first word of "CHALLENGE"
+// This function handles all the challenge requests and stuff from
+// the server
+function handleChallengeRequest(%line) {
+   // Jeff: check for time so we don't get double queries
+   // I don't even think we are even using this anymore...
+   // rather basing it off of queries...
+   %sendLine = getWords(%line, 2);
+   %id       = getWord(%line, 0);
+   if ($LB::Challenge::Finished[%id])
+      return ;//devecho("Challenge finished, insta-kill");
+
+   %switch = getWord(%line, 1);
+   switch$ (%switch) {
+   case "ASKING": // Jeff: ask the client if they wanna play
+      // Jeff: ONLY ASK THE CORRECT CLIENT
+
+      //HiGuy: STOP CHALLENGING ME, KENNY
+      if (!($LB::Challenge::Id && %id == $LB::Challenge::Id) && ($LB::StatusNumeric < 0 || $LB::StatusNumeric > 1 || $Server::ServerType !$= "" )) {
+         $LB::Challenge::NoDisconnect = true;
+         %oldId = $LB::Challenge::ID;
+         $LB::Challenge::ID = %id;
+         forfeitChallenge();
+         $LB::Challenge::ID = %oldId;
+         return;
+      }
+      if (!$LB::Challenge::IsAskingClient && !$LB::Challenge::AskReceiveEvent) {
+         devecho("Received Challenge Asking, line:" SPC %line);
+         $LB::Challenge::NoDisconnect = false;
+         handleChallengeRequestResponse(%switch, %sendLine);
+         $LB::Challenge::CancelHappened = false;
+      }
+   case "RECEIVING": // Jeff: response to asking
+      // Jeff: only the asking client should get this
+      if ($LB::Challenge::IsAskingClient) {
+         devecho("Received Challenge Receiving, line:" SPC %line);
+         handleChallengeRequestResponse(%switch, %sendLine);
+         $LB::Challenge::CancelHappened = false;
+      }
+   case "LOADING":
+      if (%line $= $LB::LastChallengeQuery)
+         return devecho("Last challenge query derp");
+      if (!$LB::Challenge::HasLoaded) {
+         devecho("Loading Challenge, line:" SPC %line);
+         // Jeff: do a redundancy check and play the mission
+         // give it some time to show the message
+         schedule(1500, 0, "LBStartMission", $LB::Challenge::Level, 4, true);
+         $LB::Challenge::HasLoaded = true;
+
+         // Jeff: update this for finish status
+         $LB::Challenge::HasEnded = false;
+
+         // Jeff: this is used to determine if we need a chat notification
+         $LB::CCI::Needed[%id] = false;
+      }
+   case "PLAY":
+      if (!$LB::Challenge::Playing && isObject(localClientConnection)) {
+         // Jeff: we can now play the mission
+         devecho("Playing Challenge, line:" SPC %line);
+         %starttime = getWord(%line, 2);
+         LBSchedule(%starttime, 0, onWaitingEnd);
+         $LB::Challenge::HasGems = !!countGems(MissionGroup);
+         $LB::Challenge::Playing = true;
+      }
+   case "GEM":
+      if (%line $= $LB::LastChallengeQuery)
+         return devecho("Last challenge query derp");
+      // Jeff: GEM | player 1 | player 2 | gem 1 | gem 2 | time 1 | time 2 | attemtps 1 | attempts 2 | timeout | finish 1 | finish 2
+      // only do this if we havn't ended
+      if (!$LB::Challenge::HasEnded) {
+         handleChallengeGemUpdates(%sendLine, true);
+         devecho("Gem for Challenges, line:" SPC %sendLine);
+      }
+   case "END":
+      if (%line $= $LB::LastChallengeQuery)
+         return devecho("Last challenge query derp");
+      //trace(true);
+      // Jeff: ID | END | PLAYER 1 | PLAYER 2 | GEM 1 | GEM 2 | TIME 1 | TIME 2 | ATTEMPTS 1 | ATTEMPTS 2 | WINNER | WINSCORE | LOSESCORE | PLAYER1SCORE | PLAYER2SCORE
+      if ((!$LB::Challenge::HasEnded && !$LB::JustLoggedIn) || !$LB::Challenge::Finished[%id]) {
+         %player1   = getWord(%line, 2);
+         %player2   = getWord(%line, 3);
+         %gem1      = getWord(%line, 4);
+         %gem2      = getWord(%line, 5);
+         %time1     = getWord(%line, 6);
+         %time2     = getWord(%line, 7);
+         %attempts1 = getWord(%line, 8);
+         %attempts2 = getWord(%line, 9);
+         %winner    = getWord(%line, 10);
+         %points1   = getWord(%line, 11);
+         %points2   = getWord(%line, 12);
+         %score1    = getWord(%line, 13);
+         %score2    = getWord(%line, 14);
+         devecho("END GAME FOR CHALLENGE.");
+         devecho(%line);
+         devecho($player1 SPC %player2 SPC %gem1 SPC %gem2 SPC %time1 SPC %time2 SPC %winner SPC %points1 SPC %points2);
+
+         // Jeff: store vars so we can use them
+         $LB::Challenge::Gem1    = %gem1;
+         $LB::Challenge::Gem2    = %gem2;
+         $LB::Challenge::Time1   = %time1;
+         $LB::Challenge::Time2   = %time2;
+         $LB::Challenge::Points1 = %points1;
+         $LB::Challenge::Points2 = %points2;
+         $LB::Challenge::Score1  = %score1;
+         $LB::Challenge::Score2  = %score2;
+         $LB::CCI::Gem1          = %gem1;
+         $LB::CCI::Gem2          = %gem2;
+         $LB::CCI::Time1[%id]    = %time1;
+         $LB::CCI::Time2[%id]    = %time2;
+         $LB::CCI::Points1[%id]  = %points1;
+         $LB::CCI::Points2[%id]  = %points2;
+         $LB::CCI::Score1[%id]   = %score1;
+         $LB::CCI::Score2[%id]   = %score2;
+
+         $LB::Challenge::HasEnded = true;
+         $LB::Challenge::ReceiveUpdatesForEndGameStatus = false;
+         if ($Game::ServerRunning)
+            disconnect();
+
+         // Jeff: determine winner for GUI updates
+         // if it is empty, its a tie
+         %winStatus = (%winner $= "") ? -1 : (%winner $= $LB::username);
+         $LB::Challenge::Winner = %winStatus;
+
+         // Jeff: decisions WHERe
+         // ok so we have to decide if we are going to update the end game screen text
+         // or if we are going to update the chat, depending on the location.
+         if ($LB::CCI::Needed[%id]) {
+            LBChallengeNotifyChat(%id, %winStatus);
+            $LB::CCI::Needed[%id] = false;
+         } else {
+            LBReformatChallengeEndGame();
+            Canvas.schedule(35, pushDialog, LBChallengeEndDlg);
+         }
+
+         $LB::Challenge::Finished[%id] = true;
+         disconnectChallengeTCP();
+      }
+      //trace(false);
+   case "CANCEL": // Jeff: y u quit? :(
+      if (!$LB::Challenge::CancelHappened && !$LB::Challenge::Canceler) {
+         $LB::Challenge::CancelHappened = true;
+         devecho("Canceled Challenge, line:" SPC %line);
+         stopChallengeGemUpdates();
+         disconnectChallengeTCP();
+
+         // Jeff: only disconnect if we are actually loading/playing
+         closeLBChallengeDlg();
+         canvas.popDialog(LBChallengeEndDlg);
+         disconnect();
+         schedule(25, 0, "MessageBoxOK", "Challenge Canceled.", "The challenge has been canceled.", "", true);
+
+         // Jeff: close the LBChallengeDlg ffs already
+         for (%i = 0; %i < 100; %i += 20)
+            schedule(%i, 0, closeLBChallengeDlg);
+
+         clearChallengeData(true);
+         clearChallengeData(false);
+
+         // Jeff: restore status
+         LBSetMode(1);
+         $LB::Challenge::Finished[%id] = true;
+      }
+   case "ATTEMPT":
+      //HiGuy: ATTEMPT <name> <player number> <score number> <score time>
+      // Jeff: the end game times.
+      %name         = getWord(%sendLine, 0); // not used
+      %playerNumber = getWord(%sendLine, 1);
+      %scoreNumber  = getWord(%sendLine, 2);
+      %scoreTime    = getWord(%sendLine, 3);
+
+      devecho("Received Attempt:" SPC %line);
+      $LB::Challenge::EndScore[%playerNumber, %scoreNumber] = %scoreTime;
+
+      // Jeff: this is used for chat notification if we have it.
+      $LB::CCI::EndScore[%id, %playerNumber, %scoreNumber] = %scoreTime;
+   case "BLAH":
+   default:
+      devecho("Challenge handle unknown, line:" SPC %line);
+   }
+   $LB::LastChallengeQuery = %line;
+}
+
+// Jeff: handle the "request" response  or a.
+//       "receiving" response from the server
+function handleChallengeRequestResponse(%info, %line) {
+   %player = getWord(%line, 0);
+   %user   = getWord(%line, 1);
+
+   // Jeff: used for naming
+   %playerName = upperFirst(%player);
+
+   // Jeff: only one person should be seeing this stuff, not everybody
+   // just in case, cuz it only should send to the correct client anyways
+   if (%user !$= $LB::username) {
+      devecho("Invalid user.  We got an issue that shouldn\'t be happening.");
+      return;
+   }
+
+   if (%info $= "ASKING") {
+      // Jeff: only allow this if we are in the chat or level select
+      //       just in case, deny the challenge
+      if ($LB::Status < 0 || $LB::Status > 1) {
+         error(LBResolveName(%playerName, true) SPC "has tried to challenge you.  However, you are currently not available for challenges.");
+         LBChallengeDlg.denyRequest();
+         return;
+      }
+
+      // Jeff; clear your data right away!
+      // It may have been clearing to many times.
+      clearChallengeData(false);
+      $LB::Challenge::AskReceiveEvent = true;
+
+      // Jeff: when a client sends a request to another
+      %type     = getWord(%line, 2);
+      %level    = findChallengeMissionFile(getWord(%line, 3)); // Jeff: find the level
+      %id       = getWord(%line, 4);
+      %gameType = getWord(%line, 5);
+      %attempts = getWord(%line, 6);
+      %timeout  = getWord(%line, 7);
+      %name     = getWords(%line, 8);
+
+      // Jeff: assert error handler if the level isn't found
+      if (%level $= "error") {
+         LBAssert("Error", "You do not have the mission file installed in order to play this challenge.  As a result, it will be canceled.  Please install the mission file.");
+
+         // Jeff: don\'t make a big deal, just deny it
+         LBChallengeDlg.denyRequest();
+      } else {
+         $LB::Challenge::Level        = %level;
+         $LB::Challenge::AskingPlayer = %player;
+         $LB::Challenge::Name         = %name;
+         $LB::Challenge::ID           = %id;
+         $LB::Challenge::Type         = %type;
+         $LB::Challenge::MaxAttempts  = %attempts;
+         $LB::Challenge::GameType     = %gameType;
+         $LB::Challenge::Timeout      = %timeout;
+
+         LBChallengeDlg.setLBChallengeDlgPane("accept");
+      }
+   } else if (%info $= "RECEIVING") {
+      // Jeff: when the client responds yes/no
+      %answer   = getWord(%line, 2);
+      %id       = getWord(%line, 3);
+
+      if ($LB::Challenge::AskReceiveEvent && %answer !$= $LB::Challenge::ReceiveAnswer)
+         return
+      $LB::Challenge::ReceiveAnswer = %answer;
+
+      // Jeff: start the challenge
+      if (%answer $= "yes") {
+         $LB::Challenge::ID              = %id;
+         $LB::Challenge::AskingPlayer    = %player;
+         $LB::Challenge::AskReceiveEvent = true;
+
+         // Jeff: update the status
+         $LB::Challenge::WaitStatus = 1;
+         LBUpdateChallengeWaitStatus();
+         $LB::Challenge::Ready = true;
+         LBCD_WaitStart.setActive(true);
+      } else {
+         // Jeff: update the status
+         if ($LB::Challenge::WaitStatus != 2) {
+            $LB::Challenge::WaitStatus = 2;
+            LBUpdateChallengeWaitStatus();
+         }
+         LBChallengeDlg.setLBChallengeDlgPane("denied");
+         $LB::Challenge::AskingPlayer = "";
+         clearChallengeData(false);
+         clearChallengeData(true);
+         disconnectChallengeTCP();
+      }
+   }
+}
+
+function challengeStartOk() {
+   if ($LB::Challenge::Ready) {
+      LBChallengeDlg.startChallenge();
+      LBChallengeDlg.schedule(100, "setLBChallengeDlgPane", "moment");
+      devecho("Sending data to server to start the challenge.  Confirming in process...");
+   }
+}
+
+// Jeff: for whenever we get gem updates
+// player 1 | player 2 | gem 1 | gem 2 | time 1 | time 2 [ | {attempts 1} | {attempts 2} ]
+function handleChallengeGemUpdates(%line, %update) {
+   %player[1]   = getWord(%line, 0);
+   %player[2]   = getWord(%line, 1);
+   %gem[1]      = getWord(%line, 2);
+   %gem[2]      = getWord(%line, 3);
+   %time[1]     = getWord(%line, 4);
+   %time[2]     = getWord(%line, 5);
+   %attempts[1] = getWord(%line, 6);
+   %attempts[2] = getWord(%line, 7); //HiGuy: These default to 0 in php
+   %timeout     = getWord(%line, 8);
+   %finish[1]   = getWord(%line, 9);
+   %finish[2]   = getWord(%line, 10);
+   %best[1]     = getWord(%line, 11);
+   %best[2]     = getWord(%line, 12);
+
+   // Jeff: make sure we never have negative times!
+   %time[1] = mAbs(%time[1]);
+   %time[2] = mAbs(%time[2]);
+
+   // Jeff: legacy commenting this because this isn't used anymore
+   //
+   //if ($LB::Challenge::PlayerTime1 > %time[1] || $LB::Challenge::PlayerTime1 $= "") {
+      //$LB::Challenge::StartTime1 = %time[1];
+      //$LB::Challenge::StartReal1 = getRealTime();
+   //}
+   //if ($LB::Challenge::PlayerTime2 > %time[2] || $LB::Challenge::PlayerTime1 $= "") {
+      //$LB::Challenge::StartTime2 = %time[2];
+      //$LB::Challenge::StartReal1 = getRealTime();
+   //}
+   //$LB::Challenge::PlayerTime1 = %time[1];
+   //$LB::Challenge::PlayerTime2 = %time[2];
+
+   // Jeff: decide who is first
+   %i = (%gem[1] >= %gem[2]) ? 1 : 2;
+   %j = (%gem[2] >  %gem[1]) ? 1 : 2;
+
+   // Jeff: if the player name is way to long, FIX IT
+   // also uppercase the first letter
+   %player[1] = upperFirst(LBSCD_ClipName(%player[1]));
+   %player[2] = upperFirst(LBSCD_ClipName(%player[2]));
+
+   // Jeff: store these values into global memory for later
+   // usage such as end game
+   $LB::Challenge::Player1   = %player[%i];
+   $LB::Challenge::Player2   = %player[%j];
+   $LB::Challenge::Gem1      = %gem[%i];
+   $LB::Challenge::Gem2      = %gem[%j];
+   $LB::Challenge::Time1     = %time[%i];
+   $LB::Challenge::Time2     = %time[%j];
+   $LB::Challenge::Attempts1 = %attempts[%i];
+   $LB::Challenge::Attempts2 = %attempts[%j];
+   $LB::Challenge::Ahead     = %i;
+   $LB::Challenge::Timeout   = %timeout;
+   $LB::Challenge::Finish1   = %finish[%i];
+   $LB::Challenge::Finish2   = %finish[%j];
+   $LB::Challenge::Best1     = %best[%i];
+   $LB::Challenge::Best2     = %best[%j];
+
+   // Jeff: this is for the LBChat notification if we need it!
+   // CCI stands for Challenge Chat Info
+   // also redundant code is redundant, but works.
+   %id = $LB::Challenge::ID;
+   $LB::CCI::Player1[%id]   = %player[%i];
+   $LB::CCI::Player2[%id]   = %player[%j];
+   $LB::CCI::Gem1[%id]      = %gem[%i];
+   $LB::CCI::Gem2[%id]      = %gem[%j];
+   $LB::CCI::Time1[%id]     = %time[%i];
+   $LB::CCI::Time2[%id]     = %time[%j];
+   $LB::CCI::Attempts1[%id] = %attempts[%i];
+   $LB::CCI::Attempts2[%id] = %attempts[%j];
+   $LB::CCI::Ahead[%id]     = %i;
+   $LB::CCI::Timeout[%id]   = %timeout;
+   $LB::CCI::Finish1[%id]   = %finish[%i];
+   $LB::CCI::Finish2[%id]   = %finish[%j];
+   $LB::CCI::Best1[%id]     = %best[%i];
+   $LB::CCI::Best2[%id]     = %best[%j];
+   $LB::CCI::Type[%id]      = $LB::Challenge::Type;
+   $LB::CCI::MaxAttempts[%id] = $LB::Challenge::MaxAttempts;
+
+   if (%update)
+      updateChallengeGemStatus();
+}
+
+function updateChallengeGemStatus() {
+   // Jeff: decide who is first
+   %i = $LB::Challenge::Ahead;
+   %j = $LB::Challenge::Ahead % 2 + 1; //2 -> 0 -> 1, 1 -> 1 -> 2
+
+   %player[%i] = LBResolveName($LB::Challenge::Player1, true);
+   %player[%j] = LBResolveName($LB::Challenge::Player2, true);
+   %gem[%i]    = $LB::Challenge::Gem1;
+   %gem[%j]    = $LB::Challenge::Gem2;
+   %time[%i]   = formatTime($LB::Challenge::Time1);
+   %time[%j]   = formatTime($LB::Challenge::Time2);
+   %attms[%i]  = $LB::Challenge::Attempts1;
+   %attms[%j]  = $LB::Challenge::Attempts2;
+   %finish[%i] = $LB::Challenge::Finish1;
+   %finish[%j] = $LB::Challenge::Finish2;
+   %best[%i]   = formatTime($LB::Challenge::Best1);
+   %best[%j]   = formatTime($LB::Challenge::Best2);
+
+   // Jeff: update finish status
+   if (%finish[%i])
+      %player[%i] = %player[%i] SPC "- Finished!";
+   if (%finish[%j])
+      %player[%j] = %player[%j] SPC "- Finished";
+
+   // Jeff: check for null
+   if (%attms[%i] $= "")
+      %attms[%i] = 1;
+   if (%attms[%j] $= "")
+      %attms[%j] = 1;
+
+   // Jeff: adjust times in case of fields
+   if (getFieldCount(%time[%i]) > 1)
+      %time[%i] = getField(%time[%i], 1);
+   if (getFieldCount(%time[%j]) > 1)
+      %time[%j] = getField(%time[%j], 1);
+   if (getFieldCount(%best[%i]) > 1)
+      %best[%i] = getField(%best[%i], 1);
+   if (getFieldCount(%best[%j]) > 1)
+      %best[%j] = getField(%best[%j], 1);
+
+   // Jeff: adjust the gem lines to accomidate gems (if the level has gems)
+   // and times
+   if (!$LB::Challenge::HasGems && isObject(LocalClientConnection))
+      $LB::Challenge::HasGems = countGems(MissionGroup);
+   %gemLine[%i] = %player[%i];
+   %gemLine[%j] = %player[%j];
+   if ($LB::Challenge::HasGems) {
+      %gemLine[%i] = %gemLine[%i] NL "\tGems:<just:right>" SPC %gem[%i] NL "<just:left>\tTime:<just:right>" SPC %time[%i];
+      %gemLine[%j] = %gemLine[%j] NL "\tGems:<just:right>" SPC %gem[%j] NL "<just:left>\tTime:<just:right>" SPC %time[%j];
+   } else {
+      %gemLine[%i] = %gemLine[%i] NL "\tTime:<just:right>" SPC %time[%i];
+      %gemLine[%j] = %gemLine[%j] NL "\tTime:<just:right>" SPC %time[%j];
+   }
+
+   // Jeff: if we have attempts mode, append it on
+   if ($LB::Challenge::Type !$= "race") {
+      %max         = $LB::Challenge::MaxAttempts;
+      %attempts1   = (%attms[%i] > %max) ? %max @ "/" @ %max : %attms[%i] @ "/" @ %max;
+      %attempts2   = (%attms[%j] > %max) ? %max @ "/" @ %max : %attms[%j] @ "/" @ %max;
+      %gemLine[%i] = %gemLine[%i] NL "<just:left>\tAttempts:<just:right>" SPC %attempts1;
+      %gemLine[%j] = %gemLine[%j] NL "<just:left>\tAttempts:<just:right>" SPC %attempts2;
+
+      // Jeff: only show these if we are in game on the PlayGui
+      if (!$LB::Challenge::WaitingOnEndGame) {
+         %gemLine[%i] = %gemLine[%i] NL "<just:left>\tBest Time:<just:right>" SPC %best[%i];
+         %gemLine[%j] = %gemLine[%j] NL "<just:left>\tBest Time:<just:right>" SPC %best[%j];
+      }
+   }
+
+   // Jeff: update the GUI scoreboard in playGui.cs
+   // or on the end game
+
+   if ($LB::Challenge::WaitingOnEndGame) {
+      if ($LB::Challenge::ReceiveUpdatesForEndGameStatus) {
+         %text = "<just:center><tab:11><font:DomCasualD:24>Player Progress<font:Arial Bold:18>\n\n<just:left>" @
+                 "<spush><just:left>1." SPC %gemLine[%i] @ "<spop>" NL
+                 "<spush><just:left>2." SPC %gemLine[%j] @ "<spop>";
+         LBCED_Message.setText("<just:center><font:DomCasualD:24>Waiting for other player to finish.\n" NL %text);
+      } else
+         LBReformatChallengeEndGame();
+   } else {
+      %text = "<just:center><tab:15><font:DomCasualD:24>Player Progress<font:Arial Bold:14>\n\n<just:left><lmargin:2><rmargin:186>" @
+              "<spush><just:left>1." TAB %gemLine[%i] @ "<spop>" NL
+              "<spush><just:left>2." TAB %gemLine[%j] @ "<spop>";
+      PG_LBChatScoreText.setText(%text);
+   }
+}
+
+// Jeff: find the correct mission file
+function findChallengeMissionFile(%name) {
+   for (%file = findFirstFile("*/lb*.mis"); %file !$= ""; %file = findNextFile("*/lb*.mis")) {
+      // Jeff: no GG marble missions
+      if (strstr(%file, "/gg/") != -1)
+         continue;
+
+      // Jeff: we only check the file base with chars and numbers
+      if (alphaNum(fileBase(%file)) $= %name)
+         return %file;
+   }
+
+   // Jeff: show this in the console, can help a person debug
+   error("Mission not found.  You seem to be missing the mission for the challenge.");
+   return "error";
+}
+
+//-----------------------------------------------------------------------------
+
+// Jeff: send a request so that we could try to start a challenge
+function LBChallengeDlg::sendAskRequest(%this) {
+   closeLBChallengeDlg();
+   $LB::ChallengeMode = true;
+   %server = $LB::server;
+   %page = $LB::serverPath @ "challengeask.php";
+
+   // Jeff: %user is the user who we want to challenge, %type is the type
+   %user  = trim(getField(LBCD_PlayerList.getRowTextById(LBCD_PlayerList.getSelectedId()), 1));
+   %type  = $LB::Challenge::Type;
+   %level = alphaNum(fileBase($LB::MissionObj.file));
+   %name  = $LB::MissionObj.name;
+   %game  = strlwr($currentGame);
+   %diff  = levelToDifficultyID();
+
+   // Jeff: timeout wrapping
+   %timeO = mRound($LBPref::ChallengeTimeOut);
+   if (%timeO < 1)
+      %timeO = 1;
+   else if (%timeO > 10)
+      %timeO = 10;
+
+   // Jeff: for attempts mode wrapping
+   %attps = (%type $= "race") ? 0 : mRound($LBPref::ChallengeAttempts);
+   if (%attps < 1)
+      %attps = 1;
+   else if (%attps > 10)
+      %attps = 10;
+   $LBPref::ChallengeAttempts  = %attps;
+   $LBPref::ChallengeTimeOut   = %timeO;
+   $LB::Challenge::MaxAttempts = %attps;
+   $LB::Challenge::Timeout     = %timeO;
+   $LB::Challenge::Level       = $LB::MissionObj.file;
+   $LB::Challenge::Name        = $LB::MissionObj.name;
+
+   // Jeff: set the %user
+   $LB::Challenge::AskingPlayer = %user;
+
+   // Jeff: set %game
+   $LB::Challenge::GameType = %game;
+
+   %query = LBDefaultQuery() @ "&user=" @ %user @ "&type=" @ %type @
+            "&level=" @ %level @ "&name=" @ %name @ "&game=" @ %game @
+            "&diff=" @ %diff @ "&attempts=" @ %attps @ "&timeout=" @ %timeO;
+   if (!isObject(LBChallengeAskNetwork))
+      new TCPObject(LBChallengeAskNetwork);
+   LBChallengeAskNetwork.post(%server, %page, %query);
+
+   // Jeff: show that you are in a challenge
+   $LB::LastStatus = $LB::Status;
+   LBSetMode(4);
+
+   LBChallengeDlg.setLBChallengeDlgPane("wait");
+}
+
+function LBChallengeAskNetwork::onLine(%this, %line) {
+   Parent::onLine(%this, %line);
+   %this.parseSigs(%line);
+   if (getWord(%line, 0) $= "SIG") {
+      switch (getWord(%line, 1)) {
+      case 13: // Jeff: success
+         %this.echo("Challenge Request Sent.");
+      case 23: // Jeff: challenge id
+         %this.echo("Received challenge ID");
+
+         $LB::Challenge::ID = getWord(%line, 2);
+         $LB::Challenge::IsAskingClient = true;
+      }
+   }
+}
+
+// Jeff: I hope Matan doesn't see this :3
+// function pq_where() {
+   // MessageBoxOK("Matan!", "PQ WHERe?!", "quit();", true);
+// }
+
+//-----------------------------------------------------------------------------
+
+// Jeff: accept the challenge
+function LBChallengeDlg::acceptRequest(%this) {
+   %this.accept = "yes";
+   LBSetMode(4); // Jeff: set your mode to challenge
+   %this.sendReceiveRequest();
+   $LB::ChallengeMode = true;
+
+   // Jeff: if we are actually going to challenge, propose a waiting screen
+   LBChallengeDlg.setLBChallengeDlgPane("moment");
+}
+
+// Jeff: deny the challenge
+function LBChallengeDlg::denyRequest(%this) {
+   %this.setLBChallengeDlgPane("forfeit");
+}
+
+// Jeff: send a yes/no command back to the client
+function LBChallengeDlg::sendReceiveRequest(%this) {
+   %server = $LB::server;
+   %page   = $LB::serverPath @ "challengereceive.php";
+   %user   = $LB::Challenge::AskingPlayer;
+   %answer = %this.accept;
+   %id     = $LB::Challenge::ID;
+   %query  = LBDefaultQuery() @ "&user=" @ %user @ "&answer=" @ %answer @ "&id=" @ %id;
+   if (!isObject(LBChallengeAnswerNetwork))
+      new TCPObject(LBChallengeAnswerNetwork);
+   LBChallengeAnswerNetwork.post(%server, %page, %query);
+   closeLBChallengeDlg();
+}
+
+function LBChallengeAnswerNetwork::onLine(%this, %line) {
+   Parent::onLine(%this, %line);
+   %this.parseSigs(%line);
+   if (%this.accept $= "no" && getWords(%line, 0, 1) $= "SIG 1") {
+      // Jeff: restore status
+      LBSetMode(1);
+      $LB::Challenge::Finished[$LB::Challenge::ID] = true;
+
+      disconnectChallengeTCP();
+      %this.disconnect();
+      clearChallengeData(true);
+      clearChallengeData(false);
+      Canvas.popDialog(LBChallengeDlg);
+      Canvas.pushDialog(LBPlayMissionDlg);
+      $LB::ChallengeMode = false;
+   }
+}
+
+//-----------------------------------------------------------------------------
+// Jeff: tell the server to start the challenge
+
+function LBChallengeDlg::startChallenge(%this) {
+   %server = $LB::server;
+   %page   = $LB::serverPath @ "challengestart.php";
+   %id     = $LB::Challenge::ID;
+   %query  = LBDefaultQuery() @ "&id=" @ %id;
+   if (!isObject(LBChallengeStartNetwork))
+      new TCPObject(LBChallengeStartNetwork);
+   LBChallengeStartNetwork.post(%server, %page, %query);
+}
+
+function LBChallengeStartNetwork::onLine(%this, %line) {
+   Parent::onLine(%this, %line);
+   %this.parseSigs(%line);
+}
+
+//-----------------------------------------------------------------------------
+
+// Jeff: send a waiting status
+function LBWaitChallenge() {
+   %server = $LB::server;
+   %page   = $LB::serverPath @ "challengewaiting.php";
+   %id     = $LB::Challenge::ID;
+   %query  = LBDefaultQuery() @ "&id=" @ %id;
+   if (!isObject(LBChallengeWaitingNetwork))
+      new TCPObject(LBChallengeWaitingNetwork);
+   LBChallengeWaitingNetwork.post(%server, %page, %query);
+}
+
+function LBChallengeWaitingNetwork::onLine(%this, %line) {
+   Parent::onLine(%this, %line);
+   %this.parseSigs(%line);
+}
+
+//-----------------------------------------------------------------------------
+
+// Jeff: send an end-game status
+function LBEndChallenge() {
+   // Jeff: we want no borkers.
+   if ($LB::Challenge::CalledEnd)
+      return;
+   %server = $LB::server;
+   %page   = $LB::serverPath @ "challengeend.php";
+   %id     = $LB::Challenge::ID;
+   %score  = PlayGui.gemCount;
+   %time   = PlayGui.elapsedTime;
+   %attmps = $LB::Challenge::CurrentAttempts;
+   %query  = LBDefaultQuery() @ "&id=" @ %id @ "&score=" @ %score @ "&time=" @
+             %time @ "&attempts=" @ %attmps;
+   if (!isObject(LBChallengeEndNetwork))
+      new TCPObject(LBChallengeEndNetwork);
+   LBChallengeEndNetwork.post(%server, %page, %query);
+   $LB::Challenge::CalledEnd = true;
+   $LB::Challenge::TimeToCheck = %time;
+}
+
+function LBChallengeEndNetwork::onLine(%this, %line) {
+   Parent::onLine(%this, %line);
+   %this.parseSigs(%line);
+
+   // Jeff: inform the client that we have finished and we are waiting for
+   // the challenge to finish up.  the END message from challenge update
+   // is what actually ends the challenge and it becomes over.
+   //
+   // This is also an ugly hack incase we run out of attempts.
+   if ((getWord(%line, 0) $= "END") || ($LB::Challenge::Type $= "attempts" && $LB::Challenge::CurrentAttempts > $LB::Challenge::MaxAttempts) && !$LB::Challenge::WaitingOnEndGame) {
+      %this.disconnect();
+      stopChallengeGemUpdates();
+      disconnect();
+
+      // Jeff: this allows us to switch the place for gem updates.
+      $LB::Challenge::WaitingOnEndGame = true;
+      $LB::Challenge::ReceiveUpdatesForEndGameStatus = true;
+      updateChallengeGemStatus();
+      Canvas.schedule(35, pushDialog, LBChallengeEndDlg);
+   }
+}
+
+//-----------------------------------------------------------------------------
+
+// Jeff: send gem, time, and attempts updates to the server
+function sendChallengeGemUpdates() {
+   cancel($LB::Challenge::GemUpdate);
+
+	if ($LB::Challenge::GetThoseUpdates) {
+		// Jeff: END CHALLENGE
+		LBEndChallenge();
+		stopChallengeGemUpdates();
+		$LB::Challenge::GetThoseUpdates = false;
+		return;
+	}
+	if ($LB::Challenge::HasEnded) {
+		stopChallengeGemUpdates();
+		disconnectChallengeTCP();
+		return;
+	}
+
+   %id    = $LB::Challenge::ID;
+   %score = $LB::Challenge::Playing ? mAbs(PlayGui.gemCount) : 0;
+   %time  = $LB::Challenge::Playing ? mAbs(PlayGui.elapsedTime ? PlayGui.elapsedTime : $Game::ScoreTime) : 0;
+   LBNetwork.gem(%score, %time, %id);
+
+   $LB::Challenge::GemUpdate = schedule($LB::ChatHeartbeatTime, 0, "sendChallengeGemUpdates");
+}
+
+// Jeff: stop sending gem updates
+function stopChallengeGemUpdates() {
+   if (isObject(LBChallengeGemNetwork))
+      LBChallengeGemNetwork.disconnect();
+   cancel($LB::Challenge::GemUpdate);
+}
+
+//-----------------------------------------------------------------------------
+
+// Jeff: prompt the user if they want to forfeit
+function exitChallenge() {
+   if (!$LB::Challenge::HasLoaded && $LB::Challenge::WaitStatus == 2) {
+      Canvas.popDialog(LBChallengeDlg);
+      LBSetMode(0);
+      return forfeitChallenge();
+   }
+   LBChallengeDlg.setLBChallengeDlgPane("forfeit");
+}
+
+// Jeff: function that tells the server to forfeit the challenge
+function forfeitChallenge(%id) {
+   if (!$LB::Challenge::IsAskingClient && !$LB::Challenge::HasLoaded) {
+      LBChallengeDlg.accept = "no";
+      //HiGuy: If we're here, we've already displayed it
+      if ($LB::Challege::WaitStatus != 2) {
+         $LB::Challenge::WaitStatus = 2;
+         LBUpdateChallengeWaitStatus();
+      }
+      LBChallengeDlg.sendReceiveRequest();
+      $LB::Challenge::Finished[$LB::Challenge::ID] = true;
+      return;
+   }
+   $LB::Challenge::Canceler = true;
+   %server = $LB::server;
+   %page   = $LB::serverPath @ "challengecancel.php";
+   %id     = (%id $= "" ? $LB::Challenge::ID : %id);
+   %query  = LBDefaultQuery() @ "&id=" @ %id;
+   if (!isObject(LBChallengeForfeitNetwork))
+      new TCPObject(LBChallengeForfeitNetwork);
+   LBChallengeForfeitNetwork.post(%server, %page, %query);
+
+   $LB::Challenge::Winner = false;
+   stopChallengeGemUpdates();
+   clearChallengeData(true);
+   clearChallengeData(false);
+   $LB::ChallengeMode = false;
+}
+
+function LBChallengeForfeitNetwork::onLine(%this, %line) {
+   Parent::onLine(%this, %line);
+   %this.parseSigs(%line);
+
+   // Jeff: get no more updates for challenges!!
+   if (getWords(%line, 0, 1) $= "SIG 1") {
+      // Jeff: you're a loser
+      $LB::Challenge::Winner = false;
+      stopChallengeGemUpdates();
+      clearChallengeData(true);
+      clearChallengeData(false);
+      $LB::ChallengeMode = false;
+      disconnectChallengeTCP();
+      if (!$LB::Challenge::NoDisconnect)
+         disconnect();
+      $LB::Challenge::NoDisconnect = true;
+   }
+}
+
+function LBChallengeDlg::forfeitNope(%this) {
+   if (%this.previousFrame $= "")
+      closeLBChallengeDlg();
+   else
+      %this.setLBChallengeDlgPane(%this.previousFrame);
+}
+
+//-----------------------------------------------------------------------------
+
+// Jeff: whenever we need to update the attempts, send the info to the server
+function sendChallengeAttemptsUpdate() {
+   $LB::Challenge::CurrentAttempts ++;
+   if ($LB::Challenge::CurrentAttempts > $LB::Challenge::MaxAttempts) {
+      devecho("To many attempts, finishing...");
+      MessageBoxOK("Challenge Ended.", "You have used up too many attempts.", "LBEndChallenge();", true);
+
+      // Jeff: stop the movement of the marble
+      schedule(25, 0, "LBSCD_killMovement");
+      $LB::Challenge::DisableGameStates = true;
+      updateChallengeGemStatus();
+
+      // Jeff: it will go to the end game screen once the ok button is pressed.
+   }
+   PlayGui.updateAttempts();
+
+   %attempts = $LB::Challenge::CurrentAttempts;
+   %id       = $LB::Challenge::ID;
+
+   LBNetwork.attempts(%attempts, %id);
+}
+
+//-----------------------------------------------------------------------------
+
+// Jeff: get the level type id to send to the server
+function levelToDifficultyID() {
+   %type  = strlwr(getMissionInfo($LB::Challenge::Level).type);
+   switch$ (%type) {
+      case "beginner":     return 1;
+      case "intermediate": return 2;
+      case "advanced":     return 3;
+      case "expert":       return 4;
+      default:             return 5;
+   }
+}
+
+// Jeff: ASDFASDFASDFASDFASDFASDFASDFASDFASDFASDFASDFASDFASDFASDFASDFASDF
+//
+// I hate these things.  I hate, hate, hate, hate...
+// while (true)
+//    echo("hate");
+// Coding these challenges.  Please don't break the code or I will go bananas
+// and refuse to code it again.

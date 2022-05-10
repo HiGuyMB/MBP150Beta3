@@ -1,0 +1,175 @@
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(DemoNameDlg) {
+   profile = "GuiDialogProfile";
+   horizSizing = "right";
+   vertSizing = "bottom";
+   position = "0 0";
+   extent = "640 480";
+   minExtent = "8 8";
+   visible = "1";
+   helpTag = "0";
+
+   new GuiBitmapCtrl() {
+      profile = "GuiDefaultProfile";
+      horizSizing = "center";
+      vertSizing = "center";
+      position = "108 111";
+      extent = "420 288";
+      minExtent = "8 8";
+      visible = "1";
+      helpTag = "0";
+      bitmap = "./enternamebox";
+      wrap = "0";
+
+      new GuiBitmapButtonCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "253 225";
+         extent = "88 37";
+         minExtent = "8 8";
+         visible = "1";
+         command = "DemoNameDlg::checkFileName();";
+         helpTag = "0";
+         text = "Button";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./Options/apply";
+      };
+      new GuiBitmapCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "width";
+         vertSizing = "bottom";
+         position = "16 69";
+         extent = "388 56";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "./window";
+         wrap = "0";
+      };
+      new GuiMLTextCtrl(EnterDemoText) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "19 32";
+         extent = "385 143";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiTextEditCtrl(EnterDemoEdit) {
+         profile = "GuiBigTextEditProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "28 80";
+         extent = "363 38";
+         minExtent = "8 8";
+         visible = "1";
+         variable = "$recordDemoName";
+         altCommand = "DemoNameDlg::checkFileName();";
+         helpTag = "0";
+         maxLength = "255";
+         maxPixelWidth = "0";
+         historySize = "0";
+         password = "0";
+         tabComplete = "0";
+         sinkAllKeyEvents = "0";
+      };
+      new GuiBitmapButtonCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "79 225";
+         extent = "90 37";
+         minExtent = "8 8";
+         visible = "1";
+         command = "DemoNameDlg::cancell();";
+         helpTag = "0";
+         text = "button";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./cancel";
+      };
+      new GuiBitmapCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "110 190";
+         extent = "258 16";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "./Options/bar";
+         wrap = "0";
+      };
+      new GuiSliderCtrl(EnterDemoOOBs) {
+         profile = "GuiSliderProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "116 180";
+         extent = "245 37";
+         minExtent = "8 8";
+         visible = "1";
+         altCommand = "DemoNameDlg::updateText();";
+         helpTag = "0";
+         range = "1.000000 10.000000";
+         ticks = "0";
+         value = "1";
+         bitmap = "./Options/value";
+      };
+   };
+};
+//--- OBJECT WRITE END ---
+function DemoNameDlg::onWake()
+{
+   DemoNameDlg::updateText(); //HiGuy: *cringe* but code consistency is nice
+}
+
+function DemoNameDlg::cancell()
+{
+	Canvas.popDialog(DemoNameDlg);
+	PM_demoButton.performClick();
+}
+function DemoNameDlg::checkFileName()
+{
+	if(strstr($recordDemoName, "/") != -1 ||
+	   strstr($recordDemoName, "\\") != -1 ||
+	   strstr($recordDemoName, "?") != -1 ||
+	   strstr($recordDemoName, "%") != -1 ||
+	   strstr($recordDemoName, "*") != -1 ||
+	   strstr($recordDemoName, ":") != -1 ||
+	   strstr($recordDemoName, "|") != -1 ||
+	   strstr($recordDemoName, "\"") != -1 ||
+	   strstr($recordDemoName, "<") != -1 ||
+	   strstr($recordDemoName, ">") != -1 ||
+	   strstr($recordDemoName, ".") != -1)
+	   {
+	     ASSERT("Invalid Filename","You can\'t use the following characters for your demo filename:\n\n/ \\ ? % * : | \" < > .\n\nThose are operating system reserved characters.");
+		 return;
+	   }
+
+	if($recordDemoName $= "")
+	   {
+	     ASSERT("Empty Filename","Please specify a filename.");
+		 return;
+       }
+   if (isFile($usermods @ "/client/demos/" @ $recordDemoName @ ".rec")) {
+	     MessageBoxYesNo("Demo with filename exists!","A demo with that filename already exists. Do you want to overwrite it?", "Canvas.popDialog(DemoNameDlg);", "");
+		 return;
+   }
+	   Canvas.popDialog(DemoNameDlg);
+}
+
+function DemoNameDlg::updateText()
+{
+   $pref::recordDemoOOBs = mRound(EnterDemoOOBs.getValue());
+   EnterDemoText.setText("<just:center><font:DomCasualD:32>What filename do you want for your demo?\n\n<font:DomCasualD:24>\nYou can now use the restart button in-game to restart the level as well as the demo recording.<font:DomCasualD:32>\n<just:left> <font:DomCasualD:24>OOB Count:<just:right>" @ $pref::recordDemoOOBs);
+}

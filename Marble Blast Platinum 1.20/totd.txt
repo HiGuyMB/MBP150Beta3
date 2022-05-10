@@ -1,0 +1,21 @@
+TotD:
+
+1) Limited time only: MBP old marble skin (the grey one)
+
+2) TTMR fun fact: 512 interiors -> couldn't load a level after that due to crash. couldn't load TTMR after another level coz of crash. couldn't add another interior OR delete/add an interior coz of crash. No one knew of 512 interior limit back then 
+
+3) another MBP lvl rejected coz never worked on windows (gem box by Lonestar, >600 interiors)
+
+4) phil and matan quarked during May-June the entire of MBP beginner levels in order to present them for GarageGames as a demo
+
+5) random mayhem was quarked by matan... it was mainly okay but at the end there were some differences from original version but nothing serious (still played the same)
+
+6) CDC was originally pablo's job but he gave it to matan, and it took matan 2.5 hours. in late development he realised what was the "wrong" feeling in the level: the markers were accelerate instead of linear. When Matan wanted to change, some staff wanted it as accelerate, so it remained this way. The UT wasn't modified from the original version, hence it's harder than it should be.
+
+7) matan originally hated quark, hence the early levels were made in the level editor. Hence the only devs. on quark were Phil and jase.
+
+8-9) since constructor didn't exist until late into development, most levels were made through level editor and converted to quark. when constructor came out, the mac devs changed their levels into constructor. Since const. was just released, a multitude of problems occured with m2d and with maps b/w quark/constructor.
+
+10) TTMR had gone through 3 revisions: original LE (512 interiors), quark (14 interiors, no scenery) and a finale version (1 interior with scenery) which was dark/brown colored to match the mature theme of mbp. You can still check them out in the level editor. They are listed under interiors_mbp under mbp_TTMR1.dif to mbp_TTMR14.dif
+
+11) Originally 'The Ultimate Friction Challenge' wasn't meant to go into MBP as Andrew didn't want to re-create it, but after Matan said he would make the interiors, Andrew decided to create the level. Although it was later replicated fully by Pablo, you can still see the interiors in the interiors_mbp directory.

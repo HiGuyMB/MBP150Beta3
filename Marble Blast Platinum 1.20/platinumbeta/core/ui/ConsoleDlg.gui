@@ -1,0 +1,143 @@
+//--- OBJECT WRITE BEGIN ---
+//HiGuy: Final release, just delete the entire if-portion of this statement, and
+// use what's in the else-portion. The only difference is that I changed the
+// class of ConsoleEntry from GuiConsoleEditCtrl to GuiTextEditCtrl. This makes
+// it so users cannot tab-complete - and figure out - potentially secretive
+// variables and function names. Thanks!
+
+new GuiControl(ConsoleDlg) {
+   profile = "GuiDefaultProfile";
+
+   new GuiWindowCtrl() {
+      profile = "GuiWindowProfile";
+      position = "0 0";
+      extent = "640 370";
+      text = "Console";
+
+      new GuiScrollCtrl() {
+         profile = "GuiScrollProfile";
+         position = "0 0";
+         extent = "640 350";
+         hScrollBar = "alwaysOn";
+         vScrollBar = "alwaysOn";
+         horizSizing = "width";
+         vertSizing = "height";
+
+         new GuiConsole("testArrayCtrl") {
+            profile = "GuiConsoleProfile";
+            position = "0 0";
+         };
+      };
+
+      new GuiConsoleEditCtrl("ConsoleEntry") {
+         profile = "GuiTextEditProfile";
+         position = "0 350";
+         extent = "640 20";
+         altCommand = "ConsoleEntry::eval();";
+         horizSizing = "width";
+         vertSizing = "top";
+      };
+   };
+};
+//--- OBJECT WRITE END ---
+
+$ConsoleActive = false;
+
+function ConsoleEntry::eval()
+{
+	%text = ConsoleEntry.getValue();
+	if(%text $= "")
+		return;
+
+   // Jeff: disable console during leaderboard usage
+   ///      keep $LB as that is for the login screen
+   // if ($LB::LoggedIn || $LB::username !$= "" || $LB) {
+   //    warn("Console usage is disabled during the leaderboards.");
+   //    warn("We do not want cheaters in a non-cheating environment.");
+   //    warn("Exit the leaderboards to re-enable the console.");
+   //    warn("Thank you,");
+   //    warn("   ~The Platinum Team");
+   //    ConsoleEntry.setValue("");
+   //    return;
+   // }
+
+   // Don't allow them to use the following commands.
+   // Jeff: i rewrote part of this to make it easier to understand
+   %testExpr = strlwr(%text);
+   %invalid[0]  = "$"@"v"@"e"@"r"@"s"@"i"@"o"@"n"@"k"@"n"@"o"@"w"@"n";
+   %invalid[1]  = "$"@"m"@"a"@"d"@"e"@"v"@"e"@"r"@"s"@"i"@"o"@"n"@"c"@"h"@"e"@"c"@"k";
+   %invalid[2]  = "$"@"t"@"h"@"i"@"s"@"_"@"v"@"e"@"r"@"s"@"i"@"o"@"n";
+   %invalid[3]  = "$"@"c"@"r"@"c";
+   %invalid[4]  = "$"@"d"@"e"@"v"@"m"@"o"@"d"@"e";
+   %invalid[5]  = "$"@"s"@"e"@"r"@"v"@"e"@"r"@"_"@"v"@"e"@"r"@"s"@"i"@"o"@"n";
+   %invalid[6]  = "$"@"g"@"a"@"m"@"e"@":"@":";
+   %invalid[7]  = "$"@"l"@"e"@"a"@"d"@"e"@"r"@"b"@"o"@"a"@"r"@"d";
+   %invalid[8]  = "$"@"l"@"b";
+   %invalid[9]  = "."@"d"@"u"@"m"@"p";
+   %invalid[10] = "e"@"v"@"a"@"l"; // Jeff: needed this badly, could have compromised security
+   %invalid[11] = "c"@"a"@"l"@"l";
+   %invalid[12] = "t"@"r"@"e"@"e";
+   %invalid[13] = "g"@"u"@"i"@"e"@"d"@"i"@"t"; // Jeff: gui editor no more
+   %invalid[14] = "e"@"x"@"e"@"c"; // Jeff: we don't want you adding your own scripts to destroy lbs
+   %invalid[15] = "c"@"o"@"n"@"s"@"o"@"l"@"e"; // Jeff: no enablewinconsole(boolean x); :)
+   %invalid[16] = "d"@"b"@"g"@"S"@"e"@"t"@"P"@"a"@"r"@"a"@"m"@"e"@"t"@"e"@"r"@"s";
+   %invalid[17] = "t"@"e"@"l"@"n"@"e"@"t"@"S"@"e"@"t"@"P"@"a"@"r"@"a"@"m"@"e"@"t"@"e"@"r"@"s";
+   // for (%i = 0; %i < 18; %i ++) {
+   //    if (strStr(%testExpr,%invalid[%i]) != -1) {
+   //       //echo("\c5Forbidden command.");
+   //       warn("Forbidden command.");
+   //       ConsoleEntry.setValue("");
+   //       return;
+   //    }
+   // }
+
+	echo("\c3$ " @ %text);
+	eval(%text);
+   ConsoleEntry.setValue("");
+}
+
+function ToggleConsole(%make)
+{
+   if (%make)
+   {
+      if ($ConsoleActive)
+      {
+         //HiGuy: This gives errors on macos
+         if ( $enableDirectInput && $platform !$= "macos")
+            activateKeyboard();
+         Canvas.popDialog(ConsoleDlg);
+         $ConsoleActive = false;
+      }
+      else
+      {
+         // Jeff: disable console during leaderboard usage
+         ///      keep $LB as that is for the login screen
+         // if (($LB::LoggedIn && $LB::username !$= "") || $LB) {
+            // ConsoleEntry.setVisible(0);
+         // } else {
+            ConsoleEntry.setVisible(1);
+         // }
+
+         //HiGuy: This gives errors on macos
+         if ( $enableDirectInput && $platform !$= "macos")
+            deactivateKeyboard();
+         Canvas.pushDialog(ConsoleDlg, 99);
+         $ConsoleActive = true;
+      }
+   }
+}
+
+//HiGuy: This is here because mapping two keys to the same function
+//causes the first key to be unmapped. This is an attempt to fix the win7 bug
+//(fixed by Jeff below) and keep support for other OSes
+
+function toggleConsole2(%make) {
+   toggleConsole(%make);
+}
+
+// Phil - adding console binding here
+// The GUI editor binding is in GuiEditorGui, so I've done similar for the console
+GlobalActionMap.bind(keyboard, tilde, toggleConsole);
+
+// Jeff: readding this because tilde support is gone on windows 7
+GlobalActionMap.bind(keyboard, pageUp, toggleConsole2);

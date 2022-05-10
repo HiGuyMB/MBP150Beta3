@@ -1,0 +1,400 @@
+//-----------------------------------------------------------------------------
+// LBChallengeEndDlg.gui
+// Copyright (c) The Platinum Team
+// Mainly written by Jeff
+// References from Spy47
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(LBChallengeEndDlg) {
+   profile = "GuiDefaultProfile";
+   horizSizing = "right";
+   vertSizing = "bottom";
+   position = "0 0";
+   extent = "640 480";
+   minExtent = "8 8";
+   visible = "1";
+   helpTag = "0";
+
+   new GuiBitmapCtrl() {
+      profile = "GuiDefaultProfile";
+      horizSizing = "center";
+      vertSizing = "center";
+      position = "73 62";
+      extent = "494 355";
+      minExtent = "8 8";
+      visible = "1";
+      helpTag = "0";
+      bitmap = "./error/errorbox";
+      wrap = "0";
+
+      new GuiScrollCtrl() {
+         profile = "GuiBacklessScrollProfile";
+         horizSizing = "width";
+         vertSizing = "bottom";
+         position = "25 20";
+         extent = "443 270";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         willFirstRespond = "1";
+         hScrollBar = "alwaysOff";
+         vScrollBar = "dynamic";
+         constantThumbHeight = "0";
+         childMargin = "0 0";
+
+         new GuiMLTextCtrl(LBCED_Message) {
+            profile = "GuiMLTextProfile";
+            horizSizing = "center";
+            vertSizing = "center";
+            position = "0 0";
+            extent = "443 298";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            lineSpacing = "2";
+            allowColorChars = "0";
+            maxChars = "-1";
+         };
+      };
+      new GuiBitmapButtonCtrl() {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "377 296";
+         extent = "100 46";
+         minExtent = "8 8";
+         visible = "1";
+         command = "challengeEndOk();";
+         helpTag = "0";
+         text = "Okay";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./error/ok";
+      };
+   };
+};
+//--- OBJECT WRITE END ---
+
+// Jeff: CLEAR ALL THE DATA
+function challengeEndOk() {
+   Canvas.popDialog(LBChallengeEndDlg);
+
+   // Jeff: determine if we need updates to show on the chat
+   if (!$LB::Challenge::Finished[$LB::Challenge::ID]) {
+      $LB::CCI::Needed[$LB::Challenge::ID] = true;
+      $LB::CCI::TimeNeeded[$LB::Challenge::ID] = $LB::Challenge::TimeToCheck;
+      $LB::CCI::Level[$LB::Challenge::ID] = $LB::Challenge::Level;
+   }
+
+   clearChallengeData(false);
+   clearChallengeData(true);
+   stopChallengeGemUpdates();
+   LBSetMode(1); // Jeff: we are still in level select.
+}
+
+// Jeff: for end game text for challenges
+//
+// Spush and Spop command tags are used to keep
+// formatting changes only between them.  Any formatting between
+// them will not carry over outside of the tags.
+function LBReformatChallengeEndGame() {
+   devecho("Jeff needs a new echo");
+   devecho($LB::Challenge::Time1 SPC $LB::Challenge::Time2);
+
+   %defaultColor = "<color:000000>";
+   %missionObj   = getMissionInfo($LB::Challenge::Level);
+   %winMessage   = ($LB::Challenge::Winner == 1) ? "<spush><color:00cc00><shadow:1:1><shadowcolor:0000007f>You won the challenge!<spop>" : "<spush><color:B40404><shadow:1:1><shadowcolor:0000007f>You lost the challenge!<spop>";
+
+   // Jeff: if we did tie, we better say we did
+   if ($LB::Challenge::Winner == -1)
+      %winMessage = "<spush>" @ %defaultColor @ "You tied the challenge!" @ %spop;
+
+   %winMessage = %winMessage @ %defaultColor;
+   %time       = $LB::Challenge::TimeToCheck;
+
+   // Jeff: get color
+   // Okay, so here is what is going on here.
+   // -1 means a tie, so if we tie, we bypass qualification all together.
+   // If it is not a tie, we do normal stuffs
+   //
+   // Note: Ties can only happen in attempts mode, or in race mode if the times
+   // are the same!
+   //
+   // Also, you both suck if you tied because you ran out of tries in attempts mode
+   // if it is a legit tie like both getting same times, then its okay, but for being
+   // noobs you don't even deserve to be on challenges....
+   %qualified = false;
+   %isATie    = false;
+   if ($LB::Challenge::Winner == -1)
+      %isATie = true;
+   else
+      %qualified = $LB::Challenge::Winner ? (%missionObj.time ? (%time < %missionObj.time) : true) : false;
+   %color1 = %defaultColor;
+   %color2 = %defaultColor;
+
+   // Jeff: if we are not a tie, then we actually have a color.
+   if (!%isATie) {
+      if ($LB::username $= $LB::Challenge::Player1) {
+         if (%qualified) {
+            %color1 = "<shadow:1:1><shadowcolor:0000007f><color:00cc00>";
+            %color2 = "<shadow:1:1><shadowcolor:0000007f><color:B40404>";
+         } else {
+            %color1 = "<shadow:1:1><shadowcolor:0000007f><color:B40404>";
+            %color2 = "<shadow:1:1><shadowcolor:0000007f><color:00cc00>";
+         }
+      } else {
+         if (%qualified) {
+            %color2 = "<shadow:1:1><shadowcolor:0000007f><color:00cc00>";
+            %color1 = "<shadow:1:1><shadowcolor:0000007f><color:B40404>";
+         } else {
+            %color2 = "<shadow:1:1><shadowcolor:0000007f><color:B40404>";
+            %color1 = "<shadow:1:1><shadowcolor:0000007f><color:00cc00>";
+         }
+      }
+   }
+
+   %point1 = $LB::Challenge::Points1;
+   %point2 = $LB::Challenge::Points2;
+
+   // Jeff: scoreboard line, but not player names.
+   if ($LB::Challenge::Type $= "attempts") {
+      // Jeff: okay, so in attempts this is what we are trying to accomplish
+      // for the Gui screen:
+      //
+      //          Username1     Username2    / \
+      //    1.      Time          Time       | |
+      //    2.      Time          Time       | |
+      //    3.      Time          Time       \ /
+      //
+      // We basically want a comparison chart.
+
+      %tab = "<tab:95, 270>";
+      %gemLine = %tab TAB LBSCD_ClipName(LBResolveName($LB::Challenge::Player1, true), 20) TAB
+                 LBSCD_ClipName(LBResolveName($LB::Challenge::Player2, true), 20) NL %tab TAB "Points: " @ %point1 TAB
+                 "Points: " @ %point2 NL
+                 %tab TAB "Total: " @ formatCommas($LB::Challenge::Score1) TAB
+                 "Total: " @ formatCommas($LB::Challenge::Score2);
+      %tab = "\n<tab:50, 95, 270>";
+      for (%i = 0; %i < $LB::Challenge::MaxAttempts; %i ++) {
+         %num   = %i + 1;
+         %time1 = formatTime($LB::Challenge::EndScore[1, %i]);
+         %time2 = formatTime($LB::Challenge::EndScore[2, %i]);
+
+         // Jeff: time coloring.  The first time is green.
+         if (%i == 0) {
+            %time1 = "<color:00cc00><shadow:1:1><shadowcolor:0000007f>" @ %time1;
+            %time2 = "<color:00cc00><shadow:1:1><shadowcolor:0000007f>" @ %time2;
+         } else {
+            %time1 = LBSCD_ScoreColor(%missionObj, $LB::Challenge::EndScore[1, %i]) @ %time1;
+            %time2 = LBSCD_ScoreColor(%missionObj, $LB::Challenge::EndScore[2, %i]) @ %time2;
+         }
+
+         // Jeff: keep formatting only within the times.
+         %time1 = "<spush>" @ %time1 @ "<spop>";
+         %time2 = "<spush>" @ %time2 @ "<spop>";
+
+         %line  = %tab TAB %num @ "." @ %time1 @ %time2;
+         %gemLine = %gemLine @ %line;
+      }
+      %gemLine = strReplace(%gemLine, "99:59.99", "N/A");
+   } else {
+      %tab = "<tab:95, 270>";
+
+      %time1 = formatTime($LB::Challenge::Time1);
+      %time2 = formatTime($LB::Challenge::Time2);
+      %gemLine = %tab TAB LBSCD_ClipName(LBResolveName($LB::Challenge::Player1, true), 20) TAB
+                 LBSCD_ClipName(LBResolveName($LB::Challenge::Player2, true), 20) NL
+                 %tab TAB "Points: " @ %point1 TAB
+                 "Points: " @ %point2 NL
+                 %tab TAB "Total: " @ formatCommas($LB::Challenge::Score1) TAB
+                 "Total: " @ formatCommas($LB::Challenge::Score2) NL
+                 %tab @ "<spush>" @ %color1 @ %time1 @ "<spop>" @
+                 "<spush>" @ %color2 @ %time2 @ "<spop>";
+   }
+
+   %text = "<just:center><font:DomCasualD:36>Challenge Ended" NL
+           "<font:DomCasualD:24>" @
+           %missionObj.name NL
+           %winMessage NL
+           getChallengeMessage() NL // Jeff: random matan message
+           "<just:left>" NL %gemLine;
+   LBCED_Message.setText(%text);
+
+   // Jeff: reformat the chat window.  Thanks HiGuy :)
+   if (LBChallengeEndDlg.isAwake()) {
+      LBCED_Message.forceReflow();
+      LBCED_Message.resize(0, getWord(LBCED_Message.position, 1), 443, 298);
+      if (getWord(LBCED_Message.getExtent(), 1) > getWord(LBCED_Message.getGroup().getExtent(), 1))
+         LBCED_Message.resize(0, getWord(LBCED_Message.position, 1), 425, 298);
+      LBCED_Message.forceReflow();
+   }
+}
+
+// Jeff: if we are waiting for a chat notification.
+function LBChallengeNotifyChat(%id, %winStatus) {
+   //------------------------------------------------
+   // Jeff: used for testing for quick console edits
+   //    $id = %id;
+   //    $st = %winStatus;
+   //------------------------------------------------
+
+   devecho("Jeff needs a new echo -- 2");
+   devecho($LB::CCI::Time1[%id] SPC $LB::CCI::Time2[%id]);
+
+   %defaultColor = "<color:669900>";
+   %missionObj   = getMissionInfo($LB::CCI::Level[%id]);
+   %winMessage   = (%winStatus == 1) ? "You won the challenge!" : "You lost the challenge!";
+
+   // Jeff: if we did tie, we better say we did
+   if (%winStatus == -1)
+      %winMessage = "<spush>" @ %defaultColor @ "You tied the challenge!" @ %spop;
+
+   %winMessage = %winMessage @ %defaultColor;
+   %time = $LB::CCI::TimeNeeded[%id];
+
+   // Jeff: if we are not a tie, then we actually have a color.
+   if (!%isATie) {
+      if ($LB::username $= $LB::CCI::Player1[%id]) {
+         if (%qualified) {
+            %color1 = "<color:00cc00>";
+            %color2 = "<shadow:1:1><shadowcolor:0000007f><color:B40404>";
+         } else {
+            %color1 = "<shadow:1:1><shadowcolor:0000007f><color:B40404>";
+            %color2 = "<color:00cc00>";
+         }
+      } else {
+         if (%qualified) {
+            %color2 = "<color:00cc00>";
+            %color1 = "<shadow:1:1><shadowcolor:0000007f><color:B40404>";
+         } else {
+            %color2 = "<shadow:1:1><shadowcolor:0000007f><color:B40404>";
+            %color1 = "<color:00cc00>";
+         }
+      }
+   }
+
+   %point1 = $LB::CCI::Points1[%id];
+   %point2 = $LB::CCI::Points2[%id];
+
+   %tab = "<tab:20, 95>";
+
+  // Jeff: scoreboard line, but not player names.
+   if ($LB::CCI::Type[%id] $= "attempts") {
+      // Jeff: okay, so in attempts this is what we are trying to accomplish
+      // for the chat message:
+      //
+      //          Username1     Username2    / \
+      //    1.      Time          Time       | |
+      //    2.      Time          Time       | |
+      //    3.      Time          Time       \ /
+      //
+      // We basically want a comparison chart.
+      %gemLine = %tab TAB LBSCD_ClipName(LBResolveName($LB::CCI::Player1[%id], true), 15) TAB
+                 LBSCD_ClipName(LBResolveName($LB::CCI::Player2[%id], true), 15) NL %tab TAB "Points: " @ %point1 TAB
+                 "Points: " @ %point2 NL
+                 %tab TAB "Total: " @ formatCommas($LB::CCI::Score1[%id]) TAB
+                 "Total: " @ formatCommas($LB::CCI::Score2[%id]);
+      for (%i = 0; %i < $LB::CCI::MaxAttempts[%id]; %i ++) {
+         %num   = %i + 1;
+         %time1 = formatTime($LB::CCI::EndScore[%id, 1, %i]);
+         %time2 = formatTime($LB::CCI::EndScore[%id, 2, %i]);
+
+         // Jeff: time coloring.  The first time is green.
+         if (%i == 0) {
+            %time1 = "<color:00cc00>" @ %time1;
+            %time2 = "<color:00cc00>" @ %time2;
+         } else {
+            %time1 = LBSCD_ScoreColor(%missionObj, $LB::CCI::EndScore[%id, 1, %i]) @ %time1;
+            %time2 = LBSCD_ScoreColor(%missionObj, $LB::CCI::EndScore[%id, 2, %i]) @ %time2;
+         }
+         // Jeff: keep formatting only within the times.
+         %time1 = "<spush>" @ %time1 @ "<spop>";
+         %time2 = "<spush>" @ %time2 @ "<spop>";
+
+         %line  = "\n" @ %tab @ %num @ "." @ %time1 @ %time2;
+         %gemLine = %gemLine @ %line;
+      }
+      %gemLine = strReplace(%gemLine, "99:59.99", "N/A");
+   } else {
+      %time1 = formatTime($LB::CCI::Time1[%id]);
+      %time2 = formatTime($LB::CCI::Time2[%id]);
+      %gemLine = %tab TAB LBSCD_ClipName(LBResolveName($LB::CCI::Player1[%id], true), 15) TAB
+                 LBSCD_ClipName(LBResolveName($LB::CCI::Player2[%id], true), 15) NL
+                 %tab TAB "Points: " @ %point1 TAB
+                 "Points: " @ %point2 NL
+                 %tab TAB "Total: " @ formatCommas($LB::CCI::Score1[%id]) TAB
+                 "Total: " @ formatCommas($LB::CCI::Score2[%id]) NL
+                 %tab @ "<spush>" @ %color1 @ %time1 @ "<spop>" @
+                 "<spush>" @ %color2 @ %time2 @ "<spop>";
+   }
+
+   %person = ($LB::CCI::Player1 $= $LB::Username) ? $LB::CCI::Player2 : $LB::CCI::Player1;
+   %text = "<color:0000FF>SERVER:<color:669900> Your challenge with" SPC %person SPC "has ended!" NL
+           "Level Name:" SPC %missionObj.name NL
+           %winMessage NL
+           getChallengeMessage(true, %winStatus, %id) NL // Jeff: random matan message
+           "<just:left><color:000000>" NL %gemLine;
+   addLBChatLine(%text);
+}
+
+// Jeff: get the correct message to the client
+// note: all three are optional parameters
+//
+// Note to matan: I have commented the sections so that you can edit the messages
+// whenever you feel like it, if you want to add more messages, just change the amount
+// in this variable below:
+//
+// Be aware that if you change that, then all message areas except for tying
+// will require to have that amount defined by the variable.
+$LB::ChallengeMessages = 4;
+
+function getChallengeMessage(%useCCI, %val, %id) {
+   // Jeff: if we are not logged in, then it is an error
+   if (!$LB::LoggedIn || $LB::username $= "")
+      return "error";
+
+   // Jeff: adjust what settings we need if its a chat notification. (useCCI)
+   %var  = %useCCI ? %val : $LB::Challenge::Winner;
+   %type = %useCCI ? $LB::CCI::Type[%id] : $LB::Challenge::Type;
+
+   if (%var == -1) {
+      // Jeff: check for a tie!
+      return "You have tied your opponent!";
+   } else if (%type $= "race") {
+      if (%var) {
+         // Jeff: winning a race mode
+         %msg[0] = "Congratulations on blasing to the finish and taking this victory.";
+         %msg[1] = "Slow and steady does the trick? Try fast and furious!";
+         %msg[2] = "Well done on your victory, but for how long can you keep your winning strike?";
+         %msg[3] = "Even with a Super Speed your opponent wouldn\'t have beaten you! Congratulations!";
+         %msg[4] = "Congratulations! Any faster and the clock might have started going backwards!";
+      } else {
+         // Jeff: losing a race mode
+         %msg[0] = "Don\'t fret, better luck next time!";
+         %msg[1] = "You tried your best but your opponent was better. Good luck for next time!";
+         %msg[2] = "Nice try. We\'re sure the tables will turn the next time around.";
+         %msg[3] = "You took your sweet time, and thus you lost. Be faster next time.";
+         %msg[4] = "Looks like your opponent was faster than you. Challenge him again and maybe you\'ll win.";
+      }
+   } else {
+      if (%var) {
+         // Jeff: winning an attempts mode
+         %msg[0] = "Well done on getting the best time, and winning, the challenge!";
+         %msg[1] = "A sweet victory, and a job well done.";
+         %msg[2] = "Awesome win right there, keep it up!";
+         %msg[3] = "A well deserved win for the work you just put in here.";
+         %msg[4] = "This wasn't too tough, was it? We hope not.";
+      } else {
+         // Jeff: losing an attempts mode
+         %msg[0] = "You gave it a good shot, but got bested this time. Good luck next time!";
+         %msg[1] = "Next time things will go your way, don\'t worry.";
+         %msg[2] = "Nice try. Perhaps you should hone your skills on this level.";
+         %msg[3] = "You were a few short attempts from victory. Maybe next time.";
+         %msg[4] = "Win some, lose some. Next time you\'ll win... if you can.";
+      }
+   }
+   return %msg[getRandom(0, $LB::ChallengeMessages)];
+}

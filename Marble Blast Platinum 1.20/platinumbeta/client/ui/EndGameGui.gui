@@ -1,0 +1,264 @@
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(EndGameGui) {
+   profile = "GuiDefaultProfile";
+   horizSizing = "width";
+   vertSizing = "height";
+   position = "0 0";
+   extent = "640 480";
+   minExtent = "8 8";
+   visible = "1";
+   helpTag = "0";
+      useVariable = "0";
+      tile = "0";
+
+   new GuiBitmapCtrl() {
+      profile = "GuiDefaultProfile";
+      horizSizing = "center";
+      vertSizing = "center";
+      position = "28 20";
+      extent = "584 440";
+      minExtent = "8 8";
+      visible = "1";
+      helpTag = "0";
+      bitmap = "./endgame/base";
+      wrap = "0";
+
+      new GuiMLTextCtrl(EG_Description) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "25 115";
+         extent = "287 164";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiBitmapButtonCtrl(EG_Continue) {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "460 307";
+         extent = "104 54";
+         minExtent = "8 8";
+         visible = "1";
+         command = "Canvas.popDialog(EndGameGui); EndGameGui::end();";
+         accelerator = "enter";
+         helpTag = "0";
+         text = "play";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./endgame/continue";
+      };
+      new GuiBitmapButtonCtrl(EG_Replay) {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "460 363";
+         extent = "104 54";
+         minExtent = "8 8";
+         visible = "1";
+         command = "Canvas.popDialog(EndGameGui);EndGameGui::restart();";
+         accelerator = "shift return";
+         helpTag = "0";
+         text = "Prev";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./endgame/replay";
+      };
+      new GuiControl(EG_NextLevel) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "326 307";
+         extent = "130 110";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+
+         new GuiBitmapCtrl(EG_Preview) {
+            profile = "GuiDefaultProfile";
+            horizSizing = "right";
+            vertSizing = "bottom";
+            position = "-15 0";
+            extent = "160 110";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            wrap = "0";
+         };
+         new GuiBitmapButtonCtrl(EG_Next) {
+            profile = "GuiDefaultProfile";
+            horizSizing = "width";
+            vertSizing = "height";
+            position = "0 0";
+            extent = "130 110";
+            minExtent = "8 8";
+            visible = "1";
+            command = "";
+            helpTag = "0";
+            text = "button";
+            groupNum = "-1";
+            buttonType = "PushButton";
+            repeatPeriod = "1000";
+            repeatDecay = "1";
+            bitmap = "./endgame/level_window";
+         };
+      };
+      new GuiMLTextCtrl(EG_Result) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "350 33";
+         extent = "196 69";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiMLTextCtrl(EG_3rdLine) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "341 206";
+         extent = "209 25";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiMLTextCtrl(EG_1stLine) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "340 150";
+         extent = "210 25";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiMLTextCtrl(EG_2ndLine) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "341 178";
+         extent = "209 25";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiMLTextCtrl(EG_TitleText) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "34 32";
+         extent = "247 69";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiMLTextCtrl(EG_TopThreeText) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "341 114";
+         extent = "209 34";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiObjectView(LBChallengeDataSent_Spin) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "top";
+         position = "16 343";
+         extent = "35 35";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         cameraZRot = "0";
+         forceFOV = "20";
+         model = "~/data/shapes/balls/ball-superball.dts";
+         skin = "base";
+         cameraRotX = "0.3";
+         cameraZRotSpeed = "0.00986";
+         orbitDistance = "1.25";
+         autoSize = "0";
+      };
+      new GuiMLTextCtrl(EG_4thLine) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "341 234";
+         extent = "209 25";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiMLTextCtrl(EG_5thLine) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "341 262";
+         extent = "209 25";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+   };
+};
+//--- OBJECT WRITE END ---
+
+function EndGameGui::end()
+{
+	if($doRecordDemo)
+	{
+		//setPlayMissionGui();
+      Canvas.pushDialog(CompleteDemoDlg);
+    }
+	else
+	{
+		exitGame();
+	}
+}
+
+function EndGameGui::restart() {
+	if ($doRecordDemo)
+		MessageBoxYesNo("Recording Demo!", "If you restart the level, your demo recording will not be saved. Are you sure you want to restart?", "restartLevel();", "Canvas.pushDialog(EndGameGui);");
+	else {
+		cancelPlayback();
+		restartLevel();
+		%best = missionRecordPath($Server::MissionFile);
+		if (isFile(%best) && $Game::PlayRecording) {
+			playRecording(%best);
+		}
+	}
+}

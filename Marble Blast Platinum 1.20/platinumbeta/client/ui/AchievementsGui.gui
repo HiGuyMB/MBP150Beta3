@@ -1,0 +1,442 @@
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(AchievementsGui) {
+   profile = "GuiDefaultProfile";
+   horizSizing = "width";
+   vertSizing = "height";
+   position = "0 0";
+   extent = "640 480";
+   minExtent = "8 8";
+   visible = "1";
+   helpTag = "0";
+
+   new GuiBitmapCtrl() {
+      profile = "GuiDefaultProfile";
+      horizSizing = "center";
+      vertSizing = "center";
+      position = "63 12";
+      extent = "514 455";
+      minExtent = "48 92";
+      visible = "1";
+      helpTag = "0";
+      bitmap = "./marbleSelect/marbleSelect.png";
+      wrap = "0";
+         resizeHeight = "1";
+         canMaximize = "0";
+         canMove = "1";
+         minSize = "50 50";
+         canClose = "0";
+         maxLength = "255";
+         resizeWidth = "1";
+         canMinimize = "0";
+
+      new GuiMLTextCtrl() {
+         profile = "GuiComic24Profile";
+         horizSizing = "center";
+         vertSizing = "bottom";
+         position = "150 17";
+         extent = "213 29";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiBitmapButtonCtrl() {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "top";
+         position = "414 408";
+         extent = "88 37";
+         minExtent = "8 8";
+         visible = "1";
+         command = "MessageCallback(AchievementsGui,AchievementsGui.callback);";
+         accelerator = "return";
+         helpTag = "0";
+         text = "OK";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./marbleSelect/okay";
+            simpleStyle = "0";
+      };
+      new GuiBitmapCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "205 6";
+         extent = "160 39";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "./achiev/achiev";
+         wrap = "0";
+      };
+      new GuiMLTextCtrl(Achiv_LoadingText) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "center";
+         vertSizing = "bottom";
+         position = "42 76";
+         extent = "320 14";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiMLTextCtrl(Achiv_maintext) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "135 36";
+         extent = "262 402";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "5";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiBitmapCtrl(achiv_bitmap1) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "17 34";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "./achiev/n1";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(achiv_bitmap2) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 86";
+         extent = "117 44";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "./achiev/n2";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(achiv_bitmap3) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "8 139";
+         extent = "122 44";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "./achiev/n3";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(achiv_bitmap5) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "14 244";
+         extent = "116 44";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "./achiev/n5";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(achiv_bitmap6) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "15 296";
+         extent = "115 44";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "./achiev/n6";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(achiv_bitmap7) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "16 346";
+         extent = "114 44";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "./achiev/1";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(achiv_bitmap8) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "17 395";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "./achiev/2";
+         wrap = "0";
+      };
+   };
+};
+//--- OBJECT WRITE END ---
+
+//----------------------------------------
+// ALL THE MAD CODING SKILLZ HERE
+//
+// Yeah. I really had a nightmare here.
+// I hope you don't have one after seeing this.
+// -Spy47
+
+// 7th August 2008 update by Matan:
+// Fixed the MBP 1.10 Alpha Build
+// So that the correct achievement icons
+// Are now displayed instead of Leaderboards' icons.
+// Exception: Egg icons are the same as LBs.
+// The 'n' in 'n1' to 'n6' stands for Normal gameplay.
+
+//$Game::BeginnerTotal = 25;
+//$Game::IntermediateTotal = 35;
+//$Game::AdvancedTotal = 35;
+//$Game::ExpertTotal = 25;
+//$Game::MissionsTotal = $Game::BeginnerTotal + $Game::IntermediateTotal + $Game::AdvancedTotal + $Game::ExpertTotal;
+//$Game::EasterEggs = 0;
+//$Game::EasterEggsTotal = 0;
+
+function AchievementsGui::onWake()
+{
+   PerG_PercentTitleText.setText("<font:DomCasualD:24><just:center>Statistics");
+   AchievementsGui::listLoad();
+}
+
+// Spy47 : this starts the loading of the list
+
+function AchievementsGui::listLoad()
+{
+	// ================
+	// GREYED OUT BITMAPS
+	// CHANGE IF NEEDED
+	// ================
+	achiv_bitmap1.setBitmap($usermods @ "/client/ui/achiev/nonachiev");
+	achiv_bitmap2.setBitmap($usermods @ "/client/ui/achiev/nonachiev");
+	achiv_bitmap3.setBitmap($usermods @ "/client/ui/achiev/nonachiev");
+	achiv_bitmap4.setBitmap($usermods @ "/client/ui/achiev/nonachiev");
+	achiv_bitmap5.setBitmap($usermods @ "/client/ui/achiev/nonachiev");
+	achiv_bitmap6.setBitmap($usermods @ "/client/ui/achiev/nonachiev");
+	achiv_bitmap7.setBitmap($usermods @ "/client/ui/achiev/nonachiev");
+	achiv_bitmap8.setBitmap($usermods @ "/client/ui/achiev/nonachiev");
+	achiv_bitmap1.visible = false;
+	achiv_bitmap2.visible = false;
+	achiv_bitmap3.visible = false;
+	achiv_bitmap4.visible = false;
+	achiv_bitmap5.visible = false;
+	achiv_bitmap6.visible = false;
+	achiv_bitmap7.visible = false;
+	achiv_bitmap8.visible = false;
+    Achiv_maintext.setText("");
+    Achiv_LoadingText.setText("<font:DomCasualD:24><just:center>Loading...");
+    //echo("Setting loading");
+
+    schedule(100, 0, "ACHIV_getEasterEggs" );
+}
+
+function qualifyAntiHack(%difficulty, %mis)
+{
+	if(%mis.time)
+	    %time = %mis.time;
+	else
+	    %time = 5998999;
+
+	if($pref::highScores[%mis.file, 0] $= "")
+		return;
+
+		%score = getSubStr($pref::highScores[%mis.file, 0], 0, strstr($pref::highScores[%mis.file, 0], "\t"));
+
+	if(%score < %time)
+	{
+		switch$ (%difficulty) {
+			case "Beginner":
+	    		$qual_beginner++;
+			case "Intermediate":
+				$qual_intermediate++;
+			case "Advanced":
+				$qual_advanced++;
+			case "Expert":
+				$qual_expert++;
+		}
+		$qual_totaltime = $qual_totaltime + %score;
+	}
+}
+
+
+// Spy47 : this fills the screen with the correct values
+function AchievementsGui::listComplete()
+{
+   $qual_beginner = 0;
+   $qual_intermediate = 0;
+   $qual_advanced = 0;
+   $qual_expert = 0;
+
+    for(%j = 0; (%mis = MTYPE_Beginner.getObject(%j)) != -1; %j++)
+    {
+	    qualifyAntiHack("Beginner", %mis);
+    }
+	for(%j = 0; (%mis = MTYPE_Intermediate.getObject(%j)) != -1; %j++)
+    {
+	    qualifyAntiHack("Intermediate", %mis);
+    }
+	for(%j = 0; (%mis = MTYPE_Advanced.getObject(%j)) != -1; %j++)
+    {
+	    qualifyAntiHack("Advanced", %mis);
+    }
+	for(%j = 0; (%mis = MTYPE_Expert.getObject(%j)) != -1; %j++)
+    {
+	    qualifyAntiHack("Expert", %mis);
+    }
+
+
+	//echo("============= ACHIEVEMENTS ==============");
+
+    // Achievement 1: Beginner Marbler
+    if($qual_beginner == $Game::BeginnerTotal)
+        achiv_bitmap1.setBitmap($usermods @ "/client/ui/achiev/n1");
+
+	// Achievement 2: Experienced Marbler
+    if($qual_intermediate == $Game::IntermediateTotal)
+        achiv_bitmap2.setBitmap($usermods @ "/client/ui/achiev/n2");
+
+	// Achievement 3: Advanced Marbler
+    if($qual_advanced == $Game::AdvancedTotal)
+        achiv_bitmap3.setBitmap($usermods @ "/client/ui/achiev/n3");
+
+	// Achievement 4: Expert Marbler
+    if($qual_expert == $Game::ExpertTotal)
+        achiv_bitmap4.setBitmap($usermods @ "/client/ui/achiev/n4");
+
+	// Achievement 5: Platinum Award
+    if($Game::PlatinumTimes == $Game::MissionsTotal)
+        achiv_bitmap5.setBitmap($usermods @ "/client/ui/achiev/n5");
+
+	// Achievement 6: The Greatest of Them All
+    if($Game::UltimateTimes == $Game::MissionsTotal)
+        achiv_bitmap6.setBitmap($usermods @ "/client/ui/achiev/n6");
+
+	// Achievement 7: Easter Bunny
+    if($Game::EasterEggs > 0)
+        achiv_bitmap7.setBitmap($usermods @ "/client/ui/achiev/1");
+
+	// Achievement 8: Egg collector
+    if($Game::EasterEggs == $Game::EasterEggsTotal)
+        achiv_bitmap8.setBitmap($usermods @ "/client/ui/achiev/2");
+
+
+   Achiv_LoadingText.setText("");
+   //%achiv_text = "<spush><font:DomCasualD:24><lmargin:0>\nBeginner Marbler<spop><lmargin:10><font:Arial Bold:14>\nBeat all beginner levels\n";
+   //Achiv_maintext.setText(%achiv_text);
+   %achiev1_title = "Amateur Marbler";
+   %achiev2_title = "Experienced Marbler";
+   %achiev3_title = "Pro Marbler";
+   %achiev4_title = "Skilled Marbler";
+   %achiev5_title = "Marble Master";
+   %achiev6_title = "Legendary Marbler";
+   %achiev7_title = "Egg Seeker";
+   %achiev8_title = "Easter Bunny";
+   %achiev1_descr = "Beat all Beginner levels.";
+   %achiev2_descr = "Beat all Intermediate levels.";
+   %achiev3_descr = "Beat all Advanced levels.";
+   %achiev4_descr = "Beat all Expert Levels";
+   %achiev5_descr = "Beat all of the Platinum Times.";
+   %achiev6_descr = "Beat all of the Ultimate Times.";
+   %achiev7_descr = "Find any Easter Egg.";
+   %achiev8_descr = "Find all of the Easter Eggs.";
+
+   %achiev_text = "<lmargin:0><font:DomCasualD:24>" @ %achiev1_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev1_descr;
+   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev2_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev2_descr;
+   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev3_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev3_descr;
+   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev4_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev4_descr;
+   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev5_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev5_descr;
+   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev6_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev6_descr;
+   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev7_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev7_descr;
+   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev8_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev8_descr;
+
+    Achiv_maintext.setText(%achiev_text);
+    achiv_bitmap1.visible = true;
+	achiv_bitmap2.visible = true;
+	achiv_bitmap3.visible = true;
+	achiv_bitmap4.visible = true;
+	achiv_bitmap5.visible = true;
+	achiv_bitmap6.visible = true;
+	achiv_bitmap7.visible = true;
+	achiv_bitmap8.visible = true;
+
+ }
+
+// Spy47 : Function for knowing Total easter eggs picked up!
+// it also sets the totaleastereggs variable to a right value
+function ACHIV_getEasterEggs()
+{
+   $Game::EasterEggs = 0;
+   $Game::EasterEggsTotal = 0;
+   $Game::PlatinumTimes = 0;
+   $Game::UltimateTimes = 0;
+
+   AchievementsGui::checkMissions("*/" @ $Files::MBPMissionsFolder @ "/beginner/*.mis");
+   AchievementsGui::checkMissions("*/" @ $Files::MBPMissionsFolder @ "/intermediate/*.mis");
+   AchievementsGui::checkMissions("*/" @ $Files::MBPMissionsFolder @ "/advanced/*.mis");
+   AchievementsGui::checkMissions("*/" @ $Files::MBPMissionsFolder @ "/expert/*.mis");
+   //AchievementsGui::checkMissions("*/missions/*.mis");
+   AchievementsGui::listComplete();
+}
+
+function AchievementsGui::checkMissions(%path)
+{
+      //echo("DEBUG: Start mission check: " @ %path);
+
+      if (!isObject(EasterEggMissionGroup))
+      {
+         new SimGroup(EasterEggGroup);
+         RootGroup.add(EasterEggGroup);
+
+         for(%file = findFirstFile(%path);
+               %file !$= ""; %file = findNextFile(%path))
+         {
+            %a = 0;
+            %b = 0;
+            if (strStr(%file, "CVS/") == -1 && strStr(%file, "common/") == -1)
+            {
+	       if( checkEasterEgg(%file) )
+               {
+		   $Game::EasterEggs++;
+                   %a = 1;
+               }
+               if( checkTotalEasterEgg(%file) )
+               {
+		   $Game::EasterEggsTotal++;
+                   %b = 1;
+               }
+
+               // Spy47 : Check times.
+               getBestTimes(%file);
+               %time = getField($hs[0], 0);
+               if ( %time < checkGoldTimes(%file) )
+                  $Game::PlatinumTimes++;
+
+               if ( %time < checkUltimateTimes(%file) )
+                  $Game::UltimateTimes++;
+
+               // Spy47 : aw this code was made for Matan :$
+               //if(!%a && %b)
+                  //echo("You haven't picked up the egg in " @ %file);
+
+	    }
+         }
+         //echo("Picked up eggs: " @ $Game::EasterEggs);
+         //echo("Total easter eggs: " @ $Game::EasterEggsTotal);
+   }
+}

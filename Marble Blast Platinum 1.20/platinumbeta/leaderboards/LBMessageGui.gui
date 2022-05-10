@@ -1,0 +1,110 @@
+//-----------------------------------------------------------------------------
+// LBMessageGui.gui
+// Copyright (c) The Platinum Team
+// Mainly written by Jeff
+// References by spy47
+//-----------------------------------------------------------------------------
+//--- OBJECT WRITE BEGIN ---
+new GuiChunkedBitmapCtrl(LBMessageGui) {
+   profile = "GuiDefaultProfile";
+   horizSizing = "width";
+   vertSizing = "height";
+   position = "0 0";
+   extent = "640 480";
+   minExtent = "8 8";
+   visible = "1";
+   helpTag = "0";
+   bitmap = "~/client/ui/backgrounds-win/platinum/18";
+   useVariable = "0";
+   tile = "0";
+      followBitmap = "LBLoginGui";
+
+   new GuiControl() {
+      profile = "GuiDefaultProfile";
+      horizSizing = "center";
+      vertSizing = "center";
+      position = "0 0";
+      extent = "640 480";
+      minExtent = "8 8";
+      visible = "1";
+      helpTag = "0";
+
+      new GuiBitmapCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "center";
+         vertSizing = "center";
+         position = "0 91";
+         extent = "640 297";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "./login/login_window";
+         wrap = "0";
+
+         new GuiBitmapCtrl() {
+            profile = "GuiDefaultProfile";
+            horizSizing = "left";
+            vertSizing = "center";
+            position = "-1 116";
+            extent = "643 65";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            bitmap = "./login/white_bar";
+            wrap = "0";
+
+            new GuiMLTextCtrl(LBMessageText) {
+               profile = "GuiMLTextProfile";
+               horizSizing = "relative";
+               vertSizing = "relative";
+               position = "28 20";
+               extent = "581 24";
+               minExtent = "8 8";
+               visible = "1";
+               helpTag = "0";
+               lineSpacing = "2";
+               allowColorChars = "0";
+               maxChars = "-1";
+            };
+         };
+         new GuiBitmapButtonCtrl(LBMessageCancel) {
+            profile = "GuiDefaultProfile";
+            horizSizing = "center";
+            vertSizing = "top";
+            position = "252 198";
+            extent = "135 56";
+            minExtent = "8 8";
+            visible = "0";
+            command = "LBMessageCallback();";
+            accelerator = "escape";
+            helpTag = "0";
+            text = "button";
+            groupNum = "-1";
+            buttonType = "PushButton";
+            repeatPeriod = "1000";
+            repeatDecay = "1";
+            bitmap = "./login/cancel";
+         };
+      };
+   };
+};
+//--- OBJECT WRITE END ---
+
+// Jeff: show the message
+function LBMessage(%message, %cancelCmd, %hideBack) {
+   %style = "<font:Arial:24><just:center>";
+   LBMessageText.setText(%style @ %message);
+   LBMessageGui.setBitmap("");
+   LBMessageCancel.setVisible(%cancelCmd !$= "");
+   LBMessageCancel.callback = %cancelCmd;
+   if (%hideBack)
+      Canvas.pushDialog(LBMessageGui);
+   else
+      Canvas.setContent(LBMessageGui);
+}
+
+function LBMessageCallback() {
+   eval(LBMessageCancel.callback);
+   LBMessageCancel.setVisible(0);
+   LBMessageCancel.callback = "";
+}

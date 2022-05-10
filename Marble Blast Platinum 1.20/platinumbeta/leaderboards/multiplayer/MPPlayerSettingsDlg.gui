@@ -1,0 +1,335 @@
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(MPPlayerSettingsDlg) {
+   profile = "GuiDefaultProfile";
+   horizSizing = "right";
+   vertSizing = "bottom";
+   position = "0 0";
+   extent = "640 480";
+   minExtent = "8 8";
+   visible = "1";
+   helpTag = "0";
+      var0 = "MatanMode";
+//      var1 = "GemVision";
+      var1 = "DisableGems2";
+      var2 = "DisableGems5";
+      var3 = "DisableCollision";
+      var4 = "DisableDiagonal";
+      var5 = "DisableJump";
+      var6 = "DisableBlast";
+      var7 = "DisablePowerup1";
+      var8 = "DisablePowerup2";
+      var9 = "DisablePowerup5";
+      var10 = "DisablePowerup6";
+      var11 = "DisableRadar";
+      var12 = "DisableMarbles";
+      row0 = "Matan Mode:";
+//      row1 = "Gem Visionª:";
+      row1 = "Disable Yellow Gems:";
+      row2 = "Disable Blue Gems:";
+      row3 = "Disable Knocking Opponents:";
+      row4 = "Disable Diagonal Movement:";
+      row5 = "Disable Jump:";
+      row6 = "Disable Blast:";
+      row7 = "Disable Super Jump:";
+      row8 = "Disable Super Speed:";
+      row9 = "Disable Gyrocopter:";
+      row10 = "Disable Mega Marble:";
+      row11 = "Disable Radar / Gem Beams:";
+      row12 = "Hide Opponent Marbles:";
+      rows = "13";
+      handicapNum0 = "-1";
+//      handicapNum1 = "-1";
+      handicapNum1 = "0";
+      handicapNum2 = "1";
+      handicapNum3 = "2";
+      handicapNum4 = "3";
+      handicapNum5 = "4";
+      handicapNum6 = "5";
+      handicapNum7 = "6";
+      handicapNum8 = "7";
+      handicapNum9 = "8";
+      handicapNum10 = "9";
+      handicapNum11 = "10";
+      handicapNum12 = "11";
+
+   new GuiBitmapCtrl() {
+      profile = "GuiDefaultProfile";
+      horizSizing = "center";
+      vertSizing = "center";
+      position = "16 23";
+      extent = "604 427";
+      minExtent = "8 8";
+      visible = "1";
+      helpTag = "0";
+      bitmap = "~/leaderboards/mp/settings/playersettings";
+      wrap = "0";
+
+      new GuiBitmapButtonCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "center";
+         vertSizing = "top";
+         position = "255 367";
+         extent = "94 45";
+         minExtent = "8 8";
+         visible = "1";
+         command = "MPPlayerSettingsDlg.close();";
+         helpTag = "0";
+         text = "Close";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "~/leaderboards/mp/team/close";
+      };
+      new GuiMLTextCtrl(MPPS_Title) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "width";
+         vertSizing = "bottom";
+         position = "19 19";
+         extent = "564 30";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiScrollCtrl(MPPS_Scroller) {
+         profile = "GuiBacklessScrollProfile";
+         horizSizing = "width";
+         vertSizing = "height";
+         position = "20 54";
+         extent = "568 309";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         willFirstRespond = "1";
+         hScrollBar = "dynamic";
+         vScrollBar = "dynamic";
+         constantThumbHeight = "0";
+         childMargin = "0 0";
+
+         new GuiMLTextCtrl(MPPS_Text) {
+            profile = "GuiMLTextProfile";
+            horizSizing = "width";
+            vertSizing = "height";
+            position = "0 0";
+            extent = "568 406";
+            minExtent = "8 0";
+            visible = "1";
+            helpTag = "0";
+            lineSpacing = "2";
+            allowColorChars = "0";
+            maxChars = "-1";
+         };
+      };
+   };
+};
+//--- OBJECT WRITE END ---
+
+function MPPlayerSettingsDlg::clearButtons(%this) {
+   //HiGuy: Clear the view
+   while (MPPS_Scroller.getCount() > 1)
+      MPPS_Scroller.getObject(1).delete();
+}
+
+function MPPlayerSettingsDlg::reset(%this) {
+   %this.clearButtons();
+
+   //HiGuy: Clear the fields
+   for (%i = 0; %i < %this.players; %i ++) {
+      %this.player[%i] = "";
+      %this.handicap[%i] = "";
+   }
+   %this.players = 0;
+}
+
+function MPPlayerSettingsDlg::load(%this) {
+   //HiGuy: We need people, handicaps, and everything in between
+   %this.player[0] = "Global";
+   %this.players = 1;
+
+   %this.handicap[0] = MPgetServerHandicaps();
+   for (%i = 0; %i < PlayerList.getSize() + 1; %i ++) {
+      %player = PlayerList.getEntry(%i);
+
+      //HiGuy: Make sure they exist
+      if (%player $= "")
+         continue;
+
+      //HiGuy: Name <blah> <blah> ... <lots of blah> Handicap
+      %name = getRecord(%player, 0);
+      %handicap = getRecord(%player, 11);
+
+      //HiGuy: Set things
+      %this.player[%this.players] = %name;
+      %this.handicap[%this.players] = %handicap;
+
+      //HiGuy: Inc this
+      %this.players ++;
+   }
+}
+
+function MPPlayerSettingsDlg::layout(%this) {
+   %this.reset();
+   %this.load();
+   //HiGuy: Margins for buttons:
+   //
+   // <--200px--> <70px> <70px> <70px>
+   //             HiGuy  Jeff   Israeâ€¦
+   // Handicap 1:               X
+   // Handicap 2: X             X
+
+   //HiGuy: Sizings and resizing
+   %firstCol   = 230;
+   %minPlayerCol = 60;
+   %maxPlayerCol = 130;
+   %rowHeight  = 28.75;
+   %font = "<font:Marker Felt:24>";
+
+   MPPS_Text.setText(%font @ "<just:left><color:ffffff><shadow:1:1><shadowcolor:0000007f>");
+
+   //HiGuy: Set up the tabs
+   //<tab:200:270:340:...>
+   MPPS_Text.addText("<tab", false);
+   %off = %firstCol;
+   for (%i = 0; %i < %this.players; %i ++) {
+      MPPS_Text.addText((%i ? "," : ":") @ %off, false);
+   	%off += min(max(textLen(LBResolveName(%this.player[%i], true), "Marker Felt", 24), %minPlayerCol), %maxPlayerCol);
+	}
+   MPPS_Text.addText(">", false);
+   MPPS_Text.resize(0, 0, %off, 0);
+
+   //HiGuy: Add player names
+   //\tGuy #1\tGuy #2\t...
+   for (%i = 0; %i < %this.players; %i ++)
+      MPPS_Text.addText("\t" @ clipPx(%font @ LBResolveName(%this.player[%i], true), %maxPlayerCol, true), false);
+
+   //HiGuy: Add rows and buttons
+   //\nRow 1\nRow 2
+   for (%i = 0; %i < %this.rows; %i ++)
+      MPPS_Text.addText("\n<font:Arial:8> \n" @ clipPx(%font @ %this.row[%i], %firstCol, true), false);
+
+   //HiGuy: Extra space on the bottom
+   MPPS_Text.addText("\n<font:Arial:8> ", true);
+
+   //HiGuy: Separating buttons so we can update them manually
+   %this.layoutButtons();
+}
+
+function MPPlayerSettingsDlg::layoutButtons(%this) {
+   %this.clearButtons();
+
+   //HiGuy: Sizings and resizing
+   %firstCol   = 230;
+   %minPlayerCol = 60;
+   %maxPlayerCol = 130;
+   %rowHeight  = 28.75;
+
+   for (%i = 0; %i < %this.rows; %i ++) {
+	   %off = %firstCol;
+      for (%j = 0; %j < %this.players; %j ++) {
+         if (%this.handicapNum[%i] != -1 || %j == 0) {
+            %button = new GuiBitmapButtonCtrl(MPPS_Check @ %i @ "_" @ %j) {
+               profile = "GuiButtonProfile";
+               horizSizing = "right";
+               vertSizing = "bottom";
+               position = (%off) + getWord(MPPS_Text.getPosition(), 0) SPC ((%i + 1) * %rowHeight) + getWord(MPPS_Text.getPosition(), 1);
+               extent = "31 31";
+               minExtent = "8 8";
+               visible = "1";
+               text = "";
+               buttonType = "ToggleButton";
+               repeatPeriod = "1000";
+               repeatDecay = "1";
+               bitmap = "~/leaderboards/core/lb_chkbx";
+                  row    = %i;
+                  column = %j;
+            };
+            MPPS_Scroller.add(%button);
+            //echo("return !!$MP" @ ($Server::Hosting ? "Pref" : "") @ "::Server::" @ %this.var[%i] @ ";");
+            %svalue = eval("return !!$MP" @ ($Server::Hosting ? "Pref" : "") @ "::Server::" @ %this.var[%i] @ ";");
+            if (%this.handicapNum[%i] == -1 || %j == 0) {
+               //HiGuy: Server-wide buttons
+               %button.setActive($Server::Hosting);
+               if ($Server::Hosting)
+                  %button.command = "MPPlayerSettingsDlg.toggleGlobal(" @ %i @ ", " @ %j @ ");";
+
+               if (%svalue && !$Server::Hosting)
+                  %button.setBitmap($usermods @ "/leaderboards/core/lb_chkbx_di");
+               else
+                  %button.setBitmap($usermods @ "/leaderboards/core/lb_chkbx");
+
+               %button.setValue(%svalue);
+            } else {
+               //HiGuy: Only we can push our buttons :D
+               //HiGuy: Also, we can't change if it's server-wide
+
+               //HiGuy: Confusing button value setting
+               %active = %this.player[%j] $= $LB::Username && !(%this.handicap[0] & (1 << %this.handicapNum[%i]));
+               %value  = !!(%this.handicap[%j] & (1 << %this.handicapNum[%i])) || !!(%this.handicap[0] & (1 << %this.handicapNum[%i]));
+
+               if (%value && !%active)
+                  %button.setBitmap($usermods @ "/leaderboards/core/lb_chkbx_di");
+               else
+                  %button.setBitmap($usermods @ "/leaderboards/core/lb_chkbx");
+
+               %button.setActive(%active);
+               %button.setValue(%value);
+
+               if (%this.player[%j] $= $LB::Username)
+                  %button.command = "MPPlayerSettingsDlg.toggleSetting(" @ %i @ ", " @ %j @ ");";
+            }
+         }
+	   	%off += min(max(textLen(LBResolveName(%this.player[%i], true), "Marker Felt", 24), %minPlayerCol), %maxPlayerCol);
+      }
+   }
+
+   cancel(%this.updateSch);
+   if (%this.isAwake())
+      %this.updateSch = %this.schedule(1000, "layoutButtons");
+}
+
+function MPPlayerSettingsDlg::toggleGlobal(%this, %row, %col) {
+   //echo("Toggle Global:" SPC %row SPC %col);
+   %button = MPPS_Check @ %row @ "_" @ %col;
+
+   if ($Server::Hosting) {
+      if (%this.handicapNum[%row] == -1) {
+         eval("$MPPref::Server::" @ %this.var[%row] @ " = " @ !!%button.getValue() @ ";");
+         for (%i = 0; %i < ClientGroup.getCount(); %i ++)
+            ClientGroup.getObject(%i).sendSettings();
+      } else
+      	serverSetHandicap(%this.handicapNum[%row], %button.getValue());
+   }
+}
+
+function MPPlayerSettingsDlg::toggleSetting(%this, %row, %col) {
+   //echo("Toggle Setting:" SPC %row SPC %col);
+   %button = MPPS_Check @ %row @ "_" @ %col;
+
+   if (%this.player[%col] $= $LB::Username) {
+      MPsetHandicap(%row, %button.getValue());
+      if (%this.handicapNum[%row] != -1)
+         commandToServer('SetHandicap', %this.handicapNum[%row], %button.getValue());
+   }
+}
+
+function MPPlayerSettingsDlg::open(%this) {
+   %this.layout();
+   %this.schedule(100, layoutButtons);
+
+   //HiGuy: Title
+   MPPS_Title.setText("<just:center><color:ffffff><font:Marker Felt:32><shadow:1:1><shadowcolor:0000007f>Player Settings");
+
+   //HiGuy: WOW THAT WAS EASY
+   Canvas.pushDialog(%this);
+
+   //HiGuy: Lazy reformat :D
+   MPPS_Text.forceReflow();
+}
+
+function MPPlayerSettingsDlg::close(%this) {
+   //HiGuy: WOW THAT WAS EVEN EASIER
+   Canvas.popDialog(%this);
+}

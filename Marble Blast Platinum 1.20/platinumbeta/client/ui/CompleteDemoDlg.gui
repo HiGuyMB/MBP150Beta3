@@ -1,0 +1,235 @@
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(CompleteDemoDlg) {
+   profile = "GuiDialogProfile";
+   horizSizing = "right";
+   vertSizing = "bottom";
+   position = "0 0";
+   extent = "640 480";
+   minExtent = "8 8";
+   visible = "1";
+   helpTag = "0";
+
+   new GuiBitmapCtrl() {
+      profile = "GuiDefaultProfile";
+      horizSizing = "center";
+      vertSizing = "center";
+      position = "110 112";
+      extent = "420 256";
+      minExtent = "8 8";
+      visible = "1";
+      helpTag = "0";
+      bitmap = "./enternamebox";
+      wrap = "0";
+
+      new GuiBitmapButtonCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "164 209";
+         extent = "90 37";
+         minExtent = "8 8";
+         visible = "1";
+         command = "CompleteDemoDlg::save();";
+         helpTag = "0";
+         text = "Button";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./Options/apply";
+      };
+      new GuiBitmapCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "width";
+         vertSizing = "height";
+         position = "13 47";
+         extent = "210 49";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "./window";
+         wrap = "0";
+      };
+      new GuiMLTextCtrl() {
+         profile = "GuiMLTextProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "37 9";
+         extent = "345 14";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiTextEditCtrl(EnterDemoFileEdit) {
+         profile = "GuiBigTextEditProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "24 52";
+         extent = "183 36";
+         minExtent = "8 8";
+         visible = "1";
+         variable = "$recordDemoTitle";
+         altCommand = "CompleteDemoDlg::save();";
+         helpTag = "0";
+         maxLength = "255";
+         maxPixelWidth = "145";
+         historySize = "0";
+         password = "0";
+         tabComplete = "0";
+         sinkAllKeyEvents = "0";
+      };
+      new GuiBitmapCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "width";
+         vertSizing = "height";
+         position = "222 47";
+         extent = "181 49";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "./window";
+         wrap = "0";
+      };
+      new GuiTextEditCtrl(EnterDemoAuthor) {
+         profile = "GuiBigTextEditProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "224 53";
+         extent = "174 36";
+         minExtent = "8 8";
+         visible = "1";
+         variable = "$recordDemoAuthor";
+         altCommand = "CompleteDemoDlg::save();";
+         helpTag = "0";
+         maxLength = "255";
+         maxPixelWidth = "145";
+         historySize = "0";
+         password = "0";
+         tabComplete = "0";
+         sinkAllKeyEvents = "0";
+      };
+      new GuiTextCtrl() {
+         profile = "GuiTextProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "105 24";
+         extent = "27 18";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         text = "Name";
+         maxLength = "255";
+      };
+      new GuiTextCtrl() {
+         profile = "GuiTextProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "291 25";
+         extent = "33 18";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         text = "Player";
+         maxLength = "255";
+      };
+      new GuiTextCtrl() {
+         profile = "GuiTextProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "182 99";
+         extent = "54 18";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         text = "Description";
+         maxLength = "255";
+      };
+      new GuiScrollCtrl() {
+         profile = "GuiScrollProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "17 119";
+         extent = "382 75";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         willFirstRespond = "1";
+         hScrollBar = "alwaysOff";
+         vScrollBar = "alwaysOn";
+         constantThumbHeight = "0";
+         childMargin = "0 0";
+
+         new GuiMLTextEditCtrl(EnterDemoDescription) {
+            profile = "GuiMLTextEditProfile";
+            horizSizing = "right";
+            vertSizing = "bottom";
+            position = "2 2";
+            extent = "357 75";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            lineSpacing = "2";
+            allowColorChars = "0";
+            maxChars = "-1";
+         };
+      };
+   };
+};
+//--- OBJECT WRITE END ---
+// Spy47 : SPY47 AWESOME GUI
+
+
+function CompleteDemoDlg::onWake()
+{
+   //EnterDemoText.setText("<just:center><font:DomCasualD:32>What name do you want for your demo?");
+   //HiGuy: Autofill these
+   $recordDemoAuthor = $pref::highscoreName;
+   $recordDemoTitle = $recordDemoName;
+}
+
+function CompleteDemoDlg::save()
+{
+	$recordDemoDescription = EnterDemoDescription.getText();
+
+	if(isObject(DemoGroup))
+	   DemoGroup.delete();
+
+	new SimGroup(DemoGroup);
+	//echo("DEMOGROUP: Create");
+
+	// Jeff: modifying the marble choice and adding lb field
+	// in case if we are in LBs
+	%lb = ($LB::LoggedIn && $LB::Username !$= "");
+
+	%infoScript = new ScriptObject(DemoInfo) {
+      name = $recordDemoTitle;
+      missionFile = $Server::MissionFile;
+      marble = %lb ? LBMarbleSelectionDlg.getSelection() : MarbleSelectGui.getSelection();
+      description = $recordDemoDescription;
+      author = $recordDemoAuthor;
+      randoms = $Game::RandomPowerups;
+      lb = %lb; // Jeff: lets us know if we recorded in LBs
+   };
+   //HiGuy: Save random powerup values
+   if ($Game::RandomPowerups) {
+      for (%i = 0; %i < $Game::RandomPowerups; %i ++) {
+         %infoScript.random[%i] = $Game::RandomPowerup[%i];
+      }
+   }
+	DemoGroup.add(%infoScript);
+	DemoGroup.save($usermods @ "/client/demos/" @ $recordDemoName @ ".inf");
+
+	//echo("RecordFileName: " @ $recordDemoName);
+	//echo("MissionFile: " @ $Server::MissionFile);
+	//echo(" description: " @ $recordDemoDescription);
+	//echo("author: " @ $recordDemoAuthor);
+
+	Canvas.popDialog(CompleteDemoDlg);
+	$doRecordDemo = false;
+        $demoButton = false;
+	exitGame();
+
+}

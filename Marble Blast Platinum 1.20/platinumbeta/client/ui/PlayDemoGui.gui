@@ -1,0 +1,326 @@
+//--- OBJECT WRITE BEGIN ---
+new GuiChunkedBitmapCtrl(PlayDemoGui) {
+   profile = "GuiDefaultProfile";
+   horizSizing = "right";
+   vertSizing = "bottom";
+   position = "0 0";
+   extent = "640 480";
+   minExtent = "8 8";
+   visible = "1";
+   helpTag = "0";
+   useVariable = "0";
+   tile = "0";
+
+   new GuiBitmapCtrl() {
+      profile = "GuiDefaultProfile";
+      horizSizing = "center";
+      vertSizing = "center";
+      position = "39 42";
+      extent = "561 395";
+      minExtent = "8 8";
+      visible = "1";
+      helpTag = "0";
+      bitmap = "~/client/help/help_gui";
+      wrap = "0";
+
+      new GuiBitmapButtonCtrl(PD_play) {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "284 308";
+         extent = "80 80";
+         minExtent = "8 8";
+         visible = "1";
+         command = "StartSelectedDemo();";
+         helpTag = "0";
+         text = "Play";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./play_rc";
+      };
+      new GuiBitmapButtonCtrl() {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "188 308";
+         extent = "80 80";
+         minExtent = "8 8";
+         visible = "1";
+         command = "Canvas.setContent(MainMenuGui);";
+         accelerator = "escape";
+         helpTag = "0";
+         text = "play";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./home_rc";
+      };
+      new GuiBitmapCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "width";
+         vertSizing = "height";
+         position = "18 26";
+         extent = "526 281";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "~/client/help/help_window";
+         wrap = "0";
+      };
+      new GuiScrollCtrl() {
+         profile = "GuiScrollProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "22 31";
+         extent = "264 267";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         willFirstRespond = "1";
+         hScrollBar = "dynamic";
+         vScrollBar = "alwaysOn";
+         constantThumbHeight = "0";
+         childMargin = "0 0";
+
+         new GuiTextListCtrl(PD_DemoList) {
+            profile = "GuiTextArrayProfile";
+            horizSizing = "right";
+            vertSizing = "bottom";
+            position = "2 2";
+            extent = "242 16";
+            minExtent = "8 8";
+            visible = "1";
+            command = "getSelectedDemo();";
+            helpTag = "0";
+            enumerate = "0";
+            resizeCell = "1";
+            columns = "0";
+            fitParentWidth = "1";
+            clipColumnText = "0";
+               noDuplicates = "false";
+         };
+      };
+      new GuiBitmapCtrl(PD_MissionPreview) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "342 41";
+         extent = "141 102";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "~/data/missions_mbp/intermediate/BattlecubeRevisited";
+         wrap = "0";
+      };
+      new GuiMLTextCtrl(PD_MissionName) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "291 145";
+         extent = "240 24";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiTextCtrl() {
+         profile = "GuiTextProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "383 164";
+         extent = "54 18";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         text = "Description";
+         maxLength = "255";
+      };
+      new GuiScrollCtrl() {
+         profile = "GuiScrollProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "290 184";
+         extent = "243 83";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         willFirstRespond = "1";
+         hScrollBar = "alwaysOff";
+         vScrollBar = "alwaysOn";
+         constantThumbHeight = "0";
+         childMargin = "0 0";
+
+         new GuiMLTextCtrl(PD_DescriptionText) {
+            profile = "GuiMLTextProfile";
+            horizSizing = "right";
+            vertSizing = "bottom";
+            position = "2 2";
+            extent = "168 14";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            lineSpacing = "2";
+            allowColorChars = "0";
+            maxChars = "-1";
+         };
+      };
+      new GuiMLTextCtrl(PD_AuthorName) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "290 265";
+         extent = "241 14";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiBitmapCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "332 32";
+         extent = "160 120";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "./replayframe";
+         wrap = "0";
+      };
+   };
+};
+//--- OBJECT WRITE END ---
+// Spy47 was here
+
+function PlayDemoGui::onWake(%this)
+{
+	PlayDemoGui::buildDemoList();
+        PD_AuthorName.setText("<spush><font:Arial Bold:14>Author: <spop>");
+        PD_MissionPreview.setBitmap(0);
+        PD_MissionName.setText("");
+        PD_DescriptionText.setText("");
+}
+
+function PlayDemoGui::buildDemoList()
+{
+	PD_DemoList.clear();
+   if (!isObject(DemoGroup))
+   {
+      new SimGroup(DemoGroup);
+      RootGroup.add(DemoGroup);
+
+      for(%file = findFirstFile($usermods @ "/client/demos/*.inf");
+            %file !$= ""; %file = findNextFile($usermods @ "/client/demos/*.inf"))
+      {
+         if (strStr(%file, "CVS/") == -1 && strStr(%file, "common/") == -1)
+            PlayDemoGui::getDemoObject(%file);
+      }
+   }
+   PD_DemoList.clear();
+   %cnt = 0;
+   for(%j = 0; (%demo = DemoGroup.getObject(%j)) != -1; %j++)
+   {
+	  if( %demo.name !$= "" )
+         %demoName = %demo.name;
+      else
+         %demoName = fileBase(%demo.file);
+
+      PD_DemoList.addRow(%cnt++, %demoName);
+   }
+   if(PD_DemoList.getSelectedId() == -1)
+		PD_play.setActive(false);
+	else
+		PD_play.setActive(true);
+}
+
+
+function playDemoGui::getDemoObject( %demoFile )
+{
+   %file = new FileObject();
+
+   %demoInfoObject = "";
+
+   if ( %file.openForRead( %demoFile ) ) {
+		%inInfoBlock = false;
+
+		while ( !%file.isEOF() ) {
+			%line = %file.readLine();
+			%line = trim( %line );
+
+			if( %line $= "new ScriptObject(DemoInfo) {" ) {
+				%line = "new ScriptObject() {";
+				%inInfoBlock = true;
+			}
+			else if( %inInfoBlock && %line $= "};" ) {
+				%inInfoBlock = false;
+				%demoInfoObject = %demoInfoObject @ %line;
+				break;
+			}
+
+			if( %inInfoBlock )
+			   %demoInfoObject = %demoInfoObject @ %line @ " ";
+		}
+
+		%file.close();
+	}
+	%demoInfoObject = "%demoInfoObject = " @ %demoInfoObject;
+	eval( %demoInfoObject );
+
+
+   %demoInfoObject.setName("");
+   DemoGroup.add(%demoInfoObject);
+	%demoInfoObject.file = %demoFile;
+
+   %file.delete();
+}
+
+function getSelectedDemo()
+{
+   %id = PD_DemoList.getSelectedId();
+   %demo = DemoGroup.getObject(%id - 1);
+
+   if(%demo.missionFile $= "")
+      ASSERT("Error Handler", "No mission file specified in info file!");
+
+   PD_MissionPreview.setBitmap(filePath(%demo.missionFile) @ "/" @ fileBase(%demo.missionFile));
+   PD_MissionName.setText("<font:DomCasualD:24><just:center>" @ getMissionDisplayName(%demo.missionFile));
+   if(%demo.description $= "")
+      PD_DescriptionText.setText("No description.");
+   else
+      PD_DescriptionText.setText(%demo.description);
+
+   if(%demo.description $= "")
+      PD_AuthorName.setText("<spush><font:Arial Bold:14>Author: <spop> Not specified");
+   else
+      PD_AuthorName.setText("<spush><font:Arial Bold:14>Author: <spop>" @ %demo.author);
+
+   if(PD_DemoList.getSelectedId() == -1)
+		PD_play.setActive(false);
+	else
+		PD_play.setActive(true);
+}
+
+function StartSelectedDemo()
+{
+   // first unit is filename
+   //%sel = PD_DemoList.getSelectedId();
+   //%rowText = PD_DemoList.getRowTextById(%sel);
+//
+  // %file = $usermods @ "/client/demos/" @ getField(%rowText, 0) @ ".rec";
+
+   %id = PD_DemoList.getSelectedId();
+   %demo = DemoGroup.getObject(%id - 1);
+	$demoMarble = %demo.marble;
+   %mission = DemoGroup.getObject(%id - 1);
+   %file = filePath(%mission.file) @ "/" @ fileBase(%mission.file) @ ".rec";
+   //echo("ATTEMPING TO PLAY: " @ %file);
+
+   playDemo(%file);
+}

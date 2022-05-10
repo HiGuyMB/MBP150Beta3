@@ -1,0 +1,3 @@
+@echo off
+echo RUNNING MARBLE BLAST PLATINUM IN DEVELOPER MODE...
+marbleblast.exe -devmode

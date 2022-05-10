@@ -1,0 +1,1242 @@
+if(!isObject(JSTextListProfile)) new GuiControlProfile (JSTextListProfile : GuiTextListProfile) {
+   fontType = "Marker Felt";
+   fontSize = 18;
+   fontColors[0] = "255 255 255 255";
+   fontColors[1] = "240 255 240 255";
+   fontColors[2] = "240 240 255 255";
+   fontColors[3] = "255 255 255 255";
+   fontColors[4] = "255 240 240 255";
+   fontColors[5] = "240 240 240 255";
+   fontColors[6] = "200 255 255 255";
+   fillColor = "0 0 0 0";
+   fillColorHL = "255 255 255 51";
+   fillColorNA = "255 255 255 51";
+};
+
+if(!isObject(JSTextListProfile2)) new GuiControlProfile (JSTextListProfile2 : JSTextListProfile) {
+   fontColors[0] = "0 0 0 128";
+   fontColors[1] = "0 0 0 128";
+   fontColors[2] = "0 0 0 128";
+   fontColors[3] = "0 0 0 128";
+   fontColors[4] = "0 0 0 128";
+   fontColors[5] = "0 0 0 128";
+   fontColors[6] = "0 0 0 128";
+};
+
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(MPJoinServerGui) {
+   profile = "GuiDefaultProfile";
+   horizSizing = "width";
+   vertSizing = "height";
+   position = "0 0";
+   extent = "640 480";
+   minExtent = "8 8";
+   visible = "1";
+   helpTag = "0";
+
+   new GuiBitmapCtrl() {
+      profile = "GuiDefaultProfile";
+      horizSizing = "center";
+      vertSizing = "center";
+      position = "0 0";
+      extent = "640 480";
+      minExtent = "8 8";
+      visible = "1";
+      helpTag = "0";
+      bitmap = "~/leaderboards/mp/join/window";
+      wrap = "0";
+
+      new GuiBitmapButtonCtrl(JS_exit) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "32 399";
+         extent = "93 45";
+         minExtent = "8 8";
+         visible = "1";
+         command = "MPJoinServerGui.exit();";
+         helpTag = "0";
+         text = "button";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "~/leaderboards/mp/join/leave";
+      };
+      new GuiBitmapButtonCtrl(JS_ping) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "124 399";
+         extent = "93 45";
+         minExtent = "8 8";
+         visible = "0";
+         command = "MPJoinServerGui.ping();";
+         helpTag = "0";
+         text = "button";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "~/leaderboards/mp/join/ping";
+      };
+      new GuiBitmapButtonCtrl(JS_DirectConnect) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "126 399";
+         extent = "164 45";
+         minExtent = "8 8";
+         visible = "1";
+         command = "MPJoinServerGui.directConnect();";
+         helpTag = "0";
+         text = "button";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "~/leaderboards/mp/join/direct";
+      };
+      new GuiBitmapButtonCtrl(JS_joinServer) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "518 399";
+         extent = "93 45";
+         minExtent = "8 8";
+         visible = "1";
+         command = "MPJoinServerGui.join();";
+         helpTag = "0";
+         text = "button";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "~/leaderboards/mp/join/join";
+      };
+      new GuiBitmapButtonCtrl(JS_HostGame) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "426 399";
+         extent = "93 45";
+         minExtent = "8 8";
+         visible = "1";
+         command = "MPJoinServerGui.hostMission();";
+         helpTag = "0";
+         text = "button";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "~/leaderboards/mp/join/host";
+      };
+      new GuiBitmapButtonCtrl(JS_refresh) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "290 399";
+         extent = "45 45";
+         minExtent = "8 8";
+         visible = "1";
+         command = "MPJoinServerGui.query();";
+         helpTag = "0";
+         text = "button";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "~/leaderboards/mp/join/refresh/refresh-1";
+      };
+      new GuiMLTextCtrl(JS_Title) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "30 40";
+         extent = "580 30";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiMLTextCtrl(JS_ListTitle) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "30 78";
+         extent = "370 22";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiScrollCtrl() {
+         profile = "GuiPhilScrollProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "30 100";
+         extent = "370 290";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         willFirstRespond = "1";
+         hScrollBar = "dynamic";
+         vScrollBar = "dynamic";
+         constantThumbHeight = "0";
+         childMargin = "0 0";
+
+         new GuiTextListCtrl(JS_serverListShadow) {
+            profile = "JSTextListProfile2";
+            horizSizing = "width";
+            vertSizing = "bottom";
+            position = "0 0";
+            extent = "370 8";
+            minExtent = "8 8";
+            visible = "1";
+            command = "serverSelect();";
+            helpTag = "0";
+            enumerate = "0";
+            resizeCell = "1";
+            columns = "35 220 285";
+            fitParentWidth = "1";
+            clipColumnText = "0";
+         };
+         new GuiTextListCtrl(JS_serverList) {
+            profile = "JSTextListProfile";
+            horizSizing = "width";
+            vertSizing = "bottom";
+            position = "-1 -1";
+            extent = "370 8";
+            minExtent = "8 8";
+            visible = "1";
+            command = "serverSelect();";
+            helpTag = "0";
+            enumerate = "0";
+            resizeCell = "1";
+            columns = "35 220 285";
+            fitParentWidth = "1";
+            clipColumnText = "0";
+         };
+      };
+      new GuiScrollCtrl() {
+         profile = "GuiPhilScrollProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "415 78";
+         extent = "195 166";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         willFirstRespond = "1";
+         hScrollBar = "dynamic";
+         vScrollBar = "dynamic";
+         constantThumbHeight = "0";
+         childMargin = "0 0";
+
+         new GuiMLTextCtrl(JS_serverInfo) {
+            profile = "GuiMLTextProfile";
+            horizSizing = "right";
+            vertSizing = "bottom";
+            position = "0 0";
+            extent = "185 22";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            lineSpacing = "2";
+            allowColorChars = "0";
+            maxChars = "-1";
+         };
+      };
+      new GuiScrollCtrl() {
+         profile = "GuiPhilScrollProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "415 272";
+         extent = "195 122";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         willFirstRespond = "1";
+         hScrollBar = "dynamic";
+         vScrollBar = "dynamic";
+         constantThumbHeight = "0";
+         childMargin = "0 0";
+
+         new GuiMLTextCtrl(JS_handicapsInfo) {
+            profile = "GuiMLTextProfile";
+            horizSizing = "right";
+            vertSizing = "bottom";
+            position = "0 0";
+            extent = "195 14";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            lineSpacing = "2";
+            allowColorChars = "0";
+            maxChars = "-1";
+         };
+      };
+      new GuiMLTextCtrl(JS_HandicapsTitle) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "415 245";
+         extent = "195 14";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiBitmapCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "32 81";
+         extent = "14 19";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "~/leaderboards/mp/join/lock_header";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "47 81";
+         extent = "18 19";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "~/leaderboards/mp/join/ratings_header";
+         wrap = "0";
+      };
+      new GuiMLTextCtrl(JS_ListHidden) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "30 374";
+         extent = "370 14";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+   };
+   new GuiBitmapCtrl(MPJoinPasswordPop) {
+      profile = "GuiDefaultProfile";
+      horizSizing = "width";
+      vertSizing = "height";
+      position = "0 0";
+      extent = "640 480";
+      minExtent = "8 8";
+      visible = "0";
+      helpTag = "0";
+      bitmap = "~/client/ui/black";
+      wrap = "0";
+
+      new GuiBitmapCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "center";
+         vertSizing = "center";
+         position = "66 139";
+         extent = "508 202";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "~/leaderboards/mp/join/window2";
+         wrap = "0";
+
+         new GuiMLTextCtrl(MPJoinPasswordTitle) {
+            profile = "GuiMLTextProfile";
+            horizSizing = "center";
+            vertSizing = "bottom";
+            position = "22 28";
+            extent = "463 14";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            lineSpacing = "2";
+            allowColorChars = "0";
+            maxChars = "-1";
+         };
+         new GuiBitmapCtrl() {
+            profile = "GuiDefaultProfile";
+            horizSizing = "right";
+            vertSizing = "bottom";
+            position = "22 73";
+            extent = "463 47";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            bitmap = "~/leaderboards/mp/join/textbar";
+            wrap = "0";
+         };
+         new GuiTextEditCtrl(MPJoinPassword) {
+            profile = "GuiBigTextEditProfile";
+            horizSizing = "center";
+            vertSizing = "bottom";
+            position = "30 76";
+            extent = "447 38";
+            minExtent = "8 8";
+            visible = "1";
+            command = "MPJoinServerGui.updatePassword();";
+            altCommand = "MPJoinServerGui.joinPassword();";
+            helpTag = "0";
+            maxLength = "255";
+            maxPixelWidth = "0";
+            escapeCommand = "MPJoinServerGui.cancelPassword();";
+            historySize = "0";
+            password = "1";
+            tabComplete = "0";
+            sinkAllKeyEvents = "0";
+         };
+         new GuiBitmapButtonCtrl(MPJoinShowPassword) {
+            profile = "GuiDefaultProfile";
+            horizSizing = "center";
+            vertSizing = "bottom";
+            position = "160 131";
+            extent = "188 31";
+            minExtent = "8 8";
+            visible = "1";
+            command = "MPJoinServerGui.updatePassword();";
+            helpTag = "0";
+            text = "button";
+            groupNum = "-1";
+            buttonType = "ToggleButton";
+            repeatPeriod = "1000";
+            repeatDecay = "1";
+            bitmap = "~/leaderboards/mp/join/password";
+         };
+         new GuiBitmapButtonCtrl() {
+            profile = "GuiDefaultProfile";
+            horizSizing = "right";
+            vertSizing = "bottom";
+            position = "29 126";
+            extent = "94 45";
+            minExtent = "8 8";
+            visible = "1";
+            command = "MPJoinServerGui.cancelPassword();";
+            helpTag = "0";
+            text = "Cancel";
+            groupNum = "-1";
+            buttonType = "PushButton";
+            repeatPeriod = "1000";
+            repeatDecay = "1";
+            bitmap = "~/leaderboards/mp/join/cancel";
+         };
+         new GuiBitmapButtonCtrl(MPJoinPasswordJoin) {
+            profile = "GuiDefaultProfile";
+            horizSizing = "right";
+            vertSizing = "bottom";
+            position = "385 126";
+            extent = "94 45";
+            minExtent = "8 8";
+            visible = "1";
+            command = "MPJoinServerGui.joinPassword();";
+            helpTag = "0";
+            text = "Join";
+            groupNum = "-1";
+            buttonType = "PushButton";
+            repeatPeriod = "1000";
+            repeatDecay = "1";
+            bitmap = "~/leaderboards/mp/join/join";
+         };
+      };
+   };
+};
+//--- OBJECT WRITE END ---
+
+//----------------------------------------
+function MPJoinServerGui::onWake(%this)
+{
+   // Double check the status. Tried setting this the control
+   // inactive to start with, but that didn't seem to work.
+   JS_joinServer.setActive(false);
+   %this.joining = false;
+
+   serverSelect();
+   %this.update();
+   %this.query();
+   %this.popPassword();
+
+   JS_ListHidden.setText("");
+
+   serverSelect();
+
+   if (%this.spinInterval $= "")
+      %this.spinInterval = %this.interval(90, "updateSpinner");
+}
+
+function MPJoinServerGui::updateSpinner(%this) {
+   if (!%this.isAwake())
+      return;
+   if (%this.loading || %this.spinNum > 0)
+      %this.spinNum ++;
+   %this.spinNum %= 10;
+
+   //HiGuy: So I fudged the spin files, the actual order is 1-3-5-7-9-2-4-6-8-10
+   // So we do some cool workaround because I'm too lazy to rename the files
+
+   %bmpNumber = (((%this.spinNum * 2) % 10) + mFloor(%this.spinNum / 5)) + 1;
+
+   JS_refresh.setBitmap(expandFilename("~/leaderboards/mp/join/refresh/refresh-" @ %bmpNumber));
+}
+
+//----------------------------------------
+function MPJoinServerGui::query(%this) {
+   JS_refresh.setActive(false);
+   %this.loading = true;
+
+   if (isObject(MasterQuery))
+      MasterQuery.destroy();
+   if (%this.querying) {
+      %this.querying = false;
+      %this.schedule(500, "query");
+      return;
+   }
+
+   deleteVariables("$Master::Servers*");
+   JS_ListHidden.setText("");
+
+   $Master::ServerCount = 0;
+   $Master::Hidden = 0;
+
+   JS_serverList.clearSelection();
+   JS_serverListShadow.clearSelection();
+
+   %this.queried = true;
+   %this.querying = true;
+   %this.progress = 0;
+
+   %this.queryStatus = 0;
+   %this.queryMaxServers = 1;
+
+   %this.update();
+   %this.queryGG();
+
+   new TCPObject(MasterQuery);
+   MasterQuery.post($Master::Server,
+                    $Master::Path @ "query.php",
+                    "Mod=" @ URLEncode($Master::Mod));
+}
+
+//----------------------------------------
+function MPJoinServerGui::queryGG(%this)
+{
+   %test = 0;
+   while ($pref::Master[%test] !$= "") {
+      $pref::Master[%test] = "";
+      %test ++;
+   }
+   %this.queried = true;
+   queryMasterServer(
+      28000,      // lanPort for local queries
+      0,          // Query flags
+      $Client::GameTypeQuery,       // gameTypes
+      $Client::MissionTypeQuery,    // missionType
+      0,          // minPlayers
+      100,        // maxPlayers
+      0,          // maxBots
+      2,          // regionMask
+      0,          // maxPing
+      100,        // minCPU
+      0           // filterFlags
+      );
+}
+
+//----------------------------------------
+function MPJoinServerGui::cancel(%this)
+{
+   cancelServerQuery();
+   if (%this.querying) {
+      queryFinish();
+   }
+
+}
+
+
+//----------------------------------------
+function MPJoinServerGui::join(%this)
+{
+   $MP::ServerPassword = "";
+
+   cancelServerQuery();
+   %id = JS_serverList.getSelectedId();
+
+   %serverType = getField(JS_ServerList.getRowTextById(%id), 4);
+   %index = getField(JS_ServerList.getRowTextById(%id), 3);
+
+   switch (%serverType) {
+   case 0:
+      // Server from MB master server (non-gg)
+      if ($Master::Servers[%index] !$= "") {
+         if (getField($Master::Servers[%index], 5) && %password $= "") {
+            //Password required
+            %this.pushPassword(getField($Master::Servers[%index], 0), getField($Master::Servers[%index], 12));
+         } else
+            joinServer(getField($Master::Servers[%index], 0) @ ":" @ getField($Master::Servers[%index], 12), $LB::Username, $MP::ServerPassword);
+      }
+   case 1:
+      // Server from GG master server
+      // The server info index is stored in the row along with the
+      // rest of displayed info.
+      if (setServerInfo(%index)) {
+         joinServer($ServerInfo::Address, $LB::Username, $MP::ServerPassword);
+      }
+   case 2:
+      // Favorited server
+      %foo = bar; //TODO: Figure this out eventually?
+   }
+}
+
+//----------------------------------------
+function MPJoinServerGui::exit(%this)
+{
+   %this.cancel();
+   Canvas.setContent(LBChatGui);
+}
+
+//----------------------------------------
+
+function MPJoinServerGui::pushPassword(%this, %ip, %port, %invalid) {
+   %this.joinIP = %ip;
+   %this.joinPort = %port;
+   MPJoinPasswordPop.setVisible(true);
+   MPJoinPasswordTitle.settext("<shadowcolor:0000007f><shadow:1:1><font:Marker Felt:32><color:ffffff><just:center>" @ (%invalid ? "Invalid Password" : "Password Required"));
+   MPJoinPassword.setValue("");
+   MPJoinShowPassword.setValue(false);
+   %this.updatePassword();
+}
+
+function MPJoinServerGui::updatePassword(%this) {
+   MPJoinPassword.password = !MPJoinShowPassword.getValue();
+   MPJoinPasswordJoin.setActive(MPJoinPassword.getValue() !$= "");
+   $MP::ServerPassword = MPJoinPassword.getValue();
+}
+
+function MPJoinServerGui::cancelPassword(%this) {
+   %this.popPassword();
+}
+
+function MPJoinServerGui::joinPassword(%this) {
+   joinServer(%this.joinIP @ ":" @ %this.joinPort, $LB::Username, $MP::ServerPassword, %this.joinPort);
+
+   %this.cancelPassword();
+}
+
+function MPJoinServerGui::popPassword(%this) {
+   MPJoinPasswordPop.setVisible(false);
+   MPJoinShowPassword.setValue(false);
+   %this.updatePassword();
+}
+
+//----------------------------------------
+
+function MPJoinServerGui::directConnect(%this)
+{
+   //HiGuy: Kill all pinging connections
+   while (PingingGroup.getCount()) {
+      %connection = PingingGroup.getObject(0);
+      pingResult(%connection.number, %connection.address, true, "--", "--");
+      %connection.delete();
+   }
+   if ($MP::EnableDirectConnect)
+      Canvas.pushDialog(MPDirectConnectDlg);
+}
+
+//----------------------------------------
+
+function MPJoinServerGui::hostMission(%this)
+{
+   //HiGuy: Kill all pinging connections
+   while (PingingGroup.getCount()) {
+      %connection = PingingGroup.getObject(0);
+      pingResult(%connection.number, %connection.address, true, "--", "--");
+      %connection.delete();
+   }
+
+   MPPlayMissionDlg.showHost();
+}
+
+//----------------------------------------
+function MPJoinServerGui::update(%this)
+{
+   // Copy the servers into the server list.
+   %selected = JS_ServerList.getSelectedId();
+   for (%i = 0; %i < JS_serverList.rowCount(); %i ++) {
+      while (isObject(JS_lockIcon @ %i))
+         (JS_lockIcon @ %i).delete();
+      while (isObject(JS_ratingIcon @ %i))
+         (JS_ratingIcon @ %i).delete();
+   }
+   JS_serverList.clear();
+   JS_serverListShadow.clear();
+
+   JS_listTitle.setText("<shadowcolor:0000007f><shadow:1:1><font:Marker Felt:24><color:ddddee><tab:35,220,285>\tServer Name\tPlayers\tMode");
+   JS_title.setText("<shadowcolor:0000007f><shadow:1:1><font:Marker Felt:32><color:ffffff><just:center>Join Server");
+
+   %sc = getServerCount();
+   for (%i = 0; %i < %sc; %i++) {
+      setServerInfo(%i);
+      %row = "\c2" @
+         $ServerInfo::Name TAB
+         $ServerInfo::PlayerCount SPC "/" SPC $ServerInfo::MaxPlayers TAB
+         $ServerInfo::GameType TAB
+//         $ServerInfo::Ping TAB
+         %i TAB // ServerInfo index stored also
+         1; // From gg master server
+      JS_serverList.addRow(%i, %row);
+      JS_serverListShadow.addRow(%i, %row);
+      $Master::RowInfo[%i] = %row;
+   }
+
+   %previous = %i;
+
+   for (%i = 0; %i < $Master::ServerCount; %i ++) {
+      %info = $Master::Servers[%i];
+      %ping = $Master::Ping[%i];
+      %os = getField(%info, 10);
+      %ded = getField(%info, 7);
+      //%address TAB %name TAB %level TAB %mode TAB %players TAB %password TAB %submitting TAB %dedicated TAB %version TAB getMissionInfo(%level) TAB %os TAB %info TAB %handicap TAB %host;
+      %row = (%ded ? "\c6" : "") @ stripMLControlChars(clipPx("<font:Marker Felt:18>" @ (getField(%info, 2) $= "Lobby" ? "[Lobby] " : "[Playing] ") @ getField(%info, 1), 180, true)) TAB
+         getField(%info, 4) SPC "/" SPC getField(%info, 10) TAB
+//        (getField(%ping, 0) ? (getField(%ping, 1) @ "/" @ getField(%ping, 2)) : getField(%ping, 1)) TAB
+        (getField(%info, 3) ? "Teams" : "FFA") TAB
+         %i TAB // ServerInfo index stored also
+         0; // From master server
+      $Master::RowInfo[%i + %previous] = %row;
+      JS_serverList.addRow(%i + %previous, %row);
+      JS_serverListShadow.addRow(%i + %previous, %row);
+      if (getField(%info, 5)) {
+         JS_serverList.getGroup().add(new GuiBitmapCtrl(JS_lockIcon @ (JS_serverList.rowCount() - 1)) {
+            profile = "GuiDefaultProfile";
+            position = "2" SPC 1 + (JS_serverList.rowCount() - 1) * 20;
+            extent = "14 19";
+            bitmap = "~/leaderboards/mp/join/lock";
+         });
+      }
+      if (getField(%info, 6)) {
+         JS_serverList.getGroup().add(new GuiBitmapCtrl(JS_ratingIcon @ (JS_serverList.rowCount() - 1)) {
+            profile = "GuiDefaultProfile";
+            position = "17" SPC 1 + (JS_serverList.rowCount() - 1) * 20;
+            extent = "18 19";
+            bitmap = "~/leaderboards/mp/join/ratings";
+         });
+      }
+   }
+
+   //Favorite Servers go here?
+
+   //Use \c1 for favorite servers
+
+   JS_serverList.setSelectedById(%selected);
+   JS_serverList.scrollVisible(0);
+   JS_serverListShadow.scrollVisible(0);
+   JS_serverList.scrollVisible(0);
+   JS_serverListShadow.resize(getWord(JS_serverList.position, 0) + 1, getWord(JS_serverList.position, 1) + 1, getWord(JS_serverList.extent, 0), getWord(JS_serverList.extent, 1));
+
+   JS_joinServer.setActive(JS_serverList.rowCount() > 1 && !%this.joining && !$Master::Pinging);
+   JS_DirectConnect.setActive(!%this.joining && !$Master::Pinging);
+   JS_HostGame.setActive(!%this.joining && !$Master::Pinging);
+   JS_exit.setActive(!%this.joining && !$Master::Pinging);
+}
+
+//----------------------------------------
+function onServerQueryStatus(%status, %msg, %value)
+{
+   // Update query status
+   // States: start, update, ping, query, done
+   // value = % (0-1) done for ping and query states
+
+   switch$ (%status) {
+      case "start":
+         JS_serverList.clear();
+         JS_serverListshadow.clear();
+
+      case "ping":
+      case "query":
+      case "done":
+         MPJoinServerGui.update();
+   }
+}
+
+
+//----------------------------------------
+function MasterQuery::onLine(%this,%line) {
+   Parent::onLine(%this,%line);
+
+   if (strPos(%line, "ERR") == 0) {
+      //Shit!
+      //TODO: Error handling
+      return;
+   }
+   if (strPos(%line, "SERVERS COUNT:") == 0) {
+      %serverCount = getSubStr(%line, strLen("SERVERS COUNT:"), strLen(%line));
+      MPJoinServerGui.queryMaxServers = %serverCount;
+      $Master::Hidden = 0;
+      JS_ServerList.clear();
+      JS_ServerListShadow.clear();
+   }
+
+   if (%line $= "SERVERS END") {
+      //JS_statusText.setText("<color:ffffff><font:DomCasualD:24><just:center> Ping Servers");
+      MPJoinServerGui.update();
+      MPJoinServerGui.loading = false;
+      JS_refresh.setActive(true);
+      if ($Master::Hidden > 0)
+	      JS_ListHidden.setText("<color:ffffff><shadow:1:1><font:Marker Felt:24><shadowcolor:0000007f><just:center>Some servers are not shown (<a:helpbox>Why?</a>)");
+	   else
+	   	JS_ListHidden.setText("");
+//      pingAllServers();
+//      %this.disconnect();
+      %this.destroy();
+   }
+
+   if (%this.receiving) {
+      if (strPos(%line, "SERVER:") == 0) { //Server data
+         //Server Address
+         %serverData = getSubStr(%line, strLen("SERVER:"), strLen(%line));
+         %nextColon = strPos(%serverData, ":");
+         %nextColon = %nextColon == -1 ? strLen(%serverData) : %nextColon;
+         %address = getSubStr(%serverData, 0, %nextColon);
+         %serverData = getSubStr(%serverData, %nextColon + 1, strLen(%serverData));
+
+         //Server Name
+         %nextColon = strPos(%serverData, ":");
+         %nextColon = %nextColon == -1 ? strLen(%serverData) : %nextColon;
+         %name = getSubStr(%serverData, 0, %nextColon);
+         %serverData = getSubStr(%serverData, %nextColon + 1, strLen(%serverData));
+
+         //Server Level
+         %nextColon = strPos(%serverData, ":");
+         %nextColon = %nextColon == -1 ? strLen(%serverData) : %nextColon;
+         %level = getSubStr(%serverData, 0, %nextColon);
+         %serverData = getSubStr(%serverData, %nextColon + 1, strLen(%serverData));
+
+         //Server Mode
+         %nextColon = strPos(%serverData, ":");
+         %nextColon = %nextColon == -1 ? strLen(%serverData) : %nextColon;
+         %mode = getSubStr(%serverData, 0, %nextColon);
+         %serverData = getSubStr(%serverData, %nextColon + 1, strLen(%serverData));
+
+         //Server Players
+         %nextColon = strPos(%serverData, ":");
+         %nextColon = %nextColon == -1 ? strLen(%serverData) : %nextColon;
+         %players = getSubStr(%serverData, 0, %nextColon);
+         %serverData = getSubStr(%serverData, %nextColon + 1, strLen(%serverData));
+
+         //Server Submitting
+         %nextColon = strPos(%serverData, ":");
+         %nextColon = %nextColon == -1 ? strLen(%serverData) : %nextColon;
+         %submitting = getSubStr(%serverData, 0, %nextColon);
+         %serverData = getSubStr(%serverData, %nextColon + 1, strLen(%serverData));
+
+         //Server Password
+         %nextColon = strPos(%serverData, ":");
+         %nextColon = %nextColon == -1 ? strLen(%serverData) : %nextColon;
+         %password = getSubStr(%serverData, 0, %nextColon);
+         %serverData = getSubStr(%serverData, %nextColon + 1, strLen(%serverData));
+
+         //Server Dedicated
+         %nextColon = strPos(%serverData, ":");
+         %nextColon = %nextColon == -1 ? strLen(%serverData) : %nextColon;
+         %dedicated = getSubStr(%serverData, 0, %nextColon);
+         %serverData = getSubStr(%serverData, %nextColon + 1, strLen(%serverData));
+
+         //Server Version
+         %nextColon = strPos(%serverData, ":");
+         %nextColon = %nextColon == -1 ? strLen(%serverData) : %nextColon;
+         %version = getSubStr(%serverData, 0, %nextColon);
+         %serverData = getSubStr(%serverData, %nextColon + 1, strLen(%serverData));
+
+         //Server Dev
+         %nextColon = strPos(%serverData, ":");
+         %nextColon = %nextColon == -1 ? strLen(%serverData) : %nextColon;
+         %dev = getSubStr(%serverData, 0, %nextColon);
+         %serverData = getSubStr(%serverData, %nextColon + 1, strLen(%serverData));
+
+         //Server Max Players
+         %nextColon = strPos(%serverData, ":");
+         %nextColon = %nextColon == -1 ? strLen(%serverData) : %nextColon;
+         %maxPlayers = getSubStr(%serverData, 0, %nextColon);
+         %serverData = getSubStr(%serverData, %nextColon + 1, strLen(%serverData));
+
+         //Server OS
+         %nextColon = strPos(%serverData, ":");
+         %nextColon = %nextColon == -1 ? strLen(%serverData) : %nextColon;
+         %os = getSubStr(%serverData, 0, %nextColon);
+         %serverData = getSubStr(%serverData, %nextColon + 1, strLen(%serverData));
+
+         //Server Port
+         %nextColon = strPos(%serverData, ":");
+         %nextColon = %nextColon == -1 ? strLen(%serverData) : %nextColon;
+         %port = getSubStr(%serverData, 0, %nextColon);
+         %serverData = getSubStr(%serverData, %nextColon + 1, strLen(%serverData));
+
+         //Server Info
+         %nextColon = strPos(%serverData, ":");
+         %nextColon = %nextColon == -1 ? strLen(%serverData) : %nextColon;
+         %info = getSubStr(%serverData, 0, %nextColon);
+         %serverData = getSubStr(%serverData, %nextColon + 1, strLen(%serverData));
+
+         //Server Handicap
+         %nextColon = strPos(%serverData, ":");
+         %nextColon = %nextColon == -1 ? strLen(%serverData) : %nextColon;
+         %handicap = getSubStr(%serverData, 0, %nextColon);
+         %serverData = getSubStr(%serverData, %nextColon + 1, strLen(%serverData));
+
+         //Server Host
+         %nextColon = strPos(%serverData, ":");
+         %nextColon = %nextColon == -1 ? strLen(%serverData) : %nextColon;
+         %host = getSubStr(%serverData, 0, %nextColon);
+         %serverData = getSubStr(%serverData, %nextColon + 1, strLen(%serverData));
+
+         //Server Key (1/2)
+         %nextColon = strPos(%serverData, ":");
+         %nextColon = %nextColon == -1 ? strLen(%serverData) : %nextColon;
+         %key = getSubStr(%serverData, 0, %nextColon);
+         %serverData = getSubStr(%serverData, %nextColon + 1, strLen(%serverData));
+
+         if (!compareOS(%os, $platform)) {
+         	if (!%dedicated)
+	            $Master::Hidden ++;
+            return;
+         }
+
+         //It's us!
+         if (strPos($Master::Key, %key) == 0) {
+            //$Master::Hidden ++;
+            return;
+         }
+
+         %address = URLDecode(%address);
+         %address = strReplace(%address, "-", ":");
+         %name = URLDecode(%name);
+         %mode = URLDecode(%mode);
+         %level = URLDecode(%level);
+         %info = URLDecode(%info);
+         %info = expandEscape(%info);
+
+         //HiGuy: No duplicate servers!
+         for (%i = 0; %i < $Master::ServerCount; %i ++) {
+            %server = $Master::Servers[%i];
+            %s_address = getField(%server, 0);
+            if (%s_address $= %address) {
+               error("Duplicate server with address" SPC %address);
+               return;
+            }
+         }
+
+         $Master::Servers[$Master::ServerCount] = %address TAB %name TAB %level TAB %mode TAB %players TAB %password TAB %submitting TAB %dedicated TAB %version TAB getMissionInfo(%level) TAB %maxPlayers TAB %os TAB %port TAB %info TAB %handicap TAB %host;
+         $Master::ServerCount ++;
+         MPJoinServerGui.update();
+      }
+   }
+
+   if (%line $= "SERVERS START") {
+      JS_serverList.clear();
+      JS_serverListShadow.clear();
+      MPJoinServerGui.update();
+      %this.receiving = true;
+   }
+}
+
+function JS_ListHidden::onURL(%this, %url) {
+	if (%url $= "helpbox") {
+		if ($Master::Hidden == 1)
+			MessageBoxOk("Hidden Servers", "Currently," SPC $Master::Hidden SPC "server is not displayed on the list because the server host is on a different operating system than yours.", "", true);
+		else
+			MessageBoxOk("Hidden Servers", "Currently," SPC $Master::Hidden SPC "servers are not displayed on the list because the server hosts are on a different operating system than yours.", "", true);
+	}
+}
+
+//----------------------------------------
+
+function queryFinish() {
+   if (isObject(MasterQuery)) {
+      MasterQuery.destroy();
+   }
+   if (!MPJoinServerGui.isAwake())
+      return;
+
+   MPJoinServerGui.querying = false;
+   MPJoinServerGui.update();
+}
+
+//----------------------------------------
+
+function pingAllServers() {
+   if ($Master::ServerCount == 0) {
+      JS_statusText.setText("<color:ffffff><font:DomCasualD:24><just:center> Query Completed");
+      %this.finish = schedule(1000, 0, "queryFinish");
+   } else {
+      $Master::Pinging = true;
+      JS_statusText.setText("<color:ffffff><font:DomCasualD:24><just:center> Ping Servers (0 out of" SPC $Master::ServerCount @ ")");
+      $Master::Pings = 0;
+      for (%i = 0; %i < $Master::ServerCount; %i ++) {
+         %server = getField($Master::Servers[%i], 0) @ (getField($Master::Servers[%i], 0) !$= "" ? ":" @ getField($Master::Servers[%i], 12) : "");
+         pingServer(%server, %i);
+      }
+   }
+}
+
+function pingResult(%number, %address, %status, %ping, %serverPing) {
+   $Master::Ping[%number] = %status TAB %ping TAB %serverPing;
+   $Master::Pings ++;
+   JS_statusText.setText("<color:ffffff><font:DomCasualD:24><just:center> Ping Servers (" SPC $Master::Pings SPC "out of" SPC $Master::ServerCount @ ")");
+   if ($Master::Pings == $Master::ServerCount) {
+      $Master::Pinging = false;
+      JS_statusText.setText("<color:ffffff><font:DomCasualD:24><just:center> Query Completed");
+      %this.finish = schedule(1000, 0, "queryFinish");
+   }
+   MPJoinServerGui.update();
+}
+
+//----------------------------------------
+
+function pingServer(%address, %number) {
+   if ($fast) {
+      pingResult(%number, %address, true, "N", "A");
+      return;
+   }
+   if (!$PortInited) {
+      portInit(28000);
+      allowConnections(true);
+   }
+
+   if (!isObject(PingingGroup))
+      RootGroup.add(new SimGroup(PingingGroup));
+
+   %connection = new GameConnection(PingConnection);
+   PingingGroup.add(%connection);
+   %connection.setConnectArgs("", %number, "", "", $platform, "bolonga");
+   %connection.setJoinPassword($Client::Password);
+   %connection.connect(%address);
+   %connection.pinging = true;
+   %connection.address = %address;
+   %connection.number  = %number;
+
+   $Master::PingClient[%number] = %connection;
+}
+
+function PingConnection::onConnectionAccepted(%this) {
+   warn("Connection for" SPC %this.address SPC "was accepted!");
+   if (%this.number == -2)
+      return;
+   %this.schedule(500, doPing);
+}
+
+function PingConnection::onConnectionTimedOut(%this) {
+   schedule(1000, 0, "pingDisconnect", %this);
+   error("Connection for" SPC %this.address SPC "timed out!");
+
+   //echo(%this); //I have no clue what %this is...
+   %this.dump();
+   pingResult(%this.number, %this.address, false, "--", "--");
+}
+
+//Normal call, the server finished the connection
+function PingConnection::onConnectionDropped(%this, %msg) {
+   schedule(1000, 0, "pingDisconnect", %this);
+   //warn("Connection for" SPC %this.address SPC "was dropped!");
+}
+
+//Probably should never happen, but in the event it does, just delete the connection
+function PingConnection::onConnectionError(%this, %msg) {
+   schedule(1000, 0, "pingDisconnect", %this);
+   //warn("Connection for" SPC %this.address SPC "had an error!");
+
+   //echo(%this); //I have no clue what %this is...
+   %this.dump();
+   pingResult(%this.number, %this.address, false, "--", "--");
+}
+
+function PingConnection::onConnectRequestRejected(%this, %msg) {
+   switch$ (%msg) {
+   case "CR_PING":
+      //Well, we can't really get a result from this
+   default:
+      //TODO: Error message on master here
+   }
+   //warn("Request for" SPC %this.address SPC "was rejected!");
+   schedule(1000, 0, "pingDisconnect", %this);
+
+   //echo(%this); //I have no clue what %this is...
+   %this.dump();
+   pingResult(%this.number, %this.address, true, "--", "--");
+}
+
+function PingConnection::onConnectRequestTimedOut(%this) {
+   schedule(1000, 0, "pingDisconnect", %this);
+   //error("Request for" SPC %this.address SPC "timed out!");
+
+   //echo(%this); //I have no clue what %this is...
+   %this.dump();
+   pingResult(%this.number, %this.address, true, "--", "--");
+}
+
+function PingConnection::setLagIcon(%this, %state) {
+   //Nothing
+}
+
+function clientCmd_GetPing(%ping, %number) {
+   %connection = $Master::PingClient[%number];
+   //warn("Server Ping for" SPC %connection.address SPC "is" SPC %ping);
+   pingResult(%connection.number, %connection.address, true, %connection.getPing(), %ping);
+   %connection.delete();
+}
+
+function pingDisconnect(%connection) {
+   if (isObject(%connection))
+      %connection.destroy();
+}
+
+//-----------------------------------------------------------------------------
+
+function serverSelect() {
+   //$address     $name     $level     $mode     $players     $password     $submitting     $dedicated     $version     $dev                       $maxplayers     $os     $port     $info     $handicap     $host\n");
+   //%address TAB %name TAB %level TAB %mode TAB %players TAB %password TAB %submitting TAB %dedicated TAB %version TAB getMissionInfo(%level) TAB %maxPlayers TAB %os TAB %port TAB %info TAB %handicap TAB %host;
+   // 0 - %address
+   // 1 - %name
+   // 2 - %level
+   // 3 - %mode
+   // 4 - %players
+   // 5 - %password
+   // 6 - %submitting
+   // 7 - %dedicated
+   // 8 - %version
+   // 9 - getMissionInfo(%level)
+   // 10 - %maxPlayers
+   // 11 - %os
+   // 12 - %port
+   // 13 - %info
+   // 14 - %handicap
+   // 15 - %host;
+   %index = JS_serverList.getSelectedId();
+   if (%index >= 0) {
+      %serverIdx  = getField(JS_serverList.getRowTextById(%index), 3);
+      %serverType = getField(JS_serverList.getRowTextById(%index), 4);
+
+      echo("Index is" SPC %serverIdx);
+      echo("Type is" SPC %serverType);
+
+      //Server Type getting
+      if (%serverType == 1) setServerInfo(%serverIdx);
+      else %info = $Master::Servers[%serverIdx];
+
+      if (%serverType == 0) %title = getField(%info, 1);
+      else %title = $ServerInfo::Name;
+
+
+      //HiGuy: Reasonably lengthed names
+      %host = clipPx("<font:Marker Felt:18>" @ getField(%info, 15), 140);
+
+      echo(getField(%info, 15));
+      echo(%host);
+
+      %handicap = getField(%info, 14);
+      %handicaps = "";
+      if (!!(%handicap & (1 <<  0))) %handicaps = %handicaps NL "Disable Yellow Gems";
+      if (!!(%handicap & (1 <<  1))) %handicaps = %handicaps NL "Disable Blue Gems";
+      if (!!(%handicap & (1 <<  2))) %handicaps = %handicaps NL "Disable Knocking Opponents";
+      if (!!(%handicap & (1 <<  3))) %handicaps = %handicaps NL "Disable Diagonal Movement";
+      if (!!(%handicap & (1 <<  4))) %handicaps = %handicaps NL "Disable Jump";
+      if (!!(%handicap & (1 <<  5))) %handicaps = %handicaps NL "Disable Blast";
+      if (!!(%handicap & (1 <<  6))) %handicaps = %handicaps NL "Disable Super Jump";
+      if (!!(%handicap & (1 <<  7))) %handicaps = %handicaps NL "Disable Super Speed";
+      if (!!(%handicap & (1 <<  8))) %handicaps = %handicaps NL "Disable Gyrocopter";
+      if (!!(%handicap & (1 <<  9))) %handicaps = %handicaps NL "Disable Mega Marble";
+      if (!!(%handicap & (1 << 10))) %handicaps = %handicaps NL "Disable Radar / Gem Beams";
+      if (!!(%handicap & (1 << 11))) %handicaps = %handicaps NL "Hide Opponent Marbles";
+      %handicaps = getSubStr(%handicaps, 1, strlen(%handicaps)); //Has a \n at the beginning
+
+      %desc = collapseEscape(getField(%info, 13));
+      %dedicated = getfield(%info, 7);
+
+      JS_ServerInfo.setValue("<shadow:1:1><shadowcolor:0000007f><font:Marker Felt:24><just:center><color:ffffff>" @ %title NL "<font:Marker Felt:18><color:ddddee>" @ (%dedicated ? "Dedicated Server" : "Hosted By" SPC %host) NL "<color:ffffff>" NL %desc);
+      JS_HandicapsTitle.setValue("<shadow:1:1><shadowcolor:0000007f><font:Marker Felt:24><color:ddddee>Global Handicaps:");
+      JS_HandicapsInfo.setValue("<shadow:1:1><shadowcolor:0000007f><font:Marker Felt:18><color:ffffff>" @ %handicaps);
+      JS_ServerInfo.forceReflow();
+   } else {
+      JS_ServerInfo.setValue("<shadow:1:1><shadowcolor:0000007f><font:Marker Felt:24><just:center><color:ffffff>Select a Server");
+      JS_HandicapsTitle.setValue("");
+      JS_HandicapsInfo.setValue("");
+   }
+   JS_joinServer.setActive(JS_serverList.getSelectedId() >= 0 && !%this.joining);
+}
+
+function clearML(%string) {
+   %string = strReplace(%string, "\r", "\xFD");
+   %string = strReplace(%string, "\n", "\xFE");
+   %string = strReplace(%string, "\t", "\xFF");
+   %string = stripMLControlChars(%string);
+   %string = strReplace(%string, "\xFD", "\r");
+   %string = strReplace(%string, "\xFE", "\n");
+   %string = strReplace(%string, "\xFF", "\t");
+   return %string;
+}
+
+function clientCmd_ServerInfo(%info, %modes, %number) {
+   $Master::ServerInfo[%number] = %info;
+   $Master::ServerModes[%number] = %modes;
+   MPJoinServerGui.update();
+}
+
+//-----------------------------------------------------------------------------
+// Behold!
+
+// JoinServer(IP, Username)
+//
+// Vars:
+//    IP: The IP address or DNS for the server, WITH THE PORT
+//    Username: The ingame username displayed on the server
+//    Password: The password for the server, if any
+
+function joinServer(%ip, %username, %password, %port) {
+   echo("Connecting to" SPC %ip);
+
+   //HiGuy: Kill all pinging connections
+   while (PingingGroup.getCount()) {
+      %connection = PingingGroup.getObject(0);
+      pingResult(%connection.number, %connection.address, true, "--", "--");
+      %connection.delete();
+   }
+
+   MPJoinServerGui.joining = true;
+   MPJoinServerGui.address = %ip;
+   MPJoinServerGui.joinIP = %ip;
+   MPJoinServerGui.joinPort = %port;
+   MPJoinServerGui.update();
+
+   portInit((%port $= "" ? 28000 : %port));
+   allowConnections(true);
+
+   //HiGuy: We should probably force this for LB play
+   if ($LB::LoggedIn && $LB::Username !$= "")
+      %username = $LB::Username;
+
+   //Setting these is important
+   $Server::ServerType = "MultiPlayer";
+   $Server::Hosting = false;
+   $Server::Reconnecting = false;
+	$playingDemo = false; //HiGuy: For some reason, this isn't reset.
+
+   while (isObject(ServerConnection))
+      ServerConnection.delete();
+   new GameConnection(ServerConnection);
+   ServerConnection.setConnectArgs(%username, -1, %password, MPMarbleSelectionDlg.getSelection(), $platform, "bolonga");
+   ServerConnection.connect(%ip);
+
+   RootGroup.add(new SimSet(MissionGroup));
+
+   LBMessage("Joining Server...");
+}

@@ -1,0 +1,484 @@
+//-----------------------------------------------------------------------------
+// LBUserDlg.gui
+// Copyright (c) The Platinum Team
+// Mainly written by Jeff
+// References from Spy47
+//-----------------------------------------------------------------------------
+//--- OBJECT WRITE BEGIN ---
+new GuiChunkedBitmapCtrl(LBUserDlg) {
+   profile = "GuiDefaultProfile";
+   horizSizing = "width";
+   vertSizing = "height";
+   position = "0 0";
+   extent = "640 480";
+   minExtent = "8 8";
+   visible = "1";
+   helpTag = "0";
+   bitmap = "~/client/ui/black";
+   useVariable = "0";
+   tile = "0";
+
+   new GuiBitmapCtrl(LBUserWindow) {
+      profile = "GuiDefaultProfile";
+      horizSizing = "center";
+      vertSizing = "center";
+      position = "64 58";
+      extent = "512 364";
+      minExtent = "8 8";
+      visible = "1";
+      helpTag = "0";
+      bitmap = "./user/userwindow";
+      wrap = "0";
+
+      new GuiMLTextCtrl(LBUserTitle) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "width";
+         vertSizing = "bottom";
+         position = "9 11";
+         extent = "495 14";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiBitmapButtonCtrl() {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "top";
+         position = "10 302";
+         extent = "114 54";
+         minExtent = "8 8";
+         visible = "1";
+         command = "Canvas.popDialog(LBUserDlg);";
+         helpTag = "0";
+         text = "cancel";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./user/close";
+      };
+      new GuiBitmapButtonCtrl(LBAddFriend) {
+         profile = "GuiButtonProfile";
+         horizSizing = "left";
+         vertSizing = "top";
+         position = "388 302";
+         extent = "116 54";
+         minExtent = "8 8";
+         visible = "1";
+         command = "LBUserDlg.addFriend();";
+         helpTag = "0";
+         text = "add friend";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./user/friend";
+      };
+      new GuiBitmapButtonCtrl(LBRemoveFriend) {
+         profile = "GuiButtonProfile";
+         horizSizing = "left";
+         vertSizing = "top";
+         position = "388 302";
+         extent = "116 54";
+         minExtent = "8 8";
+         visible = "0";
+         command = "LBUserDlg.removeFriend();";
+         helpTag = "0";
+         text = "remove friend";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./user/unfriend";
+      };
+      new GuiBitmapButtonCtrl(LBEditProfile) {
+         profile = "GuiButtonProfile";
+         horizSizing = "left";
+         vertSizing = "top";
+         position = "388 302";
+         extent = "116 54";
+         minExtent = "8 8";
+         visible = "0";
+         command = "LBUserDlg.editProfile();";
+         helpTag = "0";
+         text = "edit profile";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./user/edit";
+      };
+      new GuiControl() {
+         profile = "GuiTransparency75Profile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "15 50";
+         extent = "294 255";
+         minExtent = "27 27";
+         visible = "1";
+         helpTag = "0";
+
+         new GuiControl() {
+            profile = "GuiDefaultProfile";
+            horizSizing = "width";
+            vertSizing = "height";
+            position = "0 0";
+            extent = "294 255";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+
+            new GuiMLTextCtrl(LBUserStatsTitle) {
+               profile = "GuiMLTextProfile";
+               horizSizing = "width";
+               vertSizing = "bottom";
+               position = "3 3";
+               extent = "288 14";
+               minExtent = "8 8";
+               visible = "1";
+               helpTag = "0";
+               lineSpacing = "2";
+               allowColorChars = "0";
+               maxChars = "-1";
+            };
+            new GuiScrollCtrl() {
+               profile = "GuiBacklessScrollProfile";
+               horizSizing = "width";
+               vertSizing = "bottom";
+               position = "6 33";
+               extent = "282 210";
+               minExtent = "8 8";
+               visible = "1";
+               helpTag = "0";
+               willFirstRespond = "1";
+               hScrollBar = "alwaysOff";
+               vScrollBar = "dynamic";
+               constantThumbHeight = "0";
+               childMargin = "0 0";
+
+               new GuiMLTextCtrl(LBUserStats) {
+                  profile = "GuiMLTextProfile";
+                  horizSizing = "width";
+                  vertSizing = "bottom";
+                  position = "0 0";
+                  extent = "264 14";
+                  minExtent = "8 8";
+                  visible = "1";
+                  helpTag = "0";
+                  lineSpacing = "2";
+                  allowColorChars = "0";
+                  maxChars = "-1";
+               };
+            };
+         };
+      };
+      new GuiControl(LBFriendsContainer) {
+         profile = "GuiTransparency75Profile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "312 50";
+         extent = "188 255";
+         minExtent = "27 27";
+         visible = "1";
+         helpTag = "0";
+
+         new GuiScrollCtrl() {
+            profile = "GuiBacklessScrollProfile";
+            horizSizing = "width";
+            vertSizing = "bottom";
+            position = "6 36";
+            extent = "174 213";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            willFirstRespond = "1";
+            hScrollBar = "alwaysOff";
+            vScrollBar = "dynamic";
+            constantThumbHeight = "0";
+            childMargin = "0 0";
+
+            new GuiTextListCtrl(LBFriendList) {
+               profile = "GuiTextListProfile";
+               horizSizing = "right";
+               vertSizing = "bottom";
+               position = "0 0";
+               extent = "174 8";
+               minExtent = "8 8";
+               visible = "1";
+               command = "LBUserDlg.selectFriend();";
+               helpTag = "0";
+               enumerate = "0";
+               resizeCell = "1";
+               columns = "0";
+               fitParentWidth = "1";
+               clipColumnText = "0";
+            };
+         };
+         new GuiMLTextCtrl(LBUserFriendsTitle) {
+            profile = "GuiMLTextProfile";
+            horizSizing = "width";
+            vertSizing = "bottom";
+            position = "3 3";
+            extent = "180 14";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            lineSpacing = "2";
+            allowColorChars = "0";
+            maxChars = "-1";
+         };
+      };
+      new GuiBitmapButtonCtrl() {
+         profile = "GuiButtonProfile";
+         horizSizing = "left";
+         vertSizing = "top";
+         position = "348 302";
+         extent = "51 51";
+         minExtent = "8 8";
+         visible = "1";
+         command = "LBUserDlg.showStatistics();";
+         helpTag = "0";
+         text = "cancel";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./play/stats";
+      };
+   };
+};
+//--- OBJECT WRITE END ---
+
+function LBUserDlg::show(%this, %user) {
+   %this.user = trim(stripCols(%user));
+   %w = getWord(Canvas.getExtent(), 0) / 2;
+   %h = getWord(Canvas.getExtent(), 1) / 2;
+   if (%this.user $= $LB::Username) {
+      LBUserWindow.resize(%w - 256, %h - 182, 512, 364);
+      LBUserWindow.setBitmap($usermods @ "/leaderboards/user/userwindow.png");
+   } else {
+      LBUserWindow.resize(%w - 162, %h - 182, 324, 364);
+      LBUserWindow.setBitmap($usermods @ "/leaderboards/user/userwindow-small.png");
+   }
+   Canvas.pushDialog(%this);
+
+   // Jeff: you can't have friends if you're a guest.
+   // become a real user.  Maybe then....maybe
+   LBAddFriend.setActive(!$LB::Guest);
+}
+
+function LBUserDlg::onWake(%this) {
+   %this.canAddFriend();
+   %user = (%this.user $= $LB::username) ? "My" : LBResolveName(%this.user, true) @ "\'s";
+   LBUserTitle.setText("<just:center><font:DomCasualD:24>" @ %user SPC "Profile");
+   LBUserStatsTitle.setText("<just:center><font:DomCasualD:24>User Information");
+   LBUserFriendsTitle.setText("<just:center><font:DomCasualD:24>Friends");
+
+   %this.loading = true;
+   %this.updateInfo();
+   %this.loadInfo();
+}
+
+// Jeff: decide to activate or deactive the button
+function LBUserDlg::canAddFriend(%this) {
+   %canAdd = true;
+   LBFriendList.clear();
+   for (%i = 0; %i < $LB::FriendListCount; %i ++) {
+      LBFriendList.addRow(LBFriendList.rowCount(), decodeName($LB::FriendListUser[%i]));
+      if ($LB::FriendListUser[%i] $= %this.user) {
+         %canAdd = false;
+      }
+   }
+   LBAddFriend.setVisible(%canAdd && (%this.user !$= $LB::username));
+   LBRemoveFriend.setVisible(!%canAdd && (%this.user !$= $LB::username));
+   LBEditProfile.setVisible(%this.user $= $LB::username);
+   LBEditProfile.setActive(0);
+   LBFriendsContainer.setVisible(%this.user $= $LB::username);
+}
+
+// Jeff: view achievements
+function LBUserDlg::showAchievements(%this) {
+   LBSCAchievementsDlg.show(%this.user, true);
+}
+
+// Jeff: view statistics
+function LBUserDlg::showStatistics(%this) {
+   LBStatsDlg.show(%this.user);
+}
+
+// Jeff: add a friend
+function LBUserDlg::addFriend(%this) {
+   $LB::FriendListUser[$LBPref::FriendCount] = %this.user;
+   $LB::FriendListCount ++;
+   savePrefs(true);
+
+   if (!isObject(LBFriendAddNetwork))
+      new TCPObject(LBFriendAddNetwork);
+   %server = $LB::server;
+   %page = $LB::serverPath @ "addfriend.php";
+   %query = LBDefaultQuery() @ "&friend=" @ %this.user;
+   LBFriendAddNetwork.post(%server,%page,%query);
+
+   %this.canAddFriend();
+}
+
+function LBFriendAddNetwork::onLine(%this, %line) {
+   Parent::onLine(%this, %line);
+   %this.parseSigs(%line);
+}
+
+// Jeff: delete a friend :(
+function LBUserDlg::removeFriend(%this) {
+   %friend = LBFriendList.getSelectedId();
+   // Jeff: erase the friend from memory
+   LBFriendList.removeRowById(%friend);
+
+   // Jeff: reorganize variables
+   for (%i = 0; %i < LBFriendList.rowCount(); %i ++)
+      $LB::FriendListUser[%i] = LBFriendList.getRowTextById(%i);
+   $LB::FriendListCount --;
+   savePrefs(true);
+
+   if (!isObject(LBFriendDeleteNetwork))
+      new TCPObject(LBFriendDeleteNetwork);
+   %server = $LB::server;
+   %page = $LB::serverPath @ "deletefriend.php";
+   %query = LBDefaultQuery() @ "&friend=" @ %this.user;
+   LBFriendDeleteNetwork.post(%server,%page,%query);
+
+   %this.canAddFriend();
+}
+
+function LBFriendDeleteNetwork::onLine(%this, %line) {
+   Parent::onLine(%this, %line);
+   %this.parseSigs(%line);
+}
+
+// Jeff: when a friend is selected
+function LBUserDlg::selectFriend(%this) {
+   cancel(%this.dblreset);
+   if (%this.dbl) {
+      %this.dbl = false;
+      Canvas.popDialog(%this);
+      %this.show(LBFriendList.getRowTextById(LBFriendList.getSelectedId()));
+   } else {
+      %this.dbl = true;
+      %this.dblreset = %this.schedule(500, "resetDbl");
+   }
+}
+
+function LBUserDlg::resetDbl(%this) {
+   %this.dbl = false;
+   cancel(%this.dblreset);
+}
+
+function LBUserDlg::editProfile(%this) {
+   LB_OH_NO();
+//   Canvas.popDialog(%this);
+//   Canvas.pushDialog(LBEditProfileDlg);
+}
+
+function LBUserDlg::updateInfo(%this) {
+   if (%this.loading) {
+      LBUserStats.setText("<just:center>Loading...");
+   } else {
+      %level = getMissionInfo(LBGetMissionFile(%this.info[35])).name;
+      if (%level $= "")
+         %level = %this.info[35];
+      if (%level $= "")
+         %bestScore = "No Best Score";
+      else
+         %bestScore = (%this.info[34] $= "" ? "N/A" : formatCommas(%this.info[34])
+            SPC "points on" SPC %level @
+            (%this.info[36] == 1 ? ", solo" : "\nagainst" SPC (%this.info[36] - 1) SPC "players"));
+
+      %left = "<font:Arial Bold:14><just:left>";
+      %right = "<font:Arial:14><just:right>";
+      %text =          %left @ "Account Type:"                   @ %right @ LBAccountType(%this.info[0]);
+      %text = %text NL %left @ "Last Played Level:"              @ %right @ (%this.info[1] $= "" ? "N/A" : %this.info[1]);
+      %text = %text NL %left @ "Rank:"                           @ %right @ formatCommas(%this.info[2]);
+      %text = %text NL %left @ "Rating:"                         @ %right @ formatCommas(%this.info[3]);
+      %text = %text NL %left @ "Challenge Points:"               @ %right @ formatCommas(%this.info[4]);
+      %text = %text NL %left @ "Multiplayer Rating:"             @ %right @ formatCommas(%this.info[5]);
+      %text = %text NL %left @ "Easter Eggs Found:"              @ %right @ %this.info[6];
+      %text = %text NL %left @ "Total Time Online:"              @ %right @ formatTimeHours(%this.info[40]) @ "\n";
+//      %text = %text NL %left @ "Achievements:"                   @ %right @ %this.info[7];
+//      %text = %text NL %left @ "Challenge Achievements:"         @ %right @ %this.info[8];
+//      %text = %text NL %left @ "Multiplayer Achievements:"       @ %right @ %this.info[9] @ "\n";
+      %text = %text NL %left @ "Rank MBP:"                       @ %right @ formatCommas(%this.info[10]);
+//      %text = %text NL %left @ "Rank MBP GG:"                    @ %right @ formatCommas(%this.info[11]);
+      %text = %text NL %left @ "Rank MBG:"                       @ %right @ formatCommas(%this.info[12]);
+//      %text = %text NL %left @ "Rank MBG GG:"                    @ %right @ formatCommas(%this.info[13]);
+      %text = %text NL %left @ "Rank Custom:"                    @ %right @ formatCommas(%this.info[14]);
+      %text = %text NL %left @ "Rank Multiplayer:"               @ %right @ formatCommas(%this.info[15]);
+      %text = %text NL %left @ "Rank Challenges:"                @ %right @ formatCommas(%this.info[16]) @ "\n";
+      %text = %text NL %left @ "Challenges Won:"                 @ %right @ formatCommas(%this.info[17]);
+      %text = %text NL %left @ "Challenges Lost:"                @ %right @ formatCommas(%this.info[18]) @ "\n";
+      %text = %text NL %left @ "Super Challenges (1st Place):"   @ %right @ formatCommas(%this.info[19]);
+      %text = %text NL %left @ "Super Challenges (2nd Place):"   @ %right @ formatCommas(%this.info[20]);
+      %text = %text NL %left @ "Super Challenges (3rd Place):"   @ %right @ formatCommas(%this.info[21]);
+      %text = %text NL %left @ "Super Challenges (4th Place):"   @ %right @ formatCommas(%this.info[22]) @ "\n";
+      %text = %text NL %left @ "Multiplayer Games (1st Place):"  @ %right @ formatCommas(%this.info[23]);
+      %text = %text NL %left @ "Multiplayer Games (2nd Place):"  @ %right @ formatCommas(%this.info[24]);
+      %text = %text NL %left @ "Multiplayer Games (3rd Place):"  @ %right @ formatCommas(%this.info[25]);
+      %text = %text NL %left @ "Multiplayer Games (4th+ Place):" @ %right @ formatCommas(%this.info[26]) @ "\n";
+      %text = %text NL %left @ "Multiplayer Teams (1st Place):"  @ %right @ formatCommas(%this.info[27]);
+      %text = %text NL %left @ "Multiplayer Teams (2nd Place):"  @ %right @ formatCommas(%this.info[28]);
+      %text = %text NL %left @ "Multiplayer Teams (3rd Place):"  @ %right @ formatCommas(%this.info[29]);
+      %text = %text NL %left @ "Multiplayer Teams (4th+ Place):" @ %right @ formatCommas(%this.info[30]) @ "\n";
+      %text = %text NL %left @ "Multiplayer Red Gems:"           @ %right @ formatCommas(%this.info[31]);
+      %text = %text NL %left @ "Multiplayer Yellow Gems:"        @ %right @ formatCommas(%this.info[32]);
+      %text = %text NL %left @ "Multiplayer Blue Gems:"          @ %right @ formatCommas(%this.info[33]);
+      %text = %text NL %left @ "Multiplayer Total Gems:"         @ %right @ formatCommas(%this.info[31] + %this.info[32] + %this.info[33]);
+      %text = %text NL %left @ "Multiplayer Total Points:"       @ %right @ formatCommas((%this.info[31]) + (%this.info[32] * 2) + (%this.info[33] * 5)) @ "\n";
+      %text = %text NL %left @ "Best Score (MP):"                @ %right @ %bestScore;
+      %text = %text NL %left @ "Average Score (MP):"             @ %right @ %this.info[37];
+      %text = %text NL %left @ "Signature:"                      @ %right @ %this.info[38];
+      if (%this.info[38] !$= "")
+         %text = %text NL %left @ "Title:"                       @ %right @ "[" @ %this.info[39] @ "]";
+      LBUserStats.setText(%text);
+   }
+   if (%this.isAwake())
+      LBUserStats.forceReflow();
+}
+
+function LBUserDlg::loadInfo(%this) {
+   if (!isObject(LBUserInfoNetwork))
+      new TCPObject(LBUserInfoNetwork);
+   %server = $LB::server;
+   %page = $LB::serverPath @ "userinfo.php";
+   %query = LBDefaultQuery() @ "&user=" @ %this.user;
+   LBUserInfoNetwork.post(%server,%page,%query);
+
+   //HiGuy: Super long text lines crash the game
+   if ($tracing) trace(false);
+}
+
+function LBUserInfoNetwork::onLine(%this, %line) {
+   Parent::onLine(%this, %line);
+   %this.parseSigs(%line);
+
+   %cmd = firstWord(%line); //Command
+   %val = restWords(%line); //Value
+   switch$ (%cmd) {
+   case "SIG":
+      switch (%val) {
+      case 1:
+         LBUserDlg.updateInfo();
+      }
+   case "INFOSTART":
+      LBUserDlg.loading = true;
+      for (%i = 0; LBUserDlg.info[%i] !$= ""; %i ++)
+         LBUserDlg.info[%i] = "";
+   case "INFOEND":
+      LBUserDlg.loading = false;
+      LBUserDlg.updateInfo();
+   case "INFO":
+      %num = firstWord(%val); //Number
+      %cnt = restWords(%val); //Content
+      LBUserDlg.info[%num] = %cnt;
+   }
+}

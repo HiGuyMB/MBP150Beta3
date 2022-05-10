@@ -1,0 +1,1287 @@
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(AchievementsGui) {
+   profile = "GuiDefaultProfile";
+   horizSizing = "width";
+   vertSizing = "height";
+   position = "0 0";
+   extent = "640 480";
+   minExtent = "8 8";
+   visible = "1";
+   helpTag = "0";
+
+   new GuiBitmapCtrl() {
+      profile = "GuiDefaultProfile";
+      horizSizing = "center";
+      vertSizing = "center";
+      position = "63 12";
+      extent = "514 455";
+      minExtent = "48 92";
+      visible = "1";
+      helpTag = "0";
+      bitmap = "./marbleSelect/marbleSelect.png";
+      wrap = "0";
+         resizeHeight = "1";
+         canMaximize = "0";
+         canMove = "1";
+         minSize = "50 50";
+         canClose = "0";
+         maxLength = "255";
+         resizeWidth = "1";
+         canMinimize = "0";
+
+      new GuiMLTextCtrl() {
+         profile = "GuiComic24Profile";
+         horizSizing = "center";
+         vertSizing = "bottom";
+         position = "150 17";
+         extent = "213 29";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiBitmapButtonCtrl() {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "top";
+         position = "414 408";
+         extent = "88 37";
+         minExtent = "8 8";
+         visible = "1";
+         command = "MessageCallback(AchievementsGui,AchievementsGui.callback);";
+         accelerator = "return";
+         helpTag = "0";
+         text = "OK";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./marbleSelect/okay";
+            simpleStyle = "0";
+      };
+      new GuiBitmapCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "205 6";
+         extent = "160 39";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "./achiev/achiev";
+         wrap = "0";
+      };
+      new GuiMLTextCtrl(Achiv_LoadingText) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "center";
+         vertSizing = "bottom";
+         position = "42 76";
+         extent = "320 14";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiMLTextCtrl(Achiv_maintext) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "135 36";
+         extent = "262 402";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "5";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiBitmapCtrl(achiv_bitmap1) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "17 34";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "./achiev/1";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(achiv_bitmap2) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 86";
+         extent = "117 44";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "./achiev/9";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(achiv_bitmap3) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "8 139";
+         extent = "122 44";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "./achiev/3";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(achiv_bitmap4) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "9 192";
+         extent = "121 44";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "./achiev/4";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(achiv_bitmap5) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "14 244";
+         extent = "116 44";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "./achiev/9";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(achiv_bitmap6) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "15 296";
+         extent = "115 44";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "./achiev/9";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(achiv_bitmap7) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "16 346";
+         extent = "114 44";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "./achiev/7";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(achiv_bitmap8) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "17 395";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "./achiev/8";
+         wrap = "0";
+      };
+   };
+};
+//--- OBJECT WRITE END ---
+
+//----------------------------------------
+// ALL THE MAD CODING SKILLZ HERE
+//
+// Yeah. I really had a nightmare here.
+// I hope you don't have one after seeing this.
+// -Spy47
+
+//$Game::BeginnerTotal = 25;
+//$Game::IntermediateTotal = 35;
+//$Game::AdvancedTotal = 35;
+//$Game::ExpertTotal = 25;
+//$Game::MissionsTotal = $Game::BeginnerTotal + $Game::IntermediateTotal + $Game::AdvancedTotal + $Game::ExpertTotal;
+//$Game::EasterEggs = 0;
+//$Game::EasterEggsTotal = 0;
+
+function AchievementsGui::onWake()
+{
+   PerG_PercentTitleText.setText("<font:DomCasualD:24><just:center>Statistics");
+   AchievementsGui::listLoad();
+}
+
+// Spy47 : this starts the loading of the list
+
+function AchievementsGui::listLoad()
+{
+	// ================
+	// GREYED OUT BITMAPS
+	// CHANGE IF NEEDED
+	// ================
+	// Do not display Award points at any given stage
+	achiv_bitmap1.setBitmap("marble/client/ui/achiev/nonachiev");
+	achiv_bitmap2.setBitmap("marble/client/ui/achiev/nonachiev");
+	achiv_bitmap3.setBitmap("marble/client/ui/achiev/nonachiev");
+	achiv_bitmap4.setBitmap("marble/client/ui/achiev/nonachiev");
+	achiv_bitmap5.setBitmap("marble/client/ui/achiev/nonachiev");
+	achiv_bitmap6.setBitmap("marble/client/ui/achiev/nonachiev");
+	achiv_bitmap7.setBitmap("marble/client/ui/achiev/nonachiev");
+	achiv_bitmap8.setBitmap("marble/client/ui/achiev/nonachiev");
+	achiv_bitmap9.setBitmap("marble/client/ui/achiev/nonachiev");
+	achiv_bitmap10.setBitmap("marble/client/ui/achiev/nonachiev");
+	achiv_bitmap11.setBitmap("marble/client/ui/achiev/nonachiev");
+	achiv_bitmap12.setBitmap("marble/client/ui/achiev/nonachiev");
+	achiv_bitmap13.setBitmap("marble/client/ui/achiev/nonachiev");
+	achiv_bitmap14.setBitmap("marble/client/ui/achiev/nonachiev");
+	achiv_bitmap15.setBitmap("marble/client/ui/achiev/nonachiev");
+	achiv_bitmap16.setBitmap("marble/client/ui/achiev/nonachiev");
+	achiv_bitmap17.setBitmap("marble/client/ui/achiev/nonachiev");
+	achiv_bitmap18.setBitmap("marble/client/ui/achiev/nonachiev");
+	achiv_bitmap19.setBitmap("marble/client/ui/achiev/nonachiev");
+	achiv_bitmap20.setBitmap("marble/client/ui/achiev/nonachiev");
+	achiv_bitmap21.setBitmap("marble/client/ui/achiev/nonachiev");
+	achiv_bitmap22.setBitmap("marble/client/ui/achiev/nonachiev");
+	achiv_bitmap23.setBitmap("marble/client/ui/achiev/nonachiev");
+	achiv_bitmap24.setBitmap("marble/client/ui/achiev/nonachiev");
+	achiv_bitmap25.setBitmap("marble/client/ui/achiev/nonachiev");
+	achiv_bitmap26.setBitmap("marble/client/ui/achiev/nonachiev");
+	achiv_bitmap27.setBitmap("marble/client/ui/achiev/nonachiev");
+	achiv_bitmap28.setBitmap("marble/client/ui/achiev/nonachiev");
+	achiv_bitmap29.setBitmap("marble/client/ui/achiev/nonachiev");
+	achiv_bitmap30.setBitmap("marble/client/ui/achiev/nonachiev");
+//	achiv_bitmap31.setBitmap("marble/client/ui/achiev/nonachiev");
+//	achiv_bitmap32.setBitmap("marble/client/ui/achiev/nonachiev");
+//	achiv_bitmap33.setBitmap("marble/client/ui/achiev/nonachiev");
+//	achiv_bitmap34.setBitmap("marble/client/ui/achiev/nonachiev");
+//	achiv_bitmap35.setBitmap("marble/client/ui/achiev/nonachiev");
+//	achiv_bitmap36.setBitmap("marble/client/ui/achiev/nonachiev");
+//	achiv_bitmap37.setBitmap("marble/client/ui/achiev/nonachiev");
+//	achiv_bitmap38.setBitmap("marble/client/ui/achiev/nonachiev");
+//	achiv_bitmap39.setBitmap("marble/client/ui/achiev/nonachiev");
+//	achiv_bitmap40.setBitmap("marble/client/ui/achiev/nonachiev");
+//	achiv_bitmap41.setBitmap("marble/client/ui/achiev/nonachiev");
+//	achiv_bitmap42.setBitmap("marble/client/ui/achiev/nonachiev");
+//	achiv_bitmap43.setBitmap("marble/client/ui/achiev/nonachiev");
+//	achiv_bitmap44.setBitmap("marble/client/ui/achiev/nonachiev");
+//	achiv_bitmap45.setBitmap("marble/client/ui/achiev/nonachiev");
+//	achiv_bitmap46.setBitmap("marble/client/ui/achiev/nonachiev");
+//	achiv_bitmap47.setBitmap("marble/client/ui/achiev/nonachiev");
+//	achiv_bitmap48.setBitmap("marble/client/ui/achiev/nonachiev");
+//	achiv_bitmap49.setBitmap("marble/client/ui/achiev/nonachiev");
+//	achiv_bitmap50.setBitmap("marble/client/ui/achiev/nonachiev");
+	achiv_bitmap1.visible = false;
+	achiv_bitmap2.visible = false;
+	achiv_bitmap3.visible = false;
+	achiv_bitmap4.visible = false;
+	achiv_bitmap5.visible = false;
+	achiv_bitmap6.visible = false;
+	achiv_bitmap7.visible = false;
+	achiv_bitmap8.visible = false;
+	achiv_bitmap9.visible = false;
+	achiv_bitmap10.visible = false;
+	achiv_bitmap11.visible = false;
+	achiv_bitmap12.visible = false;
+	achiv_bitmap13.visible = false;
+	achiv_bitmap14.visible = false;
+	achiv_bitmap15.visible = false;
+	achiv_bitmap16.visible = false;
+	achiv_bitmap17.visible = false;
+	achiv_bitmap18.visible = false;
+	achiv_bitmap19.visible = false;
+	achiv_bitmap20.visible = false;
+	achiv_bitmap21.visible = false;
+	achiv_bitmap22.visible = false;
+	achiv_bitmap23.visible = false;
+	achiv_bitmap24.visible = false;
+	achiv_bitmap25.visible = false;
+	achiv_bitmap26.visible = false;
+	achiv_bitmap27.visible = false;
+	achiv_bitmap28.visible = false;
+	achiv_bitmap29.visible = false;
+	achiv_bitmap30.visible = false;
+//	achiv_bitmap31.visible = false;
+//	achiv_bitmap32.visible = false;
+//	achiv_bitmap33.visible = false;
+//	achiv_bitmap34.visible = false;
+//	achiv_bitmap35.visible = false;
+//	achiv_bitmap36.visible = false;
+//	achiv_bitmap37.visible = false;
+//	achiv_bitmap38.visible = false;
+//	achiv_bitmap39.visible = false;
+//	achiv_bitmap40.visible = false;
+//	achiv_bitmap41.visible = false;
+//	achiv_bitmap42.visible = false;
+//	achiv_bitmap43.visible = false;
+//	achiv_bitmap44.visible = false;
+//	achiv_bitmap45.visible = false;
+//	achiv_bitmap46.visible = false;
+//	achiv_bitmap47.visible = false;
+//	achiv_bitmap48.visible = false;
+//	achiv_bitmap49.visible = false;
+//	achiv_bitmap50.visible = false;
+    Achiv_maintext.setText("");
+    Achiv_LoadingText.setText("<font:DomCasualD:24><just:center>Loading...");
+    //echo("Setting loading");
+
+    schedule(100, 0, "ACHIV_getEasterEggs" );
+}
+
+function qualifyAntiHack(%difficulty, %mis)
+{
+	if(%mis.time)
+	    %time = %mis.time;
+	else
+	    %time = 5998999;
+
+	if($pref::highScores[%mis.file, 0] $= "")
+		return;
+		
+		%score = getSubStr($pref::highScores[%mis.file, 0], 0, strstr($pref::highScores[%mis.file, 0], "\t"));
+		
+	if(%score < %time)
+	{
+		switch$ (%difficulty) {
+			case "Beginner":
+	    		$qual_beginner++;
+			case "Intermediate":
+				$qual_intermediate++;
+			case "Advanced":
+				$qual_advanced++;
+			case "Expert":
+				$qual_expert++;
+		}
+		$qual_totaltime = $qual_totaltime + %score;
+	}
+}
+
+
+// Spy47 : this fills the screen with the correct values
+function AchievementsGui::listComplete()
+{
+   $qual_beginner = 0;
+   $qual_intermediate = 0;
+   $qual_advanced = 0;
+   $qual_expert = 0;
+
+    for(%j = 0; (%mis = MTYPE_Beginner.getObject(%j)) != -1; %j++)
+    {
+	    qualifyAntiHack("Beginner", %mis);
+    }
+	for(%j = 0; (%mis = MTYPE_Intermediate.getObject(%j)) != -1; %j++)
+    {
+	    qualifyAntiHack("Intermediate", %mis);
+    }
+	for(%j = 0; (%mis = MTYPE_Advanced.getObject(%j)) != -1; %j++)
+    {
+	    qualifyAntiHack("Advanced", %mis);
+    }
+	for(%j = 0; (%mis = MTYPE_Expert.getObject(%j)) != -1; %j++)
+    {
+	    qualifyAntiHack("Expert", %mis);
+    }
+   
+ 	
+	//echo("============= ACHIEVEMENTS ==============");
+	// Do not display Award points at any given stage
+	//
+	//
+	// We start with 30,000,000 points, which is also Achievement #29 threshold.
+	// MBG Gold Times [Beating every level's Gold Time by 0.01] = 6,468,224
+	// MBG World Records (5th July 2008) = 11,281,549
+	// MBP Platinum Times [Beating every level's Platinum Time by 0.01] = 11,792,996
+	// MBP Ultimate Times [Beating every level's Ultimate Time by 0.01] = 17,132,348
+	// So assume MBP going to 22,000,000 when all World Records are sort of finalised
+	// So 11,000,000 + 22,000,000 + 22,000,000 = 55,000,000
+	// That's an automatic 50,000,000 Threshold but gotta be a god for that
+	// But for other players, those who just beat UT and thats it
+	// You get 6,468,224 + 17,132,348 + 17,132,348 = 40,732,920
+	// This 14 million difference is huge.
+	//
+	// Achievement #30 threshold is 75,000,000. So:
+	// 
+	// Assume players will achieve all 29 previous achievements for a total of 12,815,000
+	// That's a total of 53,547,920
+	// But wait.. there's MBG GG. So another 6,468,224
+	// Which equals 60,016,144 points.
+	// Players will have to play custom levels and get better times on the other
+	// Four leaderboards in order to get that 75 million. Now that's some work :P Should be easy?
+	//
+	//
+	// Crap stuff, was original but discarded. Left for history.
+	//
+	//
+	// Let's assume that players will do ~10 million points if they're good.
+	// But for Achievement #50 threshold, we want to assume all players that want it
+	// Must be good, so they are more than likely to beat most of the achievements below
+	// The best ones can get all achievements possible.
+	// So to make the achievements below a must in order for players to hit
+	// The Achievement #50 threshold, we must increase Achievement #50 threshold
+	// From its original 50,000,000 target.
+	// The award total for all 49 achievements below is: 34,380,000
+	// The new Achievement #50 threshold will therefore be 65,000,000.
+	// The main reason for it is that we don't know the MBP World Records final scoring.	
+	// We did go with the assumption of 22,000,000 but we must go with the 40,732,920 points
+	// And add to it 21,380,000 [total: 62,112,920 but really higher because you get points
+	// By doing better times which in turn unlock the achievements] and then let players achieve the 
+	// Remainder of the points by doing better times. This most likely won't need to occur.
+	// And to think this was the simple part of the achievement!
+	// Good players will achieve Achievement #50. This won't require all Ultimate Times
+	// Or all Platinum Times from MBP but will require most of the other achievements
+	// And all 3 leaderboards in order to be achieved.
+	// Achievements skipped: 18 (1,000,000), 35, 36, 37 (4,250,000),
+	// 40, 41 and 42 (7,750,000) which total 13,000,000. That's 21,380,000 points
+	// in the achievements below to be attained [43/50 achievements completed].
+	//
+	//
+	//
+	//
+	
+        // Achievement 1
+        // Find any Easter Egg
+        // Award: 10,000 Points
+	// Several easy eggs to choose from = low score
+    if($Game::EasterEggs > 0)
+        achiv_bitmap1.setBitmap("marble/client/ui/achiev/1");
+        
+	// Achievement 2
+        // Find all of the Easter Eggs
+        // Award: 1,000,000 Points
+	// Should've been 5000*120 = 600,000
+        // But we add 400k because the player bothered to play all levels
+	// And get all those eggs for this achievement
+	// And it wasn't easy at all I'll assure you that
+	// So we award them extra [two-thirds of original bonus of 600,000]
+    if($Game::EasterEggs == $Game::EasterEggsTotal)
+        achiv_bitmap2.setBitmap("marble/client/ui/achiev/2");
+		
+	// Achievement 3
+        // Beat any level with a specified par time.
+        // Award: 10,000 Points
+	// There're quite a lot of levels with an easy par time
+	// So we'll give them a low score
+    if()
+        achiv_bitmap3.setBitmap("marble/client/ui/achiev/3");
+		
+	// Achievement 4
+        // Beat Learn the Time Modifier under 1.75 seconds.
+        // Award: 25,000 Points
+	// Players should be able to edge hit and get the next time modifier
+	// Before time starts up. See YouTube videos. Easy.
+    if()
+        achiv_bitmap4.setBitmap("marble/client/ui/achiev/4");
+		
+	// Achievement 5
+        // Beat Arch Acropolis under 7 seconds.
+        // Award: 200,000 Points
+	// Hard route by Matan. Ratings is 613,040 for 6.99 [~80,000 more than 11.99]
+	// For those 6 seconds of shaving the time off
+	// Award about 3 times the difference
+    if()
+        achiv_bitmap5.setBitmap("marble/client/ui/achiev/5");
+	
+	// Achievement 6:
+        // Beat King of the Mountain under 9 seconds.
+        // Award: 75,000 Points
+	// This is rather easy if you know what you're doing.
+    if()
+        achiv_bitmap6.setBitmap("marble/client/ui/achiev/6");
+	
+	// Achievement 7
+        // Beat Pinball Wizard under 10 seconds.
+        // Award: 100,000 Points
+	// Matan's route is good but hard. If you do Pascal's start you got
+	// plenty of time to do it sub-10.
+    if()
+        achiv_bitmap7.setBitmap("marble/client/ui/achiev/7");
+		
+	// Achievement 8
+        // Beat Ramps Reloaded original gold time of 15 seconds.
+        // Award: 300,000 Points
+	// 94,227 for 24.99 [Gold] but we ask for 14.99 or 124,770
+	// ~30,000 difference. 14.99 very hard to do.
+	// Award 10x the difference.
+    if()
+        achiv_bitmap8.setBitmap("marble/client/ui/achiev/8");
+        
+	// Achievement 9
+        // Beat Dive! under 17 seconds.
+        // Award: 150,000 Points
+	// 77,627 for 26.99 but 110,296 for 16.99 so ~33,000 for 10 seconds.
+	// You can either do the full way or the straight-to-goal method
+	// Most likely someone will try the straight-to-goal method so give plenty of points.
+    if()
+        achiv_bitmap9.setBitmap("marble/client/ui/achiev/9");
+		
+	// Achievement 10
+        // Beat Acrobat under 18 seconds.
+        // Award: 75,000 Points
+	// This should be easy. More than one way to pull this out.
+    if()
+        achiv_bitmap10.setBitmap("marble/client/ui/achiev/10");
+	
+        // Achievement 11
+        // Beat Icarus under 20 seconds.
+        // Award: 75,000 Points
+	// This is easy as well. I don't see any reason for difficulties.
+    if()
+        achiv_bitmap11.setBitmap("marble/client/ui/achiev/11");
+        
+	// Achievement 12
+        // Beat Airwalk under 25 seconds.
+        // Award: 300,000 Points
+	// This level is known to lag. And it's very hard too for such a low time.
+	// 67,224 for 69.99 and 134,705 for 24.99 so this is ~67,000 for 45 seconds.
+	// Award ~4.5 times that.
+    if()
+        achiv_bitmap12.setBitmap("marble/client/ui/achiev/12");
+		
+	// Achievement 13
+        // Beat Pathways under 30 seconds.
+        // Award: 300,000 Points
+	// My route shouldn't be that hard. ~90,000 from 84.99 to 29.99
+	// Award about 333%
+    if()
+        achiv_bitmap13.setBitmap("marble/client/ui/achiev/13");
+		
+	// Achievement 14
+        // Beat Siege under 40 seconds.
+        // Award: 100,000 Points
+	// My route does ~45 seconds and with pascal's route its easy to do sub-40
+	// Don't award much.
+    if()
+        achiv_bitmap14.setBitmap("marble/client/ui/achiev/14");
+		
+	// Achievement 15
+        // Beat tightrope's gold time.
+        // Award: 750,000 Points
+	// Very few beat its gold time. 39.99 = 331,184.
+	// Award ~2.11 times that.
+    if()
+        achiv_bitmap15.setBitmap("marble/client/ui/achiev/15");
+
+	// Achievement 16
+        // Beat Combo Course in less than a minute!
+        // Award: 300,000 Points
+	// This will take a while, but it's possible.
+    if()
+        achiv_bitmap16.setBitmap("marble/client/ui/achiev/16");
+		
+	// Achievement 17
+        // Beat Thief in less than a minute!
+        // Award: 300,000 Points
+	// NUKE HIT!!!!
+    if()
+        achiv_bitmap17.setBitmap("marble/client/ui/achiev/17");
+	
+	// Achievement 18
+        // Beat Space Station's Ultimate Time.
+        // Award: 250,000 Points
+	// ~545,000 for UT. Award a bit less than half.
+    if()
+        achiv_bitmap18.setBitmap("marble/client/ui/achiev/18");
+	
+	// Achievement 19
+        // Beat Battlecube Finale's Ultimate Time.
+        // Award: 750,000 Points
+	// ~984,000 for UT. Since people loathe this level then we'll do ~75% for award.
+    if()
+        achiv_bitmap19.setBitmap("marble/client/ui/achiev/19");
+		
+	// Achievement 20
+        // Beat Battlecube Finale in less than 8:30 minutes.
+        // Award: 1,750,000 Points
+	// So hard... yet so good.
+    if()
+        achiv_bitmap20.setBitmap("marble/client/ui/achiev/20");
+        
+	// Achievement 21
+        // Beat Catwalks's Ultimate Time and Slowropes's Ultimate Time.
+        // Award: 400,000 Points
+	// Both UT's hit ~640,000 points so we'll half that and to make it worth, add 60k.
+    if()
+        achiv_bitmap21.setBitmap("marble/client/ui/achiev/21");
+		
+	// Achievement 22
+        // Achieve under 3.50 seconds on 'Learn the Super Jump' and under 10.00 seconds on
+	// 'There and Back Again' by using the World Record methods.
+        // Award: 150,000 Points
+	// Not easy, but players will hit it eventually. TABA will be the hard one, so it worths the most.
+    if()
+        achiv_bitmap22.setBitmap("marble/client/ui/achiev/22");
+
+        // Achievement 23
+        // Beat Moto-Marblecross in less than 4 seconds, Monster Speedway Qualifying
+	// in less than 20 seconds and Monster Speedway in less than 15 seconds.
+        // Award: 175,000 Points
+	// Good players will do all that just fine.
+    if()
+        achiv_bitmap23.setBitmap("marble/client/ui/achiev/23");
+        
+	// Achievement 24
+        // Beat Shimmy under 3 seconds, Path of Least Resistance under 10 seconds,
+	// Daedalus under 15 seconds & Tango under 13 seconds.
+        // Award: 120,000 Points
+	// All levels were given easy times to beat. It's like a joke!
+    if()
+        achiv_bitmap24.setBitmap("marble/client/ui/achiev/24");
+		
+	// Achievement 25
+        // Achieve ANY of the TWO of the following times: under 1 minute on Skyscraper,
+	// under 30 seconds Survival of the Fittest, under 30 seconds Great Divide Revisited,
+	// under 20 seconds Tower Maze, under 15 seconds Battlements or under 20 seconds Natural Selection.
+        // Award: 250,000 Points
+	// This requires patience. Skyscraper's quite hard, Survival is probably hard? GDRevisited is easiest,
+	// Tower Maze also maybe easy, Battlements medium-hard and Natural Selection probably medium-hard too.
+	// Since two only are required award points generously.
+	// Note - Skyscraper doesn't even need to be traplaunched to get sub-1 minute. Players need
+	// To consider this as an amazing bonus!
+    if()
+        achiv_bitmap25.setBitmap("marble/client/ui/achiev/25");
+	
+	// Achievement 26
+        // Get a first place on any leaderboard on any level.
+        // Award: 50,000 Points
+	// If you can't hit it from the MBG/MBG-GG/MBP/MBP-GG leaderboards, you got way too many custom levels.
+	// Easy eventually...
+    if()
+        achiv_bitmap26.setBitmap("marble/client/ui/achiev/26");
+
+	// Achievement 27
+        // Reach 7 million points on your ranking for the MBG Leaderboards or MBG GG Marble Leaderboards.
+        // Award: 700,000 Points
+	// As above: MBG Gold Times [Beating every level's Gold Time by 0.01] = 6,468,224
+	// As such, the road to 7 million is quite easy. Not all golds have to be beaten as well.
+	// Award 10% of value to reach.
+    if()
+        achiv_bitmap27.setBitmap("marble/client/ui/achiev/27");
+	
+	// Achievement 28
+        // Reach 12 million points on your ranking for the MBP Leaderboards or MBP GG Marble Leaderboards.
+        // Award: 1,200,000 Points
+	// As above: MBP Platinum Times [Beating every level's Platinum Time by 0.01] = 11,792,996
+	// As such, the road to 12 million is quite easy. Not all platinums have to be beaten as well.
+	// Award 10% of value to reach.
+    if()
+        achiv_bitmap28.setBitmap("marble/client/ui/achiev/28");
+		
+	// Achievement 29
+        // Achieve 30 million points on your username from the total of all leaderboards.
+        // Award: 3,000,000 Points
+	// MBG ~ 6,500,000 and MBP [both] ~ 23,500,000 = 30,000,000.
+	// That means that platinums and golds on all beats it immediately.
+	// Not all Platinums and Golds have to actually be beaten for this threshold to be reached.
+	// Award 10% of value to reach.
+    if()
+        achiv_bitmap29.setBitmap("marble/client/ui/achiev/29");
+        		
+	// Achievement 30
+        // Achieve 75 million points on your username from the total of all leaderboards
+        // Award: 25,000,000 Points
+	// INSTANT 100,000,000 ON GLOBAL LEADERBOARDS!!!!1111
+    if()
+        achiv_bitmap30.setBitmap("marble/client/ui/achiev/30");
+
+	//
+	//
+	//
+	//
+	// NOT USED FOR 1.10
+	//
+	//
+	//	
+	// Achievement 24: 
+        // Beat all of MBP's Beginner levels.
+        // Award: 100,000 Points
+	// 83,737 for the default times I've put in. Easy levels.
+	// Really is completion bonus (1000) * 100
+//    if($qual_beginner == $Game::BeginnerTotal)
+//        achiv_bitmap24.setBitmap("marble/client/ui/achiev/24");
+//		
+	// Achievement 25: 
+        // Beat all of MBP's Intermediate levels.
+        // Award: 200,000 Points
+	// 269,252 for the default times I've put in. Just takes longer...
+	// Really is completion bonus (2000) * 100
+//    if($qual_intermediate == $Game::IntermediateTotal)
+//        achiv_bitmap25.setBitmap("marble/client/ui/achiev/25");
+//	
+	// Achievement 26: 
+        // Beat all of MBP's Advanced levels.
+        // Award: 300,000 Points
+	// 1,845,927 for the default times I've put in. Let's give them ~16% of that.
+	// Really is completion bonus (3000) * 100
+//    if($qual_advanced == $Game::AdvancedTotal)
+//        achiv_bitmap26.setBitmap("marble/client/ui/achiev/26");
+//	
+	// Achievement 27: 
+        // Beat all of MBP's Expert levels.
+        // Award: 500,000 Points
+	// 4,966,382 for the default times I've put in. Let's give them ~10% of that.
+	// Really is completion bonus (5000) * 100
+//    if($qual_expert == $Game::ExpertTotal)
+//        achiv_bitmap27.setBitmap("marble/client/ui/achiev/27");
+//		
+	// Achievement 28: 
+        // Beat all MBP levels while using the GarageGames Marble.
+        // Award: 1,000,000 Points
+	// Add up the amounts for award bonuses on Achievement 24, 25, 26 and 27 so it matches this one.
+//    if()
+//        achiv_bitmap28.setBitmap("marble/client/ui/achiev/28");
+//        
+	// Achievement 29: 
+        // Beat all Marble Blast Gold levels.
+        // Award: 750,000 Points
+	// 1,803,836 for the default times I've put in. MBG levels usually easier than MBP.
+	// Penalize for that easiness.
+//    if()
+//        achiv_bitmap29.setBitmap("marble/client/ui/achiev/29");
+//		
+	// Achievement 30: 
+        // Beat all the gold times for Marble Blast Gold's Beginner levels.
+        // Award: 250,000 Points
+	// 336,926 for beating every level's Gold Time by 0.01.
+	// Let's award this nicely but those are easy golds.
+//    if()
+//        achiv_bitmap30.setBitmap("marble/client/ui/achiev/30");
+//	
+        // Achievement 31: 
+        // Beat all the gold times for Marble Blast Gold's Intermediate levels
+        // Award: 400,000 Points
+	// 886,053 for beating every level's Gold Time by 0.01.
+	// Still easy golds.
+//    if()
+//        achiv_bitmap31.setBitmap("marble/client/ui/achiev/31");
+//        
+	// Achievement 32: 
+        // Beat all the gold times for Marble Blast Gold's Advanced levels.
+        // Award: 850,000 Points
+	// 5,243,857 for beating every level's Gold Time by 0.01.
+	// Some levels have a hard gold so they worth more but lets not go with too many points.
+//    if()
+//        achiv_bitmap32.setBitmap("marble/client/ui/achiev/32");
+//		
+	// Achievement 33: 
+        // Beat all Platinums for MBP's Beginner levels
+        // Award: 250,000 Points
+	// 352,072 for beating every level's Platinum Time by 0.01.
+	// Gold time equilavents but a bit harder. Award as if it was to be MBG Golds.
+//    if()
+//        achiv_bitmap33.setBitmap("marble/client/ui/achiev/33");
+//		
+	// Achievement 34: 
+        // Beat all Platinums for MBP's Intermediate levels.
+        // Award: 500,000 Points
+	// 1,249,744 for beating every level's Platinum Time by 0.01.
+	// Gold time equilavents but getting harder than them.
+	// Award as if it was to be MBG Golds but give more points.
+//    if()
+//        achiv_bitmap34.setBitmap("marble/client/ui/achiev/34");
+//		
+	// Achievement 35: 
+        // Beat all Platinums for MBP's Advanced levels.
+        // Award: 750,000 Points
+	// 3,430,372 for beating every level's Platinum Time by 0.01.
+	// Gold time equilavents but getting harder than them.
+	// Award as if it was to be MBG Golds but give more points.
+//    if()
+//        achiv_bitmap35.setBitmap("marble/client/ui/achiev/35");
+//	
+	// Achievement 36: 
+        // Beat all Platinums for MBP's Expert levels.
+        // Award: 1,000,000 Points
+	// 6,760,809 for beating every level's Platinum Time by 0.01.
+	// Harder then Gold times.
+	// Award as if it was to be MBG Golds but give more points.
+//    if()
+//        achiv_bitmap36.setBitmap("marble/client/ui/achiev/36");
+//	
+	// Achievement 37: 
+        // Beat all of MBP's Platinum Times.
+        // Award: 2,500,000 Points
+	// Add up the amounts for award bonuses on Achievement 33, 34, 35 and 36 so it matches this one.
+//    if($Game::PlatinumTimes == $Game::MissionsTotal)
+//        achiv_bitmap37.setBitmap("marble/client/ui/achiev/37");
+//		
+	// Achievement 38: 
+        // Beat all Ultimates for MBP's Beginner levels.
+        // Award: 375,000 Points
+	// 568,731 for beating every level's Platinum Time by 0.01.
+	// Instead of doubling the score, let's put it on 1.5 times the platinum awarded points.
+//    if()
+//        achiv_bitmap38.setBitmap("marble/client/ui/achiev/38");
+//        
+	// Achievement 39: 
+        // Beat all Ultimates for MBP's Intermediate levels.
+        // Award: 750,000 Points
+	// 2,225,318 for beating every level's Platinum Time by 0.01.
+	// Instead of doubling the score, let's put it on 1.5 times the platinum awarded points.
+//    if()
+//        achiv_bitmap39.setBitmap("marble/client/ui/achiev/39");
+//		
+	// Achievement 40: 
+        // Beat all Ultimates for MBP's Advanced levels.
+        // Award: 1,312,500 Points
+	// 5,221,843 for beating every level's Platinum Time by 0.01.
+	// Seriously getting hard here! Let's put it on 1.75 times the platinum awarded points.
+//    if()
+//        achiv_bitmap40.setBitmap("marble/client/ui/achiev/40");
+//
+        // Achievement 41: 
+        // Beat all Ultimates for MBP's Expert levels.
+        // Award: 2,000,000 Points
+	// 9,125,285 for beating every level's Platinum Time by 0.01.
+	// Very hard stuff! Let's put it on 2 times the platinum awarded points.
+//    if()
+//        achiv_bitmap41.setBitmap("marble/client/ui/achiev/41");
+//        
+	// Achievement 42: 
+        // Beat all of MBP's Ultimate Times.
+        // Award: 4,437,500 Points
+	// Add up the amounts for award bonuses on Achievement 38, 39, 40 and 41 so it matches this one.
+//    if($Game::UltimateTimes == $Game::MissionsTotal)
+//        achiv_bitmap42.setBitmap("marble/client/ui/achiev/42");
+//		
+	// Achievement 43: 
+        // Complete all Marble Blast Gold levels with a Grand Total of under 22 minutes
+	// and all Marble Blast Platinum levels with a Grand Total of under 1:45 hours.
+        // Award: 4,000,000 Points
+	// World Records for MBG are sub-17 minutes, so the ~5:20 minutes bonus for MBG is huge.
+	// We take the traplaunches into consideration here as well.
+	// MBP UTs are 1:35:23.40 hours, which is almost 10 minutes less than required.
+	// So no need to beat all UTs to get this achievement... Lucky bastards.
+	// As such, the full amount of points from Ultimate Times is discarded
+	// We will award them nicely nonethelesss so people can't say we aren't nice!
+//    if()
+//        achiv_bitmap43.setBitmap("marble/client/ui/achiev/43");
+//		
+	// Achievement 44: 
+        // Get a first place on any leaderboard on any level.
+        // Award: 50,000 Points
+	// If you can't hit it from the MBG/MBG-GG/MBP/MBP-GG leaderboards, you got way too many custom levels.
+	// Easy eventually...
+//    if()
+//        achiv_bitmap44.setBitmap("marble/client/ui/achiev/44");
+//		
+	// Achievement 45: 
+        // Achieve, at least once, having a status of a first place on at
+	// least 8 levels on all leaderboards at the same time.
+        // Award: 425,000 Points
+	// Players may need to use custom levels leaderboards...
+	// 50,000 * 8 = 400,000 but we'll give them 25,000 extra for bothering.
+//    if()
+//        achiv_bitmap45.setBitmap("marble/client/ui/achiev/45");
+//	
+	// Achievement 46: 
+        // Achieve, at least once, having a status of being at the top 10 on at
+	// least 50 levels on all leaderboards at the same time.
+        // Award: 1,000,000 Points
+	// Lots of levels. Players will probably use custom leaderboards for that!
+	// Award them generously as a thank you for playing so much.
+//    if()
+//        achiv_bitmap46.setBitmap("marble/client/ui/achiev/46");
+//	
+	// Achievement 47: 
+        // Reach 7 million points on your ranking for the MBG Leaderboards.
+        // Award: 700,000 Points
+	// As above: MBG Gold Times [Beating every level's Gold Time by 0.01] = 6,468,224
+	// As such, the road to 7 million is quite easy. Not all golds have to be beaten as well.
+	// Award 10% of value to reach.
+//    if()
+//        achiv_bitmap47.setBitmap("marble/client/ui/achiev/47");
+//		
+	// Achievement 48: 
+        // Reach 12 million points on your ranking for the MBP Leaderboards or MBP GG Marble Leaderboards.
+        // Award: 1,200,000 Points
+	// As above: MBP Platinum Times [Beating every level's Platinum Time by 0.01] = 11,792,996
+	// As such, the road to 12 million is quite easy. Not all platinums have to be beaten as well.
+	// Award 10% of value to reach.
+//    if()
+//        achiv_bitmap48.setBitmap("marble/client/ui/achiev/48");
+//        
+	// Achievement 49: 
+        // Achieve 30 million points on your username from the total of all ranked leaderboards.
+        // Award: 3,000,000 Points
+	// MBG ~ 6,500,000 and MBP [both] ~ 23,500,000 = 30,000,000.
+	// That means that platinums and golds on all beats it immediately.
+	// Not all Platinums and Golds have to actually be beaten for this threshold to be reached.
+	// Award 10% of value to reach.
+//    if()
+//        achiv_bitmap49.setBitmap("marble/client/ui/achiev/49");
+//		
+	// Achievement 50: 
+        // Achieve, at least once, having a status of being at the top 10 on at least 300 levels
+	// on all leaderboards at the same time with at least 10% of those being first place,
+	// 25% being top 3 and 50% being top 5.
+	// As well, achieve 65 million points on your total rating points.
+	// Hint: Achievements contribute to your total score; the more you beat, the more points you are awarded.
+        // Award: 65,000,000 Points
+	// We'll give people the amount of points they need to achieve for this final achievement
+	// AND we'll give you a super secret awesome picture by Phil to make you happy!
+	// Congratulations! You have probably beaten everything that we have set you!
+	// I won't be surprised if this isn't your last achievement to beat, so I urge you to get all 50!
+	// Stay tuned for future patches which may include more achievements for you to attain!
+	// Happy Marble Blasting!
+//    if()
+//        achiv_bitmap50.setBitmap("marble/client/ui/achiev/50");
+//
+
+   Achiv_LoadingText.setText("");
+   //%achiv_text = "<spush><font:DomCasualD:24><lmargin:0>\nBeginner Marbler<spop><lmargin:10><font:Arial Bold:14>\nBeat your mum in Marble Blast\n";
+   //Achiv_maintext.setText(%achiv_text);
+   // Do not display Award points at any given stage
+
+// USE THESE FOR 1.10
+
+   %achiev1_title = "Egg Seeker";
+   %achiev2_title = "Easter Bunny";
+   %achiev3_title = "Timely Marble";
+   %achiev4_title = "Stopped Time";
+   %achiev5_title = "The Citadel";
+   %achiev6_title = "King of the Speed";
+   %achiev7_title = "Pinball Maniac";
+   %achiev8_title = "Beating the Impossible";
+   %achiev9_title = "Diving to Eternity";
+   %achiev10_title = "Acrobat";
+   %achiev11_title = "Rebounded Headache";
+   %achiev12_title = "Gravity defyer";
+   %achiev13_title = "All Your Pathway are Belong to Us";
+   %achiev14_title = "The Looter";
+   %achiev15_title = "No looking down";
+   %achiev16_title = "Power of the Powerups";
+   %achiev17_title = "The Ultimate Heist";
+   %achiev18_title = "Winner of the Space Race";
+   %achiev19_title = "Endurance Battle";
+   %achiev20_title = "Schadenfreude";
+   %achiev21_title = "Carelessness";
+   %achiev22_title = "Sign Hit";
+   %achiev23_title = "Highway to Hell";
+   %achiev24_title = "Macarena";
+   %achiev25_title = "Glitch Abuser";
+   %achiev26_title = "The Dragon Awakes";
+   %achiev27_title = "7 Million";
+   %achiev28_title = "12 Million";
+   %achiev29_title = "30 Million";
+   %achiev30_title = "The Dragon's Destiny";
+   %achiev1_descr = "--> Find any Easter Egg.";
+   %achiev2_descr = "--> Find all of the Easter Eggs.";
+   %achiev3_descr = "--> Beat any level with a specified par time.";
+   %achiev4_descr = "--> Beat Learn the Time Modifier under 1.75 seconds.";
+   %achiev5_descr = "--> Beat Arch Acropolis under 7 seconds.";
+   %achiev6_descr = "--> Beat King of the Mountain under 9 seconds.";
+   %achiev7_descr = "--> Beat Pinball Wizard under 10 seconds.";
+   %achiev8_descr = "--> Beat Ramps Reloaded original gold time of 15 seconds.";
+   %achiev9_descr = "--> Beat Dive! under 17 seconds.";
+   %achiev10_descr = "--> Beat Acrobat under 18 seconds.";
+   %achiev11_descr = "--> Beat Icarus under 20 seconds.";
+   %achiev12_descr = "--> Beat Airwalk under 25 seconds.";
+   %achiev13_descr = "--> Beat Pathways under 30 seconds.";
+   %achiev14_descr = "--> Beat Siege under 40 seconds.";
+   %achiev15_descr = "--> Beat tightrope's gold time.";
+   %achiev16_descr = "--> Beat Combo Course in less than a minute!";
+   %achiev17_descr = "--> Beat Thief in less than a minute!";
+   %achiev18_descr = "--> Beat Space Station's Ultimate Time.";
+   %achiev19_descr = "--> Beat Battlecube Finale's Ultimate Time.";
+   %achiev20_descr = "--> Beat Battlecube Finale in less than 8:30 minutes.";
+   %achiev21_descr = "--> Beat Catwalks's Ultimate Time and Slowropes's Ultimate Time.";
+   %achiev22_descr = "--> Achieve under 3.50 seconds on 'Learn the Super Jump' and under 10.00 seconds on 'There and Back Again' by using the World Record methods.";
+   %achiev23_descr = "--> Beat Moto-Marblecross in less than 5 seconds, Monster Speedway Qualifying in less than 20 seconds and Monster Speedway in less than 15 seconds.";
+   %achiev24_descr = "--> Beat Shimmy under 3 seconds, Path of Least Resistance under 10 seconds, Daedalus under 15 seconds & Tango under 14 seconds.";
+   %achiev25_descr = "--> Achieve ANY of the TWO of the following times:\nunder 1 minute on Skyscraper, under 30 seconds Survival of the Fittest, under 30 seconds Great Divide Revisited, under 20 seconds Tower Maze, under 17 seconds Battlements or under 20 seconds Natural Selection.";
+   %achiev26_descr = "--> Get a first place on any leaderboard on any level.";
+   %achiev27_descr = "--> Reach 7 million points on your ranking for the MBG Leaderboards.";
+   %achiev28_descr = "--> Reach 12 million points on your ranking for the MBP Leaderboards or MBP GG Marble Leaderboards.";
+   %achiev29_descr = "--> Achieve 30 million points on your username from the total of all leaderboards.";
+   %achiev30_descr = "--> Achieve 75 million points on your username from the total of all leaderboards";
+
+// DO NOT USE THE ONES BELOW FOR 1.10
+//
+//
+//   %achiev1_title = "Egg Seeker";
+//   %achiev2_title = "Easter Bunny";
+//   %achiev3_title = "Timely Marble";
+//   %achiev4_title = "Stopped Time";
+//   %achiev5_title = "The Citadel";
+//   %achiev6_title = "King of the Speed";
+//   %achiev7_title = "Pinball Maniac";
+//   %achiev8_title = "Beating the Impossible";
+//   %achiev9_title = "Diving to Eternity";
+//   %achiev10_title = "Acrobat";
+//   %achiev11_title = "Rebounded Headache";
+//   %achiev12_title = "Gravity defyer";
+//   %achiev13_title = "All Your Pathway are Belong to Us";
+//   %achiev14_title = "The Looter";
+//   %achiev15_title = "No looking down";
+//   %achiev16_title = "Winner of the Space Race";
+//   %achiev17_title = "Endurance Battle";
+//   %achiev18_title = "Schadenfreude";
+//   %achiev19_title = "Carelessness";
+//   %achiev20_title = "Sign Hit";
+//   %achiev21_title = "Highway to Hell";
+//   %achiev22_title = "Macarena";
+//   %achiev23_title = "Glitch Abuser";
+//   %achiev24_title = "Amateur Marbler";
+//   %achiev25_title = "Experienced Marbler";
+//   %achiev26_title = "Pro Marbler";
+//   %achiev27_title = "Skilled Marbler";
+//   %achiev28_title = "Ultra Marble";
+//   %achiev29_title = "Good Old Gold";
+//   %achiev30_title = "Initiator";
+//   %achiev31_title = "Middleman";
+//   %achiev32_title = "Transcendent";
+//   %achiev33_title = "Knowledgeability";
+//   %achiev34_title = "Albatross";
+//   %achiev35_title = "Marble-Fu";
+//   %achiev36_title = "Marble Blast Adept";
+//   %achiev37_title = "Marble Master";
+//   %achiev38_title = "Beginner's Luck";
+//   %achiev39_title = "Condor";
+//   %achiev40_title = "Rolling to Eternity";
+//   %achiev41_title = "The Final Frontier";
+//   %achiev42_title = "Legendary Marbler";
+//   %achiev43_title = "Time Crisis";
+//   %achiev44_title = "The Dragon Awakes";
+//   %achiev45_title = "8-Ball";
+//   %achiev46_title = "Top Gun";
+//   %achiev47_title = "7 Million";
+//   %achiev48_title = "12 Million";
+//   %achiev49_title = "30 Million";
+//   %achiev50_title = "The Dragon's Destiny";
+//   %achiev1_descr = "--> Find any Easter Egg.";
+//   %achiev2_descr = "--> Find all of the Easter Eggs.";
+//   %achiev3_descr = "--> Beat any level with a specified par time.";
+//   %achiev4_descr = "--> Beat Learn the Time Modifier under 1.75 seconds.";
+//   %achiev5_descr = "--> Beat Arch Acropolis under 7 seconds.";
+//   %achiev6_descr = "--> Beat King of the Mountain under 9 seconds.";
+//   %achiev7_descr = "--> Beat Pinball Wizard under 10 seconds.";
+//   %achiev8_descr = "--> Beat Ramps Reloaded original gold time of 15 seconds.";
+//   %achiev9_descr = "--> Beat Dive! under 17 seconds.";
+//   %achiev10_descr = "--> Beat Acrobat under 18 seconds.";
+//   %achiev11_descr = "--> Beat Icarus under 20 seconds.";
+//   %achiev12_descr = "--> Beat Airwalk under 25 seconds.";
+//   %achiev13_descr = "--> Beat Pathways under 30 seconds.";
+//   %achiev14_descr = "--> Beat Siege under 40 seconds.";
+//   %achiev15_descr = "--> Beat tightrope's gold time.";
+//   %achiev16_descr = "--> Beat Space Station's Ultimate Time.";
+//   %achiev17_descr = "--> Beat Battlecube Finale's Ultimate Time.";
+//   %achiev18_descr = "--> Beat Battlecube Finale in less than 8:00 minutes.";
+//   %achiev19_descr = "--> Beat Catwalks's Ultimate Time and Slowropes's Ultimate Time.";
+//   %achiev20_descr = "--> Achieve under 3.50 seconds on 'Learn the Super Jump' and under 10.00 seconds on 'There and Back //Again' by using the World Record methods.";
+//   %achiev21_descr = "--> Beat Moto-Marblecross in less than 4 seconds, Monster Speedway Qualifying in less than 20 seconds //and Monster Speedway in less than 15 seconds.";
+//   %achiev22_descr = "--> Beat Shimmy under 3 seconds, Path of Least Resistance under 10 seconds, Daedalus under 15 seconds //& Tango under 13 seconds.";
+//   %achiev23_descr = "--> Achieve ANY of the TWO of the following times:\nunder 1 minute on Skyscraper, under 30 seconds //Survival of the Fittest, under 30 seconds Great Divide Revisited, under 20 seconds Tower Maze, under 15 seconds Battlements //or under 20 seconds Natural Selection.";
+//   %achiev24_descr = "--> Beat all of MBP's Beginner levels.";
+//   %achiev25_descr = "--> Beat all of MBP's Intermediate levels.";
+//   %achiev26_descr = "--> Beat all of MBP's Advanced levels.";
+//   %achiev27_descr = "--> Beat all of MBP's Expert levels.";
+//   %achiev28_descr = "--> Beat all MBP levels while using the GarageGames Marble.";
+//   %achiev29_descr = "--> Beat all Marble Blast Gold levels.";
+//   %achiev30_descr = "--> Beat all the gold times for Marble Blast Gold's Beginner levels.";
+//   %achiev31_descr = "--> Beat all the gold times for Marble Blast Gold's Intermediate levels.";
+//   %achiev32_descr = "--> Beat all the gold times for Marble Blast Gold's Advanced levels.";
+//   %achiev33_descr = "--> Beat all Platinums for MBP's Beginner levels.";
+//   %achiev34_descr = "--> Beat all Platinums for MBP's Intermediate levels.";
+//   %achiev35_descr = "--> Beat all Platinums for MBP's Advanced levels.";
+//   %achiev36_descr = "--> Beat all Platinums for MBP's Expert levels.";
+//   %achiev37_descr = "--> Beat all of MBP's Platinum Times.";
+//   %achiev38_descr = "--> Beat all Ultimates for MBP's Beginner levels.";
+//   %achiev39_descr = "--> Beat all Ultimates for MBP's Intermediate levels.";
+//   %achiev40_descr = "--> Beat all Ultimates for MBP's Advanced levels.";
+//   %achiev41_descr = "--> Beat all Ultimates for MBP's Expert levels.";
+//   %achiev42_descr = "--> Beat all of MBP's Ultimate Times.";
+//   %achiev43_descr = "--> Complete all Marble Blast Gold levels with a Grand Total of under 22 minutes and all Marble Blast //Platinum levels with a Grand Total of under 1:45 hours.";
+//   %achiev44_descr = "--> Get a first place on any leaderboard on any level.";
+//   %achiev45_descr = "--> Achieve, at least once, having a status of a first place on at least 8 levels on all leaderboards //at a time.";
+//   %achiev46_descr = "--> Achieve, at least once, having a status of being at the top 10 on at least 50 levels on all //leaderboards at a time.";
+//   %achiev47_descr = "--> Reach 7 million points on your ranking for the MBG Leaderboards.";
+//   %achiev48_descr = "--> Reach 12 million points on your ranking for the MBP Leaderboards or MBP GG Marble Leaderboards.";
+//   %achiev49_descr = "--> Achieve 30 million points on your username from the total of all ranked leaderboards.";
+//   %achiev50_descr = "--> Achieve, at least once, having a status of being at the top 10 on at least 300 levels on all //leaderboards at a time with at least 10% of those being first place, 25% being top 3 and 50% being top 5. As well, achieve //50 million points on your total rating points. Hint: Achievements contribute to your total score; the more you beat, the //more points you gain.";
+
+
+
+   // Do not display Award points at any given stage
+   %achiev_text = "<lmargin:0><font:DomCasualD:24>" @ %achiev1_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev1_descr;
+   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev2_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev2_descr;
+   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev3_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev3_descr;
+   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev4_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev4_descr;
+   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev5_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev5_descr;
+   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev6_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev6_descr;
+   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev7_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev7_descr;
+   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev8_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev8_descr;
+   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev9_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev9_descr;
+   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev10_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev10_descr;
+   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev11_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev11_descr;
+   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev12_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev12_descr;
+   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev13_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev13_descr;
+   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev14_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev14_descr;
+   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev15_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev15_descr;
+   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev16_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev16_descr;
+   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev17_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev17_descr;
+   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev18_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev18_descr;
+   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev19_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev19_descr;
+   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev20_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev20_descr;
+   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev21_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev21_descr;
+   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev22_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev22_descr;
+   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev23_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev23_descr;
+   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev24_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev24_descr;
+   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev25_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev25_descr;
+   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev26_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev26_descr;
+   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev27_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev27_descr;
+   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev28_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev28_descr;
+   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev29_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev29_descr;
+   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev30_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev30_descr;
+
+// DO NOT USE THESE FOR 1.10
+//
+//   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev31_title @ "<lmargin:10><font:Arial //Bold:14>\n" @ %achiev31_descr;
+//   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev32_title @ "<lmargin:10><font:Arial //Bold:14>\n" @ %achiev32_descr;
+//   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev33_title @ "<lmargin:10><font:Arial //Bold:14>\n" @ %achiev33_descr;
+//   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev34_title @ "<lmargin:10><font:Arial //Bold:14>\n" @ %achiev34_descr;
+//   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev35_title @ "<lmargin:10><font:Arial //Bold:14>\n" @ %achiev35_descr;
+//   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev36_title @ "<lmargin:10><font:Arial //Bold:14>\n" @ %achiev36_descr;
+//   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev37_title @ "<lmargin:10><font:Arial //Bold:14>\n" @ %achiev37_descr;
+//   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev38_title @ "<lmargin:10><font:Arial //Bold:14>\n" @ %achiev38_descr;
+//   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev39_title @ "<lmargin:10><font:Arial //Bold:14>\n" @ %achiev39_descr;
+//   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev40_title @ "<lmargin:10><font:Arial //Bold:14>\n" @ %achiev40_descr;
+//   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev41_title @ "<lmargin:10><font:Arial //Bold:14>\n" @ %achiev41_descr;
+//   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev42_title @ "<lmargin:10><font:Arial //Bold:14>\n" @ %achiev42_descr;
+//   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev43_title @ "<lmargin:10><font:Arial //Bold:14>\n" @ %achiev43_descr;
+//   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev44_title @ "<lmargin:10><font:Arial //Bold:14>\n" @ %achiev44_descr;
+//   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev45_title @ "<lmargin:10><font:Arial //Bold:14>\n" @ %achiev45_descr;
+//   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev46_title @ "<lmargin:10><font:Arial //Bold:14>\n" @ %achiev46_descr;
+//   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev47_title @ "<lmargin:10><font:Arial //Bold:14>\n" @ %achiev47_descr;
+//   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev48_title @ "<lmargin:10><font:Arial //Bold:14>\n" @ %achiev48_descr;
+//   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev49_title @ "<lmargin:10><font:Arial //Bold:14>\n" @ %achiev49_descr;
+//   %achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev50_title @ "<lmargin:10><font:Arial //Bold:14>\n" @ %achiev50_descr;
+
+ // Do not display Award points at any given stage
+    Achiv_maintext.setText(%achiev_text);
+        achiv_bitmap1.visible = true;
+	achiv_bitmap2.visible = true;
+	achiv_bitmap3.visible = true;
+	achiv_bitmap4.visible = true;
+	achiv_bitmap5.visible = true;
+	achiv_bitmap6.visible = true;
+	achiv_bitmap7.visible = true;
+	achiv_bitmap8.visible = true;
+	achiv_bitmap9.visible = true;
+	achiv_bitmap10.visible = true;
+	achiv_bitmap11.visible = true;
+	achiv_bitmap12.visible = true;
+	achiv_bitmap13.visible = true;
+	achiv_bitmap14.visible = true;
+	achiv_bitmap15.visible = true;
+	achiv_bitmap16.visible = true;
+	achiv_bitmap17.visible = true;
+	achiv_bitmap18.visible = true;
+	achiv_bitmap19.visible = true;
+	achiv_bitmap20.visible = true;
+        achiv_bitmap21.visible = true;
+	achiv_bitmap22.visible = true;
+	achiv_bitmap23.visible = true;
+	achiv_bitmap24.visible = true;
+	achiv_bitmap25.visible = true;
+	achiv_bitmap26.visible = true;
+	achiv_bitmap27.visible = true;
+	achiv_bitmap28.visible = true;
+	achiv_bitmap29.visible = true;
+	achiv_bitmap30.visible = true;
+
+// DO NOT USE THESE FOR 1.10
+//
+//	achiv_bitmap31.visible = true;
+//	achiv_bitmap32.visible = true;
+//	achiv_bitmap33.visible = true;
+//	achiv_bitmap34.visible = true;
+//	achiv_bitmap35.visible = true;
+//	achiv_bitmap36.visible = true;
+//	achiv_bitmap37.visible = true;
+//	achiv_bitmap38.visible = true;
+//	achiv_bitmap39.visible = true;
+//	achiv_bitmap40.visible = true;
+//      achiv_bitmap41.visible = true;
+//	achiv_bitmap42.visible = true;
+//	achiv_bitmap43.visible = true;
+//	achiv_bitmap44.visible = true;
+//	achiv_bitmap45.visible = true;
+//	achiv_bitmap46.visible = true;
+//	achiv_bitmap47.visible = true;
+//	achiv_bitmap48.visible = true;
+//	achiv_bitmap49.visible = true;
+//	achiv_bitmap50.visible = true; 
+  
+ }
+
+// Spy47 : Function for knowing Total easter eggs picked up!
+// it also sets the totaleastereggs variable to a right value
+function ACHIV_getEasterEggs()
+{
+   $Game::EasterEggs = 0;
+   $Game::EasterEggsTotal = 0;
+   $Game::PlatinumTimes = 0;
+   $Game::UltimateTimes = 0;
+
+   AchievementsGui::checkMissions("*/missions/beginner/*.mis");
+   AchievementsGui::checkMissions("*/missions/intermediate/*.mis");
+   AchievementsGui::checkMissions("*/missions/advanced/*.mis");
+   AchievementsGui::checkMissions("*/missions/expert/*.mis");
+   //AchievementsGui::checkMissions("*/missions/*.mis");
+   AchievementsGui::listComplete();
+}
+
+function AchievementsGui::checkMissions(%path)
+{
+      //echo("DEBUG: Start mission check: " @ %path);
+
+      if (!isObject(EasterEggMissionGroup))
+      {
+         new SimGroup(EasterEggGroup);
+         RootGroup.add(EasterEggGroup);
+
+         for(%file = findFirstFile(%path);
+               %file !$= ""; %file = findNextFile(%path))
+         { 
+            %a = 0;
+            %b = 0;
+            if (strStr(%file, "CVS/") == -1 && strStr(%file, "common/") == -1)
+            {
+	       if( checkEasterEgg(%file) )
+               {
+		   $Game::EasterEggs++;
+                   %a = 1;
+               }
+               if( checkTotalEasterEgg(%file) )
+               {
+		   $Game::EasterEggsTotal++;
+                   %b = 1;
+               }
+
+               // Spy47 : Check times.
+               getBestTimes(%file);
+               %time = getField($hs[0], 0);
+               if ( %time < checkGoldTimes(%file) )
+                  $Game::PlatinumTimes++;
+
+               if ( %time < checkUltimateTimes(%file) )
+                  $Game::UltimateTimes++;
+
+               // Spy47 : aw this code was made for Matan :$
+               //if(!%a && %b)
+                  //echo("You haven't picked up the egg in " @ %file);
+
+	    }	
+         }
+         //echo("Picked up eggs: " @ $Game::EasterEggs);
+         //echo("Total easter eggs: " @ $Game::EasterEggsTotal);
+   }
+}

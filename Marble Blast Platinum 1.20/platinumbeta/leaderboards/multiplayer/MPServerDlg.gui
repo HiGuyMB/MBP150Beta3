@@ -1,0 +1,520 @@
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(MPServerDlg) {
+   profile = "GuiDefaultProfile";
+   horizSizing = "width";
+   vertSizing = "height";
+   position = "0 0";
+   extent = "640 480";
+   minExtent = "8 8";
+   visible = "1";
+   helpTag = "0";
+      update = "360567";
+
+   new GuiBitmapCtrl() {
+      profile = "GuiDefaultProfile";
+      horizSizing = "center";
+      vertSizing = "center";
+      position = "107 47";
+      extent = "425 415";
+      minExtent = "8 8";
+      visible = "1";
+      helpTag = "0";
+      bitmap = "~/leaderboards/mp/settings/serversettings";
+      wrap = "0";
+
+      new GuiBitmapButtonCtrl(MPServerClose) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "center";
+         vertSizing = "top";
+         position = "165 353";
+         extent = "94 45";
+         minExtent = "8 8";
+         visible = "1";
+         command = "MPServerDlg.close();";
+         helpTag = "0";
+         text = "button";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "~/leaderboards/mp/team/close";
+      };
+      new GuiMLTextCtrl(MPServerTitle) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "width";
+         vertSizing = "bottom";
+         position = "11 21";
+         extent = "403 30";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiMLTextCtrl(MPServerNameTitle) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "width";
+         vertSizing = "bottom";
+         position = "16 65";
+         extent = "111 19";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiControl() {
+         profile = "GuiTransparencyProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "103 55";
+         extent = "143 35";
+         minExtent = "27 27";
+         visible = "1";
+         helpTag = "0";
+
+         new GuiTextEditCtrl(MPServerNameField) {
+            profile = "GuiMediumTextEditProfile";
+            horizSizing = "left";
+            vertSizing = "bottom";
+            position = "6 3";
+            extent = "131 29";
+            minExtent = "8 8";
+            visible = "1";
+            variable = "$MPPref::Server::Name";
+            command = "MPServerDlg.updateActive();";
+            helpTag = "0";
+            maxLength = "255";
+            maxPixelWidth = "0";
+            historySize = "0";
+            password = "0";
+            tabComplete = "0";
+            sinkAllKeyEvents = "0";
+         };
+      };
+      new GuiMLTextCtrl(MPServerDescTitle) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "left";
+         vertSizing = "bottom";
+         position = "244 65";
+         extent = "166 19";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiMLTextCtrl(MPServerMasterTitle) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "width";
+         vertSizing = "bottom";
+         position = "16 123";
+         extent = "156 19";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiBitmapButtonCtrl(MPServerMasterCheck) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "left";
+         vertSizing = "bottom";
+         position = "210 116";
+         extent = "31 31";
+         minExtent = "8 8";
+         visible = "1";
+         variable = "$MPPref::DisplayOnMaster";
+         command = "MPServerDlg.updateMaster();";
+         helpTag = "0";
+         text = "button";
+         groupNum = "-1";
+         buttonType = "ToggleButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "~/leaderboards/core/lb_chkbx";
+      };
+      new GuiMLTextCtrl(MPServerIPTitle) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "width";
+         vertSizing = "top";
+         position = "16 327";
+         extent = "390 19";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiMLTextCtrl(MPServerPortTitle) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "width";
+         vertSizing = "bottom";
+         position = "16 298";
+         extent = "222 19";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiMLTextCtrl(MPServerSpectateTitle) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "width";
+         vertSizing = "bottom";
+         position = "16 239";
+         extent = "161 19";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiBitmapButtonCtrl(MPServerSpectateCheck) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "left";
+         vertSizing = "bottom";
+         position = "210 232";
+         extent = "31 31";
+         minExtent = "8 8";
+         visible = "1";
+         variable = "$MPPref::ForceSpectators";
+         command = "MPServerDlg.updateChecks();";
+         helpTag = "0";
+         text = "button";
+         groupNum = "-1";
+         buttonType = "ToggleButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "~/leaderboards/core/lb_chkbx";
+      };
+      new GuiMLTextCtrl(MPServerPreloadTitle) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "width";
+         vertSizing = "bottom";
+         position = "16 152";
+         extent = "161 19";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiBitmapButtonCtrl(MPServerPreloadCheck) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "left";
+         vertSizing = "bottom";
+         position = "210 145";
+         extent = "31 31";
+         minExtent = "8 8";
+         visible = "1";
+         variable = "$MPPref::Preload";
+         command = "MPServerDlg.updateChecks();";
+         helpTag = "0";
+         text = "button";
+         groupNum = "-1";
+         buttonType = "ToggleButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "~/leaderboards/core/lb_chkbx";
+      };
+      new GuiMLTextCtrl(MPServerChatTitle) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "width";
+         vertSizing = "bottom";
+         position = "16 181";
+         extent = "161 19";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiBitmapButtonCtrl(MPServerChatCheck) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "left";
+         vertSizing = "bottom";
+         position = "210 174";
+         extent = "31 31";
+         minExtent = "8 8";
+         visible = "1";
+         variable = "$MPPref::AllowServerChat";
+         command = "MPServerDlg.updateChecks();";
+         helpTag = "0";
+         text = "button";
+         groupNum = "-1";
+         buttonType = "ToggleButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "~/leaderboards/core/lb_chkbx";
+      };
+      new GuiMLTextCtrl(MPServerPlayersTitle) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "width";
+         vertSizing = "bottom";
+         position = "16 269";
+         extent = "111 19";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiBitmapButtonCtrl(MPServerPlayersPlus) {
+         profile = "GuiButtonProfile";
+         horizSizing = "left";
+         vertSizing = "bottom";
+         position = "210 262";
+         extent = "31 31";
+         minExtent = "8 8";
+         visible = "1";
+         command = "MPServerDlg.incrementPlayers();";
+         helpTag = "0";
+         text = "+";
+         groupNum = "-1";
+         buttonType = "RepeaterButton";
+         repeatPeriod = "1000";
+         repeatDecay = "0.9";
+         bitmap = "~/leaderboards/mp/settings/plus";
+      };
+      new GuiBitmapButtonCtrl(MPServerPlayersMinus) {
+         profile = "GuiButtonProfile";
+         horizSizing = "left";
+         vertSizing = "bottom";
+         position = "182 262";
+         extent = "31 31";
+         minExtent = "8 8";
+         visible = "1";
+         command = "MPServerDlg.decrementPlayers();";
+         helpTag = "0";
+         text = "-";
+         groupNum = "-1";
+         buttonType = "RepeaterButton";
+         repeatPeriod = "1000";
+         repeatDecay = "0.9";
+         bitmap = "~/leaderboards/mp/settings/minus";
+      };
+      new GuiMLTextCtrl(MPServerPasswordTitle) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "width";
+         vertSizing = "bottom";
+         position = "16 94";
+         extent = "111 19";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiControl() {
+         profile = "GuiTransparencyProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "103 84";
+         extent = "143 35";
+         minExtent = "27 27";
+         visible = "1";
+         helpTag = "0";
+
+         new GuiTextEditCtrl(MPServerPasswordField) {
+            profile = "GuiMediumTextEditProfile";
+            horizSizing = "left";
+            vertSizing = "bottom";
+            position = "4 3";
+            extent = "136 29";
+            minExtent = "8 8";
+            visible = "1";
+            variable = "$MPPref::ServerPassword";
+            helpTag = "0";
+            maxLength = "255";
+            maxPixelWidth = "0";
+            historySize = "0";
+            password = "1";
+            tabComplete = "0";
+            sinkAllKeyEvents = "0";
+         };
+      };
+      new GuiControl() {
+         profile = "GuiTransparencyProfile";
+         horizSizing = "left";
+         vertSizing = "height";
+         position = "243 85";
+         extent = "168 237";
+         minExtent = "27 27";
+         visible = "1";
+         helpTag = "0";
+
+         new GuiScrollCtrl() {
+            profile = "GuiBacklessScrollProfile";
+            horizSizing = "width";
+            vertSizing = "height";
+            position = "6 6";
+            extent = "158 226";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            willFirstRespond = "1";
+            hScrollBar = "dynamic";
+            vScrollBar = "dynamic";
+            constantThumbHeight = "0";
+            childMargin = "0 0";
+
+            new GuiMLTextEditCtrl(MPServerDescField) {
+               profile = "GuiMLTextEditProfile";
+               horizSizing = "width";
+               vertSizing = "height";
+               position = "0 0";
+               extent = "157 226";
+               minExtent = "8 8";
+               visible = "1";
+               helpTag = "0";
+               lineSpacing = "2";
+               allowColorChars = "0";
+               maxChars = "512";
+                  cursorPosition = "1";
+            };
+         };
+      };
+      new GuiMLTextCtrl(MPServerScoresTitle) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "width";
+         vertSizing = "bottom";
+         position = "16 210";
+         extent = "161 14";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiBitmapButtonCtrl(MPServerScoresCheck) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "left";
+         vertSizing = "bottom";
+         position = "210 203";
+         extent = "31 31";
+         minExtent = "8 8";
+         visible = "1";
+         variable = "$MPPref::CalculateScores";
+         command = "MPServerDlg.updateChecks();";
+         helpTag = "0";
+         text = "button";
+         groupNum = "-1";
+         buttonType = "ToggleButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "~/leaderboards/core/lb_chkbx";
+      };
+   };
+};
+//--- OBJECT WRITE END ---
+
+function MPServerDlg::onWake(%this) {
+   MPServerTitle.setValue("<color:ffffff><font:Marker Felt:32><shadow:1:1><shadowcolor:0000007f><just:center>Server Settings");
+   MPServerChatTitle.setValue("<color:ffffff><font:Marker Felt:18><shadow:1:1><shadowcolor:0000007f>Allow Server Chat:");
+   MPServerDescTitle.setValue("<color:ffffff><font:Marker Felt:18><shadow:1:1><shadowcolor:0000007f><just:center>Server Info");
+   MPServerSpectateTitle.setValue("<color:ffffff><font:Marker Felt:18><shadow:1:1><shadowcolor:0000007f><just:left>Force Spectators:");
+   MPServerNameTitle.setValue("<color:ffffff><font:Marker Felt:18><shadow:1:1><shadowcolor:0000007f>Server Name:");
+//   MPServerPowerupsTitle.setValue("<color:ffffff><font:Marker Felt:18><shadow:1:1><shadowcolor:0000007f>Fast PowerUps:");
+   MPServerScoresTitle.setValue("<color:ffffff><font:Marker Felt:18><shadow:1:1><shadowcolor:0000007f>Calculate Ratings:");
+   MPServerMasterTitle.setValue("<color:ffffff><font:Marker Felt:18><shadow:1:1><shadowcolor:0000007f>Display on Server List:");
+   MPServerPlayersTitle.setValue("<color:ffffff><font:Marker Felt:18><shadow:1:1><shadowcolor:0000007f>Max Players:" SPC $pref::Server::MaxPlayers);
+   MPServerPreloadTitle.setValue("<color:ffffff><font:Marker Felt:18><shadow:1:1><shadowcolor:0000007f>Preload Missions:");
+   MPServerPasswordTitle.setValue("<color:ffffff><font:Marker Felt:18><shadow:1:1><shadowcolor:0000007f>Password:");
+
+   MPServerDescField.setValue($MPPref::Server::Info);
+
+   %this.updateIP();
+}
+
+function MPUpdatePortLabel() {
+   MPServerDlg.updateIP();
+}
+
+function MPServerDlg::updateMaster(%this) {
+   %this.updateActive();
+   masterHeartbeat();
+}
+
+function MPServerDlg::updateName(%this) {
+   cancel(%this.update);
+	masterHeartbeat();
+}
+
+function MPServerDlg::updateActive(%this) {
+   MPServerClose.setActive($MPPref::Server::Name !$= "");
+   cancel(%this.update);
+   %this.update = %this.schedule(4000, "updateName");
+   MPServerPlayersTitle.setValue("<color:ffffff><font:Marker Felt:18><shadow:1:1><shadowcolor:0000007f>Max Players:" SPC $pref::Server::MaxPlayers);
+   MPServerPlayersPlus.setActive($pref::Server::MaxPlayers != $MP::PlayerMaximum);
+   MPServerPlayersMinus.setActive($pref::Server::MaxPlayers != $MP::PlayerMinimum);
+}
+
+function MPServerDlg::updateChecks(%this) {
+   MPServerChatCheck.setValue($MPPref::AllowServerChat);
+   MPServerMasterCheck.setValue($MPPref::DisplayOnMaster);
+//   MPServerPowerupsCheck.setValue($MPPref::FastPowerups);
+   MPServerPreloadCheck.setValue($MPPref::Preload);
+   MPServerScoresCheck.setValue($MPPref::CalculateScores);
+   MPServerSpectateCheck.setValue($MPPref::ForceSpectators);
+   %this.updateActive();
+}
+
+function MPServerDlg::incrementPlayers(%this) {
+   $pref::Server::MaxPlayers ++;
+   if ($pref::Server::MaxPlayers > $MP::PlayerMaximum)
+      $pref::Server::MaxPlayers = $MP::PlayerMaximum;
+   %this.updateActive();
+}
+
+function MPServerDlg::decrementPlayers(%this) {
+   $pref::Server::MaxPlayers --;
+   if ($pref::Server::MaxPlayers < $MP::PlayerMinimum)
+      $pref::Server::MaxPlayers = $MP::PlayerMinimum;
+   %this.updateActive();
+}
+
+function MPServerDlg::updateIP(%this) {
+   //HiGuy: Various server port forward statuses
+%status = "<spush><color:ffff66>Loading...<spop>";
+   switch$ ($PortStatus) {
+   case "lan":
+      %status = "<spush><color:ff6666>LAN Only<spop>";
+   case "checking":
+      %status = "<spush><color:ffff66>Checking...<spop>";
+   case "global":
+      %status = "<spush><color:66ff66>Successful<spop>";
+   }
+   //HiGuy: Set the displays
+   MPServerPortTitle.setValue("<color:ffffff><font:Marker Felt:18><shadow:1:1><shadowcolor:0000007f>Port Mapping:<just:right>" @ %status);
+   MPServerIPTitle.setValue("<color:ffffff><font:Marker Felt:18><shadow:1:1><shadowcolor:0000007f>Server Address:<just:right>" @ $ip @ ($pref::Server::Port != 28000 ? ":" @ $pref::Server::Port : ""));
+}
+
+function MPServerDlg::open(%this) {
+   Canvas.pushDialog(%this);
+}
+
+function MPServerDlg::close(%this) {
+   Canvas.popDialog(%this);
+   $MPPref::Server::Info = MPServerDescField.getValue();
+   $MP::ServerPassword = $MPPref::ServerPassword;
+   MPsavePrefs();
+	masterHeartbeat();
+   savePrefs(true);
+   MPPlayMissionDlg.determineVisibility();
+
+   for (%i = 0; %i < ClientGroup.getCount(); %i ++)
+      ClientGroup.getObject(%i).sendSettings();
+}

@@ -1,0 +1,467 @@
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(percentGui) {
+   profile = "GuiDefaultProfile";
+   horizSizing = "width";
+   vertSizing = "height";
+   position = "0 0";
+   extent = "640 480";
+   minExtent = "8 8";
+   visible = "1";
+   helpTag = "0";
+
+   new GuiBitmapCtrl() {
+      profile = "GuiDefaultProfile";
+      horizSizing = "center";
+      vertSizing = "center";
+      position = "118 19";
+      extent = "404 442";
+      minExtent = "48 92";
+      visible = "1";
+      helpTag = "0";
+      bitmap = "./marbleSelect/marbleSelect.png";
+      wrap = "0";
+         canMove = "1";
+         minSize = "50 50";
+         canClose = "0";
+         resizeWidth = "1";
+         maxLength = "255";
+         canMinimize = "0";
+         resizeHeight = "1";
+         canMaximize = "0";
+
+      new GuiMLTextCtrl() {
+         profile = "GuiComic24Profile";
+         horizSizing = "center";
+         vertSizing = "bottom";
+         position = "95 15";
+         extent = "213 29";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiBitmapButtonCtrl() {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "top";
+         position = "154 394";
+         extent = "88 37";
+         minExtent = "8 8";
+         visible = "1";
+         command = "MessageCallback(percentGui,percentGui.callback);";
+         accelerator = "return";
+         helpTag = "0";
+         text = "OK";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./marbleSelect/apply";
+            simpleStyle = "0";
+      };
+      new GuiMLTextCtrl() {
+         profile = "GuiTextProfile";
+         horizSizing = "center";
+         vertSizing = "bottom";
+         position = "84 50";
+         extent = "236 14";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiMLTextCtrl(PerG_LoadingText) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "center";
+         vertSizing = "bottom";
+         position = "42 216";
+         extent = "320 14";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiMLTextCtrl(PerG_PercentageLabel) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "21 40";
+         extent = "362 325";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiMLTextCtrl(PerG_PercentageText) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "126 41";
+         extent = "251 350";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiBitmapCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "137 13";
+         extent = "160 39";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "./play/statistics_text";
+         wrap = "0";
+      };
+   };
+};
+//--- OBJECT WRITE END ---
+
+//----------------------------------------
+// ALL THE MAD CODING SKILLZ HERE
+//
+// Yeah. I really had a nightmare here.
+// I hope you don't have one after seeing this.
+
+// MBP
+$Game::BeginnerTotal = 25;
+$Game::IntermediateTotal = 35;
+$Game::AdvancedTotal = 35;
+$Game::ExpertTotal = 25;
+$Game::MissionsTotal = $Game::BeginnerTotal + $Game::IntermediateTotal + $Game::AdvancedTotal + $Game::ExpertTotal;
+$Game::EasterEggsTotal = 96; //Changed from 1.20
+
+// MBG
+$Game::MBGBeginnerTotal = 24;
+$Game::MBGIntermediateTotal = 24;
+$Game::MBGAdvancedTotal = 52;
+$Game::MBGMissionsTotal = $Game::MBGBeginnerTotal + $Game::MBGIntermediateTotal + $Game::MBGAdvancedTotal;
+
+function percentGui::onWake()
+{
+   PerG_PercentTitleText.setText("<font:DomCasualD:24><just:center>Statistics");
+   percentGui::listLoad();
+}
+
+// Spy47 : this starts the loading of the list
+function percentGui::listLoad()
+{
+   PerG_EElabel.setVisible(false);
+   PerG_EEscroll.setVisible(false);
+   PerG_EElist.setText("");
+   PerG_PercentageLabel.setText("");
+   PerG_PercentageText.setText("");
+   PerG_LoadingText.setText("<font:DomCasualD:24><just:center>This may take a while...");
+
+   schedule(100, 0, "getEasterEggs" );
+}
+
+// Spy47 : this gets the color of the percentage, depending on the value of the variable.
+function getColor(%var)
+{
+   if(%var > 0 && %var < 0.5)
+      return "";
+   if(%var >= 0.5 && %var < 1)
+      return "<color:888c8d>";
+   if(%var == 1)
+      return "<color:FFDD00>";
+}
+
+// Spy47 : this fills the screen with the correct values
+// Phil - This function is now called from the EndGameGui to check if we've beat the game, I know it's a bit of a hack, but it gets the data I need
+function percentGui::listComplete()
+{
+	if ($MissionType $= "Custom") // Phil - prevent crashing and temphack
+		return;
+
+   $qual_beginner = 0;
+   $qual_intermediate = 0;
+   $qual_advanced = 0;
+   $qual_expert = 0;
+   $qual_totaltime = 0;
+
+	for(%j = 0; (%mis = MTYPE_Beginner.getObject(%j)) != -1; %j++)
+	{
+		qualifyAntiHack("Beginner", %mis);
+	}
+	for(%j = 0; (%mis = MTYPE_Intermediate.getObject(%j)) != -1; %j++)
+	{
+		qualifyAntiHack("Intermediate", %mis);
+	}
+	for(%j = 0; (%mis = MTYPE_Advanced.getObject(%j)) != -1; %j++)
+	{
+		qualifyAntiHack("Advanced", %mis);
+	}
+	if($CurrentGame $= "Platinum")
+	{
+		for(%j = 0; (%mis = MTYPE_Expert.getObject(%j)) != -1 && isObject(MTYPE_Expert); %j++)
+    	{
+	    	qualifyAntiHack("Expert", %mis);
+    	}
+	}
+
+	if($CurrentGame $= "Platinum")
+	{
+  		%qual1 = $qual_beginner / $Game::BeginnerTotal;
+  		%qual2 = $qual_intermediate / $Game::IntermediateTotal;
+  		%qual3 = $qual_advanced / $Game::AdvancedTotal;
+		%qual4 = $qual_expert / $Game::ExpertTotal;
+		%quale = $Game::EasterEggs / $Game::EasterEggsTotal;
+		%qual = (%qual1 + %qual2 + %qual3 + %qual4) / 4;
+		%platinum = $Game::PlatinumTimes / $Game::MissionsTotal;
+		%ultimate = $Game::UltimateTimes / $Game::MissionsTotal;
+	}
+	else
+	{
+		%qual1 = $qual_beginner / $Game::MBGBeginnerTotal;
+  		%qual2 = $qual_intermediate / $Game::MBGIntermediateTotal;
+  		%qual3 = $qual_advanced / $Game::MBGAdvancedTotal;
+		%qual = (%qual1 + %qual2 + %qual3) / 3;
+		%platinum = $Game::PlatinumTimes / $Game::MBGMissionsTotal;
+	}
+
+   %PercentComplete = "<font:DomCasualD:24><just:right>";
+
+   %PercentComplete = %PercentComplete @ "<spush>" @ getColor(%qual1) @ mFloor(%qual1 * 100) @ "%<spop>\n";
+   %PercentComplete = %PercentComplete @ "<spush>" @ getColor(%qual2) @ mFloor(%qual2 * 100) @ "%<spop>\n";
+   %PercentComplete = %PercentComplete @ "<spush>" @ getColor(%qual3) @ mFloor(%qual3 * 100) @ "%<spop>\n";
+   %PercentComplete = %PercentComplete @ "<spush>" @ getColor(%qual4) @ mFloor(%qual4 * 100) @ "%<spop>\n";
+
+   %PercentComplete = %PercentComplete @ "<spush>" @ getColor(%qual) @ mFloor(%qual * 100) @ "%<spop>\n\n";
+   %PercentComplete = %PercentComplete @ $Game::PlatinumTimes @ "/" @ (($CurrentGame $= "Platinum") ? $Game::MissionsTotal : $Game::MBGMissionsTotal) @ "         " @ "<spush>" @ getColor(%platinum) @ mFloor(%platinum * 100) @ "%<spop>\n";
+	if($CurrentGame $= "Platinum")
+	{
+		%PercentComplete = %PercentComplete @ $Game::UltimateTimes @ "/" @ $Game::MissionsTotal @ "         " @ "<spush>" @ getColor(%ultimate) @ mFloor(%ultimate * 100) @ "%<spop>\n";
+		%PercentComplete = %PercentComplete @ $Game::EasterEggs @ "/" @ $Game::EasterEggsTotal @ "         " @ "<spush>" @ getColor(%quale) @ mFloor(%quale * 100) @ "%<spop>\n";
+	}
+   %PercentComplete = %PercentComplete @ $PREF::OOBCOUNT @ "\n\n";
+   %PercentComplete = %PercentComplete @ formatTimeHours($qual_totaltime / 1000) @ "\n\n";
+   %PercentComplete = %PercentComplete @ formatTimeDays($pref::TotalTimer);
+   PerG_LoadingText.setText("");
+   PerG_PercentageText.setText(%PercentComplete);
+	if($CurrentGame $= "Platinum")
+	{
+	//HiGuy: No more errors!
+//		PerG_EElabel.setVisible(true);
+//		PerG_EEscroll.setVisible(true);
+//		if($StatisticsEEs $= "")
+//			$StatisticsEEs = "No missing Easter Eggs.";
+//		PerG_EElist.setText($StatisticsEEs);
+
+		PerG_PercentageLabel.setText("<font:DomCasualD:24><just:left>Beginner:\nIntermediate:\nAdvanced:\nExpert:\nTotal:\n\nPlatinum times:\nUltimate times:\nEaster Eggs:\nOut of Bounds:\nGrand Total (hours:minutes:seconds):\n\nTotal Wasted Time (days:hours:minutes:seconds):");
+	}
+	else
+		PerG_PercentageLabel.setText("<font:DomCasualD:24><just:left>Beginner:\nIntermediate:\nAdvanced:\nTotal:\n\nGold times:\nOut of Bounds:\nGrand Total (hours:minutes:seconds):\n\nTotal Wasted Time (days:hours:minutes:seconds):");
+}
+
+// Spy47 : Function for knowing Total easter eggs picked up!
+// it also sets the totaleastereggs variable to a right value
+function getEasterEggs()
+{
+   $Game::EasterEggs = 0;
+   //$Game::EasterEggsTotal = 0;
+   $Game::PlatinumTimes = 0;
+   $Game::UltimateTimes = 0;
+
+	if($CurrentGame $= "Platinum")
+	{
+		percentGui::checkMissions(getMissionsDir(true) @ "/beginner/*.mis");
+		percentGui::checkMissions(getMissionsDir(true) @ "/intermediate/*.mis");
+		percentGui::checkMissions(getMissionsDir(true) @ "/advanced/*.mis");
+		percentGui::checkMissions(getMissionsDir(true) @ "/expert/*.mis");
+		//percentGui::checkMissions("*/missions/*.mis");
+	}
+	else
+	{
+		percentGui::checkMissionsMBG(getMissionsDir(true) @ "/beginner/*.mis");
+		percentGui::checkMissionsMBG(getMissionsDir(true) @ "/intermediate/*.mis");
+		percentGui::checkMissionsMBG(getMissionsDir(true) @ "/advanced/*.mis");
+	}
+
+   percentGui::listComplete();
+}
+
+function percentGui::checkMissions(%path)
+{
+	for(%file = findFirstFile(%path);
+		 %file !$= ""; %file = findNextFile(%path))
+	{
+		%a = 0;
+		%b = 0;
+		if (strStr(%file, "CVS/") == -1 && strStr(%file, "common/") == -1)
+		{
+			if( checkEasterEgg(%file) )
+			{
+				$Game::EasterEggs++;
+				//%a = 1;
+			}
+			//if( checkTotalEasterEgg(%file) )
+			//{
+		   //$Game::EasterEggsTotal++;
+			//%b = 1;
+			//}
+
+			// Spy47 : Check times.
+			getBestTimes(%file);
+			%time = getField($hs[0], 0);
+			%lead = getField($hs[0], 1);
+			if ( %time < checkGoldTimes(%file) )
+			{
+				devecho(fileBase(%file) SPC %time SPC checkGoldTimes(%file) SPC %lead);
+				$Game::PlatinumTimes++;
+			}
+
+			if ( %time < checkUltimateTimes(%file) )
+				$Game::UltimateTimes++;
+
+			// Spy47 : aw this code was made for Matan :$
+			//if(!%a && %b)
+			//{
+			//  if($StatisticsEEs !$= "")
+			//		$StatisticsEEs = $StatisticsEEs @ "\n";
+			//
+			//  $StatisticsEEs = $StatisticsEEs @ getMissionName(%file);
+			// }
+
+		}
+   }
+}
+
+// Don't check EE in MBG.
+function percentGui::checkMissionsMBG(%path)
+{
+	for(%file = findFirstFile(%path);
+		 %file !$= ""; %file = findNextFile(%path))
+	{
+		if (strStr(%file, "CVS/") == -1 && strStr(%file, "common/") == -1)
+		{
+			// Spy47 : Check times.
+			getBestTimes(%file);
+			%time = getField($hs[0], 0);
+			devecho("Time is " @ %time @ " and goldtime is " @ checkGoldTimes(%file) );
+			if ( %time < checkGoldTimes(%file) )
+				$Game::PlatinumTimes++;
+
+		}
+   }
+}
+
+// Spy47 : Function for checking if this level has easter egg.
+// it will return 1 if it has.
+function checkTotalEasterEgg( %missionFile )
+{
+	%has = 0;
+   %file = new FileObject();
+   if ( %file.openForRead( %missionFile ) )
+   {
+		while ( !%file.isEOF() )
+		{
+			%line = %file.readLine();
+			%line = trim( %line );
+			if( %line $= "dataBlock = \"EasterEgg\";" )
+			{
+				%has = 1;
+				break;
+			}
+
+		}
+		%file.close();
+   }
+   %file.delete();
+   return %has;
+}
+
+// Spy47 : Function for checking if you have picked up
+// the easter egg in this level. It will return 1 if you did.
+function checkEasterEgg( %missionFile )
+{
+   if( $pref::easterEgg[%missionFile] ) // Jeff: kill multidimentional (, %i)
+      return 1;
+}
+
+
+function checkGoldTimes(%missionFile)
+{
+   %file = new FileObject();
+
+   %missionInfoObject = "";
+
+   if ( %file.openForRead( %missionFile ) ) {
+		%inInfoBlock = false;
+
+		while ( !%file.isEOF() ) {
+			%line = %file.readLine();
+			%line = trim( %line );
+
+			if( %line $= "new ScriptObject(MissionInfo) {" ) {
+				%line = "new ScriptObject() {";
+				%inInfoBlock = true;
+			}
+			else if( %inInfoBlock && %line $= "};" ) {
+				%inInfoBlock = false;
+				%missionInfoObject = %missionInfoObject @ %line;
+				break;
+			}
+
+			if( %inInfoBlock )
+			   %missionInfoObject = %missionInfoObject @ %line @ " ";
+		}
+
+		%file.close();
+	}
+	%missionInfoObject = "%missionInfoObject = " @ %missionInfoObject;
+	eval( %missionInfoObject );
+
+   %file.delete();
+
+   return %missionInfoObject.goldTime;
+}
+
+function checkUltimateTimes(%missionFile)
+{
+   %file = new FileObject();
+
+   %missionInfoObject = "";
+
+   if ( %file.openForRead( %missionFile ) ) {
+		%inInfoBlock = false;
+
+		while ( !%file.isEOF() ) {
+			%line = %file.readLine();
+			%line = trim( %line );
+
+			if( %line $= "new ScriptObject(MissionInfo) {" ) {
+				%line = "new ScriptObject() {";
+				%inInfoBlock = true;
+			}
+			else if( %inInfoBlock && %line $= "};" ) {
+				%inInfoBlock = false;
+				%missionInfoObject = %missionInfoObject @ %line;
+				break;
+			}
+
+			if( %inInfoBlock )
+			   %missionInfoObject = %missionInfoObject @ %line @ " ";
+		}
+
+		%file.close();
+	}
+	%missionInfoObject = "%missionInfoObject = " @ %missionInfoObject;
+	eval( %missionInfoObject );
+
+   %file.delete();
+
+   return %missionInfoObject.UltimateTime;
+}

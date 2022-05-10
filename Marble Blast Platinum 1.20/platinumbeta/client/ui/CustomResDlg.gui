@@ -1,0 +1,166 @@
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(CustomResDlg) {
+   profile = "GuiDialogProfile";
+   horizSizing = "right";
+   vertSizing = "bottom";
+   position = "0 0";
+   extent = "640 480";
+   minExtent = "8 8";
+   visible = "1";
+   helpTag = "0";
+
+   new GuiBitmapCtrl() {
+      profile = "GuiDefaultProfile";
+      horizSizing = "center";
+      vertSizing = "center";
+      position = "170 112";
+      extent = "299 256";
+      minExtent = "8 8";
+      visible = "1";
+      helpTag = "0";
+      bitmap = "./enternamebox";
+      wrap = "0";
+
+      new GuiBitmapButtonCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "56 201";
+         extent = "88 37";
+         minExtent = "8 8";
+         visible = "1";
+         command = "CustomResDlg::setResolution();";
+         accelerator = "return";
+         helpTag = "0";
+         text = "Button";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./Options/apply";
+      };
+      new GuiBitmapButtonCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "156 201";
+         extent = "90 37";
+         minExtent = "8 8";
+         visible = "1";
+         command = "CustomResDlg::cancell();";
+         accelerator = "escape";
+         helpTag = "0";
+         text = "Button";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./cancel";
+      };
+      new GuiScrollCtrl() {
+         profile = "GuiScrollProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "18 62";
+         extent = "258 129";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         willFirstRespond = "1";
+         hScrollBar = "dynamic";
+         vScrollBar = "alwaysOn";
+         constantThumbHeight = "0";
+         childMargin = "0 0";
+
+         new GuiTextListCtrl(CR_ResList) {
+            profile = "GuiTextArrayProfile";
+            horizSizing = "right";
+            vertSizing = "bottom";
+            position = "2 -1";
+            extent = "236 128";
+            minExtent = "8 8";
+            visible = "1";
+            altCommand = "CustomResDlg::setResolution();";
+            helpTag = "0";
+            enumerate = "0";
+            resizeCell = "1";
+            columns = "0";
+            fitParentWidth = "1";
+            clipColumnText = "0";
+               noDuplicates = "false";
+         };
+      };
+      new GuiMLTextCtrl(CR_Warning) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "20 15";
+         extent = "256 42";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+   };
+};
+//--- OBJECT WRITE END ---
+// Spy47: Here you can blow your monitor up.
+
+function setCustomRes()
+{
+	Canvas.pushDialog(CustomResDlg);
+}
+function CustomResDlg::onWake()
+{
+   CR_Warning.setText("<just:center>Resolutions supported by your graphic device in the current configuration are shown here. If you\'re in a window, your native resolution may not appear.");
+
+    // Spy47 : Code borrowed from Torque Demo: too lazy to figure it out myself. Sorry GG!
+    CR_resList.clear();
+	%resList = getResolutionList( $pref::Video::displayDevice );
+	%resCount = getFieldCount( %resList );
+	%deskRes = getDesktopResolution();
+
+    %count = 0;
+	for ( %i = 0; %i < %resCount; %i++ )
+	{
+		%res = getWords( getField( %resList, %i ), 0, 1 );
+
+		if ( !$pref::Video::fullScreen )
+		{
+			// Spy47 : Here they skip resolutions above your desktop res, in case you're playing windowed. Nice GG. Nice.
+			if ( firstWord( %res ) >= firstWord( %deskRes ) )
+				continue;
+			if ( getWord( %res, 1 ) >= getWord( %deskRes, 1 ) )
+				continue;
+		}
+
+//		if (firstWord(%res) > 1920 || getWord(%res, 1) > 1080)
+//		   continue;
+
+		// Spy47 : yea add only if its not thar already man.
+		if ( CR_resList.findTextIndex( %res ) == -1 )
+        {
+			CR_resList.addRow( %count, %res );
+            %count++;
+        }
+	}
+}
+
+function CustomResDlg::setResolution()
+{
+	// Spy47 : Get the current selected res.
+	%id = CR_ResList.getSelectedId();
+	%newRes = CR_ResList.getRowText(%id);
+
+	// Spy47 : GOOOOOOOOO!!!!!!!!!
+	OptGraphicsPane.setResolution(%newRes);
+	Canvas.popDialog(CustomResDlg);
+	OptionsDlg::onWake(0,true);
+}
+function CustomResDlg::cancell()
+{
+	Canvas.popDialog(CustomResDlg);
+	OptionsDlg::onWake(0,true);
+}

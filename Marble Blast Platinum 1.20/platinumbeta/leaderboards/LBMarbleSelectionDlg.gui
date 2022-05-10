@@ -1,0 +1,368 @@
+//-----------------------------------------------------------------------------
+// LBMarbleSelectionDlg.gui
+// Copyright (c) The Platinum Team
+// Mainly written by Jeff
+// References from Spy47
+//-----------------------------------------------------------------------------
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(LBMarbleSelectionDlg) {
+   profile = "GuiDefaultProfile";
+   horizSizing = "width";
+   vertSizing = "height";
+   position = "0 0";
+   extent = "640 480";
+   minExtent = "8 8";
+   visible = "1";
+   helpTag = "0";
+
+   new GuiControl() {
+      profile = "GuiDefaultProfile";
+      horizSizing = "center";
+      vertSizing = "center";
+      position = "3 3";
+      extent = "634 473";
+      minExtent = "8 8";
+      visible = "1";
+      helpTag = "0";
+
+      new GuiBitmapCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "center";
+         vertSizing = "center";
+         position = "103 105";
+         extent = "428 262";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "./marbleSelect/marblebox";
+         wrap = "0";
+
+         new GuiBitmapCtrl() {
+            profile = "GuiDefaultProfile";
+            horizSizing = "center";
+            vertSizing = "bottom";
+            position = "87 25";
+            extent = "254 34";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            bitmap = "./marbleSelect/customheader";
+            wrap = "0";
+         };
+         new GuiBitmapButtonCtrl(LBMarbleSelectNext) {
+            profile = "GuiButtonProfile";
+            horizSizing = "left";
+            vertSizing = "top";
+            position = "282 117";
+            extent = "116 54";
+            minExtent = "8 8";
+            visible = "1";
+            command = "LBMarbleSelectionDlg.nextMarble();";
+            helpTag = "0";
+            text = "next";
+            groupNum = "-1";
+            buttonType = "PushButton";
+            repeatPeriod = "1000";
+            repeatDecay = "1";
+            bitmap = "./marbleSelect/next";
+         };
+         new GuiBitmapButtonCtrl(LBMarbleSelectPrev) {
+            profile = "GuiButtonProfile";
+            horizSizing = "left";
+            vertSizing = "top";
+            position = "30 117";
+            extent = "116 54";
+            minExtent = "8 8";
+            visible = "1";
+            command = "LBMarbleSelectionDlg.prevMarble();";
+            helpTag = "0";
+            text = "prev";
+            groupNum = "-1";
+            buttonType = "PushButton";
+            repeatPeriod = "1000";
+            repeatDecay = "1";
+            bitmap = "./marbleSelect/prev";
+         };
+         new GuiBitmapButtonCtrl() {
+            profile = "GuiButtonProfile";
+            horizSizing = "center";
+            vertSizing = "top";
+            position = "156 191";
+            extent = "116 54";
+            minExtent = "8 8";
+            visible = "1";
+            command = "LBMarbleSelectionDlg.selectMarble();";
+            helpTag = "0";
+            text = "select";
+            groupNum = "-1";
+            buttonType = "PushButton";
+            repeatPeriod = "1000";
+            repeatDecay = "1";
+            bitmap = "./marbleSelect/select";
+         };
+         new GuiObjectView(LBMarbleSelectPreview) {
+            profile = "GuiDefaultProfile";
+            horizSizing = "center";
+            vertSizing = "top";
+            position = "150 77";
+            extent = "128 128";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            cameraZRot = "0";
+            forceFOV = "50";
+            model = "~/data/shapes/balls/ball-superball.dts";
+            skin = "base";
+            cameraRotX = "0.3";
+            cameraZRotSpeed = "0.001";
+            orbitDistance = "1.33337";
+            autoSize = "1";
+         };
+         new GuiMLTextCtrl(LBMarbleTitle) {
+            profile = "GuiMLTextProfile";
+            horizSizing = "center";
+            vertSizing = "bottom";
+            position = "92 65";
+            extent = "243 25";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            lineSpacing = "2";
+            allowColorChars = "0";
+            maxChars = "-1";
+         };
+      };
+   };
+};
+//--- OBJECT WRITE END ---
+
+// Jeff: marble shape index reference guide
+// 0 - ball-superball.dts
+// 1 - 3dMarble.dts
+// 2 - midp.dts
+// 3 - garageGames.dts
+// 4 - ball-superball.dts (custom) - NOT USED
+
+function LBMarbleSelectionDlg::init(%this) {
+   // Jeff: build marble/skin list
+   %this.createTextList();
+   %this.buildMarbleList();
+   %this.setCurrentMarble();
+}
+
+function LBMarbleSelectionDlg::onWake(%this) {
+   %this.setCurrentMarble();
+}
+
+// Jeff: doing this the spy47 way, hardcode *all* the things
+// since we are being strict on marble dts shapes
+// names are consistant with the $marble::name[index] variables
+function LBMarbleSelectionDlg::buildMarbleList(%this) {
+   LBMarbleList.clear();
+
+   // Jeff: Official marbles
+   // %name[index] = "name" TAB "dts index" TAB "skin name";
+   %name[0]  = "Staff\'s Original"        TAB "0" TAB "base"  ;
+   %name[1]  = "3D Marble"                TAB "1"             ;
+   %name[2]  = "Mid P"                    TAB "2"             ;
+   %name[3]  = "Spade"                    TAB "0" TAB "skin4" ;
+   %name[4]  = "GMD Logo"                 TAB "0" TAB "skin5" ;
+   %name[5]  = "Textured Marble"          TAB "0" TAB "skin6" ;
+   %name[6]  = "Golden Marble"            TAB "0" TAB "skin7" ;
+   %name[7]  = "Rainbow Marble"           TAB "0" TAB "skin8" ;
+   %name[8]  = "Brown Swirls"             TAB "0" TAB "skin9" ;
+   %name[9]  = "Caution Strips"           TAB "0" TAB "skin10";
+   %name[10] = "Earth"                    TAB "0" TAB "skin11";
+   %name[11] = "Golf ball"                TAB "0" TAB "skin12";
+   %name[12] = "Jupiter"                  TAB "0" TAB "skin13";
+   %name[13] = "MB Gold Marble"           TAB "0" TAB "skin14";
+   %name[14] = "MBP on the Marble!"       TAB "0" TAB "skin15";
+   %name[15] = "Moshe"                    TAB "0" TAB "skin16";
+   %name[16] = "Strong Bad"               TAB "0" TAB "skin17";
+   %name[17] = "Venus"                    TAB "0" TAB "skin18";
+   %name[18] = "Water"                    TAB "0" TAB "skin19";
+   %name[19] = "Evil Eye"                 TAB "0" TAB "skin20";
+   %name[20] = "Desert and Sky"           TAB "0" TAB "skin21";
+   %name[21] = "Dirt Marble"              TAB "0" TAB "skin22";
+   %name[22] = "Friction Textured Marble" TAB "0" TAB "skin23";
+   %name[23] = "Grass"                    TAB "0" TAB "skin24";
+   %name[24] = "Mars"                     TAB "0" TAB "skin25";
+   %name[25] = "Phil\'s Golf Ball"        TAB "0" TAB "skin26";
+   %name[26] = "Molten"                   TAB "0" TAB "skin27";
+   %name[27] = "Perishingflames"          TAB "0" TAB "skin28";
+   %name[28] = "Phil\'sEmpire"            TAB "0" TAB "skin29";
+   %name[29] = "Matan\'s Red Dragon"      TAB "0" TAB "skin30";
+   %name[30] = "Metallic Marble"          TAB "0" TAB "skin31";
+   %name[31] = "Sun"                      TAB "0" TAB "skin32";
+   %name[32] = "Underwater"               TAB "0" TAB "skin33";
+   %name[33] = "GarageGames Logo"         TAB "0" TAB "GGMarble";
+
+   for (%i = 0; %i < 34; %i ++)
+      LBMarbleList.addRow(LBMarbleList.rowCount(), %name[%i]);
+}
+
+// Jeff: sets the current marble that we have stored in prefs
+function LBMarbleSelectionDlg::setCurrentMarble(%this) {
+   // Jeff: crc32 calculation on dts shapes, ensure for non-hacking
+   %crc[0] = -1; // Jeff: this file is stupid, the CRC won't calculate
+   %crc[1] = "1516150677";
+   %crc[2] = "-417942173";
+   //%crc[3] = "1980408834";
+   //%crc[4] = 321379320; // Jeff: not used
+   %maxCRC = 3; // Jeff: if custom is used, make it 5
+   %showError = false;
+
+   // Jeff: check the CRC values
+   for (%i = 0; %i < %maxCRC; %i ++) {
+      if (isFile(%this.getMarbleShape(%i))) {
+         if (getFileCRC(%this.getMarbleShape(%i)) !$= %crc[%i] && getFileCRC(%this.getMarbleShape(%i)) != -1) {
+            //echo("file" SPC %i SPC "Crc is" SPC getFileCRC(%this.getMarbleShape(%i)) SPC "should be" SPC %crc[%i]);
+            %showError = true;
+	         echo(%i SPC "nope");
+            break;
+         }
+      } else {
+         %showError = true;
+         echo(%i SPC "nope");
+         break;
+      }
+   }
+
+   // Jeff: see if we have to show an error
+   if (%showError) {
+      LBAssert("Error","There seems to be an invalid shape file.  Either you deleted it or a virus got it.  Add the file or contact the Marble Blast Platinum team for support.", ($LB::LoggedIn ? "LBChatGui.logout();" : "closeLeaderboards(); Canvas.setContent(MainMenuGui);"));
+      Canvas.popDialog(%this);
+      return;
+   }
+
+   // Jeff: in case $LBPref::Marble doesn't exist, just set default
+   if ($LBPref::Marble $= "") {
+      LBMarbleList.setSelectedById(0);
+      %this.updateMarble();
+      return;
+   }
+
+   //HiGuy: New system- only the specified marbles are allowed (mp-friendly)
+   devecho($LBPref::Marble);
+   LBMarbleList.setSelectedById($LBPref::Marble);
+   %this.updateMarble();
+}
+
+function LBMarbleSelectionDlg::getSelection(%this) {
+   %marble = $LBPref::Marble;
+   %row = LBMarbleList.getRowTextById(%marble);
+   return %row;
+}
+
+function LBMarbleSelectionDlg::getMarbleCount(%this) {
+   return LBMarbleList.rowCount();
+}
+
+function LBMarbleSelectionDlg::getMarbleData(%this, %index) {
+   %row = LBMarbleList.getRowTextById(%index);
+   return %row;
+}
+
+// Jeff: next button
+function LBMarbleSelectionDlg::nextMarble(%this) {
+   %row = LBMarbleList.getSelectedId();
+   if (%row >= (LBMarbleList.rowCount() - 1))
+      %row = 0;
+   else
+      %row ++;
+   LBMarbleList.setSelectedById(%row);
+   %this.updateMarble();
+}
+
+// Jeff: previous button
+function LBMarbleSelectionDlg::prevMarble(%this) {
+   %row = LBMarbleList.getSelectedId();
+   if (%row <= 0)
+      %row = (LBMarbleList.rowCount() - 1);
+   else
+      %row --;
+   LBMarbleList.setSelectedById(%row);
+   %this.updateMarble();
+}
+
+//HiGuy: Manual set
+function LBMarbleSelectionDlg::setMarble(%this, %marble) {
+   %row = %marble;
+   if (%row <= 0)
+      %row = (LBMarbleList.rowCount() - 1);
+   else
+      %row --;
+   if (%row >= (LBMarbleList.rowCount() - 1))
+      %row = 0;
+   else
+      %row ++;
+   LBMarbleList.setSelectedById(%row);
+   %this.updateMarble();
+}
+
+function LBMarbleSelectionDlg::getMarbleShape(%this, %number) {
+   switch (%number) {
+   case 0: return $usermods @ "/data/shapes/balls/ball-superball.dts";
+   case 1: return $usermods @ "/data/shapes/balls/3dMarble.dts";
+   case 2: return $usermods @ "/data/shapes/balls/midp.dts";
+   }
+}
+
+// Jeff: update pref storage and previewer
+function LBMarbleSelectionDlg::updateMarble(%this) {
+   %row    = LBMarbleList.getRowTextById(LBMarbleList.getSelectedId());
+   %name   = getField(%row, 0);
+   %type   = getField(%row, 1);
+   %shape  = %this.getMarbleShape(%type);
+   %skin   = getField(%row, 2);
+   %skin   = (%skin !$= "") ? %skin : "base";
+   $LBPref::Marble = LBMarbleList.getSelectedId();
+   $LB::MarbleChoice = "Default";
+
+   LBMarbleTitle.setText("<font:DomcasualD:24><just:center>" @ %name);
+   if (isFile(%shape))
+      LBMarbleSelectPreview.setModel(%shape, %skin);
+   else {
+      devecho("\c2LBMarbleSelectionDlg: No such file" SPC %shape SPC "exists");
+      LBMarbleSelectPreview.setEmpty();
+   }
+}
+
+function LBMarbleSelectionDlg::selectMarble(%this) {
+   if ($Server::ServerType $= "MultiPlayer") {
+      commandToServer('UpdateMarble', %this.getSelection());
+   }
+   Canvas.popDialog(%this);
+}
+
+function LBMarbleSelectionDlg::createTextList(%this) {
+   // Jeff: make textlist for easy access to levels
+   while (isObject(LBMarbleList))
+      LBMarbleList.delete();
+   %gui = new GuiTextListCtrl(LBMarbleList) {
+      profile = "GuiTextlistProfile";
+      horizSizing = "relative";
+      vertSizing = "bottom";
+      position = "2 2";
+      extent = "8 8";
+      minExtent = "8 8";
+      visible = "0";
+      helpTag = "0";
+      enumerate = "0";
+      resizeCell = "0";
+      columns = "0";
+      fitParentWidth = "1";
+      clipColumnText = "0";
+   };
+   RootGroup.add(%gui);
+}
+
+// Jeff: only let developers see the dump for lb marble select
+// we want no setting of the names too so that hackers can't hack.
+function LBMarbleList::dump(%this) {
+}
+
+function LBMarbleList::setName(%this, %name) {
+}
+
+LBMarbleSelectionDlg.schedule(0, "init");

@@ -1,0 +1,501 @@
+//-----------------------------------------------------------------------------
+// LBLoginGui.gui
+// Copyright (c) The Platinum Team
+// Mainly written by Jeff
+// References by spy47
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiChunkedBitmapCtrl(LBLoginGui) {
+   profile = "GuiContentProfile";
+   horizSizing = "width";
+   vertSizing = "height";
+   position = "0 0";
+   extent = "640 480";
+   minExtent = "8 8";
+   visible = "1";
+   helpTag = "0";
+   bitmap = "~/client/ui/backgrounds/platinum/17";
+   useVariable = "0";
+   tile = "0";
+
+   new GuiControl() {
+      profile = "GuiDefaultProfile";
+      horizSizing = "center";
+      vertSizing = "center";
+      position = "0 0";
+      extent = "640 480";
+      minExtent = "8 8";
+      visible = "1";
+      helpTag = "0";
+
+      new GuiBitmapCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "width";
+         vertSizing = "center";
+         position = "0 91";
+         extent = "640 297";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "./login/login_window";
+         wrap = "0";
+
+         new GuiBitmapCtrl() {
+            profile = "GuiDefaultProfile";
+            horizSizing = "center";
+            vertSizing = "bottom";
+            position = "226 12";
+            extent = "193 77";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            bitmap = "./login/login_text";
+            wrap = "0";
+         };
+         new GuiBitmapButtonCtrl(LBLoginCreate) {
+            profile = "GuiButtonProfile";
+            horizSizing = "right";
+            vertSizing = "top";
+            position = "22 226";
+            extent = "157 49";
+            minExtent = "8 8";
+            visible = "1";
+            command = "Canvas.pushDialog(LBRegisterDlg);";
+            helpTag = "0";
+            text = "New Account";
+            groupNum = "-1";
+            buttonType = "PushButton";
+            repeatPeriod = "1000";
+            repeatDecay = "1";
+            bitmap = "./login/createacc";
+         };
+         new GuiBitmapButtonCtrl() {
+            profile = "GuiButtonProfile";
+            horizSizing = "center";
+            vertSizing = "top";
+            position = "252 219";
+            extent = "136 61";
+            minExtent = "8 8";
+            visible = "1";
+            command = "leaveLeaderboards();";
+            helpTag = "0";
+            text = "home";
+            groupNum = "-1";
+            buttonType = "PushButton";
+            repeatPeriod = "1000";
+            repeatDecay = "1";
+            bitmap = "./login/home";
+         };
+         new GuiBitmapCtrl() {
+            profile = "GuiDefaultProfile";
+            horizSizing = "right";
+            vertSizing = "bottom";
+            position = "18 121";
+            extent = "89 36";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            bitmap = "./login/name_text";
+            wrap = "0";
+         };
+         new GuiBitmapCtrl() {
+            profile = "GuiDefaultProfile";
+            horizSizing = "right";
+            vertSizing = "bottom";
+            position = "16 166";
+            extent = "130 41";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            bitmap = "./login/password_text";
+            wrap = "0";
+         };
+         new GuiBitmapCtrl() {
+            profile = "GuiDefaultProfile";
+            horizSizing = "right";
+            vertSizing = "bottom";
+            position = "144 154";
+            extent = "490 64";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            bitmap = "./login/text_field_notaslong";
+            wrap = "0";
+         };
+         new GuiBitmapCtrl() {
+            profile = "GuiDefaultProfile";
+            horizSizing = "right";
+            vertSizing = "bottom";
+            position = "144 109";
+            extent = "490 64";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            bitmap = "./login/text_field_notaslong";
+            wrap = "0";
+         };
+         new GuiTextEditCtrl(LBLoginUsername) {
+            profile = "GuiSearchTextEditProfile";
+            horizSizing = "right";
+            vertSizing = "bottom";
+            position = "158 129";
+            extent = "455 23";
+            minExtent = "8 8";
+            visible = "1";
+            command = "LBLoginGui.enableLogin();";
+            helpTag = "0";
+            maxLength = "255";
+            maxPixelWidth = "-1";
+            historySize = "0";
+            password = "0";
+            tabComplete = "0";
+            sinkAllKeyEvents = "0";
+         };
+         new GuiTextEditCtrl(LBLoginPassword) {
+            profile = "GuiSearchTextEditProfile";
+            horizSizing = "right";
+            vertSizing = "bottom";
+            position = "159 173";
+            extent = "453 23";
+            minExtent = "8 8";
+            visible = "1";
+            command = "LBLoginGui.enableLogin();";
+            helpTag = "0";
+            maxLength = "255";
+            maxPixelWidth = "-1";
+            historySize = "0";
+            password = "1";
+            tabComplete = "0";
+            sinkAllKeyEvents = "0";
+         };
+         new GuiBitmapCtrl() {
+            profile = "GuiDefaultProfile";
+            horizSizing = "right";
+            vertSizing = "bottom";
+            position = "415 68";
+            extent = "218 49";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            bitmap = "./login/username_bar";
+            wrap = "0";
+         };
+         new GuiBitmapButtonCtrl() {
+            profile = "GuiDefaultProfile";
+            horizSizing = "right";
+            vertSizing = "bottom";
+            position = "428 78";
+            extent = "200 31";
+            minExtent = "8 8";
+            visible = "1";
+            variable = "$LBPref::RememberPassword";
+            command = "LBLoginGui.enableLogin();";
+            helpTag = "0";
+            text = "Remember Password?";
+            groupNum = "-1";
+            buttonType = "ToggleButton";
+            repeatPeriod = "1000";
+            repeatDecay = "1";
+            bitmap = "./core/lb_ru_chkbx";
+         };
+         new GuiBitmapButtonCtrl(LBLoginGuest) {
+            profile = "GuiButtonProfile";
+            horizSizing = "left";
+            vertSizing = "top";
+            position = "376 219";
+            extent = "136 61";
+            minExtent = "8 8";
+            visible = "1";
+            command = "Canvas.setContent(LBGuestLoginGui);";
+            helpTag = "0";
+            text = "Guest";
+            groupNum = "-1";
+            buttonType = "PushButton";
+            repeatPeriod = "1000";
+            repeatDecay = "1";
+            bitmap = "./login/guest";
+         };
+         new GuiBitmapCtrl(LBLoginSpinnerBG) {
+            profile = "GuiDefaultProfile";
+            horizSizing = "left";
+            vertSizing = "bottom";
+            position = "477 226";
+            extent = "46 46";
+            minExtent = "8 8";
+            visible = "0";
+            helpTag = "0";
+            bitmap = "./core/loader/back";
+            wrap = "0";
+         };
+         new GuiBitmapCtrl(LBLoginSpinner) {
+            profile = "GuiDefaultProfile";
+            horizSizing = "right";
+            vertSizing = "bottom";
+            position = "484 233";
+            extent = "32 32";
+            minExtent = "8 8";
+            visible = "0";
+            helpTag = "0";
+            bitmap = "./core/loader/9";
+            wrap = "0";
+         };
+         new GuiBitmapButtonCtrl(LBLoginButton) {
+            profile = "GuiButtonProfile";
+            horizSizing = "left";
+            vertSizing = "top";
+            position = "491 219";
+            extent = "141 61";
+            minExtent = "8 8";
+            visible = "1";
+            command = "LBLoginGui.retries = 0;LBLoginGui.login();";
+            helpTag = "0";
+            text = "login";
+            groupNum = "-1";
+            buttonType = "PushButton";
+            repeatPeriod = "1000";
+            repeatDecay = "1";
+            bitmap = "./login/apply";
+         };
+         new GuiBitmapCtrl() {
+            profile = "GuiDefaultProfile";
+            horizSizing = "right";
+            vertSizing = "bottom";
+            position = "5 68";
+            extent = "218 49";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            bitmap = "./login/players_bar";
+            wrap = "0";
+         };
+         new GuiMLTextCtrl(LBLoginPlayers) {
+            profile = "GuiMLTextProfile";
+            horizSizing = "right";
+            vertSizing = "bottom";
+            position = "16 75";
+            extent = "191 14";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            lineSpacing = "2";
+            allowColorChars = "0";
+            maxChars = "-1";
+         };
+      };
+   };
+};
+//--- OBJECT WRITE END ---
+
+function LBLoginGui::onWake(%this) {
+   $LB::Guest = false; // Jeff: we aren't a guest if we are a user!
+   LBLoginUsername.setText("");
+   LBLoginPassword.setText("");
+   // Jeff: remember username
+   %this.rememberUsername();
+   %this.checkServer();
+   %this.enableLogin();
+
+   if (isObject("REMOVEME_FOR_RELEASE_OR_ILL_SEVER_YOUR_BALLS")) {
+      MessageBoxOk("Heheh", "Please tell someone that I\'m about to castrate them :) \n -HiGuy", "", true);
+   }
+}
+
+// Jeff: this enables/disables the login button,
+//       we make sure that both the username and password fields
+//       are not empty
+function LBLoginGui::enableLogin(%this) {
+   %username = trim(LBLoginUsername.getValue());
+   %password = trim(LBLoginPassword.getValue());
+   %enable = false;
+   if (%username !$= "" && %password !$= "")
+      %enable = true;
+   LBLoginButton.setActive(%enable && %this.online);
+   LBLoginGuest.setActive(%this.online);
+   LBLoginCreate.setActive(%this.online && !%this.checking);
+
+   LBLoginButton.setVisible(!%this.checking);
+   LBLoginGuest.setVisible(!%this.checking);
+
+   LBLoginSpinner.setVisible(%this.checking);
+   LBLoginSpinnerBG.setVisible(%this.checking);
+
+   LBLoginPlayers.setValue("<font:DomCasualD:32><just:center><color:000000>" @ (%this.checking ? "Requesting Status..." : (%this.online ? %this.players SPC "Player" @ (%this.players == 1 ? "" : "s") @ " Online" : $LB::ServerError)));
+
+   if (%this.spinInterval $= "")
+      %this.spinInterval = %this.interval(90, "updateSpinner");
+
+   $LBPref::Username = %username;
+   if ($LBPref::RememberPassword)
+      $LBPref::Password = strEnc(%password, 2);
+
+   $LB::Password2 = garbledeguck(%password);
+}
+
+function LBLoginGui::updateSpinner(%this) {
+   if (!%this.isAwake())
+      return;
+   %this.spinNum ++;
+   %this.spinNum %= 12;
+   LBLoginSpinner.setBitmap(expandFilename("~/leaderboards/core/loader/" @ %this.spinNum));
+}
+
+// Jeff: remember username code here
+function LBLoginGui::rememberUsername(%this) {
+   LBLoginPassword.makeFirstResponder(false);
+
+   %username = trim($LBPref::Username);
+
+   //If they have a stored username
+   if (%username !$= "") {
+      LBLoginUsername.setText(%username);
+
+      //Select the password field
+      LBLoginPassword.makeFirstResponder(true);
+
+      //If they're remembering a password
+      if ($LBPref::RememberPassword) {
+
+         //We gotta decrypt it...
+         %password = trim(strDec($LBPref::Password, 2));
+         if (%password !$= "")
+            LBLoginPassword.setText(%password);
+      }
+   }
+}
+
+// Jeff: login button
+function LBLoginGui::login(%this) {
+   // Jeff: disconnect challenge stuff
+   disconnectChallengeTCP();
+
+   pauseMusic();
+   $LB::UserListCount = 0;
+   $LB::FriendListCount = 0;
+
+   $LB::Username = trim(LBLoginUsername.getValue());
+   $LB::Password = trim(LBLoginPassword.getValue());
+   // Jeff: remembering
+   $LBPref::Username = $LB::Username;
+
+   // Jeff: log into the leaderboards!
+   $LB::LoggedIn = false;
+   LBconnect();
+
+   //HiGuy: Super long text lines crash the game
+   if ($tracing) {
+      trace(false);
+   }
+}
+
+// Jeff: leave button
+function leaveLeaderboards() {
+   closeLeaderboards();
+   Canvas.setContent(MainMenuGui);
+   playShellMusic();
+}
+
+//-----------------------------------------------------------------------------
+
+function LBLoginGui::checkServer(%this) {
+   if (%this.checking)
+      $LB::ServerError = "Still trying...";
+
+   %this.checking = true;
+   %this.enableLogin();
+
+   %server = $LB::server;
+   %page = $LB::serverPath @ "status.php";
+
+   %tcpobj = new TCPObject(LBLoginCheckNetwork);
+   %tcpobj.serverNum = %serverNum;
+   $LB::ServerError = "Server Offline";
+   %tcpobj.online = false;
+   %tcpobj.players = 0;
+   %tcpobj.lastUpdate = 0;
+   %tcpobj.lastUpdateAgo = 0;
+   %tcpobj.ping = 0;
+   %tcpobj.post(%server, %page, "key=" @ strRand(40) @ "&version=" @ $MP::RevisionOn);
+   %tcpobj.retries = 3;
+
+   %tcpobj.sendStart = getRealTime();
+
+   $LB::CheckSch = %this.schedule(10000, "checkServer");
+}
+
+function LBLoginCheckNetwork::onRetrySend(%this) {
+   %this.sendStart = getRealTime();
+}
+
+function LBLoginCheckNetwork::onLine(%this, %line) {
+   Parent::onLine(%this,%line);
+
+   cancel($LB::CheckSch);
+
+   %cmd = getWord(%line, 0);
+   %val = getWord(%line, 1);
+
+   %this.ping = getRealTime() - %this.sendStart;
+   %this.parseSigs(%line);
+
+   switch$ (%cmd) {
+   case "SIG":
+      switch (%val) {
+         case 1: //HiGuy: page finish
+            LBLoginGui.online = %this.online;
+            LBLoginGui.checking = false;
+            LBLoginGui.players = %this.players;
+            LBLoginGui.enableLogin();
+            %this.destroy();
+         case 29:
+            $LB::ServerError = "Server is Closed";
+         case 30:
+            $LB::ServerError = "Update Required!";
+      }
+   case "ONLINE":
+      %this.online = true;
+   case "PLAYERS":
+      %this.players = %val;
+   case "LASTUPDATE":
+      %this.lastUpdate = %val;
+   case "LASTUPDATEAGO":
+      %this.lastUpdateAgo = %val;
+   case "MASTER":
+      %this.master = %val;
+   }
+}
+
+//-----------------------------------------------------------------------------
+
+function LBGetServerTime() {
+   //start + (now - start)
+   return add64($LB::ServerStartTime, (sub64(getRealTime(), $LB::ServerStartReal) / 1000));
+}
+
+function LBServerRealTime(%serverTime) {
+   //now + (then - now)
+   return getRealTime() + ((sub64(%serverTime, LBGetServerTime())) * 1000);
+}
+
+function LBUpdateServerTime(%serverTime) {
+   %current = LBGetServerTime();
+   //HiGuy: Average the two to cancel out lag - not guaranteed to be perfect
+   %new = add(%current, mRound(sub(%serverTime, %current) / 2, 3));
+   $LB::ServerStartTime = %new;
+   $LB::ServerStartReal = getRealTime();
+}
+
+function LBschedule(%lbtime, %thing, %function, %parA, %parB, %parC, %parD, %parE, %parF, %parG, %parH, %parI, %parJ, %parK, %parL, %parM, %parN, %parO, %parP, %parQ, %parS, %parT, %parU, %parV, %parW, %parX, %parY, %parZ) {
+   %time = sub(LBServerRealTime(%lbtime), getRealTime());
+   devecho("LBSchedule() :: Scheduling for" SPC %lbtime);
+   devecho("LBSchedule() :: Current Server Time is" SPC LBGetServerTime());
+   devecho("LBSchedule() :: Wait is" SPC %time);
+   if (%time < 0) %time = 0;
+   schedule(%time, %thing, LBScheduleFinish, %function, %parA, %parB, %parC, %parD, %parE, %parF, %parG, %parH, %parI, %parJ, %parK, %parL, %parM, %parN, %parO, %parP, %parQ, %parS, %parT, %parU, %parV, %parW, %parX, %parY, %parZ);
+   $LB::Schedules ++;
+}
+
+function LBscheduleFinish(%function, %parA, %parB, %parC, %parD, %parE, %parF, %parG, %parH, %parI, %parJ, %parK, %parL, %parM, %parN, %parO, %parP, %parQ, %parS, %parT, %parU, %parV, %parW, %parX, %parY, %parZ) {
+   call(%function, %parA, %parB, %parC, %parD, %parE, %parF, %parG, %parH, %parI, %parJ, %parK, %parL, %parM, %parN, %parO, %parP, %parQ, %parS, %parT, %parU, %parV, %parW, %parX, %parY, %parZ);
+   $LB::Schedules --;
+}

@@ -1,0 +1,140 @@
+//--- OBJECT WRITE BEGIN ---
+new GuiBitmapCtrl(ExitGameDlg) {
+   profile = "GuiDefaultProfile";
+   horizSizing = "width";
+   vertSizing = "height";
+   position = "0 0";
+   extent = "640 480";
+   minExtent = "8 8";
+   visible = "1";
+   helpTag = "0";
+	bitmap = "~/client/ui/black";
+      restartCallback = "resumeGame(); restartLevel();";
+
+   new GuiBitmapCtrl() {
+      profile = "GuiDefaultProfile";
+      horizSizing = "center";
+      vertSizing = "center";
+      position = "162 160";
+      extent = "335 160";
+      minExtent = "48 92";
+      visible = "1";
+      helpTag = "0";
+      bitmap = $usermods @ "/client/ui/alert/dialog.png";
+      wrap = "0";
+
+      new GuiBitmapButtonCtrl() {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "top";
+         position = "234 104";
+         extent = "86 40";
+         minExtent = "8 8";
+         visible = "1";
+         command = "Canvas.popDialog(ExitGameDlg); resumeGame(); restartLevel();";
+         helpTag = "0";
+         text = "button";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = $usermods @ "/client/ui/restart";
+            simpleStyle = "0";
+      };
+      new GuiBitmapButtonCtrl() {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "top";
+         position = "14 103";
+         extent = "86 40";
+         minExtent = "8 8";
+         visible = "1";
+         command = "Canvas.popDialog(ExitGameDlg); ExitGameDlg::end();";
+         accelerator = "return";
+         helpTag = "0";
+         text = "YES";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = $usermods @ "/client/ui/yes";
+            simpleStyle = "0";
+      };
+      new GuiBitmapButtonCtrl() {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "top";
+         position = "101 102";
+         extent = "86 40";
+         minExtent = "8 8";
+         visible = "1";
+         command = "Canvas.popDialog(ExitGameDlg); resumeGame();";
+         accelerator = "escape";
+         helpTag = "0";
+         text = "NO";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = $usermods @ "/client/ui/no";
+            simpleStyle = "0";
+      };
+      new GuiBitmapCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "46 22";
+         extent = "235 42";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = $usermods @ "/client/ui/alert/quitfromthislvl_overlay";
+         wrap = "0";
+      };
+   };
+   new GuiBitmapButtonCtrl() {
+      profile = "GuiDefaultProfile";
+      horizSizing = "left";
+      vertSizing = "top";
+      position = "439 403";
+      extent = "187 65";
+      minExtent = "8 8";
+      visible = "1";
+      command = "Canvas.pushDialog(JukeboxDlg);";
+      helpTag = "0";
+      text = "button";
+      groupNum = "-1";
+      buttonType = "PushButton";
+      repeatPeriod = "1000";
+      repeatDecay = "1";
+      bitmap = "./jukebox/jb_pausemenu";
+   };
+};
+//--- OBJECT WRITE END ---
+
+function ExitGameDlg::end() {
+   if ($doRecordDemo) {
+      Canvas.pushDialog(CompleteDemoDlg);
+   } else {
+		// Jeff: force if challenge mode
+		if ($LB::ChallengeMode)
+			exitGame(true);
+		else
+			exitGame();
+   }
+}
+
+
+function ExitGameDlg::onWake(%this) {
+   if (MoveMap.isPushed())
+      $Game::DoPushMoveMap = true;
+   MoveMap.pop();
+   $exit2 = false;
+}
+
+function ExitGameDlg::onSleep(%this) {
+   if ($Game::DoPushMoveMap) {
+      MoveMap.push();
+      $Game::DoPushMoveMap = false;
+   }
+}

@@ -1,0 +1,562 @@
+//-----------------------------------------------------------------------------
+// LBSCAchievementsDlg.gui
+// Copyright (c) The Platinum Team
+// Mainly written by Jeff
+// References from Spy47
+//
+// Super Challenge Achievements
+//-----------------------------------------------------------------------------
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(LBSCAchievementsDlg) {
+   profile = "GuiDefaultProfile";
+   horizSizing = "width";
+   vertSizing = "height";
+   position = "0 0";
+   extent = "640 480";
+   minExtent = "8 8";
+   visible = "1";
+   helpTag = "0";
+      pages0 = "5";
+      pageCount = "4";
+      pageStart3 = "15";
+      pages1 = "5";
+      pageStart0 = "0";
+      pages2 = "5";
+      page = "3";
+      pageStart1 = "5";
+      pages3 = "5";
+      pageStart2 = "10";
+
+   new GuiBitmapCtrl() {
+      profile = "GuiDefaultProfile";
+      horizSizing = "center";
+      vertSizing = "center";
+      position = "52 -5";
+      extent = "535 411";
+      minExtent = "48 92";
+      visible = "1";
+      helpTag = "0";
+      bitmap = "./marbleSelect/marblebox";
+      wrap = "0";
+
+      new GuiBitmapCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "8 17";
+         extent = "197 53";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/achiev";
+         wrap = "0";
+      };
+      new GuiMLTextCtrl(LBSCAchivevementsTitle) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "left";
+         vertSizing = "bottom";
+         position = "185 29";
+         extent = "320 25";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiMLTextCtrl(LBSCAchievementsInfo) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "left";
+         vertSizing = "bottom";
+         position = "140 53";
+         extent = "380 251";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiBitmapButtonCtrl(LBSCAchievementsPrev) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "161 348";
+         extent = "65 32";
+         minExtent = "8 8";
+         visible = "1";
+         command = "LBSCAchievementsDlg.prev();";
+         helpTag = "0";
+         text = "prev";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "~/client/help/prev";
+      };
+      new GuiBitmapButtonCtrl() {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "229 346";
+         extent = "73 37";
+         minExtent = "8 8";
+         visible = "1";
+         command = "Canvas.popDialog(LBSCAchievementsDlg);";
+         helpTag = "0";
+         text = "OK";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "~/client/ui/LE/ok";
+      };
+      new GuiBitmapButtonCtrl(LBSCAchievementsNext) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "304 348";
+         extent = "65 32";
+         minExtent = "8 8";
+         visible = "1";
+         command = "LBSCAchievementsDlg.next();";
+         helpTag = "0";
+         text = "next";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "~/client/help/next";
+      };
+      new GuiBitmapCtrl(LBSCAchievement0) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "23 47";
+         extent = "100 48";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBSCAchievement1) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "23 100";
+         extent = "100 48";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBSCAchievement2) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "23 154";
+         extent = "100 48";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBSCAchievement3) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "23 221";
+         extent = "100 48";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBSCAchievement4) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "23 274";
+         extent = "100 48";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBSCAchievement8) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "23 207";
+         extent = "100 48";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBSCAchievement9) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "23 259";
+         extent = "100 48";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBSCAchievement5) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "23 47";
+         extent = "100 48";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBSCAchievement6) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "23 100";
+         extent = "100 48";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBSCAchievement7) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "23 154";
+         extent = "100 48";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBSCAchievement12) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "23 184";
+         extent = "100 48";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBSCAchievement13) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "23 235";
+         extent = "100 48";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBSCAchievement14) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "23 289";
+         extent = "100 48";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBSCAchievement10) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "23 53";
+         extent = "100 48";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBSCAchievement11) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "23 118";
+         extent = "100 48";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBSCAchievement15) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "23 53";
+         extent = "100 48";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBSCAchievement16) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "23 107";
+         extent = "100 48";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBSCAchievement17) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "23 159";
+         extent = "100 48";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBSCAchievement18) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "23 212";
+         extent = "100 48";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(LBSCAchievement19) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "23 265";
+         extent = "100 48";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+   };
+};
+//--- OBJECT WRITE END ---
+
+// Jeff: reminds me of spy47's marble initilizer for names and stuff
+//       in the custom marble dialog :3
+//
+//       Initilize Names of the Achievements
+if (!isObject(LBSCNameArray)) {
+   Array(LBSCNameArray);
+
+   // Jeff/Matan: Number of attempts:
+   //--------------------------------------------------------------------------
+   LBSCNameArray.addEntry("First Try");
+   LBSCNameArray.addEntry("Naughty");
+   LBSCNameArray.addEntry("Sweet Sixteen");
+   LBSCNameArray.addEntry("Bragging Rights");
+   //--------------------------------------------------------------------------
+
+   // Jeff/Matan: Specific Levels/Super Challenges
+
+   LBSCNameArray.addEntry("Marblaxia\'s Challenge");
+   //--------------------------------------------------------------------------
+   LBSCNameArray.addEntry("Here for the Scenery");
+   LBSCNameArray.addEntry("Archaic");
+
+   // Jeff/Matan: Race
+   LBSCNameArray.addEntry("Speedster");
+   LBSCNameArray.addEntry("Formula Blast");
+   LBSCNameArray.addEntry("Dust in the Wind");
+   LBSCNameArray.addEntry("Just Barely");
+   LBSCNameArray.addEntry("Leaving Someone High and Dry");
+   LBSCNameArray.addEntry("Horrible Luck");
+
+   // Jeff/Matan: Specific levels/super challenges:
+   LBSCNameArray.addEntry("Golden Marble");
+   LBSCNameArray.addEntry("Shortest Victory");
+   LBSCNameArray.addEntry("Racing Star");
+   LBSCNameArray.addEntry("Racing Champion");
+
+   // Jeff/Matan: Both:
+   LBSCNameArray.addEntry("The Taste of Victory");
+   LBSCNameArray.addEntry("The Taste of Defeat");
+   LBSCNameArray.addEntry("Master of All Challenges");
+}
+
+// Jeff: reminds me of spy47's marble initilizer for names and stuff
+//       in the custom marble dialog :3
+//
+//       Initilize Descriptions of the Achievements
+if (!isObject(LBSCDescArray)) {
+   Array(LBSCDescArray);
+
+   // Jeff/Matan: Number of attempts:
+   LBSCDescArray.addEntry("Win a challenge by getting your best time on the first try.");
+   LBSCDescArray.addEntry("Win a challenge by having all your final time finishes be faster than your opponent.");
+   LBSCDescArray.addEntry("Win 16 challenges in a row.");
+   LBSCDescArray.addEntry("Win a cumulative total of 150 challenges.");
+
+   // Jeff/Matan: Specific Levels/Super Challenges
+   LBSCDescArray.addEntry("Win a challenge in Marblaxia\'s Hideout when your final end time is less than 40 seconds.");
+   LBSCDescArray.addEntry("Win a challenge in A Walk in the Park.");
+   LBSCDescArray.addEntry("Win all the Oldies Race Super Challenges at least once.");
+
+   // Jeff/Matan: Race
+   LBSCDescArray.addEntry("Win 5 races in a row.");
+   LBSCDescArray.addEntry("Win 20 races in a row.");
+   LBSCDescArray.addEntry("Win a cumulative total of 150 races.");
+   LBSCDescArray.addEntry("Win a race by beating your opponent by less than three seconds difference. Don\'t try the short levels, we\'re watching.");
+   LBSCDescArray.addEntry("Win a race by beating your opponent by at least 30 seconds difference.");
+   LBSCDescArray.addEntry("Lose a race by at least a minute\'s difference.");
+
+   // Jeff/Matan: Specific levels/super challenges:
+   LBSCDescArray.addEntry("Win the Intermediate Race 1 Super Challenge.");
+   LBSCDescArray.addEntry("Win all the Short Races Super Challenges at least once.");
+   LBSCDescArray.addEntry("Win 10 different Super Challenges");
+   LBSCDescArray.addEntry("Win 30 different Super Challenges");
+
+   // Jeff/Matan: Both:
+   LBSCDescArray.addEntry("Win a challenge.");
+   LBSCDescArray.addEntry("Lose a challenge.");
+   LBSCDescArray.addEntry("Win 300 cumulative challenges.");
+}
+
+// Jeff: i am copying this technique from HiGuy
+//       (out of LBStatsDlg.gui, direct copy)
+function LBSCAchievementsDlg::show(%this,%user,%wrap) {
+   $LB::StatUser = (%user $= "") ? $LB::username : %user;
+   $LB::StatWrap = !!(%wrap);
+   %this.page = (%wrap == 2 ? %this.pageCount : 0);
+   Canvas.pushDialog(%this);
+}
+
+function LBSCAchievementsDlg::onWake(%this) {
+   LBSCAchievementsInfo.setText("Loading...");
+   %this.getAchievements();
+}
+
+// Jeff: send a request for the super challenge achievements
+function LBSCAchievementsDlg::getAchievements(%this) {
+   // Jeff: initilize array and reset achievements
+   while (isObject(LBSCAchievementArray))
+      LBSCAchievementArray.delete();
+   Array(LBSCAchievementArray);
+
+   %server = $LB::server;
+   %page = $LB::serverPath @ "cachievements.php";
+   %query = LBDefaultQuery() @ "&user=" @ $LB::StatUser;
+   if (!isObject(LBSCAchievementsNetwork))
+      new TCPObject(LBSCAchievementsNetwork);
+   LBSCAchievementsNetwork.post(%server, %page, %query);
+}
+
+function LBSCAchievementsNetwork::onLine(%this, %line) {
+   Parent::onLine(%this, %line);
+   %this.parseSigs(%line);
+   if (getWord(%line, 0) $= "SIG") {
+      %sig = getWord(%line, 1);
+      switch (%sig) {
+      case 1: //HiGuy: Finish
+         %this.echo("RECEIVED CHALLENGE ACHIEVEMENT LIST");
+         LBSCAchievementsDlg.setAchievements(LBSCAchievementsDlg.page);
+         //%this.disconnect();
+         return;
+      case 16: // Jeff: start list
+         %this.echo("STARTING CHALLENGE ACHIEVEMENT LIST");
+      }
+   }
+
+   if (getWord(%line, 0) $= "ACHIEVEMENT") { // Jeff: ACHIEVEMENT TRUE/FALSE
+      %val = getWord(%line, 1);
+      LBSCAchievementArray.addEntry(%val);
+   }
+}
+
+// Jeff: actually load the achievement list
+function LBSCAchievementsDlg::setAchievements(%this, %page) {
+   %this.hideAll();
+   %text = "";
+   %rImage = "platinumbeta/client/ui/achiev/nonachiev";
+   %gImage = "platinumbeta/client/ui/achiev/";
+   %start = %this.pageStart[%page];
+   %count = %this.pages[%page] + %start;
+   for (%i = %start; %i < %count; %i ++) {
+      LBSCAchivevementsTitle.setText("<font:DomCasualD:24><just:right>" @ ($LB::StatUser $= $LB::Username ? "My" : $LB::StatUser @ "\'s") SPC "Challenge Achievements" @ " (" @ %page + 1 SPC "of " @ %this.pageCount @ ")");
+      %bitmap = LBSCAchievementArray.getEntryByIndex(%i) ? (%gImage @ %i) : %rImage;
+      %button = nameToID("LBSCAchievement" @ %i);
+      %button.setVisible(true);
+      %button.setBitmap(%bitmap);
+      %name = "<lmargin:0><font:DomCasualD:24>" @ LBSCNameArray.getEntryByIndex(%i);
+      %info = %name @ "<lmargin:10><font:Arial Bold:14>" NL LBSCDescArray.getEntryByIndex(%i);
+      %text = (%text $= "") ? %info : %text NL "\n" @ %info;
+   }
+   LBSCAchievementsInfo.setText(%text);
+}
+
+// Jeff: hide all the images
+function LBSCAchievementsDlg::hideAll(%this) {
+   %image = "platinumbeta/client/ui/achiev/nonachiev";
+   for (%i = 0; %i < 20; %i ++) {
+      %button = nameToID("LBSCAchievement" @ %i);
+      %button.setVisible(false);
+      %button.setBitmap(%image);
+   }
+   LBSCAchievementsInfo.setText("");
+}
+
+function LBSCAchievementsDlg::next(%this) {
+   %this.page ++;
+   if (%this.page == %this.pageCount) {
+      if ($LB::StatWrap) {
+         Canvas.popDialog(%this);
+         MPAchievementsDlg.show($LB::StatUser, 1);
+         return;
+      }
+      %this.page -= %this.pageCount;
+   }
+   %this.setAchievements(%this.page);
+}
+
+function LBSCAchievementsDlg::prev(%this) {
+   %this.page --;
+   if (%this.page < 0) {
+      if ($LB::StatWrap) {
+         Canvas.popDialog(%this);
+         LBAchievementsDlg.show($LB::StatUser, 2);
+         return;
+      }
+      %this.page += %this.pageCount;
+   }
+   %this.setAchievements(%this.page);
+}

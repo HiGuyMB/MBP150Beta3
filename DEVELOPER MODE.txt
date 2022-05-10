@@ -1,0 +1,14 @@
+WHAT DEVELOPER MODE DOES:
+
+- Enables console at Leaderboards
+- Enables GUI editor
+- Disables CRC check
+- Prints detailed information of whatever is happening into the console.
+
+Use with care.-
+
+!!! IMPORTANT !!!
+DON'T LEAK THIS OF WE'LL RIPE YOUR BALLS.
+
+THIS MUST BE REMOVED IN FINAL VERSION.
+Code to be removed is commented with "DEVMODE_CODE_HERE" so do a search for that.

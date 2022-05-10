@@ -1,0 +1,208 @@
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(MOTDGui) {
+   profile = "GuiDialogProfile";
+   horizSizing = "width";
+   vertSizing = "height";
+   position = "0 0";
+   extent = "640 480";
+   minExtent = "8 8";
+   visible = "1";
+   helpTag = "0";
+      useVariable = "0";
+      tile = "0";
+      bitmap = "./menubackground.jpg";
+
+   new GuiBitmapCtrl() {
+      profile = "GuiDefaultProfile";
+      horizSizing = "center";
+      vertSizing = "center";
+      position = "4 12";
+      extent = "631 455";
+      minExtent = "48 92";
+      visible = "1";
+      helpTag = "0";
+      bitmap = "./motd/messagewindow";
+      wrap = "0";
+         canClose = "0";
+         maxLength = "255";
+         resizeWidth = "1";
+         canMinimize = "0";
+         resizeHeight = "1";
+         canMaximize = "0";
+         canMove = "1";
+         minSize = "50 50";
+
+      new GuiBitmapButtonCtrl() {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "top";
+         position = "276 380";
+         extent = "88 41";
+         minExtent = "8 8";
+         visible = "1";
+         command = "Canvas.popDialog(MOTDGui);";
+         accelerator = "return";
+         helpTag = "0";
+         text = "OK";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./motd/ok";
+            simpleStyle = "0";
+      };
+      new GuiScrollCtrl() {
+         profile = "ChatHudScrollProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "54 54";
+         extent = "520 300";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         willFirstRespond = "1";
+         hScrollBar = "alwaysOff";
+         vScrollBar = "dynamic";
+         constantThumbHeight = "0";
+         childMargin = "0 0";
+
+         new GuiMLTextCtrl(MOTDGuiText) {
+            profile = "GuiMLTextProfile";
+            horizSizing = "right";
+            vertSizing = "bottom";
+            position = "1 1";
+            extent = "494 224";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            lineSpacing = "2";
+            allowColorChars = "0";
+            maxChars = "-1";
+         };
+      };
+   };
+};
+//--- OBJECT WRITE END ---
+
+$MOTDMessage = "";
+$MOTDRecvd = false;
+
+function MOTDGui::showWelcome()
+{
+    %title = "Welcome to Marble Blast Platinum 1.50 Beta 3!";
+    %message = "This new version adds over 60 new fixes and 20 new additions to Platinum, including over a dozen highlights such as dedicated server, spawn saving and replaying, ratings and more.\n "
+
+		@ "Most features have been enabled during Beta 3, but some are still disabled until Beta 4. "
+		@ "If you have any problems, please post on the Marble Blast Forums, or send us an e-mail at marbleblastforums@gmail.com.\n\n"
+
+		@ "In addition, please note that due to the entire rewrite of the online section a lot of engine bugs were found. "
+		@ "Some workarounds were implemented, but not all can be fixed.\n\n"
+
+		@ "Enjoy 1.50 Beta 3\n"
+		@ "The Platinum Team";
+
+	MOTDGuiText.setText("<font:DomCasualD:24><just:center>" @ %title @ "\n<font:Arial:14><just:left>\n" @ %message);
+	Canvas.pushDialog(MOTDGui);
+}
+
+function MOTDGui::onWake()
+{
+   if ($Pref::FirstRun[$THIS_VERSION] == false)
+	{
+		MOTDGuiText.setText("Loading...");
+		MOTDGuiText.setText($MOTDMessage);
+		$pref::LastReadMOTD = $MOTDMessage;
+   }
+	$Pref::FirstRun[$THIS_VERSION] = false;
+
+	stopMOTDBlink();
+}
+
+function showMotd()
+{
+   MOTDGuiText.setText($MOTDMessage);
+   $pref::LastReadMOTD = $MOTDMessage;
+   stopMOTDBlink();
+   Canvas.pushDialog(MOTDGui);
+}
+
+function startMOTDBlinking()
+{
+   if($MOTDBlinking)
+      return;
+   $MOTDBlinking = true;
+   doMOTDBlink(0);
+}
+
+function doMOTDBlink(%val)
+{
+   if(%val == 0)
+      MOTDButton.setBitmap($usermods @ "/client/ui/motd/mess_buttn");
+   else
+      MOTDButton.setBitmap($usermods @ "/client/ui/motd/motd_buttn");
+   $MOTDBlinkSchedule = schedule(500, 0, "doMotdBlink", !%val);
+}
+
+function stopMOTDBlink()
+{
+   if($MOTDBlinkSchedule !$= "")
+   {
+      MOTDButton.setBitmap($usermods @ "/client/ui/motd/mess_buttn");
+      cancel($MOTDBlinkSchedule);
+   }
+   $MOTDBlinking = false;
+}
+
+function checkMOTDBlink()
+{
+   if($MOTDMessage !$= $pref::LastReadMOTD)
+      startMOTDBlinking();
+}
+
+//-------------------------------------
+
+function doMotdCheck()
+{
+   %server = $checkserver;
+   %page = $checkpath @ "motd.php";
+
+   new TCPObject(Motd);
+   Motd.post(%server, %page, "key=" @ strRand(40));
+   Motd.retries = 3;
+}
+
+//-------------------------------------
+function Motd::onLine(%this, %line)
+{
+   Parent::onLine(%this, %line);
+
+   %cmd  = firstWord(%line);
+   %rest = restWords(%line);
+   switch$ (%cmd) {
+   case "SIG":
+      %this.check();
+   case "MOTD":
+      %this.handleMotd(%rest);
+   }
+}
+
+//-------------------------------------
+
+function Motd::handleMotd(%this, %line) {
+   $MOTDMessage = collapseEscape(%line);
+}
+
+//-------------------------------------
+function Motd::check()
+{
+   if($MOTDMessage !$= "")
+   {
+      $MOTDChecked = true;
+      MOTDButton.setActive(true);
+      //MOTDGuiText.setText($MOTDMessage);
+      if($MOTDMessage !$= $pref::LastReadMOTD)
+         startMOTDBlinking();
+   }
+   Motd.destroy();
+}
+

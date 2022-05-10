@@ -1,0 +1,845 @@
+//-----------------------------------------------------------------------------
+// MPAchievementsDlg.gui
+// Copyright (c) The Platinum Team
+// Mainly written by Jeff & Spy47
+//-----------------------------------------------------------------------------
+
+//Current values: 5,000 / 2,000 / 400 / 15,000 / 30,000
+//New proposed values: 3,000 / 1,500 / 200 / 12,000 / 25,000
+//check during beta 1 + 2 serverside how people go with those
+//as well as other achievements
+
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(MPAchievementsDlg) {
+   profile = "GuiDefaultProfile";
+   horizSizing = "width";
+   vertSizing = "height";
+   position = "0 0";
+   extent = "640 480";
+   minExtent = "8 8";
+   visible = "1";
+   helpTag = "0";
+      title[1] = "The First of Many";
+      title[2] = "People\'s Power!";
+      title[3] = "Experience";
+      title[4] = "Close Call"; //2 lines
+      title[5] = "Too Easy!";
+      title[6] = "Well Rounded";
+      title[7] = "I\'m the Real Matan";
+      title[8] = "It\'s a Party!";
+      title[9] = "Advanced Player";
+      title[10] = "Expert Player";
+      title[11] = "Team Player";
+      title[12] = "Multiplayer\'s Best";
+      title[13] = "Handicap Master";
+      title[14] = "Toppling the Best"; //2 lines
+      title[15] = "Gloating Rights";
+      title[16] = "Red is the Best";
+      title[17] = "Yellow Mellow";
+      title[18] = "Seeing Blue";
+      title[19] = "All Your Gems are Belong to Me!";
+      title[20] = "Points! I Need More Points!";
+      title[21] = "Should have Put a Flag";
+      title[22] = "Scrum at the Spires";
+      title[23] = "360 Degrees Below Zero"; //3 lines
+      title[24] = "Golden Days"; //2 lines
+      title[25] = "Ultimate"; //2 lines
+      title[26] = "Triple Threat"; //2 lines
+      title[27] = "All Together"; //2 lines
+      title[28] = "Sprawling on the Horizon"; //2 lines
+      title[29] = "Bad Contribution"; //2 lines
+      title[30] = "Running the Show"; //2 lines
+      title[31] = "bbejd6?%Xbp/_ihJ,O\'EjhfFGHj ";
+      title[32] = "bcbebv?f]lf^B/l0{aWWh";
+      title[33] = "bchfd1DiO,Wqm98\\T=Q";
+      title[34] = "bdchfXi]dXms*F;y";
+      title[35] = "bdhjh8pqO*7ds8bY!Oyr6S";
+      title[36] = "bedjbtt<QwY:_^0p";
+      title[37] = "bejejZtK)`*W}_\"1[$+s`\"OP?cR-D*KIX%PPV";
+      descr[1] = "Win a Multiplayer match!";
+      descr[2] = "Win a Multiplayer match in Teams Mode";
+      descr[3] = "Become an established player!";
+      descr[4] = "Win a Multiplayer match by 2 points or less.";
+      descr[5] = "Win a Multiplayer match by 50 or more points.";
+      descr[6] = "Win a Multiplayer match on every official level.";
+      descr[7] = "Win 25 FFA matches in Matan Mode.";
+      descr[8] = "Win a FFA match against 7 other people.";
+      descr[9] = "Win 10 matches in a row.";
+      descr[10] = "Win 25 matches in a row.";
+      descr[11] = "Get 100 cumulative wins in Team Mode.";
+      descr[12] = "Get 500 cumulative wins in FFA.";
+      descr[13] = "Win a match with all handicaps turned on for you alone.";
+      descr[14] = "Win a Multiplayer match against a top 10 ranked player.";
+      descr[15] = "Get to 1900 in rating points!";
+      descr[16] = "Collect 5,000 lifetime red gems.";
+      descr[17] = "Collect 2,000 lifetime yellow gems.";
+      descr[18] = "Collect 400 lifetime blue gems.";
+      descr[19] = "Collect 15,000 lifetime gems.";
+      descr[20] = "Collect 30,000 lifetime points.";
+      descr[21] = "Win a Multiplayer match in Nukewsweeper Revisited";
+      descr[22] = "Win a hard fought FFA on Spires against three other people.";
+      descr[23] = "Win 5 Multiplayer matches in each of Core, Concentric, Battlecube, Battlecube Revisited, Vortex Effect and Zenith.";
+      descr[24] = "Beat the Gold Score of every Marble Blast Gold level in Multiplayer, FFA only.";
+      descr[25] = "Get the Platinum Score in every level from Marble Blast Ultra, FFA only.";
+      descr[26] = "Win 30 matches with Matan, Balanced and Glass Modes all enabled.";
+      descr[27] = "Win a 4v4 Multiplayer match.";
+      descr[28] = "Win on both Sprawl and Horizon in a Team Mode Multiplayer match against two other teams.";
+      descr[29] = "Get the lowest score on your team by at least half the points than the next person after you.";
+      descr[30] = "Get more points than the rest of your team-mates combined.";
+      descr[31] = "dgfbf%s}m;iDZ}O9TK6f}-,VJ;l[JCx,3c}aAR x=P0UTnBq?]Q$-";
+      descr[32] = "bgbabJ q7\"vB6Xg%cw9\'_3>MHJ3:.gT=mL7)W}Sd0^[$H.F]X/;Mm%wn";
+      descr[33] = "biehdk*B2WTdTssk;.T?=OTRDDyi]av>Qa3XV9jU(pl&l,#T{{SKKz`*#p]";
+      descr[34] = "bhded.+gWg.QWn|diTH];x\\2$1H]daI{I98o]VGL|g!wUJa[~Uk:";
+      descr[35] = "bhjff50Gm4@k`xy{g@6RQy";
+      descr[36] = "bifej;-\\X=|O))Jw&V&G__9*SVE,AK0^/Uzsv&";
+      descr[37] = "cabij`3m^fBTF-Vq\"A[6Y+:5}H8";
+      pages[0] = "1 2 3 4 5 6 7";
+      pages[1] = "8 9 10 11 12 13 14";
+      pages[2] = "15 16 17 18 19 20 21";
+      pages[3] = "22 23 24 25 26";
+      pages[4] = "27 28 29 30";
+      pages[5] = "31 32 33 34 35 36 37";
+
+      page = 0;
+
+   new GuiBitmapCtrl() {
+      profile = "GuiDefaultProfile";
+      horizSizing = "center";
+      vertSizing = "center";
+      position = "52 -5";
+      extent = "535 490";
+      minExtent = "48 92";
+      visible = "1";
+      helpTag = "0";
+      bitmap = "~/leaderboards/mp/achiev/window";
+      wrap = "0";
+         resizeHeight = "1";
+         canMaximize = "0";
+         canMove = "1";
+         minSize = "50 50";
+         canClose = "0";
+         maxLength = "255";
+         resizeWidth = "1";
+         canMinimize = "0";
+
+      new GuiMLTextCtrl() {
+         profile = "GuiComic24Profile";
+         horizSizing = "center";
+         vertSizing = "bottom";
+         position = "161 17";
+         extent = "213 29";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiBitmapCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "8 21";
+         extent = "176 50";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/achiev";
+         wrap = "0";
+      };
+      new GuiMLTextCtrl(MPAchiv_LoadingText) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "left";
+         vertSizing = "bottom";
+         position = "185 34";
+         extent = "320 19";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiMLTextCtrl(MPachiv_maintext) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "129 58";
+         extent = "380 442";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "5";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiBitmapCtrl(MPachiv_bitmap1) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 58";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(MPachiv_bitmap2) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 110";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapButtonCtrl(Joke) {
+         profile = "GuiButtonProfile";
+         horizSizing = "relative";
+         vertSizing = "relative";
+         position = "8 21";
+         extent = "176 50";
+         minExtent = "8 8";
+         visible = "1";
+         command = "showJoke(13);";
+         helpTag = "0";
+         text = "button";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "~/client/help/transparent";
+      };
+      new GuiBitmapCtrl(MPachiv_bitmap3) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 162";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(MPachiv_bitmap4) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 214";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(MPachiv_bitmap5) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 270";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(MPachiv_bitmap6) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 324";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(MPachiv_bitmap7) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 379";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(MPachiv_bitmap8) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 58";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(MPachiv_bitmap9) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 110";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(MPachiv_bitmap10) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 162";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(MPachiv_bitmap11) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 214";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(MPachiv_bitmap12) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 270";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(MPachiv_bitmap13) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 324";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(MPachiv_bitmap14) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 379";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(MPachiv_bitmap15) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 58";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(MPachiv_bitmap16) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 110";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(MPachiv_bitmap17) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 162";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(MPachiv_bitmap18) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 214";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(MPachiv_bitmap19) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 270";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(MPachiv_bitmap20) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 324";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(MPachiv_bitmap21) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 379";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(MPachiv_bitmap22) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 58";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(MPachiv_bitmap23) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 126";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(MPachiv_bitmap24) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 198";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(MPachiv_bitmap25) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 270";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(MPachiv_bitmap26) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 338";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(MPachiv_bitmap27) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 58";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(MPachiv_bitmap28) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 113";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(MPachiv_bitmap29) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 179";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(MPachiv_bitmap30) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 252";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/nonachiev";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(MPachiv_bitmap31) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 58";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/31";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(MPachiv_bitmap32) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 110";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/32";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(MPachiv_bitmap33) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 162";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/33";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(MPachiv_bitmap34) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 214";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/34";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(MPachiv_bitmap35) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 266";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/35";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(MPachiv_bitmap36) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 318";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/36";
+         wrap = "0";
+      };
+      new GuiBitmapCtrl(MPachiv_bitmap37) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "13 369";
+         extent = "113 44";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "~/client/ui/achiev/37";
+         wrap = "0";
+      };
+      new GuiBitmapButtonCtrl(MPAchievementsDlg_prev) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "150 428";
+         extent = "73 45";
+         minExtent = "8 8";
+         visible = "1";
+         command = "MPAchievementsDlg.prev();";
+         accelerator = "left";
+         helpTag = "0";
+         text = "prev";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "~/leaderboards/mp/play/prev";
+      };
+      new GuiBitmapButtonCtrl() {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "220 428";
+         extent = "95 45";
+         minExtent = "8 8";
+         visible = "1";
+         command = "Canvas.popDialog(MPAchievementsDlg);";
+         accelerator = "enter";
+         helpTag = "0";
+         text = "OK";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "~/leaderboards/mp/achiev/close";
+      };
+      new GuiBitmapButtonCtrl(MPAchievementsDlg_next) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "315 428";
+         extent = "73 45";
+         minExtent = "8 8";
+         visible = "1";
+         command = "MPAchievementsDlg.next();";
+         accelerator = "right";
+         helpTag = "0";
+         text = "next";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "~/leaderboards/mp/play/next";
+      };
+   };
+};
+//--- OBJECT WRITE END ---
+
+//-----------------------------------------------------------------------------
+// Jeff: this is going to be a nightmare to code, because there are SOOOOO
+//       many achievements!
+//-----------------------------------------------------------------------------
+
+function MPAchievementsDlg::show(%this, %user, %wrap) {
+   if (%user $= "")
+      %user = $LB::Username;
+   %this.user = %user;
+   %this.wrap = !!(%wrap);
+
+   for (%i = 0; %i < 37; %i ++)
+      $MP::Achievement[%i] = false;
+
+   %this.special = false;
+   %this.page = 0;
+   if (%wrap == 2)
+      %this.page = 5;
+
+   MPAchievementsDlg_prev.setActive(false);
+   MPAchievementsDlg_next.setActive(true);
+   %this.getAchievements();
+   %this.update();
+
+   Canvas.pushDialog(%this);
+}
+
+function MPAchievementsDlg::onSleep(%this) {
+   %this.user = "";
+}
+
+// Jeff: next button
+function MPAchievementsDlg::next(%this) {
+   %this.page ++;
+   if (%this.page > (%this.special ? 5 : 4)) {
+      if (%this.wrap) {
+         Canvas.popDialog(%this);
+         LBAchievementsDlg.show(%this.user, 1);
+         return;
+      }
+      %this.page = 0;
+   }
+   %this.update();
+}
+
+// Jeff: next button
+function MPAchievementsDlg::prev(%this) {
+   %this.page --;
+   if (%this.page < 0) {
+      if (%this.wrap) {
+         Canvas.popDialog(%this);
+         LBSCAchievementsDlg.show(%this.user, 2);
+         return;
+      }
+      %this.page = (%this.special ? 5 : 4);
+   }
+   %this.update();
+}
+
+function MPAchievementsDlg::update(%this) {
+   for (%i = 0; %i < 37; %i ++) {
+      %bitmap = "MPachiv_bitmap" @ (%i + 1);
+      %bitmap.setVisible(false);
+      if (!%this.updating)
+         %bitmap.setBitmap($usermods @ "/client/ui/achiev/nonachiev");
+   }
+   MPAchiv_maintext.setText("");
+   if (%this.updating)
+      MPAchiv_LoadingText.setText("<color:ffffff><shadow:1:1><font:Marker Felt:18><just:right><shadowcolor:0000007f>Loading...");
+   else {
+      if (%this.page == 5 && !%this.special)
+         %this.page = 4;
+      MPAchiv_LoadingText.setText("<color:ffffff><shadow:1:1><font:Marker Felt:18><just:right><shadowcolor:0000007f>" @ (%this.user $= $LB::Username ? "My" : %this.user @ "\'s") SPC "Multiplayer Achievements" @ (%this.page == 5 ? "?" : "") @ " (" @ %this.page + 1 SPC "of 5)");
+
+      %text = "";
+
+      %pages = %this.pages[%this.page];
+
+      for (%i = 0; %i < getWordCount(%pages); %i ++) {
+         %on = getWord(%pages, %i);
+         %bitmap = "MPachiv_bitmap" @ %on;
+         %bitmap.setVisible(true);
+         %title = %this.title[%on];
+         %descr = %this.descr[%on];
+         if ($MP::Achievement[%on - 1]) {
+            %bitmap.setBitmap($usermods @ "/client/ui/achiev/" @ %on);
+            if (%on > 30) {
+            	if (%this.user $= $LB::Username || $LB::SelfMPAchievement[%on]) {
+						%title = strDec(%title, 2);
+						%descr = strDec(%descr, 2);
+					} else {
+						%title = getSubStr(%title, 5, min(strlen(%title), 30));
+						%descr = getSubStr(%descr, 5, min(strlen(%descr), 30));
+					}
+            }
+         } else if (%on <= 30)
+            %bitmap.setBitmap($usermods @ "/client/ui/achiev/nonachiev");
+         else {
+            %bitmap.setVisible(false);
+            %title = " ";
+            %descr = " ";
+         }
+
+         %text = %text @ "<lmargin:0><color:ffffff><shadow:1:1><font:Marker Felt:24><shadowcolor:0000007f>" @ %title @ "<lmargin:10><font:Arial Bold:16>\n" @ %descr @ "\n\n";
+      }
+
+      MPachiv_maintext.setText(%text);
+   }
+}
+
+function MPAchievementsDlg::getAchievements(%this) {
+   for (%i = 0; %i < 37; %i ++)
+      $MP::Achievement[%i] = false;
+
+   %server = $LB::server;
+   %page = $LB::ServerPath @ "mpachievements.php";
+   %user = %this.user;
+   %query = LBDefaultQuery() @ "&user=" @ %user;
+
+   %this.updating = true;
+   %this.update();
+
+   if (!isObject(MPAchievementsNetwork))
+      new TCPObject(MPAchievementsNetwork);
+   MPAchievementsNetwork.post(%server,%page,%query);
+}
+
+function MPAchievementsNetwork::onLine(%this,%line) {
+   Parent::onLine(%this,%line);
+   %this.parseSigs(%line);
+   if (getWord(%line,0) $= "SIG") {
+      switch (getWord(%line,1)) {
+         case 1: // Jeff: page finish
+            %this.echo("Finish");
+            MPAchievementsDlg.updating = false;
+            MPAchievementsDlg.update();
+            //%this.disconnect();
+         case 16: // Jeff: starting list
+            %this.echo("Starting list");
+
+            for (%i = 0; %i < 37; %i ++)
+               $MP::Achievement[%i] = false;
+      }
+   } else if (getWord(%line,0) $= "MPACHIEVEMENT") {
+      %achievementNum = getWord(%line, 1);
+      %this.echo("Has achievement" SPC %achievementNum);
+      if (%achievementNum >= 30)
+         MPAchievementsDlg.special = true;
+      $MP::Achievement[%achievementNum] = true;
+   }
+}

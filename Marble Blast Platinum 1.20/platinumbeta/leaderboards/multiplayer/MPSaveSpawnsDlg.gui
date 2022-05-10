@@ -1,0 +1,140 @@
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(MPSaveSpawnsDlg) {
+   profile = "GuiDefaultProfile";
+   horizSizing = "width";
+   vertSizing = "height";
+   position = "0 0";
+   extent = "640 480";
+   minExtent = "8 8";
+   visible = "1";
+   helpTag = "0";
+
+   new GuiBitmapCtrl() {
+      profile = "GuiDefaultProfile";
+      horizSizing = "width";
+      vertSizing = "height";
+      position = "0 0";
+      extent = "640 480";
+      minExtent = "8 8";
+      visible = "1";
+      helpTag = "0";
+      bitmap = "~/client/ui/black";
+      wrap = "0";
+
+      new GuiBitmapCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "center";
+         vertSizing = "center";
+         position = "66 139";
+         extent = "508 202";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "~/leaderboards/mp/join/window2";
+         wrap = "0";
+
+         new GuiMLTextCtrl(MPSaveSpawnsTitle) {
+            profile = "GuiMLTextProfile";
+            horizSizing = "center";
+            vertSizing = "bottom";
+            position = "22 28";
+            extent = "463 14";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            lineSpacing = "2";
+            allowColorChars = "0";
+            maxChars = "-1";
+         };
+         new GuiBitmapCtrl() {
+            profile = "GuiDefaultProfile";
+            horizSizing = "right";
+            vertSizing = "bottom";
+            position = "22 73";
+            extent = "463 47";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            bitmap = "~/leaderboards/mp/join/textbar";
+            wrap = "0";
+         };
+         new GuiTextEditCtrl(MPSaveSpawnsFilename) {
+            profile = "GuiBigTextEditProfile";
+            horizSizing = "center";
+            vertSizing = "bottom";
+            position = "30 76";
+            extent = "447 38";
+            minExtent = "8 8";
+            visible = "1";
+            command = "MPSaveSpawnsDlg.updateFilename();";
+            altCommand = "MPSaveSpawnsDlg.doSave();";
+            helpTag = "0";
+            maxLength = "255";
+            maxPixelWidth = "0";
+            escapeCommand = "Canvas.popDialog(MPSaveSpawnsDlg);";
+            historySize = "0";
+            password = "0";
+            tabComplete = "0";
+            sinkAllKeyEvents = "0";
+         };
+         new GuiBitmapButtonCtrl(MPSaveSpawnsSave) {
+            profile = "GuiDefaultProfile";
+            horizSizing = "right";
+            vertSizing = "bottom";
+            position = "385 126";
+            extent = "94 45";
+            minExtent = "8 8";
+            visible = "1";
+            command = "MPSaveSpawnsDlg.doSave();";
+            helpTag = "0";
+            text = "SAVE";
+            groupNum = "-1";
+            buttonType = "PushButton";
+            repeatPeriod = "1000";
+            repeatDecay = "1";
+            bitmap = "~/leaderboards/mp/join/save";
+         };
+         new GuiBitmapButtonCtrl() {
+            profile = "GuiDefaultProfile";
+            horizSizing = "right";
+            vertSizing = "bottom";
+            position = "29 126";
+            extent = "94 45";
+            minExtent = "8 8";
+            visible = "1";
+            command = "Canvas.popDialog(MPSaveSpawnsDlg);";
+            helpTag = "0";
+            text = "Cancel";
+            groupNum = "-1";
+            buttonType = "PushButton";
+            repeatPeriod = "1000";
+            repeatDecay = "1";
+            bitmap = "~/leaderboards/mp/join/cancel";
+         };
+      };
+   };
+};
+//--- OBJECT WRITE END ---
+
+function MPSaveSpawnsDlg::onWake(%this) {
+	MPSaveSpawnsFilename.setValue("");
+   MPSaveSpawnsTitle.settext("<shadowcolor:0000007f><shadow:1:1><font:Marker Felt:32><color:ffffff><just:center>Save Spawn Replay");
+	%this.updateFilename();
+}
+
+function MPSaveSpawnsDlg::updateFilename(%this) {
+	MPSaveSpawnsFilename.setValue(stripChars(ltrim(MPSaveSpawnsFilename.getValue( )), "/:\\\"\';|?<>`~$*%"));
+	MPSaveSpawnsSave.setActive(MPSaveSpawnsFilename.getValue() !$= "");
+}
+
+function MPSaveSpawnsDlg::doSave(%this) {
+	//Actually save it here
+	MessageBoxOk("Saving Spawns", "Please wait...", "", true);
+	Canvas.repaint();
+	if (!saveSpawnGroup($usermods @ "/data/spawnsaves/" @ fileBase($Server::MissionFile) @ "/" @ MPSaveSpawnsFilename.getValue() @ ".spw")) {
+		MessageBoxOk("Could not Save!", "There was an error in saving your spawn groups.", "", true);
+		return;
+	}
+	Canvas.popDialog(MessageBoxOkDlg);
+	Canvas.popDialog(%this);
+}

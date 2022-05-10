@@ -1,0 +1,316 @@
+//-----------------------------------------------------------------------------
+// LBStatsDlg.gui
+// Copyright (c) The Platinum Team
+// Mainly written by Jeff
+// References from Spy47
+//-----------------------------------------------------------------------------
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(LBStatsDlg) {
+   profile = "GuiDefaultProfile";
+   horizSizing = "width";
+   vertSizing = "height";
+   position = "0 0";
+   extent = "640 480";
+   minExtent = "8 8";
+   visible = "1";
+   helpTag = "0";
+
+   new GuiControl() {
+      profile = "GuiDefaultProfile";
+      horizSizing = "center";
+      vertSizing = "center";
+      position = "3 3";
+      extent = "634 473";
+      minExtent = "8 8";
+      visible = "1";
+      helpTag = "0";
+
+      new GuiBitmapCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "center";
+         vertSizing = "center";
+         position = "119 46";
+         extent = "396 380";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "./marbleSelect/marblebox";
+         wrap = "0";
+
+         new GuiMLTextCtrl(LBStatsTitle) {
+            profile = "GuiMLTextProfile";
+            horizSizing = "center";
+            vertSizing = "bottom";
+            position = "15 19";
+            extent = "366 14";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            lineSpacing = "2";
+            allowColorChars = "0";
+            maxChars = "-1";
+         };
+         new GuiMLTextCtrl(LBStatsInfo) {
+            profile = "GuiMLTextProfile";
+            horizSizing = "center";
+            vertSizing = "bottom";
+            position = "15 19";
+            extent = "366 255";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            lineSpacing = "2";
+            allowColorChars = "0";
+            maxChars = "-1";
+         };
+         new GuiBitmapButtonCtrl() {
+            profile = "GuiButtonProfile";
+            horizSizing = "center";
+            vertSizing = "top";
+            position = "140 310";
+            extent = "116 54";
+            minExtent = "8 8";
+            visible = "1";
+            command = "Canvas.popDialog(LBStatsDlg);";
+            helpTag = "0";
+            text = "ok";
+            groupNum = "-1";
+            buttonType = "PushButton";
+            repeatPeriod = "1000";
+            repeatDecay = "1";
+            bitmap = "./marbleSelect/okay";
+         };
+         new GuiBitmapButtonCtrl(LBStatsNext) {
+            profile = "GuiButtonProfile";
+            horizSizing = "left";
+            vertSizing = "top";
+            position = "272 310";
+            extent = "116 54";
+            minExtent = "8 8";
+            visible = "1";
+            command = "LBStatsDlg.next();";
+            helpTag = "0";
+            text = "ok";
+            groupNum = "-1";
+            buttonType = "PushButton";
+            repeatPeriod = "1000";
+            repeatDecay = "1";
+            bitmap = "./marbleSelect/next";
+         };
+         new GuiBitmapButtonCtrl(LBStatsPrev) {
+            profile = "GuiButtonProfile";
+            horizSizing = "right";
+            vertSizing = "top";
+            position = "9 310";
+            extent = "116 54";
+            minExtent = "8 8";
+            visible = "1";
+            command = "LBStatsDlg.prev();";
+            helpTag = "0";
+            text = "ok";
+            groupNum = "-1";
+            buttonType = "PushButton";
+            repeatPeriod = "1000";
+            repeatDecay = "1";
+            bitmap = "./marbleSelect/prev";
+         };
+      };
+   };
+};
+//--- OBJECT WRITE END ---
+
+// Jeff: i am copying this technique from HiGuy
+function LBStatsDlg::show(%this,%user) {
+   $LB::StatUser = (%user $= "") ? $LB::username : %user;
+   Canvas.pushDialog(%this);
+}
+
+function LBStatsDlg::onWake(%this) {
+   LBStatsInfo.setText("Loading...");
+   %this.getStats();
+   $LB::CurrentStatPage = 1;
+   LBStatsNext.setActive(false);
+   LBStatsPrev.setActive(false);
+}
+
+// Jeff: prev button
+function LBStatsDlg::prev(%this) {
+   $LB::CurrentStatPage --;
+   if ($LB::CurrentStatPage <= 1) {
+      $LB::CurrentStatPage = 1;
+      LBStatsPrev.setActive(false);
+   }
+   LBStatsNext.setActive(true);
+   %this.buildList();
+}
+
+// Jeff: next button
+function LBStatsDlg::next(%this) {
+   $LB::CurrentStatPage ++;
+   if ($LB::CurrentStatPage >= 3) {
+      $LB::CurrentStatPage = 3;
+      LBStatsNext.setActive(false);
+   }
+   LBStatsPrev.setActive(true);
+   %this.buildList();
+}
+
+// Jeff: called when all stats are loaded
+function LBStatsDlg::buildList(%this) {
+   // Jeff: stat constants
+   %max::beginnerMBP     = 25;
+   %max::intermediateMBP = 35;
+   %max::advancedMBP     = 35;
+   %max::expertMBP       = 25;
+   %max::beginnerMBG     = 24;
+   %max::intermediateMBG = 24;
+   %max::advancedMBG     = 52;
+   %max::customEggCount  = 49;
+   %max::easterEggsMBP   = 75;
+   %max::totalMBP        = 75;
+   %max::totalMBG        = 100;
+   %max::totalMBPCustom  = 89;
+   %array                = LBStatisticArray;
+
+   if (!isObject(%array))
+      return;
+
+   // Jeff: init statistics variables received from server
+   %mis::P[0]    = %array.getEntryByIndex(0);  // platinum beginner levels beaten
+   %mis::P[1]    = %array.getEntryByIndex(1);  // platinum intermediate levels beaten
+   %mis::P[2]    = %array.getEntryByIndex(2);  // platinum advanced levels beaten
+   %mis::P[3]    = %array.getEntryByIndex(3);  // platinum expert levels beaten
+   %mis::G[0]    = %array.getEntryByIndex(4);  // gold beginner levels beaten
+   %mis::G[1]    = %array.getEntryByIndex(5);  // gold intermediate levels beaten
+   %mis::G[2]    = %array.getEntryByIndex(6);  // gold advanced levels beaten
+   %mis::Cust    = %array.getEntryByIndex(7);  // custom levels beaten
+   %time::P[0]   = %array.getEntryByIndex(8);  // platinum beginner levels total time
+   %time::P[1]   = %array.getEntryByIndex(9);  // platinum intermediate levels total time
+   %time::P[2]   = %array.getEntryByIndex(10);  // platinum advanced levels total time
+   %time::P[3]   = %array.getEntryByIndex(11);  // platinum expert levels total time
+   %time::G[0]   = %array.getEntryByIndex(12);  // gold beginner levels total time
+   %time::G[1]   = %array.getEntryByIndex(13);  // gold intermediate levels total time
+   %time::G[2]   = %array.getEntryByIndex(14);  // gold advanced levels total time
+   %time::Cust   = %array.getEntryByIndex(15);  // custom levels total time
+   %rating       = %array.getEntryByIndex(16);  // total rating
+   %ee::total    = %array.getEntryByIndex(17);  // all easter eggs received, both official and custom
+   %ee::mbp      = %array.getEntryByIndex(18); // mbp easter eggs received
+   %goldTime     = %array.getEntryByIndex(19); // amount of gold times achieved
+   %platinumTime = %array.getEntryByIndex(20); // amount of platinum times achieved
+   %ultimateTime = %array.getEntryByIndex(21); // amount of ultimate times achieved
+   %totalTime    = %array.getEntryByIndex(22); // total play time for all top scores
+   %playTime     = %array.getEntryByIndex(23); // total play time for all levels
+   %rank::total  = %array.getEntryByIndex(24); // total rank
+   %rank::mbp    = %array.getEntryByIndex(25); // total rank mbp
+   %rank::mbg    = %array.getEntryByIndex(26); // total rank mbg
+   %rank::mbpGG  = %array.getEntryByIndex(27); // total rank mbp with garagegames marble
+   %rank::mbgGG  = %array.getEntryByIndex(28); // total rank mbg with garagegames marble
+   %rank::custom = %array.getEntryByIndex(29); // total rank custom
+   %ratingMBG    = %array.getEntryByIndex(30); // total rating for mbg
+   %ratingMBP    = %array.getEntryByIndex(31); // total rating for mbp
+   %ratingMBGGG  = %array.getEntryByIndex(32); // total rating for mbg garagegames marble
+   %ratingMBPGG  = %array.getEntryByIndex(33); // total rating for mbp garagegames marble
+   %ratingCustom = %array.getEntryByIndex(34); // total rating for custom levels
+
+   // Jeff: determine the access
+   if (%access == 0)
+      %access = "Player";
+   else if (%access == 1)
+      %access = "Moderator";
+   else if (%access == 2)
+      %access = "Administrator";
+
+   // Jeff: create even more variables
+   %name                     = ($platform $= "macos") ? "MarbleBlast" : "Marble Blast"; // Jeff: I did this for matan :3
+   %username                 = ($LB::StatUser $= $LB::username) ? "My Statistics" : LBResolveName($LB::StatUser, true) @ "\'s Statistics";
+   %totalMBP                 = %mis::P[0] + %mis::P[1] + %mis::P[2] + %mis::P[3];
+   %totalMBG                 = %mis::G[0] + %mis::G[1] + %mis::G[2];
+   %percent::MBPBeginner     = mCeil((%mis::P[0] / %max::beginnerMBP) * 100);
+   %percent::MBPIntermediate = mCeil((%mis::P[1] / %max::intermediateMBP) * 100);
+   %percent::MBPAdvanced     = mCeil((%mis::P[2] / %max::advancedMBP) * 100);
+   %percent::MBPExpert       = mCeil((%mis::P[3] / %max::expertMBP) * 100);
+   %percent::MBPTotal        = mCeil((%totalMBP / %max::totalMBP) * 100);
+   %percent::MBGBeginnner    = mCeil((%mis::G[0] / %max::beginnerMBG) * 100);
+   %percent::MBGIntermediate = mCeil((%mis::G[1] / %max::intermediateMBG) * 100);
+   %percent::MBGAdvanced     = mCeil((%mis::G[2] / %max::advancedMBG) * 100);
+   %percent::MBGTotal        = mCeil((%totalMBG / %max::totalMBG) * 100);
+   %percent::GoldTime        = mCeil((%goldTime / %max::totalMBG) * 100);
+   %percent::PlatinumTime    = mCeil((%platinumTime / %max::totalMBP) * 100);
+   %percent::UltimateTime    = mCeil((%ultimateTime / %max::totalMBP) * 100);
+   %percent::EasterEggsMBP   = mCeil((%ee::mbp / %max::totalMBP) * 100);
+   %percent::EasterEggsTotal = mCeil((%ee::total / %max::totalMBPCustom) * 100);
+
+   // Jeff: show stats
+   switch ($LB::CurrentStatPage) {
+   case 1:
+      %text = "<just:center><font:DomCasualD:24>" @ %username SPC "(Page 1)" NL
+              %name SPC "Platinum<font:DomCasualD:18>" NL
+              "<just:left>Beginner Levels:" SPC %mis::P[0] @ "/" @ %max::beginnerMBP @ "<just:right>" @ %percent::MBPBeginner @ "%" NL
+              "<just:left>Intermediate Levels:" SPC %mis::P[1] @ "/" @ %max::intermediateMBP @ "<just:right>" @ %percent::MBPIntermediate @ "%" NL
+              "<just:left>Advanced Levels:" SPC %mis::P[2] @ "/" @ %max::advancedMBP @ "<just:right>" @ %percent::MBPAdvanced @ "%" NL
+              "<just:left>Expert Levels:" SPC %mis::P[3] @ "/" @ %max::expertMBP @ "<just:right>" @ %percent::MBPExpert @ "%" NL
+              "<just:left>Total Levels:" SPC %totalMBP @ "/" @ %max::totalMBP @ "<just:right>" @ %percent::MBPTotal @ "%\n" NL
+              "<just:center><font:DomCasualD:24>" @ %name SPC "Gold<font:DomCasualD:18>" NL
+              "<just:left>Beginner Levels:" SPC %mis::G[0] @ "/" @ %max::beginnerMBG @ "<just:right>" @ %percent::MBGBeginnner @ "%" NL
+              "<just:left>Intermediate Levels:" SPC %mis::G[1] @ "/" @ %max::intermediateMBG @ "<just:right>" @ %percent::MBGIntermediate @ "%" NL
+              "<just:left>Advanced Levels:" SPC %mis::G[2] @ "/" @ %max::advancedMBG @ "<just:right>" @ %percent::MBGAdvanced @ "%" NL
+              "<just:left>Total Levels:" SPC %totalMBG @ "/" @ %max::totalMBG @ "<just:right>" @ %percent::MBGTotal @ "%";
+   case 2:
+      %text = "<just:center><font:DomCasualD:24>" @ %username SPC "(Page 2)" NL
+              "Time Statistics<font:DomCasualD:18>" NL
+              "<just:left>Gold Times:" SPC %goldTime @ "/" @ %max::totalMBG @ "<just:right>" @ %percent::GoldTime @ "%" NL
+              "<just:left>Platinum Times:" SPC %platinumTime @ "/" @ %max::totalMBP @ "<just:right>" @ %percent::PlatinumTime @ "%" NL
+              "<just:left>Ultimate Times:" SPC %ultimateTime @ "/" @ %max::totalMBP @ "<just:right>" @ %percent::UltimateTime @ "%" NL
+              "<just:left>Grand Total (Top Scores):<just:right>" @ formatTimeHoursMs(%totalTime) NL
+              "<just:left>All Scores Time:<just:right>" @ formatTimeHoursMs(%playTime) @ "\n" NL
+              "<just:center><font:DomCasualD:24>Rating Statistics<font:DomCasualD:18>" NL
+              "<just:left>Total Rating:<just:right>" @ %rating NL
+              "<just:left>Rating MBG:<just:right>" @ %ratingMBG NL
+              "<just:left>Rating MBP:<just:right>" @ %ratingMBP NL
+//              "<just:left>Rating MBG GarageGames Marble:<just:right>" @ %ratingMBGGG NL
+//              "<just:left>Rating MBP GarageGames Marble:<just:right>" @ %ratingMBPGG NL
+              "<just:left>Rating Custom:<just:right>" @ %ratingCustom;
+   case 3:
+      %text = "<just:center><font:DomCasualD:24>" @ %username SPC "(Page 3)" NL
+              "Rank Statistics<font:DomCasualD:18>" NL
+              "<just:left>Total Rank:<just:right>" @ %rank::total NL
+              "<just:left>Rank MBG:<just:right>" @ %rank::mbg NL
+              "<just:left>Rank MBP:<just:right>" @ %rank::mbp NL
+//              "<just:left>Rank MBG GarageGames Marble:<just:right>" @ %rank::mbgGG NL
+//              "<just:left>Rank MBP GarageGames Marble:<just:right>" @ %rank::mbpGG NL
+              "<just:left>Rank Custom:<just:right>" @ %rank::custom @ "\n" NL
+              "<just:center><font:DomCasualD:24>Easter Egg Statistics<font:DomCasualD:18>" NL
+              "<just:left>Easter Eggs MBP:" SPC %ee::mbp @ "/" @ %max::totalMBP @ "<just:right>" @ %percent::EasterEggsMBP @ "%" NL
+              "<just:left>Easter Eggs Total:" SPC %ee::total @ "/" @ %max::totalMBPCustom @ "<just:right>" @ %percent::EasterEggsTotal @ "%";
+   }
+   LBStatsInfo.setText(%text);
+}
+
+// Jeff: grab the statistics
+function LBStatsDlg::getStats(%this) {
+   while (isObject(LBStatisticArray))
+      LBStatisticArray.delete();
+   Array(LBStatisticArray);
+   %server = $LB::server;
+   %page = $LB::serverPath @ "statistics.php";
+   %user = $LB::StatUser;
+   %query = LBDefaultQuery() @ "&user=" @ %user;
+   if (!isObject(LBStatsInfoNetwork))
+      new TCPObject(LBStatsInfoNetwork);
+   //HiGuy: Stats might take a while
+   LBStatsInfoNetwork.post(%server,%page,%query,10000);
+}
+
+function LBStatsInfoNetwork::onLine(%this,%line) {
+   Parent::onLine(%this,%line);
+   %this.parseSigs(%line);
+   if (getWord(%line,0) $= "SIG" && getWord(%line, 1) == 20) {
+      // Jeff: list finish
+      %this.echo("List finish");
+	   LBStatsNext.setActive(true);
+      LBStatsDlg.buildList();
+   } else if (getWord(%line,0) $= "STAT") {
+      %value = getWords(%line,1);
+      LBStatisticArray.addEntry(%value);
+   }
+}

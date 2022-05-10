@@ -1,0 +1,459 @@
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(LBMessageHudDlg) {
+   profile = "GuiDefaultProfile";
+   horizSizing = "width";
+   vertSizing = "height";
+   position = "0 0";
+   extent = "640 480";
+   minExtent = "8 8";
+   visible = "1";
+   helpTag = "0";
+      _guiSize = "640 480";
+      noCursor = "1";
+
+   new GuiControl(PG_LBChatBackground) {
+      profile = "GuiDefaultProfile";
+      horizSizing = "width";
+      vertSizing = "top";
+      position = "0 300";
+      extent = "640 180";
+      minExtent = "8 8";
+      visible = "1";
+      helpTag = "0";
+
+      new GuiControl(PG_LBChatTextPanel) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "width";
+         vertSizing = "height";
+         position = "0 0";
+         extent = "640 180";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+
+         new GuiBitmapCtrl() {
+            profile = "GuiDefaultProfile";
+            horizSizing = "width";
+            vertSizing = "height";
+            position = "0 60";
+            extent = "640 120";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            bitmap = "./play/pc_trans/0";
+            wrap = "0";
+         };
+         new GuiBitmapCtrl(PG_LBTopShadow) {
+            profile = "GuiDefaultProfile";
+            horizSizing = "width";
+            vertSizing = "bottom";
+            position = "0 52";
+            extent = "200 8";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            bitmap = "./play/pc_trans/1";
+            wrap = "0";
+         };
+         new GuiControl(PG_ChatBoxPanel) {
+            profile = "GuiDefaultProfile";
+            horizSizing = "width";
+            vertSizing = "height";
+            position = "0 61";
+            extent = "640 118";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+
+            new GuiScrollCtrl(PG_LBChatScroll) {
+               profile = "LBScrollProfile";
+               horizSizing = "relative";
+               vertSizing = "height";
+               position = "0 0";
+               extent = "320 118";
+               minExtent = "8 8";
+               visible = "1";
+               helpTag = "0";
+               willFirstRespond = "1";
+               hScrollBar = "alwaysOff";
+               vScrollBar = "alwaysOff";
+               constantThumbHeight = "0";
+               childMargin = "0 0";
+
+               new GuiMLTextCtrl(PG_LBChatText) {
+                  profile = "GuiMLTextProfile";
+                  horizSizing = "width";
+                  vertSizing = "bottom";
+                  position = "1 1";
+                  extent = "320 630";
+                  minExtent = "8 8";
+                  visible = "1";
+                  helpTag = "0";
+                  lineSpacing = "2";
+                  allowColorChars = "0";
+                  maxChars = "-1";
+               };
+            };
+            new GuiScrollCtrl(PG_ServerChatScroll) {
+               profile = "LBScrollProfile";
+               horizSizing = "relative";
+               vertSizing = "height";
+               position = "320 0";
+               extent = "320 118";
+               minExtent = "8 8";
+               visible = "1";
+               helpTag = "0";
+               willFirstRespond = "1";
+               hScrollBar = "alwaysOff";
+               vScrollBar = "alwaysOff";
+               constantThumbHeight = "0";
+               childMargin = "0 0";
+
+               new GuiMLTextCtrl(PG_ServerChatText) {
+                  profile = "GuiMLTextProfile";
+                  horizSizing = "width";
+                  vertSizing = "bottom";
+                  position = "1 1";
+                  extent = "320 48";
+                  minExtent = "8 8";
+                  visible = "1";
+                  helpTag = "0";
+                  lineSpacing = "2";
+                  allowColorChars = "0";
+                  maxChars = "-1";
+               };
+            };
+         };
+         new GuiBitmapCtrl(PG_LBTimeoutContainer) {
+            profile = "GuiDefaultProfile";
+            horizSizing = "left";
+            vertSizing = "bottom";
+            position = "504 15";
+            extent = "136 45";
+            minExtent = "8 8";
+            visible = "0";
+            helpTag = "0";
+            bitmap = "./play/pc_trans/5";
+            wrap = "0";
+
+            new GuiBitmapCtrl(PG_LBTimeoutMin_Ten) {
+               profile = "GuiDefaultProfile";
+               horizSizing = "right";
+               vertSizing = "bottom";
+               position = "33 5";
+               extent = "30 38";
+               minExtent = "8 8";
+               visible = "1";
+               helpTag = "0";
+               bitmap = "./game/numbers/0.png";
+               wrap = "0";
+            };
+            new GuiBitmapCtrl(PG_LBTimeoutMin_One) {
+               profile = "GuiDefaultProfile";
+               horizSizing = "right";
+               vertSizing = "bottom";
+               position = "51 5";
+               extent = "30 38";
+               minExtent = "8 8";
+               visible = "1";
+               helpTag = "0";
+               bitmap = "./game/numbers/0.png";
+               wrap = "0";
+            };
+            new GuiBitmapCtrl(PG_LBTimeoutColon) {
+               profile = "GuiDefaultProfile";
+               horizSizing = "right";
+               vertSizing = "bottom";
+               position = "64 4";
+               extent = "30 38";
+               minExtent = "8 8";
+               visible = "1";
+               helpTag = "0";
+               bitmap = "./game/numbers/colon.png";
+               wrap = "0";
+            };
+            new GuiBitmapCtrl(PG_LBTimeoutSec_Ten) {
+               profile = "GuiDefaultProfile";
+               horizSizing = "right";
+               vertSizing = "bottom";
+               position = "78 5";
+               extent = "30 38";
+               minExtent = "8 8";
+               visible = "1";
+               helpTag = "0";
+               bitmap = "./game/numbers/0.png";
+               wrap = "0";
+            };
+            new GuiBitmapCtrl(PG_LBTimeoutSec_One) {
+               profile = "GuiDefaultProfile";
+               horizSizing = "right";
+               vertSizing = "bottom";
+               position = "96 5";
+               extent = "30 38";
+               minExtent = "8 8";
+               visible = "1";
+               helpTag = "0";
+               bitmap = "./game/numbers/0.png";
+               wrap = "0";
+            };
+         };
+         new GuiControl(PG_LBChatEntryContainer) {
+            profile = "GuiDefaultProfile";
+            horizSizing = "width";
+            vertSizing = "bottom";
+            position = "200 15";
+            extent = "392 45";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+
+            new GuiBitmapCtrl() {
+               profile = "GuiDefaultProfile";
+               horizSizing = "right";
+               vertSizing = "height";
+               position = "0 18";
+               extent = "10 17";
+               minExtent = "8 8";
+               visible = "1";
+               helpTag = "0";
+               bitmap = "./play/pc_trans/8.png";
+               wrap = "0";
+            };
+            new GuiBitmapCtrl() {
+               profile = "GuiDefaultProfile";
+               horizSizing = "right";
+               vertSizing = "top";
+               position = "0 35";
+               extent = "10 10";
+               minExtent = "8 8";
+               visible = "1";
+               helpTag = "0";
+               bitmap = "./play/pc_trans/6.png";
+               wrap = "0";
+            };
+            new GuiBitmapCtrl() {
+               profile = "GuiDefaultProfile";
+               horizSizing = "right";
+               vertSizing = "bottom";
+               position = "4 2";
+               extent = "16 16";
+               minExtent = "8 8";
+               visible = "1";
+               helpTag = "0";
+               bitmap = "./play/pc_trans/7.png";
+               wrap = "0";
+            };
+            new GuiBitmapCtrl() {
+               profile = "GuiDefaultProfile";
+               horizSizing = "width";
+               vertSizing = "height";
+               position = "10 18";
+               extent = "372 27";
+               minExtent = "8 8";
+               visible = "1";
+               helpTag = "0";
+               bitmap = "./play/pc_trans/0";
+               wrap = "0";
+            };
+            new GuiBitmapCtrl() {
+               profile = "GuiDefaultProfile";
+               horizSizing = "width";
+               vertSizing = "bottom";
+               position = "20 0";
+               extent = "352 8";
+               minExtent = "8 8";
+               visible = "1";
+               helpTag = "0";
+               bitmap = "./play/pc_trans/1.png";
+               wrap = "0";
+            };
+            new GuiBitmapCtrl() {
+               profile = "GuiDefaultProfile";
+               horizSizing = "left";
+               vertSizing = "top";
+               position = "382 35";
+               extent = "10 10";
+               minExtent = "8 8";
+               visible = "1";
+               helpTag = "0";
+               bitmap = "./play/pc_trans/2.png";
+               wrap = "0";
+            };
+            new GuiBitmapCtrl() {
+               profile = "GuiDefaultProfile";
+               horizSizing = "left";
+               vertSizing = "height";
+               position = "382 18";
+               extent = "10 17";
+               minExtent = "8 8";
+               visible = "1";
+               helpTag = "0";
+               bitmap = "./play/pc_trans/3.png";
+               wrap = "0";
+            };
+            new GuiBitmapCtrl() {
+               profile = "GuiDefaultProfile";
+               horizSizing = "left";
+               vertSizing = "bottom";
+               position = "372 2";
+               extent = "16 16";
+               minExtent = "8 8";
+               visible = "1";
+               helpTag = "0";
+               bitmap = "./play/pc_trans/4.png";
+               wrap = "0";
+            };
+            new GuiBitmapCtrl() {
+               profile = "GuiDefaultProfile";
+               horizSizing = "width";
+               vertSizing = "bottom";
+               position = "20 8";
+               extent = "352 10";
+               minExtent = "8 8";
+               visible = "1";
+               helpTag = "0";
+               bitmap = "./play/pc_trans/0";
+               wrap = "0";
+            };
+            new GuiControl() {
+               profile = "GuiDefaultProfile";
+               horizSizing = "width";
+               vertSizing = "height";
+               position = "13 8";
+               extent = "392 37";
+               minExtent = "8 8";
+               visible = "1";
+               helpTag = "0";
+
+               new GuiMLTextEditCtrl(PG_LBChatEntry) {
+                  profile = "GuiMediumTextEditProfile";
+                  horizSizing = "width";
+                  vertSizing = "height";
+                  position = "0 0";
+                  extent = "398 37";
+                  minExtent = "8 8";
+                  visible = "1";
+                  command = "PlayGui.chatUpdate();";
+                  altCommand = "PlayGui.sendChat();";
+                  helpTag = "0";
+                  lineSpacing = "2";
+                  allowColorChars = "1";
+                  maxChars = "255";
+                  escapeCommand = "disableChatHUD();";
+                     tabCommand = "PlayGui.chatTabComplete();";
+               };
+            };
+         };
+      };
+      new GuiControl(PG_LBChatScorePanel) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "height";
+         position = "0 0";
+         extent = "200 180";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+
+         new GuiBitmapCtrl() {
+            profile = "GuiDefaultProfile";
+            horizSizing = "left";
+            vertSizing = "bottom";
+            position = "190 50";
+            extent = "10 10";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            bitmap = "./play/pc_trans/2";
+            wrap = "0";
+         };
+         new GuiBitmapCtrl() {
+            profile = "GuiDefaultProfile";
+            horizSizing = "width";
+            vertSizing = "bottom";
+            position = "0 8";
+            extent = "178 12";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            bitmap = "./play/pc_trans/0";
+            wrap = "0";
+         };
+         new GuiBitmapCtrl() {
+            profile = "GuiDefaultProfile";
+            horizSizing = "left";
+            vertSizing = "height";
+            position = "190 60";
+            extent = "10 120";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            bitmap = "./play/pc_trans/0";
+            wrap = "0";
+         };
+         new GuiBitmapCtrl() {
+            profile = "GuiDefaultProfile";
+            horizSizing = "left";
+            vertSizing = "bottom";
+            position = "190 20";
+            extent = "10 30";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            bitmap = "./play/pc_trans/3";
+            wrap = "0";
+         };
+         new GuiBitmapCtrl() {
+            profile = "GuiDefaultProfile";
+            horizSizing = "left";
+            vertSizing = "bottom";
+            position = "178 0";
+            extent = "20 20";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            bitmap = "./play/pc_trans/4";
+            wrap = "0";
+         };
+         new GuiBitmapCtrl() {
+            profile = "GuiDefaultProfile";
+            horizSizing = "width";
+            vertSizing = "height";
+            position = "0 20";
+            extent = "190 160";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            bitmap = "./play/pc_trans/0";
+            wrap = "0";
+         };
+         new GuiBitmapCtrl() {
+            profile = "GuiDefaultProfile";
+            horizSizing = "width";
+            vertSizing = "bottom";
+            position = "0 0";
+            extent = "178 8";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            bitmap = "./play/pc_trans/1";
+            wrap = "0";
+         };
+         new GuiMLTextCtrl(PG_LBChatScoreText) {
+            profile = "GuiMLTextProfile";
+            horizSizing = "right";
+            vertSizing = "bottom";
+            position = "0 9";
+            extent = "188 14";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            lineSpacing = "2";
+            allowColorChars = "0";
+            maxChars = "-1";
+         };
+      };
+   };
+};
+//--- OBJECT WRITE END ---
+

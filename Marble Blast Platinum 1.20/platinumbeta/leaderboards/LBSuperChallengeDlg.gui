@@ -1,0 +1,4557 @@
+//-----------------------------------------------------------------------------
+// LBSuperChallengeDlg.gui
+// Copyright (c) The Platinum Team
+// Written by HiGuy
+//
+// Now takes the cake as the longest TorqueScript file that I've ever written
+// as of 3/2/13, breaking the 100kb mark with only 20kb of GUI
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(LBSuperChallengeDlg) {
+	profile = "GuiDefaultProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "640 480";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+		challenger = "0";
+		loading = "1";
+
+	new GuiBitmapCtrl(LBSCD_ChallengePanel) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "25 -1";
+		extent = "589 481";
+		minExtent = "8 8";
+		visible = "0";
+		helpTag = "0";
+		bitmap = "./error/errorbox";
+		wrap = "0";
+
+		new GuiMLTextCtrl(LBSCDC_Title) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "111 19";
+			extent = "366 28";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiBitmapButtonCtrl(LBSCDC_Cancel) {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "17 408";
+			extent = "116 54";
+			minExtent = "8 8";
+			visible = "1";
+			command = "LBSCDC_Cancel();";
+			helpTag = "0";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./challenge/cancel";
+		};
+		new GuiBitmapButtonCtrl(LBSCDC_Challenge) {
+			profile = "GuiButtonProfile";
+			horizSizing = "left";
+			vertSizing = "top";
+			position = "457 408";
+			extent = "116 54";
+			minExtent = "8 8";
+			visible = "1";
+			command = "LBSCDC_Challenge();";
+			helpTag = "0";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./marbleSelect/okay";
+		};
+		new GuiScrollCtrl(LBSCDC_Scroll) {
+			profile = "GuiBacklessScrollProfile";
+			horizSizing = "right";
+			vertSizing = "height";
+			position = "30 56";
+			extent = "320 239";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			willFirstRespond = "1";
+			hScrollBar = "alwaysOff";
+			vScrollBar = "alwaysOn";
+			constantThumbHeight = "0";
+			childMargin = "0 0";
+
+			new GuiControl(LB_IgnoreMe) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "0 0";
+				extent = "8 8";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+			};
+		};
+		new GuiScrollCtrl() {
+			profile = "GuiScrollProfile";
+			horizSizing = "left";
+			vertSizing = "height";
+			position = "361 58";
+			extent = "200 167";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			willFirstRespond = "1";
+			hScrollBar = "alwaysOff";
+			vScrollBar = "alwaysOn";
+			constantThumbHeight = "0";
+			childMargin = "0 0";
+
+			new GuiControl(LBSCDC_PlayerList) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "2 2";
+				extent = "178 52";
+				minExtent = "8 8";
+				visible = "1";
+				command = "LBSCDC_ChoosePlayer();";
+				helpTag = "0";
+					list = "5820";
+					single = "0";
+					selection = "5821";
+					button0 = "5823";
+					inited = "1";
+					maxSelection = "3";
+					rowHeight = "26";
+					selectedBitmap = "./challenge/playerlist";
+					button1 = "5824";
+
+				new GuiBitmapButtonTextCtrl() {
+					profile = "GuiListButtonProfile";
+					horizSizing = "width";
+					vertSizing = "top";
+					position = "0 0";
+					extent = "178 26";
+					minExtent = "1 1";
+					visible = "1";
+					command = "LBSCDC_PlayerList.updateSelection(0);";
+					helpTag = "0";
+					text = "Practice Mode";
+					groupNum = "-1";
+					buttonType = "ToggleButton";
+					repeatPeriod = "1000";
+					repeatDecay = "1";
+					bitmap = "./challenge/playerlist";
+						single = "1";
+						Player = "Practice Mode";
+						wrap = "0";
+						selected = "0";
+				};
+				new GuiBitmapButtonTextCtrl() {
+					profile = "GuiListButtonProfile";
+					horizSizing = "width";
+					vertSizing = "top";
+					position = "0 26";
+					extent = "178 26";
+					minExtent = "1 1";
+					visible = "1";
+					command = "LBSCDC_PlayerList.updateSelection(1);";
+					helpTag = "0";
+					text = "IsraeliRD";
+					groupNum = "-1";
+					buttonType = "ToggleButton";
+					repeatPeriod = "1000";
+					repeatDecay = "1";
+					bitmap = "./challenge/playerlist";
+						single = "0";
+						Player = "IsraeliRD";
+						wrap = "0";
+						selected = "1";
+				};
+			};
+		};
+		new GuiMLTextCtrl(LBSCDC_Info) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "37 298";
+			extent = "303 78";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiControl(LBSCDC_SelectedPreview) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "left";
+			vertSizing = "top";
+			position = "359 236";
+			extent = "202 167";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+
+			new GuiBitmapCtrl(LBSCDC_SelectedPreviewBitmap0) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "width";
+				vertSizing = "height";
+				position = "0 0";
+				extent = "202 167";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				bitmap = "~/data/missions_mbp/beginner/Battlecube";
+				wrap = "0";
+			};
+			new GuiBitmapCtrl(LBSCDC_SelectedPreviewBitmap1) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "width";
+				vertSizing = "height";
+				position = "202 0";
+				extent = "202 167";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				bitmap = "~/data/missions_mbp/beginner/Battlecube";
+				wrap = "0";
+			};
+			new GuiBitmapCtrl(LBSCDC_PreviewInfoHighlight) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "width";
+				vertSizing = "height";
+				position = "3 8";
+				extent = "196 25";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				bitmap = "./play/pc_trans/0";
+				wrap = "0";
+			};
+			new GuiBitmapCtrl(LBSCDC_PreviewInfo2Highlight) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "width";
+				vertSizing = "height";
+				position = "3 135";
+				extent = "196 25";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				bitmap = "./play/pc_trans/0";
+				wrap = "0";
+			};
+			new GuiMLTextCtrl(LBSCDC_PreviewInfo2) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "center";
+				vertSizing = "bottom";
+				position = "3 135";
+				extent = "196 25";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			};
+			new GuiMLTextCtrl(LBSCDC_PreviewInfo) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "center";
+				vertSizing = "bottom";
+				position = "3 8";
+				extent = "196 25";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			};
+			new GuiBitmapButtonCtrl(LBSCDC_PreviewWindow) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "width";
+				vertSizing = "height";
+				position = "0 0";
+				extent = "202 167";
+				minExtent = "8 8";
+				visible = "1";
+				command = "LBSCD_TogglePreview();";
+				helpTag = "0";
+				text = "button";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./challenge/levelwindow";
+					wrap = "0";
+			};
+		};
+		new GuiBitmapButtonCtrl(LBSCDC_Options) {
+			profile = "GuiButtonProfile";
+			horizSizing = "left";
+			vertSizing = "top";
+			position = "347 408";
+			extent = "116 54";
+			minExtent = "8 8";
+			visible = "1";
+			command = "LBSCDC_Options();";
+			helpTag = "0";
+			text = "Options";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./challenge/options";
+		};
+		new GuiBitmapButtonCtrl(LBSCDC_Achievements) {
+			profile = "GuiButtonProfile";
+			horizSizing = "left";
+			vertSizing = "top";
+			position = "297 407";
+			extent = "54 54";
+			minExtent = "8 8";
+			visible = "1";
+			command = "LBSCAchievementsDlg.show();";
+			helpTag = "0";
+			text = "Achievements";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./play/achiev";
+		};
+	};
+	new GuiBitmapCtrl(LBSCD_AcceptPanel) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "80 58";
+		extent = "480 363";
+		minExtent = "8 8";
+		visible = "0";
+		helpTag = "0";
+		bitmap = "./error/errorbox";
+		wrap = "0";
+
+		new GuiMLTextCtrl(LBSCDA_Title) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "17 19";
+			extent = "445 28";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiMLTextCtrl(LBSCDA_Text) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "17 56";
+			extent = "445 100";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiBitmapButtonCtrl(LBSCDA_Accept) {
+			profile = "GuiButtonProfile";
+			horizSizing = "left";
+			vertSizing = "top";
+			position = "144 294";
+			extent = "116 54";
+			minExtent = "8 8";
+			visible = "0";
+			command = "LBSCDA_Accept();";
+			helpTag = "0";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./challenge/accept";
+		};
+		new GuiBitmapButtonCtrl(LBSCDA_Decline) {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "18 294";
+			extent = "116 54";
+			minExtent = "8 8";
+			visible = "0";
+			command = "LBSCDA_Decline();LBSuperChallengeDlg.revert();";
+			helpTag = "0";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./challenge/decline";
+		};
+		new GuiControl(LBSCDA_SelectedPreview) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "left";
+			vertSizing = "top";
+			position = "259 179";
+			extent = "202 167";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+
+			new GuiBitmapCtrl(LBSCDA_SelectedPreviewBitmap0) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "width";
+				vertSizing = "height";
+				position = "0 0";
+				extent = "202 167";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				bitmap = "~/data/missions_mbp/beginner/Battlecube";
+				wrap = "0";
+			};
+			new GuiBitmapCtrl(LBSCDA_SelectedPreviewBitmap1) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "width";
+				vertSizing = "height";
+				position = "202 0";
+				extent = "202 167";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				bitmap = "~/data/missions_mbp/beginner/Battlecube";
+				wrap = "0";
+			};
+			new GuiBitmapCtrl(LBSCDA_PreviewInfoHighlight) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "width";
+				vertSizing = "height";
+				position = "3 8";
+				extent = "196 25";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				bitmap = "./play/pc_trans/0";
+				wrap = "0";
+			};
+			new GuiBitmapCtrl(LBSCDA_PreviewInfo2Highlight) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "width";
+				vertSizing = "height";
+				position = "3 135";
+				extent = "196 25";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				bitmap = "./play/pc_trans/0";
+				wrap = "0";
+			};
+			new GuiMLTextCtrl(LBSCDA_PreviewInfo2) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "center";
+				vertSizing = "bottom";
+				position = "3 135";
+				extent = "196 25";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			};
+			new GuiMLTextCtrl(LBSCDA_PreviewInfo) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "center";
+				vertSizing = "bottom";
+				position = "3 8";
+				extent = "196 25";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			};
+			new GuiBitmapButtonCtrl(LBSCDA_PreviewWindow) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "width";
+				vertSizing = "height";
+				position = "0 0";
+				extent = "202 167";
+				minExtent = "8 8";
+				visible = "1";
+				command = "LBSCD_TogglePreview();";
+				helpTag = "0";
+				text = "button";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./challenge/levelwindow";
+					wrap = "0";
+			};
+		};
+		new GuiMLTextCtrl(LBSCDA_Info) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "17 186";
+			extent = "239 106";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiBitmapButtonCtrl(LBSCDA_Cancel) {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "18 294";
+			extent = "116 54";
+			minExtent = "8 8";
+			visible = "1";
+			command = "LBSCDA_Cancel();";
+			helpTag = "0";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./challenge/cancel";
+		};
+		new GuiBitmapButtonCtrl(LBSCDA_Cancel2) {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "18 294";
+			extent = "116 54";
+			minExtent = "8 8";
+			visible = "0";
+			command = "LBSCDA_Cancel();";
+			helpTag = "0";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./challenge/cancel";
+		};
+		new GuiBitmapButtonCtrl(LBSCDA_Play) {
+			profile = "GuiButtonProfile";
+			horizSizing = "left";
+			vertSizing = "top";
+			position = "144 294";
+			extent = "116 54";
+			minExtent = "8 8";
+			visible = "0";
+			command = "LBSCDA_Play();";
+			helpTag = "0";
+			text = "Play";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./challenge/start";
+		};
+	};
+	//new GuiBitmapCtrl(LBSCD_FinishPanel) {
+	//	profile = "GuiDefaultProfile";
+	//	horizSizing = "center";
+	//	vertSizing = "center";
+	//	position = "88 70";
+	//	extent = "464 340";
+	//	minExtent = "8 8";
+	//	visible = "0";
+	//	helpTag = "0";
+	//	bitmap = "./error/errorbox";
+	//	wrap = "0";
+
+	//	new GuiMLTextCtrl(LBSCDF_Title) {
+	//		profile = "GuiMLTextProfile";
+	//		horizSizing = "center";
+	//		vertSizing = "bottom";
+	//		position = "9 19";
+	//		extent = "445 50";
+	//		minExtent = "8 8";
+	//		visible = "1";
+	//		helpTag = "0";
+	//		lineSpacing = "2";
+	//		allowColorChars = "0";
+	//		maxChars = "-1";
+	//	};
+	//	new GuiScrollCtrl() {
+	//		profile = "GuiBacklessScrollProfile";
+	//		horizSizing = "width";
+	//		vertSizing = "bottom";
+	//		position = "17 70";
+	//		extent = "445 160";
+	//		minExtent = "8 8";
+	//		visible = "1";
+	//		helpTag = "0";
+	//		willFirstRespond = "1";
+	//		hScrollBar = "alwaysOff";
+	//		vScrollBar = "dynamic";
+	//		constantThumbHeight = "0";
+	//		childMargin = "0 0";
+
+	//		new GuiMLTextCtrl(LBSCDF_Times) {
+	//			profile = "GuiMLTextProfile";
+	//			horizSizing = "width";
+	//			vertSizing = "bottom";
+	//			position = "0 0";
+	//			extent = "445 14";
+	//			minExtent = "8 8";
+	//			visible = "1";
+	//			helpTag = "0";
+	//			lineSpacing = "2";
+	//			allowColorChars = "0";
+	//			maxChars = "-1";
+	//		};
+	//	};
+	//	new GuiMLTextCtrl(LBSCDF_Totals) {
+	//		profile = "GuiMLTextProfile";
+	//		horizSizing = "width";
+	//		vertSizing = "bottom";
+	//		position = "17 227";
+	//		extent = "445 14";
+	//		minExtent = "8 8";
+	//		visible = "1";
+	//		helpTag = "0";
+	//		lineSpacing = "2";
+	//		allowColorChars = "0";
+	//		maxChars = "-1";
+	//	};
+	//	new GuiMLTextCtrl(LBSCDF_Totals2) {
+	//		profile = "GuiMLTextProfile";
+	//		horizSizing = "width";
+	//		vertSizing = "bottom";
+	//		position = "17 223";
+	//		extent = "429 14";
+	//		minExtent = "8 8";
+	//		visible = "1";
+	//		helpTag = "0";
+	//		lineSpacing = "2";
+	//		allowColorChars = "0";
+	//		maxChars = "-1";
+	//	};
+	//	new GuiBitmapButtonCtrl(LBSCDF_Okay) {
+	//		profile = "GuiButtonProfile";
+	//		horizSizing = "left";
+	//		vertSizing = "top";
+	//		position = "342 275";
+	//		extent = "105 48";
+	//		minExtent = "8 8";
+	//		visible = "1";
+	//		command = "LBSCDF_Accept();";
+	//		helpTag = "0";
+	//		text = "Home";
+	//		groupNum = "-1";
+	//		buttonType = "PushButton";
+	//		repeatPeriod = "1000";
+	//		repeatDecay = "1";
+	//		bitmap = "./play/home";
+	//	};
+	//};
+	new GuiBitmapCtrl(LBSCD_OptionsPanel) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "width";
+		vertSizing = "height";
+		position = "0 0";
+		extent = "640 480";
+		minExtent = "8 8";
+		visible = "0";
+		helpTag = "0";
+		bitmap = "~/client/ui/black";
+		wrap = "0";
+
+		new GuiBitmapCtrl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "center";
+			vertSizing = "center";
+			position = "167 159";
+			extent = "306 162";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			bitmap = "./error/errorbox";
+			wrap = "0";
+
+			new GuiBitmapCtrl(LBSCDO_TimeoutBar) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "top";
+				position = "19 55";
+				extent = "130 16";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				bitmap = "~/client/ui/Options/minibar.png";
+				wrap = "0";
+			};
+			new GuiBitmapCtrl(LBSCDO_TimeoutKnobInactive) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "top";
+				position = "68 46";
+				extent = "33 33";
+				minExtent = "8 8";
+				visible = "0";
+				helpTag = "0";
+				bitmap = "~/client/ui/Options/value_i";
+				wrap = "0";
+			};
+			new GuiMLTextCtrl(LBSCDO_Title) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "width";
+				vertSizing = "bottom";
+				position = "10 10";
+				extent = "285 14";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			};
+			new GuiBitmapButtonCtrl(LBSCDO_Exit) {
+				profile = "GuiButtonProfile";
+				horizSizing = "center";
+				vertSizing = "top";
+				position = "95 106";
+				extent = "116 54";
+				minExtent = "8 8";
+				visible = "1";
+				command = "LBSCDO_Exit();";
+				helpTag = "0";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./marbleSelect/okay";
+			};
+			new GuiSliderCtrl(LBSCDO_Timeout) {
+				profile = "GuiSliderProfile";
+				horizSizing = "right";
+				vertSizing = "top";
+				position = "14 47";
+				extent = "140 33";
+				minExtent = "8 8";
+				visible = "1";
+				variable = "$LBPref::SuperChallengeOptionTimeout";
+				command = "LBSCDO_Update();";
+				altCommand = "LBSCDO_UpdateTimeoutLabel();";
+				helpTag = "0";
+				range = "5.000000 10.000000";
+				ticks = "3";
+				value = "5";
+				bitmap = "~/client/ui/Options/value";
+			};
+			new GuiBitmapButtonCtrl(LBSCDO_ShowProgress) {
+				profile = "GuiButtonProfile";
+				horizSizing = "left";
+				vertSizing = "top";
+				position = "154 42";
+				extent = "140 31";
+				minExtent = "8 8";
+				visible = "1";
+				variable = "$LBPref::SuperChallengeOptionProgress";
+				helpTag = "0";
+				text = "Show Progress";
+				groupNum = "-1";
+				buttonType = "ToggleButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./challenge/progress";
+			};
+			new GuiBitmapButtonCtrl(LBSCDO_ShowPercents) {
+				profile = "GuiButtonProfile";
+				horizSizing = "left";
+				vertSizing = "top";
+				position = "154 78";
+				extent = "140 31";
+				minExtent = "8 8";
+				visible = "1";
+				variable = "$LBPref::SuperChallengeOptionPercents";
+				helpTag = "0";
+				text = "Show Percents";
+				groupNum = "-1";
+				buttonType = "ToggleButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./challenge/percents";
+			};
+			new GuiMLTextCtrl(LBSCDO_TimeoutTitle) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "right";
+				vertSizing = "top";
+				position = "14 79";
+				extent = "140 25";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			};
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+//--- OBJECT WRITE BEGIN ---
+new GuiBitmapCtrl(LBSCSaveDlg) {
+	profile = "GuiDefaultProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "640 480";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+	bitmap = $usermods @ "/client/ui/black";
+	wrap = "0";
+
+	new GuiBitmapCtrl() {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "114 161";
+		extent = "445 160";
+		minExtent = "48 92";
+		visible = "1";
+		helpTag = "0";
+		bitmap = $usermods @ "/client/ui/alert/dialog.png";
+		wrap = "0";
+
+		new GuiBitmapButtonCtrl() {
+			profile = "GuiButtonProfile";
+			horizSizing = "left";
+			vertSizing = "top";
+			position = "342 102";
+			extent = "86 40";
+			minExtent = "8 8";
+			visible = "1";
+			command = "Canvas.popDialog(LBSCSaveDlg); resumeGame();";
+			accelerator = "escape";
+			helpTag = "0";
+			text = "button";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = $usermods @ "/client/ui/alert/cancel";
+				simpleStyle = "0";
+		};
+		new GuiBitmapButtonCtrl() {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "19 102";
+			extent = "146 40";
+			minExtent = "8 8";
+			visible = "1";
+			command = "Canvas.popDialog(LBSCSaveDlg); LBSCS_Save(); exitGame(true);";
+			accelerator = "return";
+			helpTag = "0";
+			text = "YES";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = $usermods @ "/client/ui/alert/saveexit";
+				simpleStyle = "0";
+		};
+		new GuiBitmapButtonCtrl() {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "165 102";
+			extent = "146 40";
+			minExtent = "8 8";
+			visible = "1";
+			command = "Canvas.popDialog(LBSCSaveDlg); exitGame(true);";
+			helpTag = "0";
+			text = "NO";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = $usermods @ "/client/ui/alert/exitnosave";
+				simpleStyle = "0";
+		};
+		new GuiBitmapCtrl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "86 22";
+			extent = "272 36";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			bitmap = $usermods @ "/client/ui/alert/savechallengeprogress";
+			wrap = "0";
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(LBSCRestoreDlg) {
+	profile = "GuiDefaultProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "640 480";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+
+	new GuiBitmapCtrl() {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "80 58";
+		extent = "480 363";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+		bitmap = "./error/errorbox";
+		wrap = "0";
+
+		new GuiMLTextCtrl(LBSCR_Title) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "17 19";
+			extent = "445 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiScrollCtrl() {
+			profile = "GuiBacklessScrollProfile";
+			horizSizing = "width";
+			vertSizing = "bottom";
+			position = "17 56";
+			extent = "445 120";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			willFirstRespond = "1";
+			hScrollBar = "alwaysOff";
+			vScrollBar = "dynamic";
+			constantThumbHeight = "0";
+			childMargin = "0 0";
+
+			new GuiMLTextCtrl(LBSCR_Text) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "center";
+				vertSizing = "bottom";
+				position = "0 0";
+				extent = "445 14";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			};
+		};
+		new GuiBitmapCtrl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "104 22";
+			extent = "272 36";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			bitmap = "~/client/ui/alert/restoresavedprogress.png";
+			wrap = "0";
+		};
+		new GuiControl(LBSCR_SelectedPreview) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "left";
+			vertSizing = "top";
+			position = "259 179";
+			extent = "202 167";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+
+			new GuiBitmapCtrl(LBSCR_SelectedPreviewBitmap0) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "width";
+				vertSizing = "height";
+				position = "0 0";
+				extent = "202 167";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				bitmap = "~/data/missions_mbp/beginner/Battlecube";
+				wrap = "0";
+			};
+			new GuiBitmapCtrl(LBSCR_SelectedPreviewBitmap1) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "width";
+				vertSizing = "height";
+				position = "202 0";
+				extent = "202 167";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				bitmap = "~/data/missions_mbp/beginner/Battlecube";
+				wrap = "0";
+			};
+			new GuiBitmapCtrl(LBSCR_PreviewInfoHighlight) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "width";
+				vertSizing = "height";
+				position = "3 8";
+				extent = "196 25";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				bitmap = "./play/pc_trans/0";
+				wrap = "0";
+			};
+			new GuiBitmapCtrl(LBSCR_PreviewInfo2Highlight) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "width";
+				vertSizing = "height";
+				position = "3 135";
+				extent = "196 25";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				bitmap = "./play/pc_trans/0";
+				wrap = "0";
+			};
+			new GuiMLTextCtrl(LBSCR_PreviewInfo2) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "center";
+				vertSizing = "bottom";
+				position = "3 135";
+				extent = "196 14";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			};
+			new GuiMLTextCtrl(LBSCR_PreviewInfo) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "center";
+				vertSizing = "bottom";
+				position = "3 8";
+				extent = "196 14";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			};
+			new GuiBitmapButtonCtrl(LBSCDR_PreviewWindow) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "width";
+				vertSizing = "height";
+				position = "0 0";
+				extent = "202 167";
+				minExtent = "8 8";
+				visible = "1";
+				command = "LBSCD_TogglePreview();";
+				helpTag = "0";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./challenge/levelwindow";
+				wrap = "0";
+			};
+		};
+		new GuiMLTextCtrl(LBSCR_Info) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "17 186";
+			extent = "239 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiBitmapButtonCtrl() {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "97 306";
+			extent = "86 40";
+			minExtent = "8 8";
+			visible = "1";
+			command = "LBSCR_Discard();";
+			helpTag = "0";
+			text = "NO";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "~/client/ui/alert/discard";
+				simpleStyle = "0";
+		};
+		new GuiBitmapButtonCtrl() {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "14 307";
+			extent = "86 40";
+			minExtent = "8 8";
+			visible = "1";
+			command = "LBSCR_Restore();";
+			accelerator = "return";
+			helpTag = "0";
+			text = "Restore";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "~/client/ui/alert/restore";
+				simpleStyle = "0";
+		};
+		new GuiBitmapButtonCtrl() {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "179 305";
+			extent = "86 40";
+			minExtent = "8 8";
+			visible = "1";
+			command = "LBSCR_Cancel();";
+			accelerator = "escape";
+			helpTag = "0";
+			text = "Cancel";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "~/client/ui/alert/cancel";
+				simpleStyle = "0";
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+// Jeff: to show the achievements of super challenges
+function LBSuperChallengeDlg::showAchievements(%this) {
+
+}
+
+//HiGuy: Set which screen is shown
+function LBSuperChallengeDlg::setTab(%this, %tab) {
+	//Because it's a dialog
+	LBSCD_OptionsPanel.setVisible(0);
+
+	%this.tab = %tab;
+	switch$ (%tab) {
+	case "challenge":
+		//HiGuy: "Challenge" screen
+		LBSCD_ChallengePanel.setVisible(1);
+		LBSCD_AcceptPanel.setVisible(0);
+		LBSCD_FinishPanel.setVisible(0);
+
+		//HiGuy: Uncheck all
+		for (%i = 0; %i < LBSCDC_Scroll.getCount(); %i ++)
+			LBSCDC_Scroll.getObject(%i).setValue(0);
+		LBSCDC_Challenge.setActive(0);
+		LBSCDC_Options.setActive(0);
+		LBSCDC_Title.setText("<color:000000><font:DomCasualD:28><just:center>" @
+		"Choose a Super Challenge and Your Opponents!");
+
+		//HiGuy: Initial states for things
+		%this.pack = "";
+		LBSCDC_Choose(%this.challenges["name", 0]);
+		%this.challenges["button", %this.challenges["name", 0]].setValue(true);
+		LBSCDC_PlayerList.clear();
+		%this.refreshPlayerList();
+		LBSCDC_update();
+		LBSCDO_update();
+	case "accept":
+		//HiGuy: "Accept Challenge" screen
+		LBSCD_ChallengePanel.setVisible(0);
+		LBSCD_AcceptPanel.setVisible(1);
+		LBSCD_FinishPanel.setVisible(0);
+
+		//HiGuy: Various buttons
+		LBSCDA_Accept.setVisible(1);
+		LBSCDA_Decline.setVisible(1);
+		LBSCDA_Cancel.setVisible(0);
+		LBSCDA_Cancel2.setVisible(0);
+		LBSCDA_Play.setVisible(0);
+
+		//HiGuy: Grab some data and format it nicely
+		%user0 = %this.user0;
+		%user1 = %this.user1;
+		%user2 = %this.user2;
+		%user3 = %this.user3;
+		%pack = %this.pack;
+		%options = %this.options;
+		//HiGuy: No use popping if they don't exist, or if you're already playing!
+		if (%user0 $= "" || %pack $= "" || $LB::StatusNumeric >= 2 || %this.challenges["object", %pack].missions $= "") {
+			Canvas.popDialog(%this);
+			%this.tab = "";
+			return;
+		}
+		//HiGuy: Name formatting
+		%title = "the" SPC upperFirst(%this.challenges["object", %pack].display) SPC "levels";
+
+		//<person> has challenged to the <levels> levels!
+		LBSCDA_Title.setValue("<color:000000><font:DomCasualD:28><just:center>" @ upperFirst(LBResolveName(%user0, true)) SPC "has challenged you to" SPC %title @ "!");
+		LBSCDA_update();
+	case "waiting":
+		//HiGuy: "Waiting" for challenge to start
+		LBSCD_ChallengePanel.setVisible(0);
+		LBSCD_AcceptPanel.setVisible(1);
+		LBSCD_FinishPanel.setVisible(0);
+
+		//HiGuy: More buttons!
+		LBSCDA_Accept.setVisible(0);
+		LBSCDA_Decline.setVisible(0);
+		LBSCDA_Cancel.setVisible(1);
+		LBSCDA_Cancel2.setVisible(0);
+		LBSCDA_Play.setVisible(0);
+
+		//HiGuy: Titles and stuff
+		if (%this.challenger)
+			LBSCDA_Title.setText("<color:000000><font:DomCasualD:28><just:center>Starting the Super Challenge...");
+		else if (%this.allReady)
+			LBSCDA_Title.setText("<color:000000><font:DomCasualD:28><just:center>Waiting for host to start the Super Challenge...");
+		else
+			LBSCDA_Title.setText("<color:000000><font:DomCasualD:28><just:center>Waiting for players to accept...");
+		LBSCDA_update();
+	case "waiting2":
+		//HiGuy: "Waiting" for opponent to accept
+		LBSCD_ChallengePanel.setVisible(0);
+		LBSCD_AcceptPanel.setVisible(1);
+		LBSCD_FinishPanel.setVisible(0);
+
+		//HiGuy: I heard you liked buttons
+		LBSCDA_Accept.setVisible(0);
+		LBSCDA_Decline.setVisible(0);
+		LBSCDA_Cancel.setVisible(0);
+		LBSCDA_Cancel2.setVisible(1);
+		LBSCDA_Play.setVisible(1);
+		LBSCDA_Play.setActive(%this.allReady);
+
+		//HiGuy: Titles and stuff
+		if (%this.allReady)
+			LBSCDA_Title.setText("<color:000000><font:DomCasualD:28><just:center>Waiting for you to start the Super Challenge...");
+		else
+			LBSCDA_Title.setText("<color:000000><font:DomCasualD:28><just:center>Waiting for players to accept...");
+		LBSCDA_update();
+	//case "finish_win" or "finish_complete":
+	//	//HiGuy: "Finish" screen, both result in winning
+	//	LBSCD_ChallengePanel.setVisible(0);
+	//	LBSCD_AcceptPanel.setVisible(0);
+	//	LBSCD_FinishPanel.setVisible(1);
+	//	//HiGuy: No buttons here :(
+	//	LBSCDF_Format();
+	//case "finish_lose" or "finish_opforfeit" or "finish_cancel" or "finish_forfeit":
+	//	//HiGuy: "Finish" screen, all result in losing
+	//	//HiGuy: All three of these case statemes have the exact same code, I'm
+	//	// just breaking them up because they have different behavior elsewhere
+	//	LBSCD_ChallengePanel.setVisible(0);
+	//	LBSCD_AcceptPanel.setVisible(0);
+	//	LBSCD_FinishPanel.setVisible(1);
+	//	LBSCDF_Format();
+	//case "finish_waiting":
+	//	//HiGuy: "Finish" screen, waiting for people to finish
+	//	LBSCD_ChallengePanel.setVisible(0);
+	//	LBSCD_AcceptPanel.setVisible(0);
+	//	LBSCD_FinishPanel.setVisible(1);
+	//	LBSCDF_Format();
+	}
+}
+
+//HiGuy: Various states that people can be in:
+//
+// -1: Declined the challenge
+//  0: Waiting for accept
+//  1: Accepted the challenge
+//  2: Currently playing
+//  3: Finished the challenge
+//
+function LBSCD_formatReadyStatus(%status) {
+	switch (%status) {
+	case -1: return "Declined";
+	case 0:  return "Waiting";
+	case 1:  return "Accepted";
+	case 2:  return "Ingame";
+	case 3:  return "Finished";
+	}
+	//HiGuy: Default status
+	return "Unknown";
+}
+
+function LBSuperChallengeDlg::refreshPlayerList(%this) {
+	%selection = LBSCDC_PlayerList.getSelection();
+	LBSCDC_PlayerList.clear();
+	//HiGuy: HACK - This isn't set to 1 by default...
+	LBSCDC_PlayerList.setActive(1);
+	LBSCDC_PlayerList.addRow("Practice Mode\tPractice Mode\t-1", true);
+	for (%i = 0; %i < $LB::UserlistCount; %i ++) {
+		%row = $LB::UserListUser[%i];
+		%username = decodeName(getWord(%row, 0));
+		%status = getWord(%row, 2);
+		//HiGuy: You can't challenge yourself!
+		if (%username $= $LB::Username)
+			continue;
+		//HiGuy: Only people who are at the chat / level select can get this
+		if (%status == 0 || %status == 1)
+			LBSCDC_PlayerList.addRow(LBResolveName(%username, true) TAB %username TAB %i, false);
+	}
+
+	//HiGuy: Restore selection
+	for (%i = 0; %i < getRecordCount(%selection); %i ++) {
+		%player = getField(getRecord(%selection, %i), 1);
+		LBSCDC_PlayerList.setRowSelected(%player, true);
+	}
+
+	//HiGuy: Sort and update
+//   LBSCDC_PlayerList.sort(0,true);
+}
+
+//HiGuy: Formats a challenge name to remove special chars (LB friendly)
+function LBSuperChallengeDlg::formatName(%this, %name) {
+	return stripNot(strlwr(%name), "abcdefghijklmnopqrstuvwxyz1234567890-");
+}
+
+function LBSuperChallengeDlg::checkSpecial(%this, %missions) {
+	//HiGuy: Example of a special:
+	// <mbgadvanced> corresponds to "all MBG advanced levels"
+
+	//HiGuy: Specials start with < and end with >
+	if (getSubStr(%missions, 0, 1) !$= "<")
+		return %missions;
+	if (getSubStr(%missions, strlen(%missions) - 1, 1) !$= ">")
+		return %missions;
+	//<MBGadvanced>
+	%game = getSubStr(%missions, 1, 3); //Returns "mbg"
+
+	//<mbgADVANCED>
+	%diff = getSubStr(%missions, 4, strlen(%missions)); //Returns "advanced>"
+	%diff = getSubStr(%diff, 0, strlen(%diff) - 1); //Get rid of >
+
+	if (%game $= "mbp") %game = "Platinum";
+	if (%game $= "mbg") %game = "Gold";
+
+	//HiGuy: Convert into a PlayMissionGui list
+	%arrayType = %game @ %diff;
+
+//   echo(%arrayType SPC %diff SPC %game);
+
+	//HiGuy: We need this missionlist for the missions
+	if (!isObject("LBML_" @ %arrayType)) {
+		//HiGuy: Build the mission list
+		%oldGame = $CurrentGame;
+		%oldDiff = $LB::MissionType;
+
+		//HiGuy: "Fake" the difficulty settings, but be sure to reset them!
+		$LB::MissionType = %diff;
+		$CurrentGame = %game;
+
+		buildLBMissionList();
+
+		//HiGuy: Reset them
+		$LB::MissionType = %oldDiff;
+		$CurrentGame = %oldGame;
+	}
+
+	%array = "LBML_" @ %arrayType;
+
+	//HiGuy: Iterate through all the missions and add them into a list
+	%final = fileBase(getField(%array.getRowTextById(0), 0).file);
+
+	for (%i = 1; %i < %array.rowCount(); %i ++)
+		%final = %final SPC fileBase(getField(%array.getRowTextById(%i), 0).file);
+
+	return %final;
+}
+
+//HiGuy: Adds a challenge race button + group to LBSuperChallengeDlg
+function LBSuperChallengeDlg::addChallenge(%this, %challengeObject) {
+	//HiGuy: Check for null
+	if (!isObject(%challengeObject))
+		return;
+
+	//HiGuy: It'd be really nice if these things were defined...
+	if (%challengeObject.name $= "")
+		return devecho("\c2Challenge object" SPC %challengeObject SPC "has no name!");
+	if (%challengeObject.missions $= "")
+		return devecho("\c2Challenge object" SPC %challengeObject SPC "has no missions!");
+	if (%this.challenges["object", %challengeObject.name] !$= "") {
+		//HiGuy: Let's hope this isn't already defined
+		if (getWordCount(%this.challenges["object", %challengeObject.name].missions) > getWordCount(%challengeObject.missions))
+			return devecho("\c2Challenge with name" SPC %challengeObject.name SPC "already exists!");
+	}
+	//HiGuy: GODDAMN HTTP ERRORS, TCPOBJECTS NEED TO ALL EXPLODE INTO FIERY
+	// SHRAPNEL-Y BITS AND SEE THE TENTACLE RAZORS COMMENT
+	if (strStr(%challengeObject.missions, "HTTP/1.1") != -1)
+		return devecho("\c2Challenge object" SPC %challengeObject SPC "has bad missions!");
+
+	//HiGuy: For difficulty challenges (<mbgadvanced>)
+	%challengeObject.missions = %this.checkSpecial(%challengeObject.missions);
+
+	//HiGuy: Add missing parameters, copied from beginner race 1
+	%challengeObject.display            = (%challengeObject.display !$= ""     ? %challengeObject.display             : "Unnamed Race");
+	%challengeObject.platinumPercent    = (%challengeObject.platinumPercent    ? %challengeObject.platinumPercent     : 0.5);
+	%challengeObject.ultimatePercent    = (%challengeObject.ultimatePercent    ? %challengeObject.ultimatePercent     : 0.8);
+	%challengeObject.minTimeout         = (%challengeObject.minTimeout         ? %challengeObject.minTimeout          : 5);
+	%challengeObject.maxTimeout         = (%challengeObject.maxTimeout         ? %challengeObject.maxTimeout          : 10);
+	%challengeObject.bitmap             = (%challengeObject.bitmap !$= ""      ? %challengeObject.bitmap              : "race");
+
+	//HiGuy: Create the actual button which we will add
+	%ctrlName = "LBSCDC_" @ %this.formatName(%challengeObject.name);
+	new GuiBitmapButtonTextCtrl(%ctrlName) {
+		profile = "GuiRaceProfile";
+		horizSizing = "right";
+		vertSizing = "bottom";
+		position = "0" SPC %this.challenges * 60;
+		extent = "302 60";
+		minExtent = "8 8";
+		visible = "1";
+		//LBSCDC_Choose("goldenrace");
+		command = "LBSCDC_Choose(\"" @ %challengeObject.name @ "\");";
+		helpTag = "0";
+		text = %challengeObject.display;
+		groupNum = "-1";
+		//platinum/leaderboards/challenge/race
+		bitmap = expandFilename("./challenge/" @ %challengeObject.bitmap);
+		buttonType = "RadioButton";
+		repeatPeriod = "1000";
+		repeatDecay = "1";
+	};
+
+	//HiGuy: Store these fields on the dialog
+	%this.challenges["name", %this.challenges] = %challengeObject.name;
+	%this.challenges["object", %challengeObject.name] = %challengeObject;
+	%this.challenges["button", %challengeObject.name] = %ctrlName;
+
+	//HiGuy: THE ALL-FAMOUS COUNTER
+	%this.challenges ++;
+
+	//HiGuy: Update the scroll size so we can see them all
+	LBSCDC_Scroll.add(%ctrlName);
+
+	//HiGuy: Ignore it! (because scrollviews are pissy)
+	LB_IgnoreMe.resize(0, 0, 8, %this.challenges * 60);
+
+	//HiGuy: This has to go at the end so the script realizes that the challenge has been added
+	%totals = LBSCD_PackGoalTimes(%challengeObject.name);
+	%challengeObject.platinumTotal = getField(%totals, 0);
+	%challengeObject.ultimateTotal = getField(%totals, 1);
+
+	//HiGuy: Add the challenge object to the group, create one if necessary
+	if (!isObject(LBSuperChallengeGroup))
+		RootGroup.add(new SimGroup(LBSuperChallengeGroup));
+	LBSuperChallengeGroup.add(%challengeObject);
+}
+
+//HiGuy: Obliterates all challenges - Super fun to use
+function LBSuperChallengeDlg::removeAllChallenges(%this) {
+	//HiGuy: Delete all buttons; start at 1 to avoid deleting LB_IgnoreMe
+	while (LBSCDC_Scroll.getCount() > 1)
+		LBSCDC_Scroll.getObject(1).delete();
+
+	//HiGuy: Erase all challenge data from the object and kill any objects
+	for (%i = 0; %i < %this.challenges; %i ++) {
+		%this.challenges["object", %this.challenges["name", %i]].delete();
+		%this.challenges["object", %this.challenges["name", %i]] = "";
+		%this.challenges["button", %this.challenges["name", %i]].delete();
+		%this.challenges["button", %this.challenges["name", %i]] = "";
+		%this.challenges["name", %i] = "";
+	}
+
+	//HiGuy: THE ALL-FAMOUS COUNTER GETS RESET
+	%this.challenges = 0;
+}
+
+function LBSuperChallengeDlg::init(%this) {
+	//HiGuy: We can only call this once
+	if (%this.inited) return;
+
+	//HiGuy: Reset all the things
+	%this.removeAllChallenges();
+
+	//Init variables
+	$LB::SuperChallengeOptionRetries = 5;
+	$LB::SuperChallengeOptionTimeout = 10;
+
+	//HiGuy: Load the player list
+	LBSCDC_PlayerList.init();
+
+	//HiGuy: Slideshows are fun, right?
+	LBSCD_resetSlideshow();
+
+	//HiGuy: No more calling this
+	%this.inited = true;
+}
+
+function LBSuperChallengeLineInterpret(%line) {
+	if (getWord(%line, 0) $= "SUPERCHALLENGE" && getWord(%line, 1) $= "LIST") {
+		//SUPERCHALLENGE LIST LENGTH 100
+		//SUPERCHALLENGE LIST 1 mbgbeginner Beginner+Race+1 0.5 0.8 5 10 race2 <mbgbeginner>
+		//SUPERCHALLENGE LIST 2 mbgintermediate Intermediate+Race+1 0.5 0.8 5 10 race2 <mbgintermediate>
+		// ...
+
+		if (getWord(%line, 2) $= "LENGTH") {
+			if (LBSuperChallengeDlg.challenges != getWord(%line, 2))
+				LBSuperChallengeDlg.removeAllChallenges();
+
+			//HiGuy: Nothing more on this line
+			return;
+		}
+
+		//HiGuy: New superchallenge; lots of information
+		%id              = getWord(%line, 2);
+		%name            = getWord(%line, 3);
+		%display         = getWord(%line, 4);
+		%platinumPercent = getWord(%line, 5);
+		%ultimatePercent = getWord(%line, 6);
+		%minTimeout      = getWord(%line, 7);
+		%maxTimeout      = getWord(%line, 8);
+		%bitmap          = getWord(%line, 9);
+		%missions        = getWords(%line, 10);
+		%display = URLDecode(%display);
+
+		//HiGuy: Tell the master dialog to add it
+		LBSuperChallengeDlg.addChallenge(new ScriptObject() {
+			name = %name;
+			display = %display;
+			platinumPercent = %platinumPercent;
+			ultimatePercent = %ultimatePercent;
+			minTimeout = %minTimeout;
+			maxTimeout = %maxTimeout;
+			bitmap = %bitmap;
+			missions = %missions;
+		});
+	}
+}
+
+function LBSuperChallengeDlg::revert(%this) {
+	//HiGuy: Reset all the states
+	%this.user0 = "";
+	%this.user1 = "";
+	%this.user2 = "";
+	%this.user3 = "";
+	%this.user0accepted = "";
+	%this.user1accepted = "";
+	%this.user2accepted = "";
+	%this.user3accepted = "";
+	%this.challenger = false;
+	%this.pack = "";
+	%this.tab = "";
+	%this.winner = "";
+	%this.missions = "";
+	%this.options = "";
+	%this.max = "";
+	%this.waiting = "";
+	%this.finished = "";
+	%this.allReady = "";
+	%this.waiting = false;
+
+	//HiGuy: Hide all the panels
+	LBSCD_ChallengePanel.setVisible(0);
+	LBSCD_AcceptPanel.setVisible(0);
+	LBSCD_FinishPanel.setVisible(0);
+	LBSCD_resetSlideshow();
+
+	//HiGuy: Pop it lock it drop it
+	Canvas.popDialog(%this);
+
+	//HiGuy: Reset the player picker
+	for (%i = 0; %i < LBSCDC_Scroll.getCount(); %i ++)
+		LBSCDC_Scroll.getObject(%i).setValue(0);
+
+	//HiGuy: Reset some variables
+	deleteVariables("$LB::SuperChallengeOpponentScore*");
+	deleteVariables("$LB::SuperChallengeProgress*");
+	deleteVariables("$LB::SuperChallengeTime*");
+
+	//HiGuy: Set you to mode 0
+	LBSetMode(0);
+}
+
+//HiGuy: Clips a username to %len characters, and adds an ellipse (...) if
+// necessary. %len defaults to 10 chars.
+// Not really used anymore because we now have clipPx() which is much more
+// accurate (and I love it more <3).
+
+function LBSCD_ClipName(%name, %len) {
+	//HiGuy: Default length is 10
+	%len = %len ? %len : 10;
+	if (strLen(%name) > %len + 1)
+		return getSubStr(%name, 0, %len) @ "...";
+	else
+		return %name;
+}
+
+//function LBSCDF_Format() {
+//	%status = LBSuperChallengeDlg.tab;
+//	//HiGuy: Format the endgame text to display any challenge information needed.
+//	// This is very versatile, and has many options. Below is a brief list of all
+//	// the possible outcomes for a challenge:
+//	//
+//	//
+//	// %status could be any of the following:
+//	//
+//	// finish_win
+//	//    You won and completed the challenge, opponents did not finish all the
+//	//    levels. Display your times vs. opponent times, as well as percentages,
+//	//    and rating information.
+//	//
+//	// finish_lose
+//	//    An opponent won and completed the challenge, you did not finish all
+//	//    the levels. Display your times vs. opponent times, as well as
+//	//    percentages and rating information.
+//	//
+//	// finish_opforfeit
+//	//    All the opponents forfeited the challenge, but you did not complete it.
+//	//    Display just your times, as well as percentages and rating information.
+//	//
+//	// finish_forfeit
+//	//    You forfeited the challenge, and did not complete it. Display just your
+//	//    times, as well as percentages and rating information.
+//	//
+//	// finish_cancel
+//	//    You cancelled the challenge during practice mode, and did not complete
+//	//    it. Display your times, as well as percentages and previous completed
+//	//    attempts' scores, but no rating information.
+//	//
+//	// finish_complete
+//	//    You finished the challenge during practice mode. Display your times, as
+//	//    well as percentages and previous completed attempts' scores, but no
+//	//    rating information.
+//	//
+//	// finish_waiting
+//	//    You finished the challenge, but are still waiting for your opponents to
+//	//    finish. Display your times vs. current opponent times, as well as
+//	//    percentaes and rating information.
+//	//
+//	// Margins:
+//	// <------------------------------- 445 px -------------------------------->
+//	// |----- 111 px ----|----- 111 px ----|----- 111 px ----|----- 111 px ----|
+//	// |----- 107 px --|4|4|--- 103 px --|4|4|--- 103 px --|4|4|--- 107 px ----|
+//	//P|-----------------------------------------------------------------------|
+//	//L|                                                                       |
+//	//A|                                 TITLE                                 |
+//	//Y|                                                                       |
+//	//E|0           107|   |115       218|   |226       329|   |337         445|
+//	//R|---------------|---|-------------|---|-------------|---|---------------|
+//	//S|        YOUR/THEIR SCORES        | | |      THEIR/PREVIOUS SCORES      |
+//	// |               | | |             | | |             | | |               |
+//	//1|    LEVELS     | | | YOUR SCORES | | |    LEVELS   | | |PREVIOUS SCORES|
+//	//2|    LEVELS     | | |  P1 SCORES  | | |    LEVELS   | | |   P2 SCORES   |
+//	//3|    LEVELS     | | |  P1 SCORES  | | |  P2 SCORES  | | |   P3 SCORES   |
+//	//4|   P1 SCORES   | | |  P2 SCORES  | | |  P3 SCORES  | | |   P4 SCORES   |
+//	// |               -----             -----             -----               |
+//	// |  TOTAL TIMES        TOTAL TIMES       TOTAL TIMES        TOTAL TIMES  |
+//	// |                                WINNER:                                |
+//	// |                                                                       |
+//	// |-----------------------------------------------------------------------|
+//	// |                                                                       |
+//	// |                                BUTTONS                                |
+//	// |                                                                       |
+//	// |-----------------------------------------------------------------------|
+//	//
+//	//
+//	%text = "";
+//	%total = "";
+//	%total2 = "";
+//	%title = "<font:Expo:50><just:center>";
+
+//	//HiGuy: Scrolling is a bitch
+//	%scrollY = getWord(LBSCDF_Times.position, 1);
+
+//	//HiGuy: Get/Set Title
+//	switch$ (%status) {
+//		case "finish_win":       %title = %title @ "Challenge Won!";
+//		case "finish_lose":      %title = %title @ "Challenge Lost!";
+//		case "finish_opforfeit": %title = %title @ "Challenge Incomplete!";
+//		case "finish_forfeit":   %title = %title @ "Challenge Forfeited!";
+//		case "finish_cancel":    %title = %title @ "Challenge Cancelled!";
+//		case "finish_complete":  %title = %title @ "Challenge Complete!";
+//		case "finish_waiting":   %title = %title @ "Waiting for Opponents";
+//	}
+//	LBSCDF_Title.setValue(%title);
+
+//	//HiGuy: The main, large-ass formatting switch statement
+//	switch$ (%status) {
+//	case "finish_win" or "finish_lose" or "finish_waiting" or "finish_opforfeit" or "finish_forfeit":
+//		//HiGuy: A mess of variables and underscores
+//		//HiGuy: This gets all the relevant data from the global variables
+//		%_user[0] = getField($LB::SuperChallengeProgress[0], 0);
+//		%_user[1] = getField($LB::SuperChallengeProgress[1], 0);
+//		%_user[2] = getField($LB::SuperChallengeProgress[2], 0);
+//		%_user[3] = getField($LB::SuperChallengeProgress[3], 0);
+//		%_time[0] = getField($LB::SuperChallengeProgress[0], 1);
+//		%_time[1] = getField($LB::SuperChallengeProgress[1], 1);
+//		%_time[2] = getField($LB::SuperChallengeProgress[2], 1);
+//		%_time[3] = getField($LB::SuperChallengeProgress[3], 1);
+//		%_progress[0] = getField($LB::SuperChallengeProgress[0], 2);
+//		%_progress[1] = getField($LB::SuperChallengeProgress[1], 2);
+//		%_progress[2] = getField($LB::SuperChallengeProgress[2], 2);
+//		%_progress[3] = getField($LB::SuperChallengeProgress[3], 2);
+//		%_percent[0] = getField($LB::SuperChallengeProgress[0], 3);
+//		%_percent[1] = getField($LB::SuperChallengeProgress[1], 3);
+//		%_percent[2] = getField($LB::SuperChallengeProgress[2], 3);
+//		%_percent[3] = getField($LB::SuperChallengeProgress[3], 3);
+
+//		//HiGuy: Initial variable states so that they are always overridden
+//		%winner = -1;
+//		%second = -1;
+//		%third = -1;
+//		%fourth = -1;
+//		%highest = -1;
+//		%secondhigh = -1;
+//		%thirdhigh = -1;
+//		%fourthhigh = -1;
+//		%high1time = 999999999;
+//		%high2time = 999999999;
+//		%high3time = 999999999;
+//		%high4time = 999999999;
+
+//		//HiGuy: If we already have this, why not use it?
+//		%winner = LBSCD_UserNum(LBSuperChallengeDlg.winner);
+
+//		//HiGuy: For some reason, sometimes the winner doesn't send.
+//		// I think this is when there is no decided winner, such as when not all
+//		// players have finished. In this event, just calculate it client-side.
+//		if (%winner $= "" || %winner == -1) {
+//			//HiGuy: Get first place
+//			//HiGuy: Basic logic is as follows: They are first if their progress is
+//			// greater than all the other people's progress, or if there is a tie for
+//			// winner, then whoever has the lowest time gets first. So:
+//			// winner = (progress > best) or (progress = best AND time < best)
+//			if ( %progress[0] > %highest || (%progress[0] == %highest && %time[0] < %high1time)) {%highest = %progress[0]; %high1time = %time[0]; %winner = 0;}
+//			if ( %progress[1] > %highest || (%progress[1] == %highest && %time[1] < %high1time)) {%highest = %progress[1]; %high1time = %time[1]; %winner = 1;}
+//			if ((%progress[2] > %highest || (%progress[2] == %highest && %time[2] < %high1time)) && %progress[2] !$= "") {%highest = %progress[2]; %high1time = %time[2]; %winner = 2;}
+//			if ((%progress[3] > %highest || (%progress[3] == %highest && %time[3] < %high1time)) && %progress[3] !$= "") {%highest = %progress[3]; %high1time = %time[3]; %winner = 3;}
+//		}
+
+//		//HiGuy: Get second place
+//		//HiGuy: Second place is like first place, just with a check for if you
+//		// already have first.
+//		if (%winner != 0 && (%_progress[0] > %secondhigh || (%_progress[0] == %secondhigh && %_time[0] < %high2time))) {%secondhigh = %_progress[0]; %high2time = %_time[0]; %second = 0;}
+//		if (%winner != 1 && (%_progress[1] > %secondhigh || (%_progress[1] == %secondhigh && %_time[1] < %high2time))) {%secondhigh = %_progress[1]; %high2time = %_time[1]; %second = 1;}
+//		if (%winner != 2 && (%_progress[2] > %secondhigh || (%_progress[2] == %secondhigh && %_time[2] < %high2time)) && %_progress[2] !$= "") {%secondhigh = %_progress[2]; %high2time = %_time[2]; %second = 2;}
+//		if (%winner != 3 && (%_progress[3] > %secondhigh || (%_progress[3] == %secondhigh && %_time[3] < %high2time)) && %_progress[3] !$= "") {%secondhigh = %_progress[3]; %high2time = %_time[3]; %second = 3;}
+
+//		//HiGuy: Get third place
+//		//HiGuy: Third is like second, but only if you aren't first/second
+//		if (%winner != 0 && %second != 0 && (%_progress[0] > %thirdhigh || (%_progress[0] == %thirdhigh && %_time[0] < %high3time))) {%thirdhigh = %_progress[0]; %high3time = %_time[0]; %third = 0;}
+//		if (%winner != 1 && %second != 1 && (%_progress[1] > %thirdhigh || (%_progress[1] == %thirdhigh && %_time[1] < %high3time))) {%thirdhigh = %_progress[1]; %high3time = %_time[1]; %third = 1;}
+//		if (%winner != 2 && %second != 2 && (%_progress[2] > %thirdhigh || (%_progress[2] == %thirdhigh && %_time[2] < %high3time)) && %_progress[2] !$= "") {%thirdhigh = %_progress[2]; %high3time = %_time[2]; %third = 2;}
+//		if (%winner != 3 && %second != 3 && (%_progress[3] > %thirdhigh || (%_progress[3] == %thirdhigh && %_time[3] < %high3time)) && %_progress[3] !$= "") {%thirdhigh = %_progress[3]; %high3time = %_time[3]; %third = 3;}
+
+//		//HiGuy: Get fourth place
+//		//HiGuy: Fourth is essentially whoever's left. No point in score checking
+//		// for the loser
+//		if (%winner != 0 && %second != 0 && %third != 0) {%fourthhigh = %_progress[0]; %high4time = %_time[0]; %fourth = 0;}
+//		if (%winner != 1 && %second != 1 && %third != 1) {%fourthhigh = %_progress[1]; %high4time = %_time[1]; %fourth = 1;}
+//		if (%winner != 2 && %second != 2 && %third != 2 && %_progress[2] !$= "") {%fourthhigh = %_progress[2]; %high4time = %_time[2]; %fourth = 2;}
+//		if (%winner != 3 && %second != 3 && %third != 3 && %_progress[3] !$= "") {%fourthhigh = %_progress[3]; %high4time = %_time[3]; %fourth = 3;}
+
+//		//HiGuy: Default tab spacings
+//		%tabs = "<tab:250,360>";
+//		%size = "464 340 435";
+
+//		//HiGuy: Sort them into usable variables, 0-3 where 0 is the winner and
+//		// 3 is the loser. Format times as well.
+//		%name0        = %_user[%winner];
+//		%score0       = %_time[%winner];
+//		%complete0    = %_progress[%winner];
+//		%percent0     = %_percent[%winner];
+
+//		%name1        = %_user[%second];
+//		%score1       = %_time[%second];
+//		%complete1    = %_progress[%second];
+//		%percent1     = %_percent[%second];
+
+//		//HiGuy: If we need a scroll bar, then we'll have to squish a little
+//		if (LBSCD_GetMissionList().rowCount() > 5) {
+//			%tabs = "<tab:230,340>";
+//			%size = "480 340 435";
+//		}
+
+//		//HiGuy: The finish panel should resize for larger groups
+//		if (%third != -1) {
+//			%name2     = %_user[%third];
+//			%score2    = %_time[%third];
+//			%complete2 = %_progress[%third];
+//			%percent2  = %_percent[%third];
+
+//			%tabs = "<tab:250,340,430>";
+//			%size = "530 340 500";
+
+//			if (LBSCD_GetMissionList().rowCount() > 5) {
+//				%tabs = "<tab:230,320,410>";
+//			  %size = "530 340 500";
+//			}
+//		}
+//		//HiGuy: Four-player groups need even more space
+//		if (%fourth != -1) {
+//			%name3     = %_user[%fourth];
+//			%score3    = %_time[%fourth];
+//			%complete3 = %_progress[%fourth];
+//			%percent3  = %_percent[%fourth];
+
+//			%tabs = "<tab:230,320,410,500>";
+//			%size = "620 340 585";
+
+//			if (LBSCD_GetMissionList().rowCount() > 5) {
+//				%tabs = "<tab:230,300,390,480>";
+//				%size = "604 340 585";
+//			}
+//		}
+//		//HiGuy: Start building a string list
+//		%text = %tabs;
+
+//		//HiGuy: Resize all the things to fit nicely
+//		LBSCD_FinishPanel.resize(0, 0, getWord(%size, 0), getWord(%size, 1));
+//		LBSCDF_Times.getGroup().resize(getWord(LBSCDF_Times.getGroup().position, 0), getWord(LBSCDF_Times.getGroup().position, 1), getWord(%size, 2), getWord(LBSCDF_Times.getGroup().extent, 1));
+//		LBSCDF_Times.resize(%scrollY, getWord(LBSCDF_Times.position, 1), getWord(%size, 2), 8);
+//		LBSCDF_Totals.resize(17, 227, getWord(%size, 2), 8);
+//		LBSuperChallengeDlg.resize(0, 0, getWord(Canvas.getExtent(), 0), getWord(Canvas.getExtent(), 1));
+
+//		//HiGuy: Initial variable states
+//		%totalPlat0 = 0;
+//		%totalPlat1 = 0;
+//		%totalPlat2 = 0;
+//		%totalPlat3 = 0;
+
+//		%totalUlt0 = 0;
+//		%totalUlt1 = 0;
+//		%totalUlt2 = 0;
+//		%totalUlt3 = 0;
+
+//		%font = "<font:DomCasualD:24>";
+
+//		//HiGuy: Get headers
+//		%text = %text @ "<font:Expo:32><just:left>Level<font:DomCasualD:24>" TAB clipPx(%font @ LBResolveName(%name0, true), 90)
+//			TAB clipPx(%font @ LBResolveName(%name1, true), 90)
+//			TAB clipPx(%font @ LBResolveName(%name2, true), 90)
+//			TAB clipPx(%font @ LBResolveName(%name3, true), 90);
+
+//		for (%i = 0; %i < LBSCD_GetMissionList().rowCount(); %i ++) {
+//			//HiGuy: Level info
+//			%level = LBSCD_GetMissionList().getRowTextById(%i);
+//			%name = %level.name;
+
+//			//HiGuy: Individual level scores
+//			%user0score = $LB::SuperChallengeOpponentScore[%name0, %i];
+//			%user1score = $LB::SuperChallengeOpponentScore[%name1, %i];
+//			%user2score = $LB::SuperChallengeOpponentScore[%name2, %i];
+//			%user3score = $LB::SuperChallengeOpponentScore[%name3, %i];
+
+//			//HiGuy: Score colors (platinum, gold, ultimate)
+//			%user0col = LBSCD_ScoreColor(%level, %user0score);
+//			%user1col = LBSCD_ScoreColor(%level, %user1score);
+//			%user2col = LBSCD_ScoreColor(%level, %user2score);
+//			%user3col = LBSCD_ScoreColor(%level, %user3score);
+
+//			//HiGuy: If they haven't beaten a level, don't say they got 0 seconds on it!
+//			%totalPlat0 = (%user0score ? %totalPlat0 + %level.goldTime : %totalPlat0);
+//			%totalPlat1 = (%user1score ? %totalPlat1 + %level.goldTime : %totalPlat1);
+//			%totalPlat2 = (%user2score ? %totalPlat2 + %level.goldTime : %totalPlat2);
+//			%totalPlat3 = (%user3score ? %totalPlat3 + %level.goldTime : %totalPlat3);
+
+//			//HiGuy: Same goes for ultimate
+//			%totalUlt0 = (%user0score ? %totalUlt0 + (%level.ultimateTime ? %level.ultimateTime : %level.goldTime) : %totalUlt0);
+//			%totalUlt1 = (%user1score ? %totalUlt1 + (%level.ultimateTime ? %level.ultimateTime : %level.goldTime) : %totalUlt1);
+//			%totalUlt2 = (%user2score ? %totalUlt2 + (%level.ultimateTime ? %level.ultimateTime : %level.goldTime) : %totalUlt2);
+//			%totalUlt3 = (%user3score ? %totalUlt3 + (%level.ultimateTime ? %level.ultimateTime : %level.goldTime) : %totalUlt3);
+
+//			//HiGuy: Format scores, which apparently has a \t in it
+//			%user0score = (%user0score ? stripChars(formatTimeHoursMs(%user0score), "\t") : "N/A");
+//			%user1score = (%user1score ? stripChars(formatTimeHoursMs(%user1score), "\t") : "N/A");
+//			%user2score = (%user2score ? stripChars(formatTimeHoursMs(%user2score), "\t") : "N/A");
+//			%user3score = (%user3score ? stripChars(formatTimeHoursMs(%user3score), "\t") : "N/A");
+
+//			//HiGuy: Add them to the text list, being sure to nicen up the formatting
+//			%text = %text NL "<font:DomCasualD:24><just:left>" @ %name;
+//			%text = %text TAB "<spush>" @ %user0col @ %user0score @ "<spop>";
+//			%text = %text @ "\t";
+//			%text = %text @ "<spush>" @ %user1col @ %user1score @ "<spop>";
+//			if (%third != -1) {
+//				%text = %text @ "\t";
+//				%text = %text @ "<spush>" @ %user2col @ %user2score @ "<spop>";
+//				if (%fourth != -1) {
+//					%text = %text @ "\t<spush>" @ %user3col @ %user3score @ "<spop>";
+//				}
+//			}
+//		}
+
+//		//HiGuy: Total percent colorings (platinum, ultimate)
+//		%percent0Col = LBSCD_percentColor(%percent0);
+//		%percent1Col = LBSCD_percentColor(%percent1);
+//		%percent2Col = LBSCD_percentColor(%percent2);
+//		%percent3Col = LBSCD_percentColor(%percent3);
+
+////      devecho(%totalPlat0 SPC %totalPlat1 SPC %totalPlat2 SPC %totalPlat3 SPC %totalUlt0 SPC %totalUlt1 SPC %totalUlt2 SPC %totalUlt3);
+////      devecho(%score0 SPC %score1 SPC %score2 SPC %score3);
+
+//		//HiGuy: Total score colorings (platinum, ultimate)
+//		%total0Col = LBSCD_totalScoreColor2(%score0, %totalPlat0, %totalUlt0);
+//		%total1Col = LBSCD_totalScoreColor2(%score1, %totalPlat1, %totalUlt1);
+//		%total2Col = LBSCD_totalScoreColor2(%score2, %totalPlat2, %totalUlt2);
+//		%total2Col = LBSCD_totalScoreColor2(%score3, %totalPlat3, %totalUlt3);
+
+////      devecho(%total0Col SPC %total1Col SPC %total2Col SPC %total3Col);
+
+//		//HiGuy: Total time formatting (again with the freaking tabs)
+//		%total0 = (%score0 ? stripChars(formatTimeHoursMs(%score0), "\t") : "N/A");
+//		%total1 = (%score1 ? stripChars(formatTimeHoursMs(%score1), "\t") : "N/A");
+//		%total2 = (%score2 ? stripChars(formatTimeHoursMs(%score2), "\t") : "N/A");
+//		%total3 = (%score3 ? stripChars(formatTimeHoursMs(%score3), "\t") : "N/A");
+
+//		//HiGuy: Totals label uses two different labels if you have percents on,
+//		// this is because we can't stack lines of text on top of each other like
+//		// this:
+//		// ====  ==  ====  /\  |   _===
+//		//  ||  |  |  ||  /==\ |   \--_       line 1
+//		//  ||   ==   ||  |  | === ___/       line 2
+//		//
+//		// ...which is precisely what I'm trying to do here.
+//		%total = %tabs  @ ($LBPref::SuperChallengeOptionPercents ? "" : "<font:Expo:50>Totals:") @ "<font:DomCasualD:24>\t";
+//		%total = %total @ "<spush>" @ %total0Col @ %total0 @ "<spop>";
+//		%total = %total @ "\t";
+//		%total = %total @ "<spush>" @ %total1Col @ %total1 @ "<spop>";
+//		if (%third != -1) {
+//			%total = %total @ "\t";
+//			%total = %total @ "<spush>" @ %total2Col @ %total2 @ "<spop>";
+//			if (%fourth != -1)
+//				%total = %total @ "\t<spush>" @ %total3Col @ %total3 @ "<spop>";
+//		}
+
+//		//HiGuy: Second part that puts in the second lines (described above)
+//		if ($LBPref::SuperChallengeOptionPercents) {
+//			%total2 = "<font:Expo:50>Totals:";
+//			%total = %total NL "<just:left>\t<spush>" @ %percent0col @ %percent0 @ "%" @ "<spop>";
+//			%total = %total @  "\t<spush>" @ %percent1col @ %percent1 @ "%" @ "<spop>";
+//			if (%third != -1) {
+//				%total = %total @  "\t<spush>" @ %percent2col @ %percent2 @ "%" @ "<spop>";
+//				if (%fourth != -1)
+//					%total = %total @  "\t<spush>" @ %percent3col @ %percent3 @ "%" @ "<spop>";
+//			}
+//		}
+
+//		//HiGuy: If we're waiting, we want to see a timer that counts down how
+//		// many seconds we have left.
+//		if (LBSuperChallengeDlg.tab $= "finish_waiting") {
+//			%time = $LB::SuperChallengeTimeout;
+//			%difference = max(sub64(%time, LBGetServerTime()), 0);
+//			%total = %total NL %tabs @ "<font:DomCasualD:32><just:left>Time Remaining:" TAB stripChars(formatTimeSeconds(%difference * 1000), "\t");
+//			//HiGuy: We want this to update!
+//			$LB::SuperChallengeFormatSchedule = schedule(1000, 0, LBSCDF_Format);
+//		} else
+//			%total = %total NL "<font:DomCasualD:32><just:left>Super Challenge Points:" SPC $LB::SuperChallengePoints;
+//	case "finish_cancel" or "finish_complete":
+//		//HiGuy: Ending screen for practice mode, win or lose
+
+//		//HiGuy: Resize all the things to fit nicely
+//		%size = "480 340 445";
+//		LBSCD_FinishPanel.resize(0, 0, getWord(%size, 0), getWord(%size, 1));
+//		LBSCDF_Times.getGroup().resize(getWord(LBSCDF_Times.getGroup().position, 0), getWord(LBSCDF_Times.getGroup().position, 1), getWord(%size, 2), getWord(LBSCDF_Times.getGroup().extent, 1));
+//		LBSCDF_Times.resize(%scrollY, getWord(LBSCDF_Times.position, 1), getWord(%size, 2), 8);
+//		LBSCDF_Totals.resize(17, 227, getWord(%size, 2), 8);
+//		LBSuperChallengeDlg.resize(0, 0, getWord(Canvas.getExtent(), 0), getWord(Canvas.getExtent(), 1));
+
+//		%text = "<tab:250>";
+
+//		//HiGuy: Get headers
+//		%text = %text @ "<font:Expo:32><just:left>Level\tScore<just:right>Best";
+
+//		for (%i = 0; %i < LBSCD_GetMissionList().rowCount(); %i ++) {
+//			//HiGuy: Time list
+//			%level = LBSCD_GetMissionList().getRowTextById(%i);
+//			%name  = %level.name;
+
+//			//HiGuy: Times and formatting
+//			%time  = $LB::SuperChallengeTime[%i];
+//			%best  = getField($pref::highscores[%level.file, 0], 0);
+//			%col = LBSCD_ScoreColor(%level, %time);
+//			%bestcol = LBSCD_ScoreColor(%level, %best);
+
+//			//HiGuy: MOTHER OF GOD TABS WHY
+//			%time  = (%time ? stripChars(formatTimeHoursMs(%time), "\t") : "N/A");
+//			%best  = (%best ? stripChars(formatTimeHoursMs(%best), "\t") : %time);
+
+//			%text = %text @ "<font:DomCasualD:24><just:left>" NL %name TAB "<spush>" @ %col @ %time @ "<spop><just:right><spush>" @ %bestcol @ %best @ "<spop>";
+//		}
+
+//		//HiGuy: Total times for you to aim for
+//		%goals = LBSCD_GetGoalTimes();
+//		%totalPlat = getField(%goals, 0);
+//		%totalUlt = getField(%goals, 1);
+
+//		//HiGuy: Total/Percentages
+//		%ptotal = max(PlayGui.allTime, 1);
+//		%div = mRound((PlayGui.totalTime / %ptotal) * 1000) / 10;
+//		%divCol = LBSCD_percentColor(%div);
+
+//		//HiGuy: Total coloring and formatting
+//		%total = $LB::SuperChallengeTotalTime;
+//		%totalCol = LBSCD_percentColor2(%total, %totalPlat, %totalUlt);
+
+//		//HiGuy: TABS WHY WHY WHY KILL YOU ALL
+//		%total = (%total ? stripChars(formatTimeHoursMs(%total), "\t") : "N/A");
+
+//		%total = "<font:Expo:50><just:center>Total:<spush>" @ %totalCol SPC %total @ "<spop>/<spush>" @ %divCol @ %div @ "%<spop>";
+//	}
+
+//	//HiGuy: Actually set the text on the interface
+//	LBSCDF_Times.setValue(%text);
+//	LBSCDF_Totals.setValue(%total);
+//	LBSCDF_Totals2.setValue(%total2);
+
+//	//HiGuy: Reflow it so that everything lines up nicely and doesn't spill over
+//	LBSCDF_Times.forceReflow();
+
+//	//HiGuy: Scroll back down if we need to
+//	if (getWord(LBSCDF_Times.getExtent(), 1) > getWord(LBSCDF_Times.getGroup().getExtent(), 1))
+//		LBSCDF_Times.resize(%scrollY, 0, getWord(LBSCDF_Times.getGroup().getExtent(), 0) - 18, getWord(LBSCDF_Times.getExtent(), 1));
+//	else
+//		LBSCDF_Times.resize(%scrollY, 0, getWord(LBSCDF_Times.getGroup().getExtent(), 0), getWord(LBSCDF_Times.getExtent(), 1));
+
+//	//HiGuy: And reflow again, why not!
+//	LBSCDF_Times.forceReflow();
+//}
+
+function LBSCD_DeliverScores(%id, %isWinner) {
+	%status = $LB::SuperChallengeDeliverStatus[%id];
+
+	//HiGuy: We need to grab this from the saved variables
+	%pack = LBSuperChallengeDlg.pack;
+
+	//HiGuy: The main, large-ass formatting switch statement
+	switch$ (%status) {
+	case "finish_win" or "finish_lose" or "finish_waiting" or "finish_opforfeit" or "finish_forfeit":
+		//HiGuy: A mess of variables and underscores, now with more %id
+		%_user[0] = getField($LB::SuperChallengeProgress[0], 0);
+		%_user[1] = getField($LB::SuperChallengeProgress[1], 0);
+		%_user[2] = getField($LB::SuperChallengeProgress[2], 0);
+		%_user[3] = getField($LB::SuperChallengeProgress[3], 0);
+		%_time[0] = getField($LB::SuperChallengeProgress[0], 1);
+		%_time[1] = getField($LB::SuperChallengeProgress[1], 1);
+		%_time[2] = getField($LB::SuperChallengeProgress[2], 1);
+		%_time[3] = getField($LB::SuperChallengeProgress[3], 1);
+		%_progress[0] = getField($LB::SuperChallengeProgress[0], 2);
+		%_progress[1] = getField($LB::SuperChallengeProgress[1], 2);
+		%_progress[2] = getField($LB::SuperChallengeProgress[2], 2);
+		%_progress[3] = getField($LB::SuperChallengeProgress[3], 2);
+		%_percent[0] = getField($LB::SuperChallengeProgress[0], 3);
+		%_percent[1] = getField($LB::SuperChallengeProgress[1], 3);
+		%_percent[2] = getField($LB::SuperChallengeProgress[2], 3);
+		%_percent[3] = getField($LB::SuperChallengeProgress[3], 3);
+
+		//HiGuy: Initial variable states so that they are always overridden
+		%winner = -1;
+		%second = -1;
+		%third = -1;
+		%fourth = -1;
+		%highest = -1;
+		%secondhigh = -1;
+		%thirdhigh = -1;
+		%fourthhigh = -1;
+		%high1time = 999999999;
+		%high2time = 999999999;
+		%high3time = 999999999;
+		%high4time = 999999999;
+
+		//HiGuy: For some reason, sometimes the winner doesn't send.
+		// I think this is when there is no decided winner, such as when not all
+		// players have finished. In this event, just calculate it client-side.
+		if (%winner == -1) {
+			//HiGuy: Get first place
+			//HiGuy: Basic logic is as follows: They are first if their progress is
+			// greater than all the other people's progress, or if there is a tie for
+			// winner, then whoever has the lowest time gets first. So:
+			// winner = (progress > best) or (progress = best AND time < best)
+			if ( %progress[0] > %highest || (%progress[0] == %highest && %time[0] < %high1time)) {%highest = %progress[0]; %high1time = %time[0]; %winner = 0;}
+			if ( %progress[1] > %highest || (%progress[1] == %highest && %time[1] < %high1time)) {%highest = %progress[1]; %high1time = %time[1]; %winner = 1;}
+			if ((%progress[2] > %highest || (%progress[2] == %highest && %time[2] < %high1time)) && %progress[2] !$= "") {%highest = %progress[2]; %high1time = %time[2]; %winner = 2;}
+			if ((%progress[3] > %highest || (%progress[3] == %highest && %time[3] < %high1time)) && %progress[3] !$= "") {%highest = %progress[3]; %high1time = %time[3]; %winner = 3;}
+		}
+
+		//HiGuy: Get second place
+		//HiGuy: Second place is like first place, just with a check for if you
+		// already have first.
+		if (%winner != 0 && (%_progress[0] > %secondhigh || (%_progress[0] == %secondhigh && %_time[0] < %high2time))) {%secondhigh = %_progress[0]; %high2time = %_time[0]; %second = 0;}
+		if (%winner != 1 && (%_progress[1] > %secondhigh || (%_progress[1] == %secondhigh && %_time[1] < %high2time))) {%secondhigh = %_progress[1]; %high2time = %_time[1]; %second = 1;}
+		if (%winner != 2 && (%_progress[2] > %secondhigh || (%_progress[2] == %secondhigh && %_time[2] < %high2time)) && %_progress[2] !$= "") {%secondhigh = %_progress[2]; %high2time = %_time[2]; %second = 2;}
+		if (%winner != 3 && (%_progress[3] > %secondhigh || (%_progress[3] == %secondhigh && %_time[3] < %high2time)) && %_progress[3] !$= "") {%secondhigh = %_progress[3]; %high2time = %_time[3]; %second = 3;}
+
+		//HiGuy: Get third place
+		//HiGuy: Third is like second, but only if you aren't first/second
+		if (%winner != 0 && %second != 0 && (%_progress[0] > %thirdhigh || (%_progress[0] == %thirdhigh && %_time[0] < %high3time))) {%thirdhigh = %_progress[0]; %high3time = %_time[0]; %third = 0;}
+		if (%winner != 1 && %second != 1 && (%_progress[1] > %thirdhigh || (%_progress[1] == %thirdhigh && %_time[1] < %high3time))) {%thirdhigh = %_progress[1]; %high3time = %_time[1]; %third = 1;}
+		if (%winner != 2 && %second != 2 && (%_progress[2] > %thirdhigh || (%_progress[2] == %thirdhigh && %_time[2] < %high3time)) && %_progress[2] !$= "") {%thirdhigh = %_progress[2]; %high3time = %_time[2]; %third = 2;}
+		if (%winner != 3 && %second != 3 && (%_progress[3] > %thirdhigh || (%_progress[3] == %thirdhigh && %_time[3] < %high3time)) && %_progress[3] !$= "") {%thirdhigh = %_progress[3]; %high3time = %_time[3]; %third = 3;}
+
+		//HiGuy: Get fourth place
+		//HiGuy: Fourth is essentially whoever's left. No point in score checking
+		// for the loser
+		if (%winner != 0 && %second != 0 && %third != 0) {%fourthhigh = %_progress[0]; %high4time = %_time[0]; %fourth = 0;}
+		if (%winner != 1 && %second != 1 && %third != 1) {%fourthhigh = %_progress[1]; %high4time = %_time[1]; %fourth = 1;}
+		if (%winner != 2 && %second != 2 && %third != 2 && %_progress[2] !$= "") {%fourthhigh = %_progress[2]; %high4time = %_time[2]; %fourth = 2;}
+		if (%winner != 3 && %second != 3 && %third != 3 && %_progress[3] !$= "") {%fourthhigh = %_progress[3]; %high4time = %_time[3]; %fourth = 3;}
+
+		%tabs = "<tab:130,180,230,280>";
+
+		//HiGuy: Sort them into usable variables, 0-3 where 0 is the winner and
+		// 3 is the loser. Format times as well.
+		%name0        = %_user[%winner];
+		%score0       = %_time[%winner];
+		%complete0    = %_progress[%winner];
+		%percent0     = %_percent[%winner];
+
+		%name1        = %_user[%second];
+		%score1       = %_time[%second];
+		%complete1    = %_progress[%second];
+		%percent1     = %_percent[%second];
+
+		if (%third != -1) {
+			%name2     = %_user[%third];
+			%score2    = %_time[%third];
+			%complete2 = %_progress[%third];
+			%percent2  = %_percent[%third];
+		}
+		if (%fourth != -1) {
+			%name3     = %_user[%fourth];
+			%score3    = %_time[%fourth];
+			%complete3 = %_progress[%fourth];
+			%percent3  = %_percent[%fourth];
+		}
+
+		//HiGuy: Get score names
+		%__name0 = (%_user[0] $= $LB::Username ? %_user[1] : %_user[0]);
+		%__name1 = ((%_user[0] $= $LB::Username || %_user[1] $= $LB::Username) ? %_user[2] : %_user[1]);
+		%__name2 = ((%_user[0] $= $LB::Username || %_user[1] $= $LB::Username || %_user[2] $= $LB::Username) ? %_user[3] : %_user[2]);
+
+		%names = %__name0 @ (%__name1 $= "" ? "" : (%__name2 $= "" ? " and " @ %__name1 : ", " @ %__name1 @ " and " @ %__name2));
+		//HiGuy: My brain hurts. I need to go outside :(
+
+		//HiGuy: Matan was very specific about how this was going to look, so let's
+		// make sure to change __one__ little thing just to annoy him
+		%text = "<color:0000ff>SERVER: <color:669900>Super Challenge with" SPC %names SPC "is complete! Results of the Super Challenge are: <color:000000>" NL %tabs;
+
+		//HiGuy: Initial variable states
+		%totalPlat0 = 0;
+		%totalPlat1 = 0;
+		%totalPlat2 = 0;
+		%totalPlat3 = 0;
+
+		%totalUlt0 = 0;
+		%totalUlt1 = 0;
+		%totalUlt2 = 0;
+		%totalUlt3 = 0;
+		%font = "<font:Arial Bold:14>";
+
+		//HiGuy: Get headers
+		%text = %text @ "<just:left><spush><color:000000><spush><font:Arial Bold:14>Level<spop>" TAB clipPx(%font @ LBResolveName(%name0, true), 50) @
+			"\t" @ clipPx(%font @ LBResolveName(%name1, true), 50) @
+			"\t" @ clipPx(%font @ LBResolveName(%name2, true), 50) @
+			"\t" @ clipPx(%font @ LBResolveName(%name3, true), 50) @ "<spop>";
+
+		for (%i = 0; %i < LBSCD_GetMissionList().rowCount(); %i ++) {
+			//HiGuy: Level info
+			%level = LBSCD_GetMissionList().getRowTextById(%i);
+			%name = %level.name;
+
+			//HiGuy: Individual level scores
+			%user0score = $LB::SuperChallengeOpponentScore[%name0, %i];
+			%user1score = $LB::SuperChallengeOpponentScore[%name1, %i];
+			%user2score = $LB::SuperChallengeOpponentScore[%name2, %i];
+			%user3score = $LB::SuperChallengeOpponentScore[%name3, %i];
+
+			//HiGuy: Score colors (platinum, gold, ultimate)
+			%user0col = LBSCD_ScoreColor(%level, %user0score);
+			%user1col = LBSCD_ScoreColor(%level, %user1score);
+			%user2col = LBSCD_ScoreColor(%level, %user2score);
+			%user3col = LBSCD_ScoreColor(%level, %user3score);
+
+			//HiGuy: If they haven't beaten a level, don't say they got 0 seconds on it!
+			%totalPlat0 = (%user0score ? %totalPlat0 + %level.goldTime : %totalPlat0);
+			%totalPlat1 = (%user1score ? %totalPlat1 + %level.goldTime : %totalPlat1);
+			%totalPlat2 = (%user2score ? %totalPlat2 + %level.goldTime : %totalPlat2);
+			%totalPlat3 = (%user3score ? %totalPlat3 + %level.goldTime : %totalPlat3);
+
+			%totalUlt0 = (%user0score ? %totalUlt0 + (%level.ultimateTime ? %level.ultimateTime : %level.goldTime) : %totalUlt0);
+			%totalUlt1 = (%user1score ? %totalUlt1 + (%level.ultimateTime ? %level.ultimateTime : %level.goldTime) : %totalUlt1);
+			%totalUlt2 = (%user2score ? %totalUlt2 + (%level.ultimateTime ? %level.ultimateTime : %level.goldTime) : %totalUlt2);
+			%totalUlt3 = (%user3score ? %totalUlt3 + (%level.ultimateTime ? %level.ultimateTime : %level.goldTime) : %totalUlt3);
+
+			//HiGuy: Please not this again... no more tabs
+			%user0score = (%user0score ? stripChars(formatTimeHoursMs(%user0score), "\t") : "N/A");
+			%user1score = (%user1score ? stripChars(formatTimeHoursMs(%user1score), "\t") : "N/A");
+			%user2score = (%user2score ? stripChars(formatTimeHoursMs(%user2score), "\t") : "N/A");
+			%user3score = (%user3score ? stripChars(formatTimeHoursMs(%user3score), "\t") : "N/A");
+
+			//HiGuy: Messy adding, making sure to check for many players
+			%text = %text NL "<just:left>" @ %name;
+			%text = %text TAB "<spush>" @ %user0col @ %user0score @ "<spop>";
+			%text = %text @ "\t";
+			%text = %text @ "<spush>" @ %user1col @ %user1score @ "<spop>";
+			if (%third != -1) {
+				%text = %text @ "\t";
+				%text = %text @ "<spush>" @ %user2col @ %user2score @ "<spop>";
+				if (%fourth != -1) {
+					%text = %text @ "\t<spush>" @ %user3col @ %user3score @ "<spop>";
+				}
+			}
+		}
+
+		//HiGuy: Percent colorings (platinum, ultimate)
+		%percent0Col = LBSCD_percentColor(%percent0, %pack);
+		%percent1Col = LBSCD_percentColor(%percent1, %pack);
+		%percent2Col = LBSCD_percentColor(%percent2, %pack);
+		%percent3Col = LBSCD_percentColor(%percent3, %pack);
+
+		//HiGuy: Total score colorings (platinum, ultimate)
+		%total0Col = LBSCD_totalScoreColor2(%score0, %totalPlat0, %totalUlt0);
+		%total1Col = LBSCD_totalScoreColor2(%score1, %totalPlat1, %totalUlt1);
+		%total2Col = LBSCD_totalScoreColor2(%score2, %totalPlat2, %totalUlt2);
+		%total2Col = LBSCD_totalScoreColor2(%score3, %totalPlat3, %totalUlt3);
+
+		//HiGuy: <insert death threat aimed towards the tabs' mothers>
+		%total0 = (%score0 ? stripChars(formatTimeHoursMs(%score0), "\t") : "N/A");
+		%total1 = (%score1 ? stripChars(formatTimeHoursMs(%score1), "\t") : "N/A");
+		%total2 = (%score2 ? stripChars(formatTimeHoursMs(%score2), "\t") : "N/A");
+		%total3 = (%score3 ? stripChars(formatTimeHoursMs(%score3), "\t") : "N/A");
+
+		//HiGuy: Final results, lots of spushing and spoping and tabbing
+		%total = %tabs  @ "Totals:\t<spush>" @ %total0Col @ %total0 @ "<spop>";
+		%total = %total @ "\t";
+		%total = %total @ "<spush>" @ %total1Col @ %total1 @ "<spop>";
+		if (%third != -1) {
+			%total = %total @ "\t";
+			%total = %total @ "<spush>" @ %total2Col @ %total2 @ "<spop>";
+			if (%fourth != -1)
+				%total = %total @ "\t<spush>" @ %total3Col @ %total3 @ "<spop>";
+		}
+		if ($LBPref::SuperChallengeOptionPercents) {
+			%total = %total NL "<just:left>\t<spush>" @ %percent0col @ %percent0 @ "%" @ "<spop>";
+			%total = %total @  "\t<spush>" @ %percent1col @ %percent1 @ "%" @ "<spop>";
+			if (%third != -1) {
+				%total = %total @  "\t<spush>" @ %percent2col @ %percent2 @ "%" @ "<spop>";
+				if (%fourth != -1)
+					%total = %total @  "\t<spush>" @ %percent3col @ %percent3 @ "%" @ "<spop>";
+			}
+		}
+
+		//HiGuy: We don't need to dump this anymore
+		$LB::SuperChallengeDeliverScores[%id] = false;
+
+		//HiGuy: Basic message
+		%winmsg = "<color:669900>" @ (%isWinner ? "You won the Super Challenge!" : "You lost the Super Challenge!");
+
+		//HiGuy: Display it to the user
+		addLBChatLine(%text);
+		addLBChatLine(%total);
+		addLBChatLine(%winmsg);
+
+		//HiGuy: Clean up anything we're not using
+		LBSCD_GetMissionList(%id).delete();
+	case "finish_cancel" or "finish_complete":
+		//HiGuy: Ending screen for practice mode, win or lose
+
+		%tabs = "<tab:130,180,230,280>";
+
+		//HiGuy: Get headers
+		%text = %tabs @ "<color:0000ff>SERVER: Super Challenge Practice Results:<color:000000>\n<just:left>Level\tScore\tBest\n";
+
+		for (%i = 0; %i < LBSCD_GetMissionList().rowCount(); %i ++) {
+			//HiGuy: Time list
+			%level = LBSCD_GetMissionList().getRowTextById(%i);
+			%name  = %level.name;
+
+			//HiGuy: Times and formatting
+			%time  = $LB::SuperChallengeTime[%i];
+			%best  = getField($pref::highscores[%level.file, 0], 0);
+			%col = LBSCD_ScoreColor(%level, %time);
+			%bestcol = LBSCD_ScoreColor(%level, %best);
+
+			//HiGuy: MOTHER OF GOD TABS WHY
+			%time  = (%time ? stripChars(formatTimeHoursMs(%time), "\t") : "N/A");
+			%best  = (%best ? stripChars(formatTimeHoursMs(%best), "\t") : %time);
+
+			%text = %text @ %name TAB "<spush>" @ %col @ %time @ "<spop>\t<spush>" @ %bestcol @ %best @ "<spop>\n";
+		}
+
+		//HiGuy: Total times for you to aim for
+		%goals = LBSCD_GetGoalTimes();
+		%totalPlat = getField(%goals, 0);
+		%totalUlt = getField(%goals, 1);
+
+		//HiGuy: Total/Percentages
+		%ptotal = max(PlayGui.allTime, 1);
+		%div = mRound((PlayGui.totalTime / %ptotal) * 1000) / 10;
+		%divCol = LBSCD_percentColor(%div);
+
+		//HiGuy: Total coloring and formatting
+		%total = $LB::SuperChallengeTotalTime;
+		%totalCol = LBSCD_percentColor2(%total, %totalPlat, %totalUlt);
+
+		//HiGuy: TABS WHY WHY WHY KILL YOU ALL
+		%total = (%total ? stripChars(formatTimeHoursMs(%total), "\t") : "N/A");
+
+		%total = "Total:<spush>" @ %totalCol SPC %total @ "<spop>/<spush>" @ %divCol @ %div @ "%<spop>";
+
+		addLBChatLine(%text);
+		addLBChatLine(%total);
+		addLBChatLine(%winmsg);
+	}
+}
+
+function LBSCD_GetGoalTimes(%levels) {
+	//HiGuy: This gets the total ultimate/platinum times for the current super
+	// challenge, but only %levels levels are counted
+	%levels = (%levels == 0 || %levels $= "" ? LBSCD_GetMissionList().rowCount() : %levels);
+
+	//HiGuy: Start at 0
+	%totalPlat = 0;
+	%totalUlt = 0;
+
+	for (%i = 0; %i < %levels; %i ++) {
+		//HiGuy: For some reason they're in a nice little list like this
+		if (!isObject($LB::SuperChallengeTimeMission[%i]))
+			$LB::SuperChallengeTimeMission[%i] = LBSCD_GetMissionList().getRowTextById(%i);
+
+		//HiGuy: Add it to the totals
+		%missionObj = $LB::SuperChallengeTimeMission[%i];
+		%totalPlat += %missionObj.goldTime;
+
+		//HiGuy: Ultimate total is all ultimate times added up. Unfortunately,
+		// mbg levels don't have ultimate times; I decided to just use their gold
+		// times for the total.
+		%totalUlt += (%missionObj.ultimateTime ? %missionObj.ultimateTime : %missionObj.goldTime);
+	}
+	return %totalPlat TAB %totalUlt;
+}
+
+function LBSCD_PackGoalTimes(%packname) {
+	//HiGuy: This gets the total ultimate/platinum times for any super challenge
+	// by name (if exists)
+	%missions = LBSuperChallengeDlg.challenges["object", %packname].missions;
+	%levels = getWordCount(%missions);
+
+	//HiGuy: Starting at 0
+	%totalPlat = 0;
+	%totalUlt = 0;
+
+	//HiGuy: Easier than the last function
+	for (%i = 0; %i < %levels; %i ++) {
+		%missionObj = getMissionInfo(LBGetMissionFile(getWord(%missions, %i)));
+		%totalPlat += %missionObj.goldTime;
+
+		//HiGuy: Ultimate total is all ultimate times added up. Unfortunately,
+		// mbg levels don't have ultimate times; I decided to just use their gold
+		// times for the total.
+		%totalUlt += (%missionObj.ultimateTime ? %missionObj.ultimateTime : %missionObj.goldTime);
+	}
+	return %totalPlat TAB %totalUlt;
+}
+
+//HiGuy: Here comes a slew of coloring functions...
+
+function LBSCD_scoreColor(%level, %time) {
+	//HiGuy: Returns a color (gold, platinum, ultimate, or black) based on the
+	// mission and score given
+
+	//HiGuy: 0 is never anything. Cheater.
+	if (%time == 0 || %time $= "")
+		return "<color:000000>";
+
+	//HiGuy: Check ultimate first, because it should take precedence
+	if (%level.ultimateTime && %time < %level.ultimateTime)
+		return "<color:FFCC22><shadow:1:1><shadowcolor:0000007f>";
+
+	//HiGuy: Gold/Platinum is based on which game you're in
+	if (%level.goldTime && %time < %level.goldTime) {
+		if (%level.game $= "Platinum" || %level.game $= "LBCustom")
+			return "<color:CCCCCC><shadow:1:1><shadowcolor:0000007f>";
+		else
+			return "<color:FFFF00><shadow:1:1><shadowcolor:0000007f>";
+	}
+	return "<color:000000>";
+}
+
+function LBSCD_percentColor(%percent, %pack) {
+	//HiGuy: Returns a color (platinum, gold, black) based on the percentage and
+	// pack given (pack defaults to the current super challenge)
+	%pack = %pack $= "" ? LBSuperChallengeDlg.pack : %pack;
+
+	//HiGuy: Fields from the object for what we're comparing to
+	%percentPlat = LBSuperChallengeDlg.challenges["object", %pack].platinumPercent;
+	%percentUlt = LBSuperChallengeDlg.challenges["object", %pack].ultimatePercent;
+
+	//HiGuy: Multiply by 100 because percent is not a decimal
+	if (%percent > (%percentUlt * 100))
+		return "<color:FFCC22><shadow:1:1><shadowcolor:0000007f>";
+	else if (%percent > (%percentPlat * 100))
+		return "<color:CCCCCC><shadow:1:1><shadowcolor:0000007f>";
+	return "<color:000000>";
+}
+
+function LBSCD_percentColor2(%percent, %percentPlat, %percentUlt) {
+	//HiGuy: Returns a color (platinum, gold, black) based on the percentage and
+	// percentages given (must be specified)
+
+	//HiGuy: Multiply by 100 because percent is not a decimal
+	if (%percent > (%percentUlt * 100))
+		return "<color:FFCC22><shadow:1:1><shadowcolor:0000007f>";
+	else if (%percent > (%percentPlat * 100))
+		return "<color:CCCCCC><shadow:1:1><shadowcolor:0000007f>";
+	return "<color:000000>";
+}
+
+function LBSCD_totalScoreColor(%score, %pack) {
+	//HiGuy: Returns a color (gold, platinum, ultimate, or black) based on the
+	// pack and score given
+	%platinum = %pack.platinumTotal;
+	%ultimate = %pack.ultimateTotal;
+	if (%score < %ultimate) {
+		if (%platinum == %ultimate)
+			return "<color:FFFF00><shadow:1:1><shadowcolor:0000007f>";
+		else
+			return "<color:FFCC22><shadow:1:1><shadowcolor:0000007f>";
+	} else if (%score < %platinum)
+		return "<color:CCCCCC><shadow:1:1><shadowcolor:0000007f>";
+	return "<color:000000>";
+}
+
+function LBSCD_totalScoreColor2(%score, %platinum, %ultimate) {
+	//HiGuy: Returns a color (gold, platinum, ultimate, or black) based on the
+	// pack and times given (must be specified)
+	if (%score < %ultimate) {
+		if (%platinum == %ultimate)
+			return "<color:FFFF00><shadow:1:1><shadowcolor:0000007f>";
+		else
+			return "<color:FFCC22><shadow:1:1><shadowcolor:0000007f>";
+	} else if (%score < %platinum)
+		return "<color:CCCCCC><shadow:1:1><shadowcolor:0000007f>";
+	return "<color:000000>";
+}
+
+function LBSCDC_update() {
+	//HiGuy: Update the "OK" button, only allow it if they've selected a difficulty and a player
+	%active = (LBSCDC_PlayerList.getSelection() !$= "" && LBSuperChallengeDlg.pack !$= "");
+	LBSCDC_Challenge.setActive(%active);
+	//HiGuy: Options are only settable after you select a pack
+	LBSCDC_Options.setActive(LBSuperChallengeDlg.pack !$= "");
+
+	if (LBSuperChallengeDlg.pack $= "")
+		%text = "";
+	else {
+		//HiGuy: Scary formatting function
+		%packobject = LBSuperChallengeDlg.challenges["object", LBSuperChallengeDlg.pack];
+
+		//HiGuy: Title
+		%text = "<just:center><font:Expo:28>" @ %packobject.display @ "<spush>";
+
+		//HiGuy: Total times
+		if (%packobject.platinumTotal != %packobject.ultimateTotal) {
+			%text = %text NL "<font:DomCasualD:24><just:left><color:CCCCCC><shadow:1:1><shadowcolor:0000007f>Platinum Total Time:<just:right>"
+				@ formatTimeHoursMs(%packobject.platinumTotal);
+			%text = %text NL "<font:DomCasualD:24><just:left><color:FFCC22><shadow:1:1><shadowcolor:0000007f>Ultimate Total Time:<just:right>"
+				@ formatTimeHoursMs(%packobject.ultimateTotal);
+		} else { //HiGuy: MBG levels only, say it's a "gold total time"
+			%text = %text NL "<font:DomCasualD:24><just:left><color:FFFF00><shadow:1:1><shadowcolor:0000007f>Gold Total Time:<just:right>"
+				@ formatTimeHoursMs(%packobject.platinumTotal);
+		}
+
+		%text = %text @ "<spop>";
+
+//      devecho("Best:" SPC $LBPref::SuperChallengeBest[LBSuperChallengeDlg.pack]);
+
+		//HiGuy: Practice mode has different times
+		%practice = strStr(LBSCDC_PlayerList.getSelection(), "Practice Mode") != -1;
+
+		//HiGuy: Highscores
+		%bestTime = getField($LBPref::SuperChallengeBest[LBSuperChallengeDlg.pack, %practice], 0);
+		%bestProg = getField($LBPref::SuperChallengeBest[LBSuperChallengeDlg.pack, %practice], 1);
+		%bestDiv  = getField($LBPref::SuperChallengeBest[LBSuperChallengeDlg.pack, %practice], 2);
+
+		//HiGuy: Default values
+		if (%bestTime $= "") %bestTime = -1;
+		if (%bestProg $= "") %bestProg = 0;
+		if (%bestDiv  $= "") %bestDiv  = 0;
+
+		//HiGuy: Beautiful colors
+		%timeCol = LBSCD_totalScoreColor(%bestTime, %packobject);
+		%divCol  = LBSCD_percentColor(%bestDiv);
+
+		//HiGuy: Print it out the screen
+		if (%bestTime == -1 || %bestTime $= "")
+			%text = %text NL "<font:DomCasualD:24><just:left><color:000000>Completed Progress:<just:right>" @
+				%bestProg SPC "/" SPC getWordCount(%packobject.missions);
+		else //HiGuy: Something something tabs something something murderize
+			%text = %text NL "<font:DomCasualD:24><just:left><color:000000>Best Score:<just:right><spush>" @ %timeCol @
+				stripChars(formatTimeHoursMs(%bestTime), "\t") SPC "<spop>/<spush>" SPC %divCol @ %bestDiv @ "%<spop>";
+
+	}
+	LBSCDC_Info.setValue(%text);
+}
+
+function LBSCDA_update() {
+	//HiGuy: Same as above, mostly
+	%packobject = LBSuperChallengeDlg.challenges["object", LBSuperChallengeDlg.pack];
+
+	//HiGuy: Title
+	%text = "<just:center><font:Expo:28>" @ %packobject.display @ "<spush>";
+
+	//HiGuy: Total times
+	if (%packobject.platinumTotal != %packobject.ultimateTotal) {
+		%text = %text NL "<font:DomCasualD:24><just:left><color:CCCCCC><shadow:1:1><shadowcolor:0000007f>Platinum Total Time:<just:right>"
+			@ formatTimeHoursMs(%packobject.platinumTotal);
+		%text = %text NL "<font:DomCasualD:24><just:left><color:FFCC22><shadow:1:1><shadowcolor:0000007f>Ultimate Total Time:<just:right>"
+			@ formatTimeHoursMs(%packobject.ultimateTotal);
+	} else { //HiGuy: MBG levels only, say it's a "gold total time"
+		%text = %text NL "<font:DomCasualD:24><just:left><color:FFFF00><shadow:1:1><shadowcolor:0000007f>Gold Total Time:<just:right>"
+			@ formatTimeHoursMs(%packobject.platinumTotal);
+	}
+
+	%text = %text @ "<spop>";
+
+//   devecho("Best:" SPC $LBPref::SuperChallengeBest[LBSuperChallengeDlg.pack]);
+
+	//HiGuy: If you're being challenged, this isn't practice mode
+	%practice = false;
+
+	//HiGuy: Highscores
+	%bestTime = getField($LBPref::SuperChallengeBest[LBSuperChallengeDlg.pack, %practice], 0);
+	%bestProg = getField($LBPref::SuperChallengeBest[LBSuperChallengeDlg.pack, %practice], 1);
+	%bestDiv  = getField($LBPref::SuperChallengeBest[LBSuperChallengeDlg.pack, %practice], 2);
+
+	//HiGuy: Defaults
+	if (%bestTime $= "") %bestTime = -1;
+	if (%bestProg $= "") %bestProg = 0;
+	if (%bestDiv  $= "") %bestDiv  = 0;
+
+	//HiGuy: Have I mentioned how much I like the colors?
+	%timeCol = LBSCD_totalScoreColor(%bestTime);
+	%divCol  = LBSCD_percentColor(%bestDiv);
+
+	//HiGuy: Blurb it out
+	if (%bestTime == -1 || %bestTime $= "")
+		%text = %text NL "<font:DomCasualD:24><just:left><color:000000>Completed Progress:<just:right>" @
+			%bestProg SPC "/" SPC getWordCount(%packobject.missions);
+	else //HiGuy: Going to comment on all of these tabs... probably
+		%text = %text NL "<font:DomCasualD:24><just:left><color:000000>Best Score:<just:right><spush>" @ %timeCol @
+			stripChars(formatTimeHoursMs(%bestTime), "\t") SPC "<spop>/<spush>" SPC %divCol @ %bestDiv @ "%<spop>";
+
+	LBSCDA_Info.setValue(%text);
+
+	//HiGuy: Set the text to who's accepted / whatnot
+	LBSCDA_Text.setValue("<just:center><color:000000><font:DomCasualD:24>Players:" NL
+		"<just:left>" @ LBResolveName(LBSuperChallengeDlg.user0, true) @ "<just:right>Accepted" NL
+		"<just:left>" @ LBResolveName(LBSuperChallengeDlg.user1, true) @ "<just:right>" @ LBSCD_formatReadyStatus(LBSuperChallengeDlg.user1Accepted) NL
+		(LBSuperChallengeDlg.max > 2 ? "<just:left>" @ LBResolveName(LBSuperChallengeDlg.user2, true) @ "<just:right>" @ LBSCD_formatReadyStatus(LBSuperChallengeDlg.user2Accepted) NL
+		(LBSuperChallengeDlg.max > 3 ? "<just:left>" @ LBResolveName(LBSuperChallengeDlg.user3, true) @ "<just:right>" @ LBSCD_formatReadyStatus(LBSuperChallengeDlg.user3Accepted) : "") : ""));
+}
+
+function LBSCDC_Choose(%pack) {
+	if (LBSuperChallengeDlg.pack $= %pack)
+		return;
+	//HiGuy: When they select a super challenge...
+	%on = "LBSCDC_" @ LBSuperChallengeDlg.formatName(%pack);
+	//HiGuy: Uncheck all but the selected one
+	for (%i = 0; %i < LBSCDC_Scroll.getCount(); %i ++)
+		LBSCDC_Scroll.getObject(%i).setValue(0);
+	%on.setValue(1);
+
+	//HiGuy: Various values
+	LBSuperChallengeDlg.pack =     LBSuperChallengeDlg.formatName(%pack);
+	LBSuperChallengeDlg.missions = LBSuperChallengeDlg.challenges["object", %pack].missions;
+	LBSCDC_update();
+	LBSCD_startSlideshow();
+}
+
+function LBSCDC_ChoosePlayer() {
+	//HiGuy: Gui function, just redirect
+	LBSCDC_update();
+}
+
+//HiGuy: Phil requested that there be a way to stop the slideshow. I totally
+// agree with him on that, and that is what this method does.
+function LBSCD_TogglePreview(%set) {
+	//HiGuy: Default values!
+	if (%set !$= "")
+		$LBPref::SuperChallengeSlideshow = %set;
+	else //HiGuy: Toggle it otherwise
+		$LBPref::SuperChallengeSlideshow = !$LBPref::SuperChallengeSlideshow;
+	%play = !$LBPref::SuperChallengeSlideshow;
+	//HiGuy: Hehe, "car"
+	LBSCDC_PreviewWindow.setBitmap($usermods @ "/leaderboards/challenge/levelwindow" @ (%play ? "-play" : ""));
+	LBSCDA_PreviewWindow.setBitmap($usermods @ "/leaderboards/challenge/levelwindow" @ (%play ? "-play" : ""));
+	LBSCDR_PreviewWindow.setBitmap($usermods @ "/leaderboards/challenge/levelwindow" @ (%play ? "-play" : ""));
+}
+
+//HiGuy: Slideshow-like functionality for the level window
+function LBSCD_startSlideshow() {
+	cancel($LB::SuperChallengeSlideshowSchedule);
+	%levels = LBSuperChallengeDlg.missions;
+	%first = getWord(%levels, 0);
+	//HiGuy: Get and set bitmaps
+	%bitmap = LBGetLevelBitmap(getMissionInfo(LBGetMissionFile(%first)));
+
+//   if (LBSuperChallengeDlg.tab $= "challenge") {
+	//HiGuy: Always do LBSCDC as it controls the positions
+	LBSCDC_SelectedPreviewBitmap0.setBitmap(%bitmap);
+	LBSCDC_SelectedPreviewBitmap1.setBitmap(%bitmap);
+	LBSCDC_SelectedPreviewBitmap0.resize(0, 0, getWord(LBSCDC_SelectedPreview.getExtent(), 0), getWord(LBSCDC_SelectedPreview.getExtent(), 1));
+	LBSCDC_SelectedPreviewBitmap1.resize(getWord(LBSCDC_SelectedPreview.getExtent(), 0), 0, getWord(LBSCDC_SelectedPreview.getExtent(), 0), getWord(LBSCDC_SelectedPreview.getExtent(), 1));
+//   }
+
+	if (LBSuperChallengeDlg.tab $= "waiting" || LBSuperChallengeDlg.tab $= "waiting2" || LBSuperChallengeDlg.tab $= "accept") {
+		//HiGuy: Accepted window too
+		LBSCDA_SelectedPreviewBitmap0.setBitmap(%bitmap);
+		LBSCDA_SelectedPreviewBitmap1.setBitmap(%bitmap);
+		LBSCDA_SelectedPreviewBitmap0.resize(0, 0, getWord(LBSCDA_SelectedPreview.getExtent(), 0), getWord(LBSCDA_SelectedPreview.getExtent(), 1));
+		LBSCDA_SelectedPreviewBitmap1.resize(getWord(LBSCDA_SelectedPreview.getExtent(), 0), 0, getWord(LBSCDA_SelectedPreview.getExtent(), 0), getWord(LBSCDA_SelectedPreview.getExtent(), 1));
+	}
+
+	if (LBSCRestoreDlg.isAwake()) {
+		//HiGuy: Restore window too
+		LBSCR_SelectedPreviewBitmap0.setBitmap(%bitmap);
+		LBSCR_SelectedPreviewBitmap1.setBitmap(%bitmap);
+		LBSCR_SelectedPreviewBitmap0.resize(0, 0, getWord(LBSCR_SelectedPreview.getExtent(), 0), getWord(LBSCR_SelectedPreview.getExtent(), 1));
+		LBSCR_SelectedPreviewBitmap1.resize(getWord(LBSCR_SelectedPreview.getExtent(), 0), 0, getWord(LBSCR_SelectedPreview.getExtent(), 0), getWord(LBSCR_SelectedPreview.getExtent(), 1));
+	}
+
+	//HiGuy: Start it off
+	$LB::SuperChallengeSlideshowLastUpdate = getRealTime();
+	LBSCD_slideshow(0, 0);
+}
+
+//HiGuy: Gets to the next slideshow bitmap
+function LBSCD_slideshow(%start, %px) {
+	cancel($LB::SuperChallengeSlideshowSchedule);
+	%levels = LBSuperChallengeDlg.missions;
+	%start %= getWordCount(%levels);
+	if (!$LBPref::SuperChallengeSlideshow && %px == 1)
+		%px = 0;
+
+	//HiGuy: Px 0 is the signal for the next level
+	if (%px == 0) {
+		%current = getWord(%levels, %start);
+		%next = getWord(%levels, (%start + 1) % getWordCount(%levels));
+
+		//HiGuy: Get and set bitmaps
+		%info = getMissionInfo(LBGetMissionFile(%current));
+		%bitmap = LBGetLevelBitmap(%info);
+		%bitmap2 = LBGetLevelBitmap(getMissionInfo(LBGetMissionFile(%next)));
+
+		//HiGuy: Challenge tab, bitmap, text, and placement
+		if (LBSuperChallengeDlg.tab $= "challenge") {
+			LBSCDC_PreviewInfo.setValue("<color:000000><shadowcolor:cccccc><shadow:1:1><font:DomCasualD:24><just:center>" @ %info.name);
+			LBSCDC_PreviewInfo2.setValue("<color:000000><shadowcolor:cccccc><shadow:1:1><font:DomCasualD:24><just:center>Level" SPC (%start + 1) SPC "/" SPC getWordCount(%levels));
+			LBSCDC_PreviewInfo.forceReflow();
+			LBSCDC_PreviewInfo2.forceReflow();
+			LBSCDC_PreviewInfoHighlight.resize(getWord(LBSCDC_PreviewInfo.getPosition(), 0), getWord(LBSCDC_PreviewInfo.getPosition(), 1), getWord(LBSCDC_PreviewInfo.getExtent(), 0), getWord(LBSCDC_PreviewInfo.getExtent(), 1));
+			LBSCDC_PreviewInfo2Highlight.resize(getWord(LBSCDC_PreviewInfo2.getPosition(), 0), getWord(LBSCDC_PreviewInfo2.getPosition(), 1), getWord(LBSCDC_PreviewInfo2.getExtent(), 0), getWord(LBSCDC_PreviewInfo2.getExtent(), 1));
+
+			LBSCDC_SelectedPreviewBitmap0.setBitmap(%bitmap);
+			LBSCDC_SelectedPreviewBitmap1.setBitmap(%bitmap2);
+		}
+
+		//HiGuy: Waiting tab, bitmap, text, and placement
+		if (LBSuperChallengeDlg.tab $= "waiting" || LBSuperChallengeDlg.tab $= "waiting2" || LBSuperChallengeDlg.tab $= "accept") {
+			//HiGuy: Isn't doing everything twice FUN!?
+			LBSCDA_PreviewInfo.setValue("<color:000000><shadowcolor:cccccc><shadow:1:1><font:DomCasualD:24><just:center>" @ %info.name);
+			LBSCDA_PreviewInfo2.setValue("<color:000000><shadowcolor:cccccc><shadow:1:1><font:DomCasualD:24><just:center>Level" SPC (%start + 1) SPC "/" SPC getWordCount(%levels));
+			LBSCDA_PreviewInfo.forceReflow();
+			LBSCDA_PreviewInfo2.forceReflow();
+			LBSCDA_PreviewInfoHighlight.resize(getWord(LBSCDA_PreviewInfo.getPosition(), 0), getWord(LBSCDA_PreviewInfo.getPosition(), 1), getWord(LBSCDA_PreviewInfo.getExtent(), 0), getWord(LBSCDA_PreviewInfo.getExtent(), 1));
+			LBSCDA_PreviewInfo2Highlight.resize(getWord(LBSCDA_PreviewInfo2.getPosition(), 0), getWord(LBSCDA_PreviewInfo2.getPosition(), 1), getWord(LBSCDA_PreviewInfo2.getExtent(), 0), getWord(LBSCDA_PreviewInfo2.getExtent(), 1));
+
+			LBSCDA_SelectedPreviewBitmap0.setBitmap(%bitmap);
+			LBSCDA_SelectedPreviewBitmap1.setBitmap(%bitmap2);
+		}
+
+		//HiGuy: Restore tab, bitmap, text, and placement
+		if (LBSCRestoreDlg.isAwake()) {
+			//HiGuy: Turns out it is. So much fun that we should do it THREE TIMES!
+			LBSCR_PreviewInfo.setValue("<color:000000><shadowcolor:cccccc><shadow:1:1><font:DomCasualD:24><just:center>" @ %info.name);
+			LBSCR_PreviewInfo2.setValue("<color:000000><shadowcolor:cccccc><shadow:1:1><font:DomCasualD:24><just:center>Level" SPC (%start + 1) SPC "/" SPC getWordCount(%levels));
+			LBSCR_PreviewInfo.forceReflow();
+			LBSCR_PreviewInfo2.forceReflow();
+			LBSCR_PreviewInfoHighlight.resize(getWord(LBSCR_PreviewInfo.getPosition(), 0), getWord(LBSCR_PreviewInfo.getPosition(), 1), getWord(LBSCR_PreviewInfo.getExtent(), 0), getWord(LBSCR_PreviewInfo.getExtent(), 1));
+			LBSCR_PreviewInfo2Highlight.resize(getWord(LBSCR_PreviewInfo2.getPosition(), 0), getWord(LBSCR_PreviewInfo2.getPosition(), 1), getWord(LBSCR_PreviewInfo2.getExtent(), 0), getWord(LBSCR_PreviewInfo2.getExtent(), 1));
+
+			LBSCR_SelectedPreviewBitmap0.setBitmap(%bitmap);
+			LBSCR_SelectedPreviewBitmap1.setBitmap(%bitmap2);
+		}
+
+		//HiGuy: Always resize this guy, he's the master position for all the slideshows
+		LBSCDC_SelectedPreviewBitmap0.resize(0, 0, getWord(LBSCDC_SelectedPreview.getExtent(), 0), getWord(LBSCDC_SelectedPreview.getExtent(), 1));
+		LBSCDC_SelectedPreviewBitmap1.resize(getWord(LBSCDC_SelectedPreview.getExtent(), 0), 0, getWord(LBSCDC_SelectedPreview.getExtent(), 0), getWord(LBSCDC_SelectedPreview.getExtent(), 1));
+
+		//HiGuy: Only resize these if necessary
+		if (LBSuperChallengeDlg.tab $= "waiting" || LBSuperChallengeDlg.tab $= "waiting2" || LBSuperChallengeDlg.tab $= "accept") {
+			LBSCDA_SelectedPreviewBitmap0.resize(0, 0, getWord(LBSCDC_SelectedPreview.getExtent(), 0), getWord(LBSCDC_SelectedPreview.getExtent(), 1));
+			LBSCDA_SelectedPreviewBitmap1.resize(getWord(LBSCDC_SelectedPreview.getExtent(), 0), 0, getWord(LBSCDC_SelectedPreview.getExtent(), 0), getWord(LBSCDC_SelectedPreview.getExtent(), 1));
+		}
+
+		if (LBSCRestoreDlg.isAwake()) {
+			LBSCR_SelectedPreviewBitmap0.resize(0, 0, getWord(LBSCDC_SelectedPreview.getExtent(), 0), getWord(LBSCDC_SelectedPreview.getExtent(), 1));
+			LBSCR_SelectedPreviewBitmap1.resize(getWord(LBSCDC_SelectedPreview.getExtent(), 0), 0, getWord(LBSCDC_SelectedPreview.getExtent(), 0), getWord(LBSCDC_SelectedPreview.getExtent(), 1));
+		}
+	}
+
+	if (%px != 0) {
+		//HiGuy: Go to the next px
+		LBSCDC_SelectedPreviewBitmap0.resize(0 - %px, 0, getWord(LBSCDC_SelectedPreview.getExtent(), 0), getWord(LBSCDC_SelectedPreview.getExtent(), 1));
+		LBSCDC_SelectedPreviewBitmap1.resize(getWord(LBSCDC_SelectedPreview.getExtent(), 0) - %px, 0, getWord(LBSCDC_SelectedPreview.getExtent(), 0), getWord(LBSCDC_SelectedPreview.getExtent(), 1));
+
+		if (LBSuperChallengeDlg.tab $= "waiting" || LBSuperChallengeDlg.tab $= "waiting2" || LBSuperChallengeDlg.tab $= "accept") {
+			LBSCDA_SelectedPreviewBitmap0.resize(0 - %px, 0, getWord(LBSCDC_SelectedPreview.getExtent(), 0), getWord(LBSCDC_SelectedPreview.getExtent(), 1));
+			LBSCDA_SelectedPreviewBitmap1.resize(getWord(LBSCDC_SelectedPreview.getExtent(), 0) - %px, 0, getWord(LBSCDC_SelectedPreview.getExtent(), 0), getWord(LBSCDC_SelectedPreview.getExtent(), 1));
+		}
+
+		if (LBSCRestoreDlg.isAwake()) {
+			LBSCR_SelectedPreviewBitmap0.resize(0 - %px, 0, getWord(LBSCDC_SelectedPreview.getExtent(), 0), getWord(LBSCDC_SelectedPreview.getExtent(), 1));
+			LBSCR_SelectedPreviewBitmap1.resize(getWord(LBSCDC_SelectedPreview.getExtent(), 0) - %px, 0, getWord(LBSCDC_SelectedPreview.getExtent(), 0), getWord(LBSCDC_SelectedPreview.getExtent(), 1));
+		}
+		%interval = getRealTime() - $LB::SuperChallengeSlideshowLastUpdate;
+		//HiGuy: Interval is pretty fast, update it at a nice speed
+		$LB::SuperChallengeSlideshowLastUpdate = getRealTime();
+		$LB::SuperChallengeSlideshowSchedule = schedule(30, 0, "LBSCD_slideshow", (%px >= getWord(LBSCDC_SelectedPreview.getExtent(), 0) ? %start + 1 : %start), (%px >= getWord(LBSCDC_SelectedPreview.getExtent(), 0) ? 0 : (%px == 1 ? 2 : min(getWord(LBSCDC_SelectedPreview.getExtent(), 0), %px + 5))));
+	} else if ($LBPref::SuperChallengeSlideshow && %px == 0) {
+		%interval = getRealTime() - $LB::SuperChallengeSlideshowLastUpdate;
+		//HiGuy: Wait 500 ms between images
+		$LB::SuperChallengeSlideshowLastUpdate = getRealTime();
+		$LB::SuperChallengeSlideshowSchedule = schedule(500, 0, "LBSCD_slideshow", %start, 1);
+	} else {
+		%interval = getRealTime() - $LB::SuperChallengeSlideshowLastUpdate;
+		//HiGuy: Wait 500 ms between images
+		$LB::SuperChallengeSlideshowLastUpdate = getRealTime();
+		$LB::SuperChallengeSlideshowSchedule = schedule(500, 0, "LBSCD_slideshow", %start, 0);
+	}
+}
+
+//HiGuy: Resetting (in the case of closing the GUI)
+function LBSCD_resetSlideshow() {
+	//HiGuy: Moves everything back into position:
+	// Bitmap0 goes to {(0, 0), (w, h)}
+	// Bitmap1 goes to {(-w, 0), (w, h)}
+	// Reset bitmaps to default image
+	// Reset text to placeholders
+	// Resize highlights
+	cancel($LB::SuperChallengeSlideshowSchedule);
+	LBSCDC_SelectedPreviewBitmap0.setBitmap($usermods @ "/data/missions_mbp/beginner/BattleCube");
+	LBSCDC_SelectedPreviewBitmap1.setBitmap($usermods @ "/data/missions_mbp/beginner/BattleCube");
+	LBSCDC_SelectedPreviewBitmap0.resize(0, 0, getWord(LBSCDC_SelectedPreview.getExtent(), 0), getWord(LBSCDC_SelectedPreview.getExtent(), 1));
+	LBSCDC_SelectedPreviewBitmap1.resize(getWord(LBSCDC_SelectedPreview.getExtent(), 0), 0, getWord(LBSCDC_SelectedPreview.getExtent(), 0), getWord(LBSCDC_SelectedPreview.getExtent(), 1));
+	if (LBSuperChallengeDlg.tab $= "challenge") {
+		LBSCDC_PreviewInfo.setValue("<color:000000><shadowcolor:cccccc><shadow:1:1><font:DomCasualD:24><just:center>Nothing Selected");
+		LBSCDC_PreviewInfo2.setValue("<color:000000><shadowcolor:cccccc><shadow:1:1><font:DomCasualD:24><just:center>Select a Race");
+		LBSCDC_PreviewInfo.forceReflow();
+		LBSCDC_PreviewInfo2.forceReflow();
+		LBSCDC_PreviewInfoHighlight.resize(getWord(LBSCDC_PreviewInfo.getPosition(), 0), getWord(LBSCDC_PreviewInfo.getPosition(), 1), getWord(LBSCDC_PreviewInfo.getExtent(), 0), getWord(LBSCDC_PreviewInfo.getExtent(), 1));
+		LBSCDC_PreviewInfo2Highlight.resize(getWord(LBSCDC_PreviewInfo2.getPosition(), 0), getWord(LBSCDC_PreviewInfo2.getPosition(), 1), getWord(LBSCDC_PreviewInfo2.getExtent(), 0), getWord(LBSCDC_PreviewInfo2.getExtent(), 1));
+	}
+
+	//HiGuy: Cmd+C Cmd+V <select> Cmd+F LBSCDC_ Cmd+R LBSCDA_
+	LBSCDA_SelectedPreviewBitmap0.setBitmap($usermods @ "/data/missions_mbp/beginner/BattleCube");
+	LBSCDA_SelectedPreviewBitmap1.setBitmap($usermods @ "/data/missions_mbp/beginner/BattleCube");
+	LBSCDA_SelectedPreviewBitmap0.resize(0, 0, getWord(LBSCDC_SelectedPreview.getExtent(), 0), getWord(LBSCDC_SelectedPreview.getExtent(), 1));
+	LBSCDA_SelectedPreviewBitmap1.resize(getWord(LBSCDC_SelectedPreview.getExtent(), 0), 0, getWord(LBSCDC_SelectedPreview.getExtent(), 0), getWord(LBSCDC_SelectedPreview.getExtent(), 1));
+	if (LBSuperChallengeDlg.tab $= "waiting" || LBSuperChallengeDlg.tab $= "waiting2" || LBSuperChallengeDlg.tab $= "accept") {
+		LBSCDA_PreviewInfo.setValue("<color:000000><shadowcolor:cccccc><shadow:1:1><font:DomCasualD:24><just:center>Nothing Selected");
+		LBSCDA_PreviewInfo2.setValue("<color:000000><shadowcolor:cccccc><shadow:1:1><font:DomCasualD:24><just:center>Select a Race");
+		LBSCDA_PreviewInfo.forceReflow();
+		LBSCDA_PreviewInfo2.forceReflow();
+		LBSCDA_PreviewInfoHighlight.resize(getWord(LBSCDA_PreviewInfo.getPosition(), 0), getWord(LBSCDA_PreviewInfo.getPosition(), 1), getWord(LBSCDA_PreviewInfo.getExtent(), 0), getWord(LBSCDA_PreviewInfo.getExtent(), 1));
+		LBSCDA_PreviewInfo2Highlight.resize(getWord(LBSCDA_PreviewInfo2.getPosition(), 0), getWord(LBSCDA_PreviewInfo2.getPosition(), 1), getWord(LBSCDA_PreviewInfo2.getExtent(), 0), getWord(LBSCDA_PreviewInfo2.getExtent(), 1));
+	}
+
+	//HiGuy: Cmd+C Cmd+V <select> Cmd+F LBSCDC_ Cmd+R LBSCR_
+	LBSCR_SelectedPreviewBitmap0.setBitmap($usermods @ "/data/missions_mbp/beginner/BattleCube");
+	LBSCR_SelectedPreviewBitmap1.setBitmap($usermods @ "/data/missions_mbp/beginner/BattleCube");
+	LBSCR_SelectedPreviewBitmap0.resize(0, 0, getWord(LBSCDC_SelectedPreview.getExtent(), 0), getWord(LBSCDC_SelectedPreview.getExtent(), 1));
+	LBSCR_SelectedPreviewBitmap1.resize(getWord(LBSCDC_SelectedPreview.getExtent(), 0), 0, getWord(LBSCDC_SelectedPreview.getExtent(), 0), getWord(LBSCDC_SelectedPreview.getExtent(), 1));
+	if (LBSCRestoreDlg.isAwake()) {
+		LBSCR_PreviewInfo.setValue("<color:000000><shadowcolor:cccccc><shadow:1:1><font:DomCasualD:24><just:center>Nothing Selected");
+		LBSCR_PreviewInfo2.setValue("<color:000000><shadowcolor:cccccc><shadow:1:1><font:DomCasualD:24><just:center>Select a Race");
+		LBSCR_PreviewInfo.forceReflow();
+		LBSCR_PreviewInfo2.forceReflow();
+		LBSCR_PreviewInfoHighlight.resize(getWord(LBSCR_PreviewInfo.getPosition(), 0), getWord(LBSCR_PreviewInfo.getPosition(), 1), getWord(LBSCR_PreviewInfo.getExtent(), 0), getWord(LBSCR_PreviewInfo.getExtent(), 1));
+		LBSCR_PreviewInfo2Highlight.resize(getWord(LBSCR_PreviewInfo2.getPosition(), 0), getWord(LBSCR_PreviewInfo2.getPosition(), 1), getWord(LBSCR_PreviewInfo2.getExtent(), 0), getWord(LBSCR_PreviewInfo2.getExtent(), 1));
+	}
+}
+
+function LBSCD_PushAccept(%user0, %user1, %user2, %user3, %pack, %options, %max, %ready0, %ready1, %ready2, %ready3) {
+	//HiGuy: Somehow I don't clear this
+	LBSuperChallengeDlg.revert();
+
+	//HiGuy: We'll need these variables for later
+	%pack = LBSuperChallengeDlg.formatName(%pack);
+
+	//HiGuy: WHEE VARIABLES
+	LBSuperChallengeDlg.challenger = false;
+	LBSuperChallengeDlg.pack = %pack;
+	LBSuperChallengeDlg.missions = LBSuperChallengeDlg.challenges["object", %pack].missions;
+	LBSuperChallengeDlg.options = %options;
+	LBSuperChallengeDlg.max = %max;
+	LBSuperChallengeDlg.user0 = %user0;
+	LBSuperChallengeDlg.user1 = %user1;
+	LBSuperChallengeDlg.user2 = %user2;
+	LBSuperChallengeDlg.user3 = %user3;
+	LBSuperChallengeDlg.user0Accepted = %ready0;
+	LBSuperChallengeDlg.user1Accepted = %ready1;
+	LBSuperChallengeDlg.user2Accepted = %ready2;
+	LBSuperChallengeDlg.user3Accepted = %ready3;
+	LBSuperChallengeDlg.setTab("accept");
+	LBSCD_startSlideshow();
+
+	//HiGuy: And push it
+	Canvas.pushDialog(LBSuperChallengeDlg);
+}
+
+function LBSCD_Forfeit() {
+	//HiGuy: Boring TCPObjects
+	if (!isObject(LBSuperForfeitNetwork))
+		new TCPObject(LBSuperForfeitNetwork);
+	%server = $LB::server;
+	%page = $LB::serverPath @ "superchallengeforfeit.php";
+	%query = LBDefaultQuery();
+	LBSuperForfeitNetwork.post(%server,%page,%query);
+}
+
+function LBSuperForfeitNetwork::onLine(%this, %line) {
+	Parent::onLine(%this, %line);
+	%this.parseSigs(%line);
+}
+
+function LBSCD_PushWaiting2() {
+	LBSCD_PushWaiting();
+	//HiGuy: Tell them to go!
+
+	//HiGuy: Have I mentioned the dumb TCPObjects yet?
+	if (!isObject(LBSuperLoaderNetwork))
+		new TCPObject(LBSuperLoaderNetwork);
+	%server = $LB::server;
+	%page = $LB::serverPath @ "superchallengeload.php";
+	%query = LBDefaultQuery();
+	LBSuperLoaderNetwork.post(%server,%page,%query);
+
+	LBSetMode(5);
+}
+
+function LBSuperLoaderNetwork::onLine(%this, %line) {
+	Parent::onLine(%this, %line);
+	%this.parseSigs(%line);
+}
+
+function LBSCD_SendWaiting() {
+	//HiGuy: More dumb TCPObjects
+	if (!isObject(LBSuperPlayerNetwork))
+		new TCPObject(LBSuperPlayerNetwork);
+	%server = $LB::server;
+	%page = $LB::serverPath @ "superchallengeplay.php";
+	%query = LBDefaultQuery();
+	LBSuperPlayerNetwork.post(%server,%page,%query);
+}
+
+function LBSuperPlayerNetwork::onLine(%this, %line) {
+	Parent::onLine(%this, %line);
+	%this.parseSigs(%line);
+}
+
+function LBSCD_SendUpdateScore() {
+	//HiGuy: Yet another dumb TCPObject
+	if (!isObject(LBSuperScoreSenderNetwork))
+		new TCPObject(LBSuperScoreSenderNetwork);
+
+	%server = $LB::Server;
+	%page = $LB::ServerPath @ "superchallengeprogress.php";
+	%ptotal = max(PlayGui.allTime, 1);
+	%div = mRound((PlayGui.totalTime / %ptotal) * 1000) / 10;
+	%query = LBDefaultQuery() @ "&time=" @ LBSCD_GetTotalTime() @ "&progress=" @ LBSCD_GetProgress() @ "&percent=" @ %div;
+
+	LBSuperScoreSenderNetwork.post(%server, %page, %query);
+
+	$LB::SuperChallengeOpponentScore[$LB::Username, $LB::SuperChallengeLevel] = PlayGui.elapsedTime;
+}
+
+function LBSuperScoreSenderNetwork::onLine(%this, %line) {
+	Parent::onLine(%this, %line);
+	%this.parseSigs(%line);
+}
+
+function LBSCD_GetProgress() {
+	return $LB::SuperChallengeLevel;
+}
+
+function LBSCD_GetTotalTime() {
+	return $LB::SuperChallengeTotalTime;
+}
+
+//HiGuy: These are just gui methods from chat cmd calls
+function LBSCD_PushWaiting() {
+	//HiGuy: Dunno why this would appear during loading
+	if ($Game::Loading)
+		return schedule(500, 0, "LBSCD_PushWaiting");
+	Canvas.pushDialog(LBSuperChallengeDlg);
+	LBSuperChallengeDlg.setTab("waiting");
+	LBSuperChallengeDlg.waiting = true;
+	LBSCD_startSlideshow();
+	LBSetMode(5);
+}
+
+function LBSCD_UpdateHighscore() {
+	//HiGuy: Get your current stats
+	%time = LBSCD_GetTotalTime();
+	%prog = LBSCD_GetProgress();
+
+	//HiGuy: Get your percentage
+	%div  = mRound((PlayGui.totalTime / max(PlayGui.allTime, 1)) * 1000) / 10;
+
+	//HiGuy: Total progress
+	%total = LBSCD_GetMissionList().rowCount();
+	if (%prog < %total)
+		%time = -1;
+
+	//HiGuy: What's your best?
+	%bestTime = getField($LBPref::SuperChallengeBest[LBSuperChallengeDlg.pack, $LB::SuperChallengePractice], 0);
+	%bestProg = getField($LBPref::SuperChallengeBest[LBSuperChallengeDlg.pack, $LB::SuperChallengePractice], 1);
+	%bestDiv  = getField($LBPref::SuperChallengeBest[LBSuperChallengeDlg.pack, $LB::SuperChallengePractice], 2);
+
+	//HiGuy: Defaults
+	if (%bestTime $= "")
+		%bestTime = %time;
+	if (%bestProg $= "")
+		%bestProg = %prog;
+	if (%bestDiv  $= "")
+		%bestDiv  = %div;
+
+	//HiGuy: If you have a better score, make sure to let it be known
+	if (%time < %bestTime && %time != -1)
+		%bestTime = %time;
+	if (%prog > %bestProg)
+		%bestProg = %prog;
+	if (%div  > %bestDiv)
+		%bestDiv  = %div;
+
+	//HiGuy: Set the prefs
+	$LBPref::SuperChallengeBest[LBSuperChallengeDlg.pack, $LB::SuperChallengePractice] = %bestTime TAB %bestProg TAB %bestDiv;
+	exportPrefs(true);
+}
+
+//Finished, you won
+function LBSCD_PushFinish() {
+	LBSCD_DeliverScores($LB::SuperChallengeId, true);
+	if ($Server::Hosting && $Server::ServerType $= "SinglePlayer")
+		disconnect();
+	LBSuperChallengeDlg.winner = $LB::Username;
+	$LB::SuperChallengeDeliverStatus[$LB::SuperChallengeId] = "finish_win";
+	LBSCD_KillMovement();
+	LBSCD_UpdateHighscore();
+
+	LBSuperChallengeDlg.revert();
+}
+
+//Finished, you lost
+function LBSCD_PushFinish2(%winner) {
+	if ($Game::Loading)
+		return schedule(500, 0, "LBSCD_PushFinish2");
+	LBSCD_DeliverScores($LB::SuperChallengeId, false);
+	if ($Server::Hosting && $Server::ServerType $= "SinglePlayer")
+		disconnect();
+	LBSuperChallengeDlg.winner = %winner;
+	$LB::SuperChallengeDeliverStatus[$LB::SuperChallengeId] = "finish_lose";
+	LBSCD_KillMovement();
+	LBSCD_UpdateHighscore();
+
+	LBSuperChallengeDlg.revert();
+}
+
+//Finish, they forfeited
+function LBSCD_PushFinish3() {
+	if ($Game::Loading)
+		return schedule(500, 0, "LBSCD_PushFinish3");
+	LBSCD_DeliverScores($LB::SuperChallengeId, true);
+	if ($Server::Hosting && $Server::ServerType $= "SinglePlayer")
+		disconnect();
+	LBSuperChallengeDlg.winner = "";
+	$LB::SuperChallengeDeliverStatus[$LB::SuperChallengeId] = "finish_opforfeit";
+	LBSCD_KillMovement();
+	LBSCD_UpdateHighscore();
+
+	LBSuperChallengeDlg.revert();
+}
+
+//Finish, you forfeited
+function LBSCD_PushFinish4() {
+	LBSCD_DeliverScores($LB::SuperChallengeId, false);
+	if ($Server::Hosting && $Server::ServerType $= "SinglePlayer")
+		disconnect();
+	LBSuperChallengeDlg.winner = "";
+	$LB::SuperChallengeDeliverStatus[$LB::SuperChallengeId] = "finish_forfeit";
+	LBSCD_KillMovement();
+	LBSCD_UpdateHighscore();
+
+	LBSuperChallengeDlg.revert();
+}
+
+//Finish, you cancelled (Practice only)
+function LBSCD_PushFinish5() {
+	LBSCD_DeliverScores($LB::SuperChallengeId, false);
+	if ($Server::Hosting && $Server::ServerType $= "SinglePlayer")
+		disconnect();
+	LBSuperChallengeDlg.winner = "";
+	$LB::SuperChallengeDeliverStatus[$LB::SuperChallengeId] = "finish_cancel";
+	LBSCD_KillMovement();
+	LBSCD_UpdateHighscore();
+
+	LBSuperChallengeDlg.revert();
+}
+
+//Finished, you won (Practice only)
+function LBSCD_PushFinish6() {
+	LBSCD_DeliverScores($LB::SuperChallengeId, true);
+	if ($Server::Hosting && $Server::ServerType $= "SinglePlayer")
+		disconnect();
+	LBSuperChallengeDlg.winner = "";
+	$LB::SuperChallengeDeliverStatus[$LB::SuperChallengeId] = "finish_complete";
+	LBSCD_KillMovement();
+	LBSCD_UpdateHighscore();
+
+	LBSuperChallengeDlg.revert();
+}
+
+//Finished, waiting for others
+function LBSCD_PushFinish7() {
+	if ($Server::Hosting && $Server::ServerType $= "SinglePlayer")
+		disconnect();
+	LBSuperChallengeDlg.winner = "";
+	$LB::SuperChallengeDeliverStatus[$LB::SuperChallengeId] = "finish_waiting";
+	LBSCD_KillMovement();
+	LBSCD_UpdateHighscore();
+	LBSuperChallengeDlg.revert();
+}
+
+//HiGuy: If your opponent cancels the challenge *before* it starts
+function LBSCDC_Cancelled() {
+	//HiGuy: Don't do it while loading!
+	if ($Game::Loading)
+		return schedule(500, 0, "LBSCDC_Cancelled");
+	//HiGuy: If this happens while you're waiting, then just close the dialog
+	if (LBSuperChallengeDlg.tab $= "waiting" || LBSuperChallengeDlg.tab $= "accept") {
+		LBSuperChallengeDlg.tab = "";
+		Canvas.popDialog(LBSuperChallengeDlg);
+		MessageBoxOk("Cancelled!", "The Super Challenge has been cancelled!", "LBSuperChallengeDlg.revert();", true);
+		return;
+	}
+	if (LBSuperChallengeDlg.tab $= "waiting2") {
+		MessageBoxOk("Declined!", "Your Super Challenge request has been denied!", "", true);
+		LBSuperChallengeDlg.setTab("challenge");
+	}
+}
+
+function LBSCD_Error() {
+	//HiGuy: Errors can't occur during loading! That would be impossible to click
+	if ($Game::Loading)
+		return schedule(500, 0, "LBSCD_Error");
+
+	//HiGuy: Easy way to not lose points spotted ...
+	MessageBoxOk("Error!", "Your opponent has had a client error, and is unable to play. No points will be lost/gained.", "disconnect();", true);
+	LBSCD_KillMovement();
+}
+
+function LBSCD_SendError() {
+	//HiGuy: Dumb, dull TCPObject
+	if (!isObject(LBSuperErrorNetwork))
+		new TCPObject(LBSuperErrorNetwork);
+	%server = $LB::server;
+	%page = $LB::serverPath @ "superchallengeerror.php";
+	%query = LBDefaultQuery();
+	LBSuperErrorNetwork.post(%server,%page,%query);
+}
+
+function LBSuperChallengeDlg::onWake(%this) {
+	%this.init();
+	//schedule(1000, 0, LBSCDF_Format);
+
+	// Jeff: if we are a guest, we can't have achievements.
+	// THIS IS WHY WE CAN'T HAVE NICE THINGS.
+	LBSCDC_Achievements.setActive(!$LB::Guest);
+}
+
+function LBSuperChallengeDlg::onSleep(%this) {
+	cancel($LB::SuperChallengeSlideshowSchedule);
+}
+
+function LBSuperChallengeDlg::open(%this) {
+	Canvas.pushDialog(%this);
+	//HiGuy: Here you've made the fatal mistake of opening super challenges
+	//LBSCDF_Title.setText("<color:000000><font:DomCasualD:28><just:center>" @
+	//"Please Wait...");
+
+	//HiGuy: If must
+	%this.setTab("challenge");
+	%this.refreshPlayerList();
+	LBSCD_TogglePreview($LBPref::SuperChallengeSlideshow);
+	Canvas.repaint();
+}
+
+function LBSCDC_Challenge() {
+	if (getRecord(LBSCDC_PlayerList.getSelection(), 0) $= "Practice Mode") {
+		//Go Practice
+		LBSCD_StartChallenge(true);
+		return;
+	}
+	%players = LBSCDC_PlayerList.getSelection();
+	%player1 = getRecord(%players, 0);
+	%player2 = getRecord(%players, 1);
+	%player3 = getRecord(%players, 2);
+	//HiGuy: Bah! Apparently, you *can* send these through php
+	%player1 = stripChars(%player1, "\c0\c1\c2\c3\c4\c5\c6\c7\c8\c9\co\cp");
+	%player2 = stripChars(%player2, "\c0\c1\c2\c3\c4\c5\c6\c7\c8\c9\co\cp");
+	%player3 = stripChars(%player3, "\c0\c1\c2\c3\c4\c5\c6\c7\c8\c9\co\cp");
+
+	//HiGuy: This TCPObject is kinda cool, though
+	if (!isObject(LBSuperStarterNetwork))
+		new TCPObject(LBSuperStarterNetwork);
+	%server = $LB::server;
+	%pack = LBSuperChallengeDlg.pack;
+	%max = getWordCount(%players) + 1;
+	LBSuperChallengeDlg.max = %max;
+	%options = LBSuperChallengeDlg.getOptions();
+	%expires = 600; //Ten mins
+	%page = $LB::serverPath @ "superchallengestart.php";
+	%query = LBDefaultQuery() @ "&pack=" @ %pack @ "&max=" @ %max @ "&options=" @ %options @ "&player1=" @ %player1 @ "&player2=" @ %player2 @ "&player3=" @ %player3 @ "&expires=" @ %expires;
+	LBSuperStarterNetwork.post(%server,%page,%query);
+
+	LBSuperChallengeDlg.options = %options;
+	LBSuperChallengeDlg.challenger = true;
+
+	//HiGuy: Set variables and things
+	LBSuperChallengeDlg.user0 = $LB::username;
+	LBSuperChallengeDlg.user1 = %player1;
+	LBSuperChallengeDlg.user2 = %player2;
+	LBSuperChallengeDlg.user3 = %player3;
+	LBSuperChallengeDlg.setTab("waiting2");
+
+	//HiGuy: Dunno why I wasn't setting this before
+	LBSetMode(5);
+}
+
+function LBSuperStarterNetwork::onLine(%this, %line) {
+	Parent::onLine(%this, %line);
+	%this.parseSigs(%line);
+}
+
+function LBSCDC_Cancel() {
+	Canvas.popDialog(LBSuperChallengeDlg);
+	LBSuperChallengeDlg.revert();
+}
+
+function LBSCDA_Decline() {
+	//HiGuy: Boring TCPObjects
+	if (!isObject(LBSuperCancelNetwork))
+		new TCPObject(LBSuperCancelNetwork);
+	%server = $LB::server;
+	%page = $LB::serverPath @ "superchallengecancel.php";
+	%query = LBDefaultQuery();
+	LBSuperCancelNetwork.post(%server,%page,%query);
+}
+
+function LBSCDA_Cancel() {
+	//HiGuy: Another dull TCPObject
+	if (!isObject(LBSuperCancelNetwork))
+		new TCPObject(LBSuperCancelNetwork);
+	%server = $LB::server;
+	%page = $LB::serverPath @ "superchallengecancel.php";
+	%query = LBDefaultQuery();
+	LBSuperCancelNetwork.post(%server,%page,%query);
+
+	Canvas.popDialog(LBSuperChallengeDlg);
+	LBSuperChallengeDlg.revert();
+}
+
+//HiGuy: This function only exists so I can figure out what the crap I'm
+// actually calling
+function LBSCDA_Play() {
+	LBSCD_PushWaiting2();
+}
+
+//function LBSCDF_Accept() {
+//	if ($LB::SuperChallengeFinishWaiting) {
+//		//Tell them that they'll get scores later
+//		schedule(0, 0, MessageBoxOk, "Finish Pending", "Final standings and scores will appear in chat when your opponent finishes the Super Challenge.", "", true);
+
+//		//And set them up for it
+//		$LB::SuperChallengeDeliverScores[$LB::SuperChallengeId] = true;
+//		$LB::SuperChallengeDeliverPack[$LB:SuperChallengeId] = LBSuperChallengeDlg.pack;
+
+//		//Swap over highscores
+//		for (%i = 0; %i < LBSCD_GetMissionList(); %i ++) {
+//			$LB::SuperChallengeOpponentScoreId[$LB::SuperChallengeId, 0, %i] = $LB::SuperChallengeOpponentScore[0, %i];
+//			$LB::SuperChallengeOpponentScoreId[$LB::SuperChallengeId, 1, %i] = $LB::SuperChallengeOpponentScore[1, %i];
+//			$LB::SuperChallengeOpponentScoreId[$LB::SuperChallengeId, 2, %i] = $LB::SuperChallengeOpponentScore[2, %i];
+//			$LB::SuperChallengeOpponentScoreId[$LB::SuperChallengeId, 3, %i] = $LB::SuperChallengeOpponentScore[3, %i];
+//		}
+//		$LB::SuperChallengeOpponentProgressId[$LB::SuperChallengeId, 0] = $LB::SuperChallengeOpponentProgress[0];
+//		$LB::SuperChallengeOpponentProgressId[$LB::SuperChallengeId, 1] = $LB::SuperChallengeOpponentProgress[1];
+//		$LB::SuperChallengeOpponentProgressId[$LB::SuperChallengeId, 2] = $LB::SuperChallengeOpponentProgress[2];
+//		$LB::SuperChallengeOpponentProgressId[$LB::SuperChallengeId, 3] = $LB::SuperChallengeOpponentProgress[3];
+
+//		//Derp out the mission lists
+//		$LBSCD_SimGroup[$LB::SuperChallengeId] = LBSCD_SimGroup.getId();
+//		LBSCD_SimGroup.setName("");
+//	}
+
+//	//And kill the game
+//	resumeGame();
+//	disconnect();
+//	LBSuperChallengeDlg.revert();
+//}
+
+function LBSCDA_Accept() {
+	//HiGuy: Set the options to the options... to make sure the variables update
+	LBSuperChallengeDlg.setOptions(LBSuperChallengeDlg.options);
+
+	//HiGuy: Just a boring TCPObject
+	if (!isObject(LBSuperReadyNetwork))
+		new TCPObject(LBSuperReadyNetwork);
+	%server = $LB::server;
+	%page = $LB::serverPath @ "superchallengeready.php";
+	%query = LBDefaultQuery();
+	LBSuperReadyNetwork.post(%server,%page,%query);
+
+	//HiGuy: Let 'em know we're waiting
+	LBSCD_PushWaiting();
+}
+
+function LBSCD_Winner() {
+	LBSCD_SendUpdateScore(); //HiGuy: Wasn't sending completed scores
+	LBSCD_UpdateProgress(); //HiGuy: Make sure they see an update
+
+	//HiGuy: TCPObjects are annoying
+	if (!isObject(LBSuperWinnerNetwork))
+		new TCPObject(LBSuperWinnerNetwork);
+	%server = $LB::server;
+	%page = $LB::serverPath @ "superchallengewinner.php";
+	%query = LBDefaultQuery();
+	LBSuperWinnerNetwork.post(%server,%page,%query);
+
+	//HiGuy: We should say we're finished
+	LBSuperChallengeDlg.finished = true;
+
+	addLBChatLine("<spush><color:0000ff>SERVER: Your Super Challenge scores will be displayed in the chat once your opponent" @ (LBSuperChallengeDlg.max > 2 ? "s" : "") @ " finish" @ (LBSuperChallengeDlg.max == 2 ? "es" : "") @ ".<spop>");
+}
+
+function LBSuperReadyNetwork::onLine(%this, %line) {
+	//HiGuy: I am TCPObject *drools and falls over*
+	Parent::onLine(%this, %line);
+	%this.parseSigs(%line);
+}
+
+function LBSuperWinnerNetwork::onLine(%this, %line) {
+	//HiGuy: Hurr durr dumb TCPObject
+	Parent::onLine(%this, %line);
+	%this.parseSigs(%line);
+}
+
+function LBSCD_KillMovement() {
+	//HiGuy: Basic kill movement function, I just use setMode(Victory) because
+	// it's quick and painless
+	cancel($Game::StateSchedule);
+	cancel($Game::RespawnSchedule);
+
+	//HiGuy: No errors!
+	if (isObject(LocalClientConnection) && isObject(LocalClientConnection.player))
+		LocalClientConnection.player.setMode(Victory);
+
+	//HiGuy: Stop the timer and everything
+	PlayGui.stopTimer();
+	$LB::Kill = true;
+}
+
+function LBSCD_userNum(%user) {
+	//HiGuy: Which user is %user?
+	if (%user $= "") return "";
+	if (LBSuperChallengeDlg.user0 $= %user) return 0;
+	if (LBSuperChallengeDlg.user1 $= %user) return 1;
+	if (LBSuperChallengeDlg.user2 $= %user) return 2;
+	if (LBSuperChallengeDlg.user3 $= %user) return 3;
+	return -1;
+}
+
+function LBSCD_createSimgroup() {
+	//HiGuy: Create the SimGroup (which is actually a GuiTextListCtrl, go figure)
+
+	//HiGuy: Delete the old one
+	while (isObject(LBSCD_SimGroup))
+		LBSCD_SimGroup.delete();
+
+	//HiGuy: Create a new one
+	new GuiTextListCtrl(LBSCD_SimGroup) {};
+
+	//HiGuy: Add all the missions
+	%missions = LBSuperChallengeDlg.missions;
+
+	for (%i = 0; %i < getWordCount(%missions); %i ++) {
+		%mission = LBGetMissionFile(getWord(%missions, %i));
+		//HiGuy: Get mission object, second var makes it stick
+		%mobj = getMissionInfo(%mission, true);
+		LBSCD_SimGroup.addRow(%i, %mobj);
+	}
+}
+
+//HiGuy: Gets the current LB_MissionList for the super challenge
+function LBSCD_GetMissionList(%id) {
+	//HiGuy: This function used to do more than just this... No just kidding. It
+	// used to do even less.
+	if (%id $= "")
+		return LBSCD_SimGroup;
+	else //HiGuy: If you specify id, give you the correct simgroup
+		return $LBSCD_SimGroup[%id];
+}
+
+function LBSCD_StartChallenge(%practice) {
+	//HiGuy: Quick booleanization of practice
+	$LB::SuperChallengePractice = !!%practice;
+
+	//HiGuy: If we can restore, let them know
+	if (%practice && $LBPref::SuperChallengeSave[LBSuperChallengeDlg.pack] !$= "") {
+		LBSCD_BeginRestore();
+		return;
+	}
+
+	//HiGuy: 3 seconds is a reasonable time for "waiting"
+	LBMessage("Starting Challenge...", "LBCancelChallenge();");
+	$LB::ChallengeSch = schedule(3000, 0, "LBSCD_StartChallenge2");
+}
+
+function LBCancelChallenge() {
+	//HiGuy: Cancel the challenge, go back to playmission
+	cancel($LB::ChallengeSch);
+	Canvas.setContent(LBChatGui);
+	Canvas.pushDialog(LBPlayMissionDlg);
+	LBSuperChallengeDlg.open();
+}
+
+//HiGuy: Start her up!
+function LBSCD_StartChallenge2() {
+	//HiGuy: This wasn't being created...
+	LBSCD_createSimgroup();
+
+	//HiGuy: Get the first mission and start it
+	%firstMission = getField(LBSCD_GetMissionList().getRowTextById(0), 0);
+
+	//HiGuy: Reset a ton of things
+	PlayGui.resetAllTime();
+	LBPlayMissionDlg.multiplayer = 0;
+	LBStartMission(%firstMission, 5, true);
+
+	//HiGuy: Reset some more variables
+	deleteVariables("$LB::SuperChallengeOpponentScore*");
+	deleteVariables("$LB::SuperChallengeProgress*");
+	deleteVariables("$LB::SuperChallengeTime*");
+	$LB::SuperChallengeTotalTime = 0;
+
+	//HiGuy: Reset this twice, YEAH
+	PlayGui.resetAllTime();
+
+	//HiGuy: Reset more things!
+	$LB::Kill = false;
+	$LB::SuperChallengeMode = true;
+	$LB::SuperChallengeLevel = 0;
+	$LB::SuperTotalTime = 0;
+}
+
+function LBSCD_dealWith(%line) {
+	//HiGuy: *sigh*
+
+	%command = getWord(%line, 1);
+	//SUPERCHALLENGE <command> <args>
+	devecho("Super Challenge instruction:" SPC %command SPC "line is" NL %line);
+
+	//HiGuy: Big switch statement for dealing with things
+	switch$ (%command) {
+	case "START":
+	//SUPERCHALLENGE START id pack options playerCount user0 user1 user2 user3 ready0 ready1 ready2 ready3
+
+		//HiGuy: STOP CHALLENGING ME, KENNY
+		if ($LB::StatusNumeric < 0 || $LB::StatusNumeric > 1 || $Server::ServerType !$= "") {
+			%id = getWord(%line, 2);
+			%oldid = $LB::SuperChallengeId;
+			if (%id != %oldid) {
+				$LB::SuperChallengeId = %id;
+				LBSCDA_Decline();
+				$LB::SuperChallengeId = %oldid;
+				return;
+			}
+		}
+
+		if (LBSuperChallengeDlg.waiting) return;
+		%id =        getWord(%line, 2);
+		%pack =      getWord(%line, 3);
+		%options =   getWord(%line, 4);
+		%max =       getWord(%line, 5);
+		%user0 =     getWord(%line, 6);
+		%user1 =     getWord(%line, 7);
+		%user2 =     getWord(%line, 8);
+		%user3 =     getWord(%line, 9);
+		%ready0 =    getWord(%line, 10);
+		%ready1 =    getWord(%line, 11);
+		%ready2 =    getWord(%line, 12);
+		%ready3 =    getWord(%line, 13);
+
+		//HiGuy: If we're already waiting, we can use this as an opportunity to
+		// update the display
+		if ($LB::SuperStarted[%id]) {
+			LBSCDA_update();
+			return;
+		}
+
+		//HiGuy: If we haven't started yet, then tell the peoples
+		$LB::SuperChallengeId = %id;
+		$LB::SuperStarted[%id] = true;
+		LBSCD_PushAccept(%user0, %user1, %user2, %user3, %pack, %options, %max, %ready0, %ready1, %ready2, %ready3);
+	case "READY":
+	//SUPERCHALLENGE READY ready0 ready1 ready2 ready3 readyCount totalPlayers
+		%ready0 =    getWord(%line, 2);
+		%ready1 =    getWord(%line, 3);
+		%ready2 =    getWord(%line, 4);
+		%ready3 =    getWord(%line, 5);
+		%ready =     getWord(%line, 6);
+		%total =     getWord(%line, 7);
+		LBSuperChallengeDlg.user0Accepted = %ready0;
+		LBSuperChallengeDlg.user1Accepted = %ready1;
+		LBSuperChallengeDlg.user2Accepted = %ready2;
+		LBSuperChallengeDlg.user3Accepted = %ready3;
+
+		//HiGuy: Update some more!
+		LBSCDA_update();
+
+		//HiGuy: If we're the host and we can go, let us know
+		if (LBSuperChallengeDlg.challenger && !LBSuperChallengeDlg.waiting)
+			LBSuperChallengeDlg.setTab("waiting2");
+		else if (LBSuperChallengeDlg.waiting) //HiGuy: Not host, or are waiting
+			LBSuperChallengeDlg.setTab("waiting");
+	case "ALLREADY":
+	//SUPERCHALLENGE ALLREADY
+		LBSuperChallengeDlg.allReady = true;
+		LBSCDA_update();
+
+		//HiGuy: Update the display, basically
+		if (LBSuperChallengeDlg.challenger && !LBSuperChallengeDlg.waiting)
+			LBSuperChallengeDlg.setTab("waiting2");
+		else if (LBSuperChallengeDlg.waiting)
+			LBSuperChallengeDlg.setTab("waiting");
+	case "DROPPED":
+	//SUPERCHALLENGE DROPPED usernum user
+		%usernum =   getWord(%line, 2);
+		%user =      getWord(%line, 3);
+
+		//HiGuy: Update only, not really a problem
+		LBSCDA_update();
+	case "CANCEL":
+	//SUPERCHALLENGE CANCEL id
+		%id =        getWord(%line, 2);
+
+		//HiGuy: Cancel it for us
+		if (!$LB::SuperCanceled[%id])
+			LBSCDC_Cancelled();
+
+		//HiGuy: And set these too
+		$LB::SuperCanceled[%id] = true;
+		$LB::SuperChallengeWaiting = false;
+		$LB::SuperChallengeId = "";
+	case "LOADING":
+	//SUPERCHALLENGE LOADING id pack options playerCount user0 user1 user2 user3
+		%id =        getWord(%line, 2);
+		%pack =      getWord(%line, 3);
+		%options =   getWord(%line, 4);
+		%max =       getWord(%line, 5);
+		%user0 =     getWord(%line, 6);
+		%user1 =     getWord(%line, 7);
+		%user2 =     getWord(%line, 8);
+		%user3 =     getWord(%line, 9);
+
+		//HiGuy: If we haven't loaded yet, then start up the challenge!
+		if (!$LB::SuperLoaded[%id])
+			LBSCD_StartChallenge(false);
+
+		//HiGuy: Basic variables
+		$LB::SuperChallengeWaiting = true;
+		$LB::SuperLoaded[%id] = true;
+		$LB::SuperChallengeId = %id;
+
+		//HiGuy: These get finalized when you start the challenge
+		LBSuperChallengeDlg.max = %max;
+		LBSuperChallengeDlg.user0 = %user0;
+		LBSuperChallengeDlg.user1 = %user1;
+		LBSuperChallengeDlg.user2 = %user2;
+		LBSuperChallengeDlg.user3 = %user3;
+	case "PLAYING":
+	//SUPERCHALLENGE PLAYING id pack options playerCount startTime user0 user1 user2 user3 timeouttime
+		%id =        getWord(%line, 2);
+		%pack =      getWord(%line, 3);
+		%options =   getWord(%line, 4);
+		%max =       getWord(%line, 5);
+		%start =     getWord(%line, 6);
+		%user0 =     getWord(%line, 7);
+		%user1 =     getWord(%line, 8);
+		%user2 =     getWord(%line, 9);
+		%user3 =     getWord(%line, 10);
+		%timeout =   getWord(%line, 11);
+
+		//HiGuy: Start the game here (release players and watch the chaos)
+		if (!$LB::SuperPlayed[%id])
+			LBschedule(%start, 0, onWaitingEnd);
+			//devecho("Should have started the game here");
+
+		//HiGuy: Totally playing
+		$LB::SuperPlayed[%id] = true;
+		$LB::SuperChallengeWaiting = false;
+		$LB::SuperChallengeTimeout = %timeout;
+		$LB::SuperChallengeId = %id;
+	case "SCORES":
+	//SUPERCHALLENGE SCORES id user0 user1 user2 user3 user0time user1time user2time user3time user0progress user1progress user2progress user3progress user0percent user1percent user2percent user3percent
+		%id =        getWord(%line, 2);
+		%user0 =     getWord(%line, 3);
+		%user1 =     getWord(%line, 4);
+		%user2 =     getWord(%line, 5);
+		%user3 =     getWord(%line, 6);
+		%time0 =     getWord(%line, 7);
+		%time1 =     getWord(%line, 8);
+		%time2 =     getWord(%line, 9);
+		%time3 =     getWord(%line, 10);
+		%progress0 = getWord(%line, 11);
+		%progress1 = getWord(%line, 12);
+		%progress2 = getWord(%line, 13);
+		%progress3 = getWord(%line, 14);
+		%percent0 =  getWord(%line, 15);
+		%percent1 =  getWord(%line, 16);
+		%percent2 =  getWord(%line, 17);
+		%percent3 =  getWord(%line, 18);
+
+		//HiGuy: If we've already left the challenge window, then we need to send
+		// these to the delivery system for later dumping
+		if ($LB::SuperChallengeDeliverScores[%id]) {
+			$LB::SuperChallengeProgressId[%id, 0] = %user0 TAB %time0 TAB %progress0 TAB %percent0;
+			$LB::SuperChallengeProgressId[%id, 1] = %user1 TAB %time1 TAB %progress1 TAB %percent1;
+			$LB::SuperChallengeProgressId[%id, 2] = %user2 TAB %time2 TAB %progress2 TAB %percent2;
+			$LB::SuperChallengeProgressId[%id, 3] = %user3 TAB %time3 TAB %progress3 TAB %percent3;
+		} else {
+			$LB::SuperChallengeProgress[0] = %user0 TAB %time0 TAB %progress0 TAB %percent0;
+			$LB::SuperChallengeProgress[1] = %user1 TAB %time1 TAB %progress1 TAB %percent1;
+			$LB::SuperChallengeProgress[2] = %user2 TAB %time2 TAB %progress2 TAB %percent2;
+			$LB::SuperChallengeProgress[3] = %user3 TAB %time3 TAB %progress3 TAB %percent3;
+			$LB::SuperChallengeId = %id;
+			LBSCD_UpdateProgress();
+		}
+	case "LEVELSCORE":
+	//SUPERCHALLENGE LEVELSCORE id usernum levelName levelnum time
+		%id =        getWord(%line, 2);
+		%user =      getWord(%line, 3);
+		%level =     getWord(%line, 4);
+		%levelnum =  getWord(%line, 5);
+		%time =      getWord(%line, 6);
+
+		//HiGuy: Delivery for you!
+		if ($LB::SuperChallengeDeliverScores[%id]) {
+			$LB::SuperChallengeOpponentScoreId[%id, %user, %levelnum] = %time;
+		} else {
+			$LB::SuperChallengeOpponentScore[%user, %levelnum] = %time;
+
+			//HiGuy: If we've finished, update it so the people can watch the
+			// scores roll in.
+			//if ($LB::SuperFinished[%id])
+			//	LBSCDF_Format();
+			if (LBSuperChallengeDlg.finished) {
+				if ($LB::SuperWaiting[%id]) {
+					//LBSCDF_Format();
+					return;
+				}
+				$LB::SuperWaiting[%id] = true;
+				LBSCD_PushFinish7(); //Waiting
+			}
+		}
+	case "FINISH":
+	//SUPERCHALLENGE FINISH id user0 user1 user2 user3 winner myStatus totalPoints
+		%id =        getWord(%line, 2);
+		%user0 =     getWord(%line, 3);
+		%user1 =     getWord(%line, 4);
+		%user2 =     getWord(%line, 5);
+		%user3 =     getWord(%line, 6);
+		%winner =    getWord(%line, 7);
+		%status =    getWord(%line, 8);
+		%points =    getWord(%line, 9);
+
+		//HiGuy: Only finish once
+		if ($LB::SuperFinished[%id])
+			return;
+
+		//HiGuy: Points!
+		$LB::SuperChallengePoints = %points;
+
+		//HiGuy: If we need to deliver, then send it on over to the chat
+		if ($LB::SuperChallengeDeliverScores[%id]) {
+			//Tell them the results
+			LBSCD_DeliverScores(%id, %status $= "WINNER");
+			$LB::SuperFinished[%id] = true;
+		} else {
+			//HiGuy: VARS WHERe
+			if ($LB::SuperChallengeProgress[0] $= "")
+				return;
+
+			$LB::SuperFinished[%id] = true;
+			if (%status $= "WINNER")
+				LBSCD_PushFinish(); //Challenge won
+			else if (%status $= "LOSER")
+				LBSCD_PushFinish2(%winner); //Challenge lost
+
+			$LB::SuperChallengeId = "";
+		}
+	case "MURDERIZE":
+	//SUPERCHALLENGE MURDERIZE id
+		%id = getWord(%line, 2);
+		//HiGuy: Honestly, this is just here for notifying if a superchallenge timed out,
+		// No actual murderizing involved.
+	}
+}
+
+function LBSCD_UpdateProgress() {
+	//HiGuy: DUN DUN DUN THE SCARY UPDATE FUNCTION
+
+	//HiGuy: Moron
+	if (!$LB::SuperChallengeMode)
+		return;
+
+	//HiGuy: Basic font layouts and title
+	%text = "<just:center><font:DomCasualD:24>";
+	if ($LB::SuperChallengePractice)
+		%text = %text @ "Previous Best Times";
+	else
+		%text = %text @ "Player Progress";
+
+	//HiGuy: Gotta get them margins
+	%text = %text @ "<just:left><lmargin:2><rmargin:186>";
+
+	if ($LB::SuperChallengePractice) {
+		%count = LBSCD_GetMissionList().rowCount();
+		%max = 5;
+		%start = 0;
+
+		//HiGuy: Show a max of 5 levels on screen at one time, cycle if necessary
+		if (%count > %max) {
+			%start = $LB::SuperChallengeLevel - mFloor(%max / 2);
+			%start = max(%start, 0);
+			%start = min(%start, %count - %max);
+			%count = %max;
+		}
+
+		//HiGuy: Only the levels we want should be displayed
+		for (%i = %start; %i < %count + %start; %i ++) {
+			%time = $LB::SuperChallengeTime[%i];
+
+			//HiGuy: Confusing list thing strikes again
+			if (!isObject($LB::SuperChallengeTimeMission[%i]))
+				$LB::SuperChallengeTimeMission[%i] = LBSCD_GetMissionList().getRowTextById(%i);
+
+			//HiGuy: Level data and potential times
+			%missionObj = $LB::SuperChallengeTimeMission[%i];
+			%name = %missionObj.name;
+
+			//HiGuy: COLORS YAY
+			%col = LBSCD_scoreColor(%missionObj, %time);
+
+			//HiGuy: MURDERING TABS YAY
+			%time = (%time > 0 ? %col @ stripChars(formatTimeHoursMs(%time), "\t") : "00:00.00");
+
+			//HiGuy: Add text
+			%text = %text NL "<spush><font:Arial Bold:14><just:left>" @ %name SPC "<just:right>" @ %time @ "<spop>";
+		}
+
+		//HiGuy: Total platinum / ultimate times
+		%totalPlat = 0;
+		%totalUlt = 0;
+		for (%i = 0; %i < $LB::SuperChallengeLevel; %i ++) {
+			if (!isObject($LB::SuperChallengeTimeMission[%i]))
+				$LB::SuperChallengeTimeMission[%i] = LBSCD_GetMissionList().getRowTextById(%i);
+			%missionObj = $LB::SuperChallengeTimeMission[%i];
+			%totalPlat += %missionObj.goldTime;
+			%totalUlt += (%missionObj.ultimateTime ? %missionObj.ultimateTime : %missionObj.goldTime);
+		}
+
+		//HiGuy: Percentages from the object
+		%percentPlat = LBSuperChallengeDlg.challenges["object", LBSuperChallengeDlg.pack].platinumPercent;
+		%percentUlt = LBSuperChallengeDlg.challenges["object", LBSuperChallengeDlg.pack].ultimatePercent;
+
+		//HiGuy: Calculate percent
+		%total = $LB::SuperChallengeTotalTime;
+		%ptotal = max(PlayGui.allTime, 1);
+		%div = mRound((PlayGui.totalTime / %ptotal) * 1000) / 10;
+		if (%ptotal == 0) //HiGuy: No division by 0!
+			%div = 100;
+
+		//HiGuy: Get colors
+		%col = LBSCD_totalScoreColor2(%total, %totalPlat, %totalUlt);
+		%pcol = LBSCD_percentColor2(%div, %percentPlat, %percentUlt);
+
+		//HiGuy: Tabs blah blah screw them, you know what I mean by now
+		%total = (%total ? %col @ stripChars(formatTimeHoursMs(%total), "\t") : "00:00.00");
+		%ptotal = (%ptotal ? stripChars(formatTimeHoursMs(%ptotal), "\t") : "00:00.00");
+
+		//HiGuy: And display it out
+		%text = %text NL "\n<spush><just:left><font:DomCasualD:24>Total Time:<just:right>" @ %total @ "<spop>";
+		%text = %text @ "<font:Arial Bold:14>\n<just:left>Play Time:<just:right><spush>" @ %pcol @ %ptotal @ "/" @ %div @ "%<spop>";
+	} else {
+		//HiGuy: Everyone's favorite mess of variables
+		%_user[0] = getField($LB::SuperChallengeProgress[0], 0);
+		%_user[1] = getField($LB::SuperChallengeProgress[1], 0);
+		%_user[2] = getField($LB::SuperChallengeProgress[2], 0);
+		%_user[3] = getField($LB::SuperChallengeProgress[3], 0);
+		%_time[0] = getField($LB::SuperChallengeProgress[0], 1);
+		%_time[1] = getField($LB::SuperChallengeProgress[1], 1);
+		%_time[2] = getField($LB::SuperChallengeProgress[2], 1);
+		%_time[3] = getField($LB::SuperChallengeProgress[3], 1);
+		%_progress[0] = getField($LB::SuperChallengeProgress[0], 2);
+		%_progress[1] = getField($LB::SuperChallengeProgress[1], 2);
+		%_progress[2] = getField($LB::SuperChallengeProgress[2], 2);
+		%_progress[3] = getField($LB::SuperChallengeProgress[3], 2);
+		%_percent[0] = getField($LB::SuperChallengeProgress[0], 3);
+		%_percent[1] = getField($LB::SuperChallengeProgress[1], 3);
+		%_percent[2] = getField($LB::SuperChallengeProgress[2], 3);
+		%_percent[3] = getField($LB::SuperChallengeProgress[3], 3);
+
+		//HiGuy: Initial states that will always be overridden
+		%winner = -1;
+		%second = -1;
+		%third = -1;
+		%fourth = -1;
+		%highest = -1;
+		%secondhigh = -1;
+		%thirdhigh = -1;
+		%fourthhigh = -1;
+		%high1time = 999999999;
+		%high2time = 999999999;
+		%high3time = 999999999;
+		%high4time = 999999999;
+
+		//HiGuy: Get first place
+		//HiGuy: Basic logic is as follows: They are first if their progress is
+		// greater than all the other people's progress, or if there is a tie for
+		// winner, then whoever has the lowest time gets first. So:
+		// winner = (progress > best) or (progress = best AND time < best)
+		if ( %_progress[0] > %highest || (%_progress[0] == %highest && %_time[0] < %high1time)) {%highest = %_progress[0]; %high1time = %_time[0]; %winner = 0;}
+		if ( %_progress[1] > %highest || (%_progress[1] == %highest && %_time[1] < %high1time)) {%highest = %_progress[1]; %high1time = %_time[1]; %winner = 1;}
+		if ((%_progress[2] > %highest || (%_progress[2] == %highest && %_time[2] < %high1time)) && %_progress[2] !$= "") {%highest = %_progress[2]; %high1time = %_time[2]; %winner = 2;}
+		if ((%_progress[3] > %highest || (%_progress[3] == %highest && %_time[3] < %high1time)) && %_progress[3] !$= "") {%highest = %_progress[3]; %high1time = %_time[3]; %winner = 3;}
+
+		//HiGuy: Get second place
+		//HiGuy: Second place is like first place, just with a check for if you
+		// already have first.
+		if (%winner != 0 && (%_progress[0] > %secondhigh || (%_progress[0] == %secondhigh && %_time[0] < %high2time))) {%secondhigh = %_progress[0]; %high2time = %_time[0]; %second = 0;}
+		if (%winner != 1 && (%_progress[1] > %secondhigh || (%_progress[1] == %secondhigh && %_time[1] < %high2time))) {%secondhigh = %_progress[1]; %high2time = %_time[1]; %second = 1;}
+		if (%winner != 2 && (%_progress[2] > %secondhigh || (%_progress[2] == %secondhigh && %_time[2] < %high2time)) && %_progress[2] !$= "") {%secondhigh = %_progress[2]; %high2time = %_time[2]; %second = 2;}
+		if (%winner != 3 && (%_progress[3] > %secondhigh || (%_progress[3] == %secondhigh && %_time[3] < %high2time)) && %_progress[3] !$= "") {%secondhigh = %_progress[3]; %high2time = %_time[3]; %second = 3;}
+
+		//HiGuy: Get third place
+		//HiGuy: Third is like second, but only if you aren't first/second
+		if (%winner != 0 && %second != 0 && (%_progress[0] > %thirdhigh || (%_progress[0] == %thirdhigh && %_time[0] < %high3time))) {%thirdhigh = %_progress[0]; %high3time = %_time[0]; %third = 0;}
+		if (%winner != 1 && %second != 1 && (%_progress[1] > %thirdhigh || (%_progress[1] == %thirdhigh && %_time[1] < %high3time))) {%thirdhigh = %_progress[1]; %high3time = %_time[1]; %third = 1;}
+		if (%winner != 2 && %second != 2 && (%_progress[2] > %thirdhigh || (%_progress[2] == %thirdhigh && %_time[2] < %high3time)) && %_progress[2] !$= "") {%thirdhigh = %_progress[2]; %high3time = %_time[2]; %third = 2;}
+		if (%winner != 3 && %second != 3 && (%_progress[3] > %thirdhigh || (%_progress[3] == %thirdhigh && %_time[3] < %high3time)) && %_progress[3] !$= "") {%thirdhigh = %_progress[3]; %high3time = %_time[3]; %third = 3;}
+
+		//HiGuy: Get fourth place
+		//HiGuy: Fourth is essentially whoever's left. No point in score checking
+		// for the loser
+		if (%winner != 0 && %second != 0 && %third != 0) {%fourthhigh = %_progress[0]; %high4time = %_time[0]; %fourth = 0;}
+		if (%winner != 1 && %second != 1 && %third != 1) {%fourthhigh = %_progress[1]; %high4time = %_time[1]; %fourth = 1;}
+		if (%winner != 2 && %second != 2 && %third != 2 && %_progress[2] !$= "") {%fourthhigh = %_progress[2]; %high4time = %_time[2]; %fourth = 2;}
+		if (%winner != 3 && %second != 3 && %third != 3 && %_progress[3] !$= "") {%fourthhigh = %_progress[3]; %high4time = %_time[3]; %fourth = 3;}
+
+		//HiGuy: Sort them into usable variables, 0-3 where 0 is the winner and
+		// 3 is the loser. Format times as well.
+		%name0        = %_user[%winner];
+		%score0       = %_time[%winner];
+		%complete0    = %_progress[%winner];
+		%percent0     = %_percent[%winner];
+		%score0       = (%score0 ? stripChars(formatTimeHoursMs(%score0), "\t") : "00:00.00");
+
+		%name1        = %_user[%second];
+		%score1       = %_time[%second];
+		%complete1    = %_progress[%second];
+		%percent1     = %_percent[%second];
+		%score1       = (%score1 ? stripChars(formatTimeHoursMs(%score1), "\t") : "00:00.00");
+
+		if (%third != -1) {
+			%name2     = %_user[%third];
+			%score2    = %_time[%third];
+			%complete2 = %_progress[%third];
+			%percent2  = %_percent[%third];
+			%score2    = (%score2 ? stripChars(formatTimeHoursMs(%score2), "\t") : "00:00.00");
+		}
+		if (%fourth != -1) {
+			%name3     = %_user[%fourth];
+			%score3    = %_time[%fourth];
+			%complete3 = %_progress[%fourth];
+			%percent3  = %_percent[%fourth];
+			%score3    = (%score3 ? stripChars(formatTimeHoursMs(%score3), "\t") : "00:00.00");
+		}
+
+		//HiGuy: Display the formatted text
+		%text = %text @ "<spush>";
+		if (%complete0 == -1) {
+			%text = %text NL "<just:left><font:DomCasualD:24>" @ LBResolveName(%name0, true) @ ":<just:right>Forfeited<spop>";
+		} else {
+			//HiGuy: Color the current player yellow
+			if (%name0 $= $LB::Username)
+				%text = %text @ "<color:FFDD22><shadow:1:1><shadowcolor:0000007f>";
+
+			//HiGuy: Have they completed it yet?
+			%completion = (%complete0 == LBSCD_GetMissionList().rowCount() ? "Finished" : %complete0 + 1 @ " / " @ LBSCD_GetMissionList().rowCount());
+
+			//HiGuy: The rest of the text
+			%text = %text NL "<just:left><font:DomCasualD:24>" @ LBResolveName(%name0, true) @ ":<just:right>" @ %completion NL "<font:Arial Bold:14>" @ %score0 @ ($LBPref::SuperChallengeOptionPercents ? "/" @ %percent0 @ "%" : "");
+			%text = %text @ "<spop>";
+			%text = %text @ "<spush>";
+		}
+
+		//HiGuy: Player 2
+		if (%name1 $= $LB::Username)
+			%text = %text @ "<color:FFDD22><shadow:1:1><shadowcolor:0000007f>";
+		if (%complete1 == -1) {
+			%text = %text NL "<just:left><font:DomCasualD:24>" @ LBResolveName(%name1, true) @ ":<just:right>Forfeited<spop><spush>";
+		} else {
+			%completion = (%complete1 == LBSCD_GetMissionList().rowCount() ? "Finished" : %complete1 + 1 @ " / " @ LBSCD_GetMissionList().rowCount());
+			%text = %text NL "<just:left><font:DomCasualD:24>" @ LBResolveName(%name1, true) @ ":<just:right>" @ %completion NL "<font:Arial Bold:14>" @ %score1 @ ($LBPref::SuperChallengeOptionPercents ? "/" @ %percent1 @ "%" : "");
+			%text = %text @ "<spop>";
+			%text = %text @ "<spush>";
+		}
+
+		//HiGuy: Player 3
+		if (%complete2 == -1) {
+			%text = %text NL "<just:left><font:DomCasualD:24>" @ LBResolveName(%name2, true) @ ":<just:right>Forfeited<spop><spush>";
+		} else {
+			if (%name2 $= $LB::Username)
+				%text = %text @ "<color:FFDD22><shadow:1:1><shadowcolor:0000007f>";
+			%completion = (%complete2 == LBSCD_GetMissionList().rowCount() ? "Finished" : %complete2 + 1 @ " / " @ LBSCD_GetMissionList().rowCount());
+			if (%name2 !$= "")
+				%text = %text NL "<just:left><font:DomCasualD:24>" @ LBResolveName(%name2, true) @ ":<just:right>" @ %completion NL "<font:Arial Bold:14>" @ %score2 @ ($LBPref::SuperChallengeOptionPercents ? "/" @ %percent2 @ "%" : "");
+			%text = %text @ "<spop>";
+			%text = %text @ "<spush>";
+		}
+
+		//HiGuy: Player 4
+		if (%complete3 == -1) {
+			%text = %text NL "<just:left><font:DomCasualD:24>" @ LBResolveName(%name3, true) @ ":<just:right>Forfeited<spop>";
+		} else {
+			if (%name3 $= $LB::Username)
+				%text = %text @ "<color:FFDD22><shadow:1:1><shadowcolor:0000007f>";
+			%completion = (%complete3 == LBSCD_GetMissionList().rowCount() ? "Finished" : %complete3 + 1 @ " / " @ LBSCD_GetMissionList().rowCount());
+			if (%name3 !$= "")
+				%text = %text NL "<just:left><font:DomCasualD:24>" @ LBResolveName(%name3, true) @ ":<just:right>" @ %completion NL "<font:Arial Bold:14>" @ %score3 @ ($LBPref::SuperChallengeOptionPercents ? "/" @ %percent3 @ "%" : "");
+			%text = %text @ "<spop>";
+		}
+	}
+
+	PG_LBChatScoreText.setText(%text);
+}
+
+function LBSCS_Clear() {
+	//HiGuy: Super easy clear method
+	$LBPref::SuperChallengeSave[LBSuperChallengeDlg.pack] = "";
+}
+
+//HiGuy: Restoring is pretty much the opposite of saving
+function LBSCS_Restore(%pack) {
+	//HiGuy: Get the saved data
+	%saveData = $LBPref::SuperChallengeSave[%pack];
+	if (%saveData $= "") {
+		error("Could not find saved data for pack" SPC %pack);
+		return false;
+	}
+
+	//HiGuy: We've encrypted it, so let's decrypt it
+	%saveData = strDec(%saveData, 2);
+
+	//HiGuy: Rudimentary checking if it's valid
+	if (strPos(%saveData, ";") == -1 || getSubStr(%saveData, 0, 1) !$= ";") {
+		error("Corrupt save data for pack" SPC %pack);
+		return false;
+	}
+
+	LBSuperChallengeDlg.revert();
+	//HiGuy: Reset some variables
+	deleteVariables("$LB::SuperChallengeOpponentScore*");
+	deleteVariables("$LB::SuperChallengeProgress*");
+	deleteVariables("$LB::SuperChallengeTime*");
+
+	//HiGuy: Parse all the data
+
+	//Pack
+	%offset = strPos(%saveData, ";") + 1;
+	%next = strPos(%saveData, ";", %offset);
+	%pack = getSubStr(%saveData, %offset, %next - %offset);
+	//RowCount
+	%offset = %next + 1;
+	%next = strPos(%saveData, ";", %offset);
+	%count = getSubStr(%saveData, %offset, %next - %offset);
+	//Level
+	%offset = %next + 1;
+	%next = strPos(%saveData, ";", %offset);
+	%level = getSubStr(%saveData, %offset, %next - %offset);
+	//All Time
+	%offset = %next + 1;
+	%next = strPos(%saveData, ";", %offset);
+	%alltime = getSubStr(%saveData, %offset, %next - %offset);
+	//Total Time
+	%offset = %next + 1;
+	%next = strPos(%saveData, ";", %offset);
+	%totaltime = getSubStr(%saveData, %offset, %next - %offset);
+	//$TotalTime
+	%offset = %next + 1;
+	%next = strPos(%saveData, ";", %offset);
+	%total = getSubStr(%saveData, %offset, %next - %offset);
+	//$TotalTime (2?)
+	%offset = %next + 1;
+	%next = strPos(%saveData, ";", %offset);
+	%supertotal = getSubStr(%saveData, %offset, %next - %offset);
+	for (%i = 0; %i < LBSCD_GetMissionList().rowCount(); %i ++) {
+		//Next level time
+		%offset = %next + 1;
+		%next = strPos(%saveData, ";", %offset);
+		if (%next == -1)
+			%next = strlen(%saveData);
+		%time = getSubStr(%saveData, %offset, %next - %offset);
+		$LB::SuperChallengeTime[%i] = %time;
+	}
+
+	//HiGuy: These variables are needed for challenges to work
+	LBSuperChallengeDlg.pack = %pack;
+	LBSuperChallengeDlg.missions = LBSuperChallengeDlg.challenges["object", %pack].missions;
+
+	//HiGuy: Create the challenge levels group
+	LBSCD_createSimgroup();
+
+	//HiGuy: Various numerical values
+	$LB::SuperChallengeLevel = %level;
+	$LB::SuperChallengeTotalTime = %total;
+	$LB::SuperTotalTime = %supertotal;
+	$LB::SuperChallengePractice = true;
+
+	//HiGuy: Set the all/total times
+	%next = getField(LBSCD_GetMissionList().getRowTextById(%level), 0);
+	PlayGui.resetAllTime();
+	PlayGui.allTime = %alltime;
+	PlayGui.totalTime = %totaltime;
+
+	//HiGuy: Final step which starts the challenge
+	LBPlayMissionDlg.multiplayer = 0;
+	LBStartMission(%next);
+	$LB::Kill = false;
+	$LB::SuperChallengeMode = true;
+}
+
+function LBSCS_Save() {
+	//HiGuy: Input all data into a semicolon-separated list
+	%saveData = "";
+	%saveData = %saveData @ ";" @ LBSuperChallengeDlg.pack;
+	%saveData = %saveData @ ";" @ LBSCD_GetMissionList().rowCount();
+	%saveData = %saveData @ ";" @ $LB::SuperChallengeLevel;
+	%saveData = %saveData @ ";" @ $LB::SuperAllTime;
+	%saveData = %saveData @ ";" @ PlayGui.totalTime;
+	%saveData = %saveData @ ";" @ $LB::SuperChallengeTotalTime;
+	%saveData = %saveData @ ";" @ $LB::SuperTotalTime;
+	//HiGuy: Level times
+	for (%i = 0; %i < LBSCD_GetMissionList().rowCount(); %i ++) {
+		%saveData = %saveData @ ";" @ $LB::SuperChallengeTime[%i];
+	}
+	//HiGuy: Encrypt and save it!
+	%saveData = strEnc(%saveData, 2);
+	$LBPref::SuperChallengeSave[LBSuperChallengeDlg.pack] = %saveData;
+	savePrefs(true);
+}
+
+//HiGuy: Start the restoration process!
+function LBSCD_BeginRestore() {
+	Canvas.popDialog(LBSuperChallengeDlg);
+	LBSuperChallengeDlg.tab = "";
+	Canvas.pushDialog(LBSCRestoreDlg);
+	LBSCD_startSlideshow();
+	LBSCR_Format();
+}
+
+//HiGuy: When you restore, it pops and goes to restore
+function LBSCR_Restore() {
+	cancel($LB::SuperChallengeSlideshowSchedule);
+	Canvas.popDialog(LBSCRestoreDlg);
+	LBMessage("Starting Super Challenge...", "LBCancelChallenge();");
+	LBSCS_Restore(LBSuperChallengeDlg.pack);
+}
+
+//HiGuy: When you discard, it doesn't necessarily delete the old saved data, only if you save over it
+function LBSCR_Discard() {
+	cancel($LB::SuperChallengeSlideshowSchedule);
+	Canvas.popDialog(LBSCRestoreDlg);
+	LBMessage("Starting Super Challenge...", "LBCancelChallenge();");
+	LBSCD_StartChallenge2(); //Start practice mode
+}
+
+//HiGuy: Cancel is just cancel
+function LBSCR_Cancel() {
+	Canvas.popDialog(LBSCRestoreDlg);
+	LBSuperChallengeDlg.open();
+}
+
+//HiGuy: Yay!
+function LBSCR_Format() {
+	//HiGuy: The last scary format function
+
+	//HiGuy: Get the pack object
+	%packobject = LBSuperChallengeDlg.challenges["object", LBSuperChallengeDlg.pack];
+
+	//HiGuy: Title
+	%text = "<just:center><font:Expo:28>" @ %packobject.display @ "<spush>";
+
+	//HiGuy: Total times
+	if (%packobject.platinumTotal != %packobject.ultimateTotal) {
+		%text = %text NL "<font:DomCasualD:24><just:left><color:CCCCCC><shadow:1:1><shadowcolor:0000007f>Platinum Total Time:<just:right>"
+			@ formatTimeHoursMs(%packobject.platinumTotal);
+		%text = %text NL "<font:DomCasualD:24><just:left><color:FFCC22><shadow:1:1><shadowcolor:0000007f>Ultimate Total Time:<just:right>"
+			@ formatTimeHoursMs(%packobject.ultimateTotal);
+	} else { //HiGuy: MBG levels only, say it's a "gold total time"
+		%text = %text NL "<font:DomCasualD:24><just:left><color:FFFF00><shadow:1:1><shadowcolor:0000007f>Gold Total Time:<just:right>"
+			@ formatTimeHoursMs(%packobject.platinumTotal);
+	}
+
+	%text = %text @ "<spop>";
+
+//   devecho("Best:" SPC $LBPref::SuperChallengeBest[LBSuperChallengeDlg.pack]);
+
+	//HiGuy: If you're restoring a challenge, this must be practice mode
+	%practice = true;
+
+	//Various best times
+	%bestTime = getField($LBPref::SuperChallengeBest[LBSuperChallengeDlg.pack, %practice], 0);
+	%bestProg = getField($LBPref::SuperChallengeBest[LBSuperChallengeDlg.pack, %practice], 1);
+	%bestDiv  = getField($LBPref::SuperChallengeBest[LBSuperChallengeDlg.pack, %practice], 2);
+
+	//HiGuy: Default values
+	if (%bestTime $= "") %bestTime = -1;
+	if (%bestProg $= "") %bestProg = 0;
+	if (%bestDiv  $= "") %bestDiv  = 0;
+
+	//HiGuy: Glorious colors
+	%timeCol = LBSCD_totalScoreColor(%bestTime, %packobject);
+	%divCol  = LBSCD_percentColor(%bestDiv);
+
+	//HiGuy: Tell the completed progress if we've gotten anywhere, or the best
+	// score if we've beaten it
+	if (%bestTime == -1 || %bestTime $= "")
+		%text = %text NL "<font:DomCasualD:24><just:left><color:000000>Completed Progress:<just:right>" @
+			%bestProg SPC "/" SPC getWordCount(%packobject.missions);
+	else //HiGuy: That tab... just no
+		%text = %text NL "<font:DomCasualD:24><just:left><color:000000>Best Score:<just:right><spush>" @ %timeCol @
+			stripChars(formatTimeHoursMs(%bestTime), "\t") SPC "<spop>/<spush>" SPC %divCol @ %bestDiv @ "%<spop>";
+
+	LBSCR_Info.setValue(%text);
+
+	//HiGuy: Read the saved challenge data from prefs
+	%saveData = $LBPref::SuperChallengeSave[LBSuperChallengeDlg.pack];
+	if (%saveData $= "") {
+		error("Could not find saved data for pack" SPC %pack);
+		return false;
+	}
+
+	//HiGuy: We've encrypted it, so let's decrypt it
+	%saveData = strDec(%saveData, 2);
+
+	//HiGuy: Rudimentary checking if it's valid
+	if (strPos(%saveData, ";") == -1 || getSubStr(%saveData, 0, 1) !$= ";") {
+		error("Corrupt save data for pack" SPC %pack);
+		return false;
+	}
+
+	%text = "";
+
+	//Pack
+	%offset = strPos(%saveData, ";") + 1;
+	%next = strPos(%saveData, ";", %offset);
+	//RowCount
+	%offset = %next + 1;
+	%next = strPos(%saveData, ";", %offset);
+	//Level
+	%offset = %next + 1;
+	%next = strPos(%saveData, ";", %offset);
+	//All Time
+	%offset = %next + 1;
+	%next = strPos(%saveData, ";", %offset);
+	//Total Time
+	%offset = %next + 1;
+	%next = strPos(%saveData, ";", %offset);
+	//$TotalTime
+	%offset = %next + 1;
+	%next = strPos(%saveData, ";", %offset);
+	//$TotalTime (2?)
+	%offset = %next + 1;
+	%next = strPos(%saveData, ";", %offset);
+
+//   LBSuperChallengeDlg.pack = %pack;
+	//HiGuy: Create us a level simgroup
+	LBSCD_CreateSimgroup();
+
+//   echo(%offset SPC %next NL %saveData);
+
+	//HiGuy: Add all the levels
+	for (%i = 0; %i < LBSCD_GetMissionList().rowCount(); %i ++) {
+		//Next level time
+		%offset = %next + 1;
+		%next = strPos(%saveData, ";", %offset);
+		if (%next == -1)
+			%next = strlen(%saveData);
+		%time = getSubStr(%saveData, %offset, %next - %offset);
+		%level = LBSCD_GetMissionList().getRowTextById(%i);
+		%name = %level.name;
+
+		//HiGuy: Add it to the screen
+		if (%text !$= "") %text = %text @ "\n";
+		%text = %text @ "<font:DomCasualD:24><just:left>" @ %name @ "<just:right>" @ formatTimeHoursMs(%time);
+	}
+
+	LBSCR_Text.setValue(%text);
+}
+
+function LBSCD_Nag(%force) {
+	//Hey, Listen!
+
+	if ($LB::SuperChallengePractice) {
+		//HiGuy: Make sure they didn't misclick
+		if (!%force) {
+			//HiGuy: If you haven't beaten the first level yet, there's nothing
+			// for us to save!
+			if ($LB::SuperChallengeLevel == 0)
+				return MessageBoxYesNo("Cancel?", "Are you sure you want to cancel this practice Super Challenge? This will not affect your challenge points.", "exitGame(true);", "");
+			else
+				Canvas.pushDialog(LBSCSaveDlg);
+		} else {
+			//HiGuy: They're quitting, punt over to "challenge cancelled"
+			LBSCD_PushFinish5(); //Challenge cancelled
+			return;
+		}
+	} else {
+		//HiGuy: Basic message box in case they misclicked
+		if (!%force)
+			return MessageBoxYesNo("Forfeit?", "Are you sure you want to exit from this Super Challenge? Doing so will forfeit the Super Challenge to your opponent. Forfeiting will affect your challenge points.", "exitGame(true);", "");
+		else {
+			//HiGuy: They're forfeiting, dunno why. You even get points for losing
+			LBSCD_Forfeit();
+			LBSCD_PushFinish4(); //Challenge forfeited
+			return;
+		}
+	}
+}
+
+function LBSCDC_Options() {
+	//HiGuy: Only show options if we're on the challenge window
+	if (LBSuperChallengeDlg.tab $= "challenge") {
+		//HiGuy: Update it to make sure everything is looking good
+		LBSCDO_Update();
+
+		//HiGuy: Titles and initial text
+		LBSCDO_Title.setText("<font:DomCasualD:24><just:center>Super Challenge Options");
+		LBSCDO_TimeoutTitle.setText("<font:DomCasualD:24><just:center>Timeout:" SPC mRound($LBPref::SuperChallengeOptionTimeout) SPC "mins");
+
+		//HiGuy: Actually show it
+		LBSCD_OptionsPanel.setVisible(1);
+
+		//HiGuy: Start the update loop
+		$LB::SuperChallengeOptionsUpdate = schedule(LBSCDO_Update, 50, 0);
+	}
+}
+
+function LBSCDO_Update() {
+	//HiGuy: Options menu update. Not called on slider slide. See below method.
+	cancel($LB::SuperChallengeOptionsUpdate);
+
+	//HiGuy: Pretend there was a slider slide
+	LBSCDO_UpdateTimeoutLabel();
+
+	//HiGuy: Reset bar in case we actually want to see it
+	LBSCDO_Timeout.setVisible(1);
+	LBSCDO_TimeoutBar.setVisible(1);
+	LBSCDO_TimeoutKnobInactive.setVisible(0);
+
+	//HiGuy: Range for the slider
+	%range = LBSuperChallengeDlg.getTimeoutRange();
+	if (getWord(%range, 1) $= "ERROR") {
+		//HiGuy: OOOOHH NOOOO
+
+		//HiGuy: Funny range is funny
+		%range = getWord(%range, 0) SPC getWord(%range, 0);
+
+		//HiGuy: Show the fake slider that you can't actually slide
+		LBSCDO_Timeout.setVisible(0);
+		LBSCDO_TimeoutBar.setBitmap($usermods @ "/client/ui/Options/minibar_i.png");
+		LBSCDO_TimeoutKnobInactive.setVisible(1);
+	} else
+		LBSCDO_TimeoutBar.setBitmap($usermods @ "/client/ui/Options/minibar.png");
+
+	//HiGuy: Set the range for slidability
+	LBSCDO_Timeout.range = %range;
+
+	//HiGuy: If we need to update the slider, set it to the minimum
+	if (LBSuperChallengeDlg.lastRange !$= %range) {
+		LBSCDO_Timeout.setValue(getWord(%range, 0));
+		$LB::SuperChallengeOptionTimeout = %range;
+	}
+	LBSuperChallengeDlg.lastRange = %range;
+
+	//HiGuy: Set these to reflect the variables
+	LBSCDO_Timeout.setValue($LBPref::SuperChallengeOptionTimeout);
+	LBSCDO_ShowProgress.setValue($LBPref::SuperChallengeOptionProgress);
+	LBSCDO_ShowPercents.setValue($LBPref::SuperChallengeOptionPercents);
+
+	//HiGuy: Update soon!
+	$LB::SuperChallengeOptionsUpdate = schedule(0, 50, LBSCDO_Update);
+}
+
+function LBSCDO_UpdateTimeoutLabel() {
+	//HiGuy: Called on slider slide. Do not update the slider value from this
+	// function or unholy demons of hell will rain hot acid down your testicles
+	LBSCDO_TimeoutTitle.setText("<font:DomCasualD:24><just:center>Timeout:" SPC mRound($LBPref::SuperChallengeOptionTimeout) SPC "mins");
+}
+
+function LBSCDO_Exit() {
+	//HiGuy: Close options window
+	cancel($LB::SuperChallengeOptionsUpdate);
+	LBSCD_OptionsPanel.setVisible(0);
+}
+
+function LBSuperChallengeDlg::getOptions(%this) {
+	//HiGuy: Formats options into a semicolon-separated list of strings, to be
+	// read by ::setOptions()
+	// timeout;show progress;show percents;
+	%options = mRound($LBPref::SuperChallengeOptionTimeout) @ ";";
+	%options = %options @ $LBPref::SuperChallengeOptionProgress @ ";";
+	%options = %options @ $LBPref::SuperChallengeOptionPercents @ ";";
+	return %options;
+}
+
+function LBSuperChallengeDlg::setOptions(%this, %options) {
+	//HiGuy: Sets options from a semicolon-separated list of strings:
+	// timeout;show progress;show percents;
+
+	//Timeout
+	%pos = strPos(%options, ";");
+	%timeout = getSubStr(%options, 0, %pos);
+	%options = getSubStr(%options, %pos + 1, strLen(%options));
+
+	//Progress
+	%pos = strPos(%options, ";");
+	%progress = getSubStr(%options, 0, %pos);
+	%options = getSubStr(%options, %pos + 1, strLen(%options));
+
+	//Percents
+	%pos = strPos(%options, ";");
+	%percents = getSubStr(%options, 0, %pos);
+	%options = getSubStr(%options, %pos + 1, strLen(%options));
+
+	//HiGuy: Set it
+	$LBPref::SuperChallengeOptionTimeout      = %timeout;
+	$LBPref::SuperChallengeOptionProgress     = %progress;
+	$LBPref::SuperChallengeOptionPercents     = %percents;
+}
+
+function LBSuperChallengeDlg::getTimeoutRange(%this) {
+	//HiGuy: Basic timeout range for a GuiSliderCtrl
+	%selected = %this.pack;
+	%min = %this.challenges["object", %selected].minTimeout;
+	%max = %this.challenges["object", %selected].maxTimeout;
+
+	//HiGuy: OHHHH NOOOOOOO WHY WOULD YOU
+	if (%min == %max)
+		%max = "ERROR";
+
+	return %min SPC %max;
+}
+
+function LBSuperChallengeDlg::onGuiEdit(%this) {
+	//HiGuy: Lazy method because this keeps bugging me
+	//HiGuy: Ignore this, it sucks cocks
+	Parent::onGuiEdit(%this);
+	while (LBSCDC_Scroll.getCount() > 1)
+		LBSCDC_Scroll.getObject(1).delete();
+	for (%i = 0; %i < %this.challenges; %i ++) {
+		%this.challenges["object", %this.challenges["name", %i]].delete();
+		%this.challenges["object", %this.challenges["name", %i]] = "";
+		%this.challenges["button", %this.challenges["name", %i]].delete();
+		%this.challenges["button", %this.challenges["name", %i]] = "";
+		%this.challenges["name", %i] = "";
+	}
+	%this.challenges = "";
+	%this.tab = "";
+	%this.pack = "";
+	%this.user0 = "";
+	%this.user1 = "";
+	%this.user2 = "";
+	%this.user3 = "";
+	%this.winner = "";
+	%this.missions = "";
+	%this.options = "";
+	%this.max = "";
+	%this.waiting = "";
+	%this.allReady = "";
+	%this.user0Accepted = "";
+	%this.user1Accepted = "";
+	%this.user2Accepted = "";
+	%this.user3Accepted = "";
+	%this.inited = "";
+	%this.lastRange = "";
+	%this.finished = "";
+
+	LB_IgnoreMe.resize(0, 0, 8, 8);
+}
+
+//-----------------------------------------------------------------------------
+// WARNING: Hacky confusion programming after this line
+// If you value your sanity, do not proceed!
+//-----------------------------------------------------------------------------
+
+//HiGuy: All right, so the goal here is to essentially turn LSBCDC_PlayerList
+// into a GuiTextListCtrl that allows for multiple selection. Don't blame me
+// if your brain becomes an edible gelatin dessert after reading this section.
+
+//HiGuy: Adds a row onto the list of rows
+function LBSCDC_PlayerList::addRow(%this, %value, %single) {
+	if (!%this.inited) return;
+	%this.list.addEntry(%single TAB %value);
+	%this.display();
+}
+
+//HiGuy: Gets the row text for a specific id
+function LBSCDC_PlayerList::getRowTextById(%this, %id) {
+	if (!%this.inited) return;
+	return %this.list.getEntry(getFields(%id, 1));
+}
+
+//HiGuy: Clears all rows and selection
+function LBSCDC_PlayerList::clear(%this) {
+	if (!%this.inited) return;
+	//HiGuy: Clear contents list
+	if (isObject(%this.list))
+		%this.list.delete();
+	%this.list = Array();
+	//HiGuy: Clear selection
+	if (isObject(%this.selection))
+		%this.selection.delete();
+	%this.selection = Array();
+	//HiGuy: Update visual
+	%this.display();
+	%this.updateSelection(-1);
+}
+
+//HiGuy: Inits the control
+function LBSCDC_PlayerList::init(%this) {
+	%this.inited = true;
+	%this.clear();
+}
+
+//HiGuy: Displays the list in all it's glory!
+function LBSCDC_PlayerList::display(%this) {
+	if (!%this.inited) return;
+	//HiGuy: Remove everything
+	for (%i = 0; %i < %this.getCount(); %i ++)
+		%this.getObject(%i).delete();
+
+	//HiGuy: Init state
+	%this.rowHeight = max(%this.rowHeight, 1);
+	%this.resize(getWord(%this.getPosition(), 0), getWord(%this.getPosition(), 1), (%this.fitParentWidth ? getWord(%this.getGroup().getExtent(), 0) : getWord(%this.getExtent(), 0)), %this.list.getSize() * %this.rowHeight);
+
+	//HiGuy: Add rows
+	for (%i = 0; %i < %this.list.getSize(); %i ++) {
+		%obj = %this.list.getEntry(%i);
+		//HiGuy: Create a button for each row, with tons of fun
+		%button = new GuiBitmapButtonTextCtrl() {
+			profile = "GuiListButtonProfile";
+			//Pos is (0, index * row height)
+			position = 0 SPC (%i * %this.rowHeight);
+			//Extent is (container width, row height)
+			extent = getWord(%this.getExtent(), 0) SPC %this.rowHeight;
+			horizSizing = "width";
+			vertSizing = "top";
+			minExtent = "1 1";
+			visible = "1";
+			//Command is essentially LBSCDC_PlayerList.updateSelection(index);
+			command = %this @ ".updateSelection(" @ %i @ ");";
+			bitmap = %this.selectedBitmap;
+			//Text is just the player name
+			text = getField(%obj, 1);
+			buttonType = "ToggleButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			wrap = "0";
+				//Save these incase we need em
+				selected = %this.selection.contains(%obj);
+				player = getField(%obj, 2);
+				single = getField(%obj, 0);
+		};
+
+		//HiGuy: Add it to everywhere it needs to go
+		%this.add(%button);
+		%this.button[%i] = %button;
+		%button.setValue(%this.selection.contains(%obj));
+	}
+}
+
+function LBSCDC_PlayerList::updateActives(%this) {
+	if (!%this.inited) return;
+	for (%i = 0; %i < %this.list.getSize(); %i ++) {
+		%button = %this.button[%i];
+		//HiGuy: Set it active if it needs to be
+		%button.setActive(%this.isActive() &&
+			(%button.selected || %this.selection.getSize() < %this.maxSelection) &&
+			(%this.single ?
+				%this.selection.contains(%button.player) :
+				(!%button.single || %this.selection.getSize() == 0)));
+		if (!%button.isActive() && %button.getValue()) {
+			//HiGuy: If it's clickable and it's on, turn it off and update
+			%button.setValue(0);
+			%this.updateSelection(%i);
+		}
+	}
+}
+
+function LBSCDC_PlayerList::updateSelection(%this, %i) {
+	if (!%this.inited) return;
+	//HiGuy: If we're clearing, do some fancy magics and tell LBSuperChallengeDlg
+	// to clear itself
+	if (%i > -1) {
+		//HiGuy: Get button
+		%button = %this.button[%i];
+		//HiGuy: If it's on, add it. If it's off, delete it.
+		if (%button.getValue())
+			%this.selection.addEntry(%button.player);
+		else
+			%this.selection.removeMatching(%button.player);
+		//HiGuy: Custom field for no reason
+		%button.selected = %button.getValue();
+		//HiGuy: Single mode blocks all other buttons
+		%this.single = %button.single && %button.getValue();
+		%this.updateActives();
+	} else {
+		//HiGuy: Reset it!
+		%this.single = false;
+		%this.selection.clear();
+	}
+	//HiGuy: Then tell LBSuperChallengeDlg to do its thing
+	if (%this.command !$= "")
+		eval(%this.command);
+}
+
+function LBSCDC_PlayerList::toggleRow(%this, %name) {
+	if (!%this.inited) return;
+	//HiGuy: Script action that toggles a row on/off based on contents
+	for (%i = 0; %i < %this.list.getSize(); %i ++) {
+		%button = %this.button[%i];
+		//HiGuy: If this is our row, toggle and update!
+		if (%button.player $= %name && %button.isActive()) {
+			%button.setValue(!%button.getValue());
+			%this.updateSelection(%i);
+			return;
+		}
+	}
+}
+
+function LBSCDC_PlayerList::toggleRowById(%this, %id) {
+	if (!%this.inited) return;
+	//HiGuy: Script action that toggles a row on/off based on id
+	%button = %this.button[%id];
+	//HiGuy: Button is fairly easy to get, only do this if we can
+	if (isObject(%button) && %button.isActive()) {
+		%button.setValue(!%button.getValue());
+		%this.updateSelection(%id);
+		return;
+	}
+}
+
+
+function LBSCDC_PlayerList::setRowSelected(%this, %name, %selected) {
+	if (!%this.inited) return;
+	//HiGuy: Sets the state of a row by name
+	for (%i = 0; %i < %this.list.getSize(); %i ++) {
+		%button = %this.button[%i];
+		if (%button.player $= %name && %button.isActive()) {
+			%button.setValue(%selected);
+			%this.updateSelection(%i);
+			return;
+		}
+	}
+}
+
+function LBSCDC_PlayerList::setRowSelectedById(%this, %id, %selected) {
+	if (!%this.inited) return;
+	//HiGuy: Sets the state of a row by ID
+	%button = %this.button[%id];
+	if (isObject(%button) && %button.isActive()) {
+		%button.setValue(%selected);
+		%this.updateSelection(%id);
+		return;
+	}
+}
+
+function LBSCDC_PlayerList::getSelectionIds(%this) {
+	if (!%this.inited) return;
+	//HiGuy: Gets the list of all the selections as tab-separated ids
+	for (%i = 0; %i < %this.selected.getSize(); %i ++)
+		%return = (%return $= "" ? %this.list.getIndex(%this.selection.getEntry(%i)) : %return TAB %this.list.getIndex(%his.selection.getEntry(%i)));
+	return %return;
+}
+
+function LBSCDC_PlayerList::getSelection(%this) {
+	if (!%this.inited) return;
+	//HiGuy: Gets the list of all the selections as newline-separated values
+	for (%i = 0; %i < %this.selection.getSize(); %i ++)
+		%return = (%return $= "" ? %this.selection.getEntry(%i) : %return NL %this.selection.getEntry(%i));
+	return %return;
+}
+
+//HiGuy: Congratulations, you have now successfully jellified your brain. I hope
+// you're happy with what you've done. DISCLAIMER: Your fault.
+
+//HiGuy: Actually, if you've managed to read to the bottom of this file at all,
+// you deserve an award for such hard work. Here, have a cookie:
+//
+// <insert cookie here>
+//
+// Sorry, we couldn't afford a cookie due to budget cuts, so you'll just have to
+// accept this placeholder instead.

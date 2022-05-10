@@ -1,0 +1,126 @@
+MMG DC: interiors not read correctly by game, checks interiors_mbp
+
+
+before i forget:
+
+- new achievements required on LBs (we're getting a challenge mode, so we'll add a few there)
+- NEW LEVELS for LBs. At least 25 new ones.
+
+- seizure's J ? would be v. good for us. [seiz says unknown]
+
+
+Massive stuff: need to get the installers fixed. whatever I got from spy47 with NSIS is broken as shit out of nowhere and I can't fix it.
+
+A few stuff phil identified and are todo's for PQ, and I'd like to see if it's even possible (if yes, will make stuff for PQ easier):
+- it's possible to drop marble at 0 0 0 using a quick console command (even if we don't have enablewinconsole, it's still scary), can't remember function
+- it's possible to do game state end and thus get instant win on LBs, even without gem collection
+--> either change the name of this thing to throw hackers off a little
+--> or make some additional checks or anti hacks (e.g. can't be sub 250ms, or does player really have all gems)
+This is some nasty stuff... might not even be worth the effort so low priority.
+
+
+
+
+Note: customs in level packs 10-24 do not get awarded ratings properly
+They're 20-30k less than what it should be
+Therefore, on new Leaderboards, most of these do not need rating adjustment
+This is because proper calculations will occur, thus increasing most of them instantly.
+However, some were increased on purpose to give the proper rating as a workaround for this bug.
+Therefore, quite a number of those need their ratings lowered to match with current ones.
+Any levels not mentioned below in level packs 10-24 need to be subjected to this.
+
+
+//----------- MBG (1 total):
+
+Tightrope - 150-200% more rating, standeriser unlikely to be touched but if yes, tad mode it (0.5-1.5 points increase)
+
+//----------- MBP (3 total):
+
+Morph - 20% decrease
+
+Platform Mayhem - 5-10% more rating
+
+Battlecube Finale - 50% increase, bigger and better standeriser (min 750k for beating level??) -  see how you get 750k min, 2m max for 4:30 mins)
+* if cant dfo max 2m, then let it increase more as min is more important
+
+//----------- Director's Cut (1 total):
+
+Jump boost aim - 300-400% increase
+
+//----------- Level packs 1-9 (6 total):
+
+Camp - 40% more rating
+
+SnSC4 - decrease 10-20%?
+
+MC:WW - increase 10-20% and standariser?
+
+Skyscraper Ascent - mod standariser a bit, maybe overall increase 5% rating
+
+Platform Playground - 20-30% more rating, better standariser
+
+Pandora's Box - 10-20% more rating
+
+//----------- Level packs 10-19 (13 total):
+
+Purple Grid - 5-10% more rating
+
+The Suicide Slide - 10% more rating, better standariser ?
+
+Catwalk Capers - 10-20% more rating?
+
+The Green Brick Road - Better standariser
+
+Part II: Down - 10-20% more rating
+
+Cactus Math - 5-10% more rating
+
+Scale the Walls - 10-15% more rating
+
+Swinger - 5-10% more rating
+
+Vortex - 5% more rating
+
+Pipe Nightmare - 10% more rating
+
+Beyond - 10% more rating
+
+Open House Revision - 10-20% more rating
+
+Gravity Switch - 5-10% more rating, better standeriser
+
+//----------- Level packs 20-29 (17 total):
+
+Sentinel - 20% more rating
+
+Marble Space Base X-1 - 5% more rating
+
+Volcanic Chasm - 10% more rating
+
+Half Pipe Elite Extreme - 30% more rating
+
+Clean Your Room - 10% less rating
+
+Gravity Switch II - 20% more rating
+
+Push Start - 10% more rating
+
+Space Chase Race - 10-20% more rating
+
+A Walk In The Park - 500% more rating, standeriser (??)
+
+Vertigo - new limit 1:30 mins (right now 1:00), increase rating 20% then and standeriser too?
+
+Summer Fun - 10% more rating
+
+Arches - 5% more rating
+
+Fast Trak - 20% more rating?
+
+Gravity Challenge - 5-10% more rating
+
+Stairway to Heaven - 250% more rating, better standeriser
+
+Macarena - 10% less rating
+
+Chicago Loop - 50% more rating, better standeriser

@@ -1,0 +1,153 @@
+//-----------------------------------------------------------------------------
+// LBPlayMissionDlg.gui
+// Copyright (c) The Platinum Team
+// Mainly written by Jeff
+// References from Spy47
+//-----------------------------------------------------------------------------
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(LBErrorHandlerDlg) {
+   profile = "GuiDefaultProfile";
+   horizSizing = "width";
+   vertSizing = "height";
+   position = "0 0";
+   extent = "640 480";
+   minExtent = "8 8";
+   visible = "1";
+   helpTag = "0";
+
+   new GuiControl() {
+      profile = "GuiDefaultProfile";
+      horizSizing = "center";
+      vertSizing = "center";
+      position = "3 3";
+      extent = "634 473";
+      minExtent = "8 8";
+      visible = "1";
+      helpTag = "0";
+
+      new GuiBitmapCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "center";
+         vertSizing = "center";
+         position = "119 50";
+         extent = "396 373";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "./error/errorbox";
+         wrap = "0";
+
+         new GuiMLTextCtrl(LBErrorHandlerTitle) {
+            profile = "GuiMLTextProfile";
+            horizSizing = "center";
+            vertSizing = "bottom";
+            position = "15 19";
+            extent = "366 14";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            lineSpacing = "2";
+            allowColorChars = "0";
+            maxChars = "-1";
+         };
+         new GuiMLTextCtrl(LBErrorHandlerText) {
+            profile = "GuiMLTextProfile";
+            horizSizing = "center";
+            vertSizing = "bottom";
+            position = "17 76";
+            extent = "362 14";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            lineSpacing = "2";
+            allowColorChars = "0";
+            maxChars = "-1";
+         };
+         new GuiBitmapButtonCtrl(LBErrorOkHandlerButton) {
+            profile = "GuiButtonProfile";
+            horizSizing = "center";
+            vertSizing = "top";
+            position = "141 296";
+            extent = "113 60";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            text = "ok";
+            groupNum = "-1";
+            buttonType = "PushButton";
+            repeatPeriod = "1000";
+            repeatDecay = "1";
+            bitmap = "./error/ok";
+         };
+         new GuiBitmapButtonCtrl(LBErrorYesHandlerButton) {
+            profile = "GuiButtonProfile";
+            horizSizing = "right";
+            vertSizing = "top";
+            position = "16 299";
+            extent = "116 54";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            text = "yes";
+            groupNum = "-1";
+            buttonType = "PushButton";
+            repeatPeriod = "1000";
+            repeatDecay = "1";
+            bitmap = "./core/yes";
+         };
+         new GuiBitmapButtonCtrl(LBErrorNoHandlerButton) {
+            profile = "GuiButtonProfile";
+            horizSizing = "left";
+            vertSizing = "top";
+            position = "261 299";
+            extent = "116 54";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            text = "no";
+            groupNum = "-1";
+            buttonType = "PushButton";
+            repeatPeriod = "1000";
+            repeatDecay = "1";
+            bitmap = "./core/no";
+         };
+      };
+   };
+};
+//--- OBJECT WRITE END ---
+
+// Jeff: method that asserts the error handler
+// basically spy47 style
+function LBAssert(%title,%message,%callback) {
+   // Jeff: default erases commands and hides the error handler
+   %defaultCallback = "LBErrorNoHandlerButton.command = \"\"; LBErrorYesHandlerButton.command = \"\";";
+   %defaultCallback = %defaultCallback @ "LBErrorOkHandlerButton.command=\"\"; Canvas.popDialog(LBErrorHandlerDlg);";
+   LBErrorHandlerTitle.setText("<font:Arial bold:24><just:center>" @ %title);
+   LBErrorHandlerText.setText("<font:Arial:14><just:center>" @ %message);
+   LBErrorOkHandlerButton.command = %callback @ %defaultCallback;
+   LBErrorYesHandlerButton.setVisible(false);
+   LBErrorNoHandlerButton.setVisible(false);
+   LBErrorOkHandlerButton.setVisible(true);
+   Canvas.pushDialog(LBErrorHandlerDlg);
+
+   // Jeff: play sound effect
+   alxPlay(LBError);
+}
+
+// Jeff: assert yes/no dialog box
+function LBAssertYesNo(%title,%message,%yes,%no) {
+   // Jeff: default erases commands and hides the error handler
+   %defaultCallback = "LBErrorNoHandlerButton.command = \"\"; LBErrorYesHandlerButton.command = \"\";";
+   %defaultCallback = %defaultCallback @ "LBErrorOkHandlerButton.command=\"\"; Canvas.popDialog(LBErrorHandlerDlg);";
+   LBErrorHandlerTitle.setText("<font:Arial bold:24><just:center>" @ %title);
+   LBErrorHandlerText.setText("<font:Arial:14><just:center>" @ %message);
+   LBErrorYesHandlerButton.command = %yes @ %defaultCallback;
+   LBErrorNoHandlerButton.command = %no @ %defaultCallback;
+   LBErrorYesHandlerButton.setVisible(true);
+   LBErrorNoHandlerButton.setVisible(true);
+   LBErrorOkHandlerButton.setVisible(false);
+   Canvas.pushDialog(LBErrorHandlerDlg);
+
+   // Jeff: play sound effect
+   alxPlay(LBError);
+}

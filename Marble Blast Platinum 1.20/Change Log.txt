@@ -1,0 +1,328 @@
+Release Candidate 1:
+
+New:
+- Rewritten Challenges and added them back
+- Added back MBP Advanced and Expert levels
+- Added remaining 21 Multiplayer levels
+- Added all achievements to SinglePlayer offline, SinglePlayer Online, Challenges/SuperChallenges and Multiplyer (total of 93 achievements available)
+- Added Custom Levels support for MultiPlayer. With it comes Apex, as well as an example mission for level designers to learn from.
+- Added Balanced Mode. The game will calculate how many points you have against the Ultimate Score and the closer you are to those, the worse the gem spawns will be. The opposite is true, where your score is low, the better the gem spawns are.
+- Added retina screen support. There is NO SUPPORT for this feature and parts of MBP are wrecked by it.
+- Added back Super Speed to King of the Mountain (how was it not there)
+- Added many new marble skins for Multiplayer, however you need to donate in increments of $5 to use them online. See the website for more info.
+- Added all soundtracks back to MBP
+
+- Fixed Wasted Total Time (was broken from 1.20)
+- Fixed Total Timer (also broken from 1.20)
+- Fixed dedicated servers not transferring hosts properly
+- Fixed port checker
+- Fixed Options menu "Keep Resolution" newline
+- Fixed Stats letting you press "next" before it loaded
+- Fixed Stats showing 102% and such for expert levels
+- Fixed editor not dropping items on creation
+- Fixed chat not scrolling to bottom
+- Fixed "servers not shown" message not disappearing
+- Fixed host status (also a security bug)
+- Fixed chat sending (now allows special characters to be sent)
+- Fixed marble skin index
+- Fixed server/client validation errors
+- Fixed a statistics bug where your ranking was listed one number lower than what it really was
+- Fixed a bug with the screenshots where it only took one, and then overwrote it whenever you took a new screenshot
+- Fixed "Marble Blast $usermods @ "/
+
+- Removed darkening effect for the popovers in Singleplayer PlayMissionGui
+- Removed Qualification, you no longer need to beat a mission to play the next one. Now you can play Battlecube Finale automatically! Why would you do that though is beyond us.
+
+
+
+
+
+- Added new replay/playback system for seeing your top paths
+- Fixed loading clients being able to hear sounds.
+
+
+
+
+
+Beta 3:
+
+- Moved all server info and data to MarbleBlast.com ! YEAH !!
+- Brand new SinglePlayer UI, designed by Phil, implemented by HiGuy. Not only does it look awesome, it is loaded with features.
+- Added ratings for MultiPlayer. There are two types of users: provisional and established. To become an established player you must complete 20 Versus matches.
+- Added a reset ratings button. If you hate your rating, you can reset it and your win/loss data. Must complete at least 50 Versus matches before you can do so.
+- Six MP levels: Playground, Marble City, Marble It Up, Epicenter, Eye of the Storm and Promontory
+- MultiPlayer spawn save and replay feature. When you finish a practice/versus game you can save the gem spawns you had. You can play them by yourself, with others and even share them
+- Two dedicated servers now allow players to join without the need to host and open ports. Bug reports are welcome.
+- New chat system with lots of performance improvements (it is FAST!), with the side effect of logging in seriously fast
+- Replaced the modified MBG levels with the original level data (positions, rotations of objects). Some missions have their times/ratings reset because of that.
+- Changed a lot of ratings. ~40% of MBG, >65% of MBP and ~95% of customs.
+- Changes many missions to point to $usermods
+
+- Added hover effects to MP Play Mission screen
+- Added some support for client-side editing
+- Take longer before spawning the first gem spawn in a match so that players are ready and can see the gems
+- Added new MP Exit Game screen
+- Added the option to start/stop spectating with Alt+C
+- Added an option to enable the score predictor
+- Added SP score saving / updating instead of reloading
+- Added a new MP in-game options screen (press Esc to see, has lots of options)
+- Added a notice about hidden servers on the Host/Join window
+- Added an option not to calculate ratings in server settings
+- Added total time online
+- Made the server settings and handicaps windows larger
+- Added a new Marble skin for MultiPlayer (Classic Stripes)
+- Added an option to kick/ban players from your server
+- Added timeout numbers to Super Challenges. If they're misaligned yell at HiGuy to fix for beta 4.
+- Super Challenges no longer show end-window, instead they will display whether you won/lost and level/SC breakdown in the main chat.
+- Added an option for the host to force all players that join in the middle of a match to become spectators.
+
+- Fixed Blast, Blast Recharge and Mega Marble Blast/Blast Recharge power and shockwave values, should be less powerful now.
+- Fixed Super Challenges, now playable
+- Fixed old Horizon.dif texturing
+- Fixed client clocks not syncing
+- Fixed names not decoding (-SPC- showing up)
+- Fixed not autologging out not letting you login again
+- Fixed a lot of scores bad connected receive events
+- Fixed buttons becoming inactive when preloading
+- Fixed a crc evasion in lobbyPreload()
+- Fixed loading progress not appearing
+- Fixed custom easter eggs not appearing
+- Fixed some crashing from Beta 2
+- Fixed sending file bar not working
+- Fixed mission playing not actually playing
+- Fixed Ultimate / platinum scores to be => rather than >
+- Fixed the chat window sometimes being incorrectly sized (much cleaner)
+- Fixed best times not saving more than 1 for LB levels
+- Fixed resolution accept window not keeping the title
+- Fixed FOV in MultiPlayer
+- Fixed FPS showing 100.0
+- Fixed spectators being able to use the radar
+- Fixed being able to play expert levels (there were none)
+- Fixed a ton of places where client usernames were being shown
+- Fixed handicaps not setting when a client joins
+- Fixed the player list not updating as much as it should
+- Fixed the lack of LBResolveName()s
+- Fixed the chat TCP clogging up
+- Fixed the chat entry not scrolling down
+- Fixed being able to slap non-existant players
+- Fixed guest login not working at all
+- Fixed MP chat showing up in SP
+- Fixed team scores overlapping the marble icons
+- Fixed non-hunt gems showing up as pink with white gemlights
+- Fixed guests being able to access MP achievements
+- Fixed cancel preload sometimes not cancelling enough
+- Fixed the MP player list being too short
+- Fixed the loading bars being SUPER LAGGY
+- Fixed the chat colorifying everything
+- Fixed team kick/promote to actually kick/promote instead of doing nothing with its hands in its pockets
+- Fixed loading bars not resetting when you entered the lobby
+- Fixed gems not spawning when you first start a level
+- Fixed gamestates not sending to clients
+- Fixed winning after going OOB making problems
+- Fixed not being allowed to choose to spectate
+- Fixed not pointing towards nearest gem when you spawn
+- Fixed mega marble forces not being actually mega marbley
+- Fixed being able to collect blast powerups with blast disabled
+- Fixed login spinner not spinning
+- Fixed massive lagspikes with item collision
+- Fixed "Display on Master" not actually doing anything
+- Fixed endgame screen closing when you press enter
+- Fixed team mode being super completely broken, or not creating itself, and getting a stack overflow error
+- Fixed mac/windows/unix compareOS code
+- Fixed SinglePlayer Marble Select not categorizing marbles
+- Fixed Usernames on Leaderboards not shortening in a few places
+- Fixed custom resolution button
+- Fixed register sizing
+- Fixed MPPlayMission to show player list when preloading (so you can see loading bars)
+- Fixed search dialog showing the wrong bitmaps
+- Fixed server chat not scrolling down
+- Fixed "last score" not updating
+
+- Disabled Challenges for Beta 3. Will come back in Beta 4 rewritten.
+- Shuffled around lots of messagehud code
+- Shuffled around lots of code for dedicated support
+- Shuffled around a deck of cards
+- Removed a bunch of old MP code
+- Removed some stuff from LBDefaultQuery
+- Removed lots of code from LBLoginGui and LBChatGui
+- Got mad at the TCPObjects
+
+
+Beta 2.0:
+
+- Added "Matan Mode". Named after the titular player, this mode will automatically spawn a new gem spawn every 10 seconds. Are you fast enough to collect all the gems?
+- Added Ping bar in-game. Shows your ping to the host real-time.
+- Added kick / team buttons to lots of places
+- Added lots of editor options and fixes, bit more PQ now.
+- Added scroll bar to playmission
+- Added more debug logging, so send us your console.log dawg.
+- Added client status (Disconnected/Spectate) on the ingame score list
+- Added spam filter for server chat (thank evan99m)
+- Added Platinum/Ultimate score view for Multiplayer level select screen
+- Added "receiving file" display
+- Added join/leave messages
+- Added scary kick/ban messages
+- Added couple of new taunts (v12/v13). LALA.
+- Added mission load checker
+- Added refresh button to join screen
+- Made super challenges load during the "Logging In" phase, and completely removed "Downloading info"
+- Userlist loads through chat too
+- Added Gym interior to the .zip, somehow was missing
+- Added "Server closed" messages
+- Added more informational CRC errors
+- When joining a match, you now have a choice of whether you want to be a spectator or play the game.
+- Screenshots now go in platinumbeta/data/screenshots
+- Added titles for Online play, such as; Leader, Playing, etc.
+
+- Shrank textures (lower filesize, roughly the same quality)
+- Fixed server crashes when people join with the wrong pass
+- Fixed CRC_NOPE errors and fake clients from building up
+- Fixed spawn triggers staying blocked (fly OOB forever)
+- Fixed people leaving during preload breaking the play button
+- Fixed old scores showing up
+- Fixed invalid marble files not letting you load the leaderboards
+- Fixed pressing enter at the end game screen would exit the server
+- Fixed spectator radar blowing up everything
+- Fixed Multiplayer chat colors resetting
+- Fixed master server trying to restart
+- Fixed master server not restarting
+- Fixed length of ingame score names
+- Fixed minishotter
+- Fixed chat hud sizing
+- Fixed userlist not updating at pregame screen
+- Fixed usernames displaying on endgame
+- Fixed disconnected players and rating (if players disconnected, they were ranked 0, which the server assumed to be first place, and rated them as such)
+- Fixed being able to be Challenged/SuperChallenged while playing
+- Fixed Mac crash on logout (probably)
+- Fixed odd lag for the host when clients connected (doesn't affect loading lag)
+- Fixed disconnect messages not displaying
+- Fixed being able to server chat in singleplayer
+- Fixed chat window not clearing
+- Fixed spectator selection changing twice
+- Fixed all players being able to spectate
+- Fixed SinglePlayer End screen giving you Multiplayer gem values
+- Fixed slap commands coming from yourself
+- Fixed not being able to exit MultiPlayer matches
+- Fixed server list count being 1 too many
+- Fixed chat messages sometimes appearing with usernames
+- Fixed chat logins also appearing with usernames
+- Fixed trace being hold-down
+- Fixed anti-trace propaganda
+- Fixed "not exists" errors
+- Fixed MessageBoxYesNo not having a title
+- Fixed crashing when quitting a server
+
+- Removed old MP code
+- Removed joke GUI
+- Removed unused sky
+- Removed some console spam
+- Removed ping meter
+
+
+Beta 1.5:
+
+- Fixed Server should be faster due to less queries. We hope so.
+- Fixed Multiplayer now ignores any CRC errors encountered, and allows you to join others.
+- Fixed Spectator mode now hides gems on radar
+- Fixed Multiplayer screen only selecting the first server
+- Fixed Fixed only 10 scores appearing in SP leaderboards
+- Fixed Displaying usernames instead of display names in many cases
+- Fixed Sort of fixed webchat. Not completely, but progress++
+- Fixed "Cancel" button on joining server
+- Fixed Double users (webchat and ingame) acting buggy
+- Fixed Sorting the server list rearranging the icons
+- Fixed Way too much server pinging
+- Fixed Dedicated/incorrect passwords not working
+- Fixed Spectator Mode no longer requires double clicking between matches
+
+
+Beta 1.0:
+
+Official beta release!
+
+
+GENERAL:
+
+- Created backgrounds-win folder, to be used to store smaller resolution backgrounds to prevent artifacts bug on windows
+- New option to control camera speed when using the keyboard to turn the camera
+- Altering the position/rotation/scale of a moving platform (the "MustChange" object) physically in the editor now has an effect once you save and reload the mission. The basePosition/Rotation/Scale will get modified as necessary.
+- Tip of the Day restored for mac users
+- Altered main.cs to only load $usermods main.cs (platinum / platinumbeta folder)
+- Changed LB cursor to cyanish version of default Torque cursor
+- Unified the Win/Mac options GUI
+- Small changes to marble skins
+- Possible optimization with updating the FPS counter - it now updates every second rather than millisecond (as the actual $fps::real variable where the FPS data is taken only gets updated every second by the engine)
+- Changed usage of scheduling cancel() in playGui.cs
+- Removed need for common folder, all content is now in platinum / platinumbeta
+- Cleanup of scripts from unused items
+- Renamed MBP 1.20/platinum/client/ui/achiev/Not Used to unused
+- Bind commands for Jukebox now require 'Ctrl' keypress
+- Restored dropPlayerAtCamera and dropCameraAtPlayer by moving binds for Jukebox
+
+
+SINGLEPLAYER
+- Added an OOB Count for Demo Recording system. This will automatically restart the level and the demo recording once you go Out of Bounds.
+- New Marble Select logic means you can add even more custom marbles and sort them out based on categories.
+- New Search logic
+-> Search levels by NAME, FILENAME, AUTHOR or let the game automatically load a RANDOM LEVEL.
+- ALL LEVELS ARE AUTOMATICALLY QUALIFIED FOR. YOU DO NOT NEED TO BEAT PREVIOUS LEVELS TO UNLOCK THE NEXT ONES.
+- PlayGui now fades in on mission start only
+- Restarting a mission when recording a demo will restart the demo as well. There is no longer a need to return to the level select screen to restart the demo.
+- AND MUCH MORE!
+
+
+ONLINE
+Recreated the entire Online section logic. Mac users can now play online!
+- NEW: Commands for colors and other styles of chat
+-> You can also talk to users on the Webchat (http://marbleblast.com)
+-> Chat no longer forgets text when going into and out of levels
+- NEW: Challenge other users to a 1v1 match racing on the same level for the lowest time!
+- NEW: Challenge up to three other users to a Super Challenge, where you race for both the lowest time and to finish first!
+- NEW: Multiplayer!
+--> Challenge other players in either Free For All or Teams mode match on six multiplayer levels from Marble Blast Gold, Platinum and Ultra!
+--> Taunt your opponents with 11 brand new voice taunts!
+--> Private server chat so you can talk to users only in the Multiplayer server
+- NEW: 10 additional custom levels in Level Packs 20-29
+- NEW: 10 new achievements, 5 for Challenges/Super Challenges and 5 Multiplayer achievements
+- ALL LEVELS ARE AUTOMATICALLY QUALIFIED FOR. YOU DO NOT NEED TO BEAT PREVIOUS LEVELS TO UNLOCK THE NEXT ONES.
+- Improved keyboard navigation in the leaderboards
+- Optimized leaderboards ratings calculations
+- AND MUCH MORE!
+
+
+FIXED:
+- Changed marble skins to PNGs to work on windows
+- Checkpoint skin restored back to PNG
+- Fixed how the "Rating:" text was displayed in the end of game GUI in the leaderboards
+- Cleaned up console errors
+- Deleted unneccessary prefs files that don't (and shouldn't) get saved
+- Intro music is back as Pianoforte
+
+
+
+
+
+REMOVED FROM MARBLE BLAST PLATINUM 1.50
+- GarageGames marble itelf no longer exists. The skin for the marble is now in the regular marble list.
+
+
+NOT AVAILABLE IN BETA 1:
+- All MBP Expert levels and Advanced levels 16-35
+- Most custom levels were removed
+- Multiplayer ratings have been disabled
+- Most new achievements removed
+- Original 35 Leaderboards achievement disabled
+- Manual and other buttons greyed out
+
+Statistics and other tracked data were modified accordingly and will not display those.
+
+
+
+THE PLATINUM TEAM 1.50 DEVELOPERS:
+HiGuy, Jeff, IsraeliRD and Phil
+
+WE WOULD LIKE TO THANK THE FOLLOWING PEOPLE FOR THEIR CONTRIBUTION TOWARDS 1.50:
+RDs.Empire - Mega Marble and Blast
+MadMarioSkills - Multiplayer Skies
+Mkbul - MBUltra/Online levels were based off his textures
+Sam - Textures for MBU/O levels and providing hosting services for MBP Online.

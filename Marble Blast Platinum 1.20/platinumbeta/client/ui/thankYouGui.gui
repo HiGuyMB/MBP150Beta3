@@ -1,0 +1,137 @@
+//--- OBJECT WRITE BEGIN ---
+new GuiBitmapCtrl(thankYouGui) {
+   profile = "GuiDefaultProfile";
+   horizSizing = "right";
+   vertSizing = "bottom";
+   position = "0 0";
+   extent = "640 480";
+   minExtent = "8 8";
+   visible = "1";
+   command = "thankYouGui.gotoPMGui();";
+   accelerator = "space";
+   helpTag = "0";
+   wrap = "0";
+
+   new GuiBitmapCtrl() {
+      profile = "GuiDefaultProfile";
+      horizSizing = "width";
+      vertSizing = "center";
+      position = "0 120";
+      extent = "640 240";
+      minExtent = "8 8";
+      visible = "1";
+      helpTag = "0";
+      bitmap = "./banner";
+      wrap = "0";
+   };
+   new GuiMLTextCtrl(thankYouText) {
+      profile = "GuiMLTextProfile";
+      horizSizing = "center";
+      vertSizing = "center";
+      position = "10 136";
+      extent = "620 207";
+      minExtent = "8 8";
+      visible = "1";
+      helpTag = "0";
+      lineSpacing = "2";
+      allowColorChars = "0";
+      maxChars = "-1";
+   };
+   new GuiMLTextCtrl(thankYouPressSpaceText) {
+      profile = "GuiMLTextProfile";
+      horizSizing = "center";
+      vertSizing = "top";
+      position = "234 443";
+      extent = "172 25";
+      minExtent = "8 8";
+      visible = "1";
+      helpTag = "0";
+      lineSpacing = "2";
+      allowColorChars = "0";
+      maxChars = "-1";
+   };
+};
+//--- OBJECT WRITE END ---
+
+// This is how you win epicly - Phil
+function thankYouGui::onWake(%this)
+{
+	// Uncomment one of these $Game:: lines below to see their message
+	// If you want to see the very 100% message, uncomment the first $Game:: line and last $Game:: line here
+	//$Game::UltimateTimes = 120;
+	//$Game::PlatinumTimes = 120;
+	//$Game::EasterEggs = 120;
+	
+	// 'All ultimate times + easter eggs' message; or 100% completion
+	if ($Game::UltimateTimes == $Game::MissionsTotal &&
+			 $Game::EasterEggs == $Game::EasterEggsTotal)
+	{
+		$pref::highestFlag = "perfectCompletion"; 
+		%extra = "We are simply stunned. You've really done it!\n"
+		@ "We're proud to say that you've officially completed the entire game! For an extra"
+		@ " challenge, try some of the custom levels!";
+		%this.setBitmap($usermods @ "/client/ui/backgrounds/platinum/23");
+	}
+	// 'All ultimate times' message
+	else if ($Game::UltimateTimes == $Game::MissionsTotal)
+	{
+		$pref::highestFlag = "allUltimate"; 
+		%extra = "Congratulations, you've done the unthinkable!\n"
+		@ "For your efforts, we've given you the \n"
+		@ "<color:ffffcc><shadowcolor:777755>\'The Greatest of them All\' <color:ffffff><shadowcolor:777777>achievement!\n"
+		@ "However, there's one more thing that's left to do - we'll let you find that yourself!";
+		%this.setBitmap($usermods @ "/client/ui/backgrounds/platinum/13");
+	}
+	// 'All platinum times' message
+	else if ($Game::PlatinumTimes == $Game::MissionsTotal)
+	{
+		$pref::highestFlag = "allPlatinum";
+		%extra = "Well done! You've got all of the <color:cccccc><shadowcolor:555555>Platinum Times!\n"
+		@ "<color:ffffff><shadowcolor:777777>The <color:ffffcc><shadowcolor:777755>\'Marble Master\'<color:ffffff><shadowcolor:777777> achievement is now in your hands!\n"
+		@ "Now try the ultimate challenge - get all of the <color:ffffcc><shadowcolor:777755>Ultimate Times!";
+		%this.setBitmap($usermods @ "/client/ui/backgrounds/platinum/11");
+	}
+	// 'All levels qualified' message
+	else if ($qual_beginner + $qual_intermediate + $qual_advanced + $qual_expert == $Game::MissionsTotal)
+	{
+		$pref::highestFlag = "allQualified"; // This is for the screenShot() function at the very end
+		%extra = "Congratulations on reaching it this far.\n"
+		@ "Now try beating all of the <color:cccccc><shadowcolor:555555>Platinum Times!";
+		%this.setBitmap($usermods @ "/client/ui/backgrounds/platinum/20");
+	}
+	// 'All easter eggs' message
+	else if ($Game::EasterEggs == $Game::EasterEggsTotal)
+	{
+		$pref::highestFlag = "allEasterEggs"; 
+		%extra = "You've found all of the Easter Eggs, amazing!\n"
+		@ "Here's the <color:ffffcc><shadowcolor:777755>\'Easter Bunny\'<color:ffffff><shadowcolor:777777> achievement in response to your outstanding effort.";
+		%this.setBitmap($usermods @ "/client/ui/backgrounds/platinum/20");
+	}
+	
+	// Set it so the message you got doesn't display again
+	$pref::thankYouMessageReceived[$pref::highestFlag] = true;
+	
+	// Display message
+	thankYouText.setText("<font:DomCasualD:48><color:ffffff><shadow:1:1><shadowcolor:777777>"
+								@ "Thank you for playing " @ ($platform $= "macos" ? "MarbleBlast" : "Marble Blast") 
+								@ " Platinum!\n"
+								@ "<font:DomCasualD:36>" @ %extra @ "\n"
+								@ "<color:d5e1f4><shadowcolor:7d8590><just:right>the Platinum team");
+				
+	// Fix up the position of the text
+	thankYouText.forceReflow();
+	
+	thankYouPressSpaceText.setText("<just:center><font:DomCasualD:24><shadow:1:1><color:ffffcc><shadowcolor:444422>Press SPACE to continue");
+}
+
+function thankYouGui::gotoPMGui(%this)
+{
+	// Take a screenshot BEFORE going to the PMGui, and not on thankYouGui::onWake()
+	screenShot($pref::highestFlag @ ".png");
+	Canvas.setContent("playMissionGui");
+	
+	assert("Screenshot taken", "A screenshot of that congratulations message was taken in:\n\n"
+			 @ ($platform $= "macos" ? "<username>/Library/MarbleBlast/"
+				 : filePath($Game::argv[0]))
+			 @ " as" SPC $pref::highestFlag @ ".png.");
+}

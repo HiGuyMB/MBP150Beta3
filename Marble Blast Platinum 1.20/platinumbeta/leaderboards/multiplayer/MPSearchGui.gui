@@ -1,0 +1,593 @@
+new GuiControlProfile(MPSearchProfile : GuiTextListProfile) {
+   fontType = "Marker Felt";
+   fontSize = "24";
+   fontColor = "255 255 255 255";
+   fontColorHL = "255 255 255 255";
+   fillColorHL = "255 255 255 51";
+};
+
+new GuiControlProfile(MPSearchShadowProfile : MPSearchProfile) {
+   fontColor = "0 0 0 128";
+   fontColorHL = "0 0 0 128";
+   fillColorHL = "255 255 255 0";
+};
+
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(MPSearchGui) {
+   profile = "GuiDefaultProfile";
+   horizSizing = "width";
+   vertSizing = "height";
+   position = "0 0";
+   extent = "640 480";
+   minExtent = "8 8";
+   visible = "1";
+   helpTag = "0";
+
+   new GuiBitmapCtrl() {
+      profile = "GuiDefaultProfile";
+      horizSizing = "center";
+      vertSizing = "center";
+      position = "80 7";
+      extent = "480 465";
+      minExtent = "48 92";
+      visible = "1";
+      helpTag = "0";
+      bitmap = "~/leaderboards/mp/search/window";
+      wrap = "0";
+
+      new GuiBitmapButtonCtrl() {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "top";
+         position = "21 398";
+         extent = "94 45";
+         minExtent = "8 8";
+         visible = "1";
+         command = "Canvas.popDialog(MPSearchGui);";
+         accelerator = "return";
+         helpTag = "0";
+         text = "OK";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "~/leaderboards/mp/search/cancel";
+            simpleStyle = "0";
+      };
+      new GuiScrollCtrl() {
+         profile = "GuiPhilScrollProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "18 68";
+         extent = "447 317";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         willFirstRespond = "1";
+         hScrollBar = "dynamic";
+         vScrollBar = "alwaysOn";
+         constantThumbHeight = "0";
+         childMargin = "0 0";
+
+         new GuiTextListCtrl(MPSearchMissionListShadow) {
+            profile = "MPSearchShadowProfile";
+            horizSizing = "width";
+            vertSizing = "bottom";
+            position = "0 0";
+            extent = "440 560";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            enumerate = "0";
+            resizeCell = "1";
+            columns = "0";
+            fitParentWidth = "1";
+            clipColumnText = "0";
+         };
+         new GuiTextListCtrl(MPSearchMissionList) {
+            profile = "MPSearchProfile";
+            horizSizing = "width";
+            vertSizing = "bottom";
+            position = "-1 -1";
+            extent = "440 560";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            enumerate = "0";
+            resizeCell = "1";
+            columns = "0";
+            fitParentWidth = "1";
+            clipColumnText = "0";
+         };
+      };
+      new GuiBitmapButtonCtrl(MPSearchPlay) {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "366 398";
+         extent = "94 45";
+         minExtent = "8 8";
+         visible = "1";
+         command = "MPSearchGui::StartMission();";
+         helpTag = "0";
+         text = "play";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "~/leaderboards/mp/search/play";
+      };
+      new GuiMLTextCtrl(MPSearchTitle) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "52 23";
+         extent = "64 25";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiTextEditCtrl(MPSearchEdit) {
+         profile = "GuiMediumTextEditProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "91 23";
+         extent = "372 23";
+         minExtent = "8 8";
+         visible = "1";
+         command = "MPSearchGui.search();";
+         altCommand = "MPSearchGui.entryStart();";
+         helpTag = "0";
+         maxLength = "255";
+         maxPixelWidth = "0";
+         historySize = "0";
+         password = "0";
+         tabComplete = "0";
+         sinkAllKeyEvents = "1";
+      };
+      new GuiBitmapButtonCtrl() {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "top";
+         position = "121 398";
+         extent = "94 45";
+         minExtent = "8 8";
+         visible = "1";
+         command = "MPSearchGui.pushOptions();";
+         accelerator = "return";
+         helpTag = "0";
+         text = "OK";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "~/leaderboards/mp/search/options";
+            simpleStyle = "0";
+      };
+   };
+   new GuiButtonBaseCtrl(MPSearchOptionsPop) {
+      profile = "GuiDefaultProfile";
+      horizSizing = "width";
+      vertSizing = "height";
+      position = "0 0";
+      extent = "640 480";
+      minExtent = "8 8";
+      visible = "0";
+      command = "MPSearchGui.popOptions();";
+      helpTag = "0";
+
+      new GuiButtonBaseCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "center";
+         vertSizing = "center";
+         position = "80 7";
+         extent = "480 465";
+         minExtent = "48 92";
+         visible = "1";
+         command = "MPSearchGui.popOptions();";
+         helpTag = "0";
+
+         new GuiBitmapButtonCtrl() {
+            profile = "GuiDefaultProfile";
+            horizSizing = "right";
+            vertSizing = "bottom";
+            position = "0 281";
+            extent = "348 148";
+            minExtent = "8 8";
+            visible = "1";
+            command = "MPSearchGui.popOptions();";
+            helpTag = "0";
+            bitmap = "~/leaderboards/mp/play/moremenu";
+            wrap = "0";
+
+            new GuiBitmapButtonCtrl(MPSearchByFile) {
+               profile = "GuiDefaultProfile";
+               horizSizing = "right";
+               vertSizing = "bottom";
+               position = "229 45";
+               extent = "67 45";
+               minExtent = "8 8";
+               visible = "1";
+               command = "MPSearchGui.setSearchType(2);";
+               helpTag = "0";
+               text = "button";
+               groupNum = "-1";
+               buttonType = "RadioButton";
+               repeatPeriod = "1000";
+               repeatDecay = "1";
+               bitmap = "~/leaderboards/mp/search/file";
+            };
+            new GuiBitmapButtonCtrl(MPSearchByArtist) {
+               profile = "GuiDefaultProfile";
+               horizSizing = "right";
+               vertSizing = "bottom";
+               position = "159 45";
+               extent = "71 45";
+               minExtent = "8 8";
+               visible = "1";
+               command = "MPSearchGui.setSearchType(1);";
+               helpTag = "0";
+               text = "button";
+               groupNum = "-1";
+               buttonType = "RadioButton";
+               repeatPeriod = "1000";
+               repeatDecay = "1";
+               bitmap = "~/leaderboards/mp/search/artist";
+            };
+            new GuiBitmapButtonCtrl(MPSearchRandom) {
+               profile = "GuiDefaultProfile";
+               horizSizing = "right";
+               vertSizing = "top";
+               position = "44 45";
+               extent = "44 44";
+               minExtent = "8 8";
+               visible = "1";
+               command = "MPSearchGui.random();";
+               helpTag = "0";
+               text = "button";
+               groupNum = "-1";
+               buttonType = "PushButton";
+               repeatPeriod = "1000";
+               repeatDecay = "1";
+               bitmap = "~/leaderboards/mp/search/random";
+            };
+            new GuiBitmapButtonCtrl(MPSearchByTitle) {
+               profile = "GuiDefaultProfile";
+               horizSizing = "right";
+               vertSizing = "bottom";
+               position = "92 45";
+               extent = "68 45";
+               minExtent = "8 8";
+               visible = "1";
+               command = "MPSearchGui.setSearchType(0);";
+               helpTag = "0";
+               text = "button";
+               groupNum = "-1";
+               buttonType = "RadioButton";
+               repeatPeriod = "1000";
+               repeatDecay = "1";
+               bitmap = "~/leaderboards/mp/search/name";
+            };
+         };
+      };
+   };
+};
+//--- OBJECT WRITE END ---
+
+
+// Jeff: define the search group object.  This object holds all data
+// for the searches.
+if (!isObject(MPSearchGroup)) {
+   new SimGroup(MPSearchGroup);
+   RootGroup.add(MPSearchGroup);
+}
+
+function MPSearchGui::onWake(%this) {
+   %t = getRealTime();
+   MPSearchMissionList.clear();
+   MPSearchEdit.setValue("");
+
+   // Jeff: delete objects in search group
+   %count = MPSearchGroup.getCount();
+   for (%i = 0; %i < %count; %i ++)
+      MPSearchGroup.getObject(0).delete();
+
+   // Jeff: defines and wraps the search type
+   if ($pref::searchType $= "" || $pref::searchType < 0 || $pref::searchType > 2)
+      $pref::searchType = 0;
+   $lastSearchType = $pref::searchType;
+
+   %search[0] = $usermods @ "/data/multiplayer/hunt/beginner/*.mis";
+   %search[1] = $usermods @ "/data/multiplayer/hunt/intermediate/*.mis";
+   %search[2] = $usermods @ "/data/multiplayer/hunt/advanced/*.mis";
+//   %search[3] = $usermods @ "/data/multiplayer/hunt/custom/*.mis";
+   %searches = 3;
+
+   // Jeff: itterate through each difficulty
+   for (%i = 0; %i < %searches; %i ++) {
+      %pattern = %search[%i];
+      %custom = %i == 3; // Jeff: custom mission
+
+      for (%file = findFirstFile(%pattern); %file !$= ""; %file = findNextFile(%pattern)) {
+         //Check crc really quickly
+         %base = fileBase(%file);
+         %passed = false;
+
+			if (%base $= "GemsInTheRoad" && getFileCRC(%file) $= "744631441")
+				%passed = true;
+			if (%base $= "BasicAgilityCourse_Hunt" && getFileCRC(%file) $= "-183626306")
+				%passed = true;
+			if (%base $= "Sprawl" && getFileCRC(%file) $= "-1292154075")
+				%passed = true;
+			if (%base $= "RampMatrix_Hunt" && getFileCRC(%file) $= "203590546")
+				%passed = true;
+			if (%base $= "Horizon" && getFileCRC(%file) $= "1360345884")
+				%passed = true;
+			if (%base $= "Architecture" && getFileCRC(%file) $= "156624825")
+				%passed = true;
+			if (%base $= "EyeOfTheStorm_Hunt" && getFileCRC(%file) $= "272202888")
+				%passed = true;
+			if (%base $= "Promontory" && getFileCRC(%file) $= "1989318927")
+				%passed = true;
+			if (%base $= "MarbleItUp" && getFileCRC(%file) $= "735262241")
+				%passed = true;
+			if (%base $= "Epicenter" && getFileCRC(%file) $= "1795393894")
+				%passed = true;
+			if (%base $= "Playground" && getFileCRC(%file) $= "-219753603")
+				%passed = true;
+			if (%base $= "MarbleCity" && getFileCRC(%file) $= "-1445299184")
+				%passed = true;
+
+         if (!%passed)
+            continue;
+
+         %scriptObj = getSearchMissionInfo(%file, %custom);
+
+         // Jeff: if scriptObj is -1, it does not exist or the file was invalid
+         // and could not be read
+         if (%scriptObj == -1)
+            continue;
+
+         // Jeff: Ok, so we disguise qualification by using scriptObject.cache
+         // qualification is always qualified if we are in leaderboards too
+         // as leaderboards does not have qualification.
+
+         //HiGuy: MP has unlocked *all* the missions!
+         MPSearchGroup.add(%scriptObj);
+      }
+   }
+
+   // Jeff: now we will fill up the mission list
+   %this.search();
+
+   %t = getRealTime() - %t;
+   devecho("search execution time for startup:" SPC %t);
+}
+
+// Jeff: this builds the search list specified by the type:
+// this is also used for keyword search
+//
+// Note: I use different for loops because that way it only
+// has to check the searchType only once.
+function MPSearchGui::search(%this) {
+   MPSearchMissionList.clear();
+   MPSearchMissionListShadow.clear();
+   %key   = strlwr(trim(MPSearchEdit.getValue()));
+   %count = MPSearchGroup.getCount();
+
+   // Jeff: I'm sorry, I had too...
+   // and it looks perty too <3
+   %text  = "<font:DomCasualD:24><color:696969>";
+
+   // Jeff: decide which search option we will take
+   switch ($pref::searchType) {
+      // Jeff: search by name
+      case 0:
+         for (%i = 0; %i < %count; %i ++) {
+            %obj = MPSearchGroup.getObject(%i);
+
+            if (strStr(%obj.searchName, %key) != -1) {
+               %row = %obj.name TAB %obj;
+               MPSearchMissionListShadow.addRow(MPSearchMissionList.rowCount(), %row);
+               MPSearchMissionList.addRow(MPSearchMissionList.rowCount(), %row);
+            }
+         }
+      %text = %text @ "Title:";
+
+      // Jeff: search by artist
+      case 1:
+         for (%i = 0; %i < %count; %i ++) {
+            %obj = MPSearchGroup.getObject(%i);
+
+            if (strStr(%obj.searchArtist, %key) != -1) {
+               %row = %obj.name SPC "By" SPC %obj.artist TAB %obj;
+               MPSearchMissionListShadow.addRow(MPSearchMissionList.rowCount(), %row);
+               MPSearchMissionList.addRow(MPSearchMissionList.rowCount(), %row);
+            }
+         }
+      %text = %text @ "Artist:";
+
+      // Jeff: search by file
+      case 2:
+         for (%i = 0; %i < %count; %i ++) {
+            %obj = MPSearchGroup.getObject(%i);
+
+            if (strStr(%obj.searchFile, %key) != -1) {
+               %file = %obj.file;
+               //HiGuy: Strip as many filepaths as we can from the mission
+               if (fileBaseDir(%file) $= $usermods) {
+                  %file = fileSubpath(%file);
+                  if (fileBaseDir(%file) $= "data") {
+                     %file = fileSubpath(%file);
+                     if (fileBaseDir(%file) $= "multiplayer") {
+                        %file = fileSubpath(%file);
+                        if (fileBaseDir(%file) $= "hunt")
+                           %file = fileSubpath(%file);
+                     }
+                  }
+               }
+               %row = %file TAB %obj;
+               MPSearchMissionListShadow.addRow(MPSearchMissionList.rowCount(), %row);
+               MPSearchMissionList.addRow(MPSearchMissionList.rowCount(), %row);
+            }
+         }
+      %text = %text @ "File:";
+   }
+
+   MPSearchTitle.setText(%text);
+   %this.finalize();
+}
+
+function fileSubpath(%file) {
+   if (strPos(%file, "/") == -1)
+      return %file;
+   return getSubStr(%file, strPos(%file, "/") + 1, strlen(%file));
+}
+
+function fileBaseDir(%file) {
+   if (strPos(%file, "/") == -1)
+      return %file;
+   return getSubStr(%file, 0, strPos(%file, "/"));
+}
+
+// Jeff: this is called after a search query is processed.
+// this will activate/deactivate the play button, and it will
+// auto-select a row in the mission list, ect.
+//
+// This code is about the only thing left from Spy47's MPSearchGui
+function MPSearchGui::finalize(%this) {
+   if (MPSearchMissionList.rowCount()) {
+      MPSearchMissionListShadow.sort(0);
+      MPSearchMissionList.sort(0);
+      MPSearchMissionList.setSelectedRow(0);
+      MPSearchMissionList.scrollVisible(0);
+      SearchOptionsPush.setActive(true);
+      MPSearchRandom.setActive(true);
+      MPSearchPlay.setActive(true);
+   } else {
+      SearchOptionsPush.setActive(false);
+      MPSearchPlay.setActive(false);
+      MPSearchRandom.setActive(false);
+   }
+}
+
+// Jeff: this function will play the selected mission.
+function MPSearchGui::StartMission(%this) {
+   %id = MPSearchMissionList.getSelectedId();
+   %mission = getField(MPSearchMissionList.getRowTextById(%id), 1);
+   Canvas.popDialog(MPSearchGui);
+
+   MPSetSelectedMission(%mission);
+   if ($MPPref::Preload)
+      MPPlayMissionDlg.preload();
+   else
+      MPPlayMissionDlg.play();
+   return;
+}
+
+// Jeff: quick start when the enter key is pressed
+function MPSearchGui::entryStart(%this) {
+   if (MPSearchMissionList.getSelectedId() != -1)
+      %this.StartMission();
+}
+
+// Jeff: this grabs the search data from the actual file. It reads in the data,
+// parses it and extracts the missionInfo object so that we can get stuff such
+// as qualification times, authors, names, ect.
+function getSearchMissionInfo(%missionFile, %custom) {
+   %file = new FileObject();
+   %MissionInfoObject = "";
+   if (%file.openForRead(%missionFile)) {
+		%inInfoBlock = false;
+		while (!%file.isEOF()) {
+			%line = trim(%file.readLine());
+
+			// Jeff: get rid of comments
+			if (strPos(%line, "//") != -1)
+			   %line = trim(getSubStr(%line, 0, strPos(%line, "//")));
+
+         // Jeff: if the line is empty, why even continue execution?
+         if (%line $= "")
+            continue;
+
+			if (%line $= "new ScriptObject(MissionInfo) {")
+				%inInfoBlock = true;
+			else if (%inInfoBlock && %line $= "};") {
+				%inInfoBlock = false;
+				%MissionInfoObject = %MissionInfoObject @ %line;
+				break;
+			}
+			if (%inInfoBlock)
+			   %MissionInfoObject = %MissionInfoObject @ %line @ " ";
+		}
+		%file.close();
+	} else {
+	   // Jeff: file can't be read or does not exist, return -1
+	   %file.close();
+	   %file.delete();
+	   return -1;
+	}
+
+   // Jeff: if we don't have mission info, then return -1
+   if (trim(%MissionInfoObject) $= "")
+	   return -1;
+
+	%MissionInfoObject = "%MissionInfoObject = " @ %MissionInfoObject;
+	eval(%MissionInfoObject);
+   %file.delete();
+
+	%name = trim((%MissionInfoObject.name !$= "") ? %MissionInfoObject.name : fileBase(%missionFile));
+	%MissionInfoObject.name = %name;
+
+	// Jeff: this is used for search comparisons
+	%MissionInfoObject.searchName   = strlwr(%name);
+	%MissionInfoObject.searchArtist = strlwr(%MissionInfoObject.artist);
+	%MissionInfoObject.searchFile   = strlwr(%missionFile);
+
+	%MissionInfoObject.file   = %missionFile;
+	%MissionInfoObject.setName("");
+	return %MissionInfoObject;
+}
+
+// Jeff: show the search options.
+function MPSearchGui::pushOptions(%this) {
+   MPSearchOptionsPop.setVisible(true);
+
+   // Jeff: activate the right button based upon choice
+   MPSearchByTitle.setValue($pref::searchType == 0);
+   MPSearchByArtist.setValue($pref::searchType == 1);
+   MPSearchByFile.setValue($pref::searchType == 2);
+}
+
+// Jeff: hide the search options.
+function MPSearchGui::popOptions(%this) {
+   MPSearchOptionsPop.setVisible(false);
+
+   // Jeff: decide if we need to research
+   // note that it will not research on random level
+   // or if you never changed the search type.
+   if ($pref::searchType != $lastSearchType) {
+      %this.schedule(10, buildSearchList);
+      $lastSearchType = $pref::searchType;
+   }
+}
+
+// Jeff: in case the user wants to do a random search
+function MPSearchGui::random(%this) {
+   %count = MPSearchMissionList.rowCount();
+   if (!%count)
+      return;
+   %randomNumber = getRandom(0, %count - 1);
+   MPSearchMissionList.setSelectedRow(%randomNumber);
+   %this.popOptions();
+   %this.schedule(10, StartMission);
+}
+
+// Jeff: the search type is defined from a gui button.
+function MPSearchGui::setSearchType(%this, %type) {
+   $pref::searchType = %type;
+   %this.search();
+}

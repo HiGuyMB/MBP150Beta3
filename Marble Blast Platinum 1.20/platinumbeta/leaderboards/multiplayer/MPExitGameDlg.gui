@@ -1,0 +1,265 @@
+//--- OBJECT WRITE BEGIN ---
+new GuiBitmapCtrl(MPExitGameDlg) {
+   profile = "GuiDefaultProfile";
+   horizSizing = "width";
+   vertSizing = "height";
+   position = "0 0";
+   extent = "640 480";
+   minExtent = "8 8";
+   visible = "1";
+   helpTag = "0";
+   bitmap = "~/client/ui/black";
+   wrap = "0";
+
+   new GuiBitmapCtrl() {
+      profile = "GuiDefaultProfile";
+      horizSizing = "center";
+      vertSizing = "center";
+      position = "146 115";
+      extent = "347 250";
+      minExtent = "48 92";
+      visible = "1";
+      helpTag = "0";
+      bitmap = "~/leaderboards/mp/team/teamjoin.png";
+      wrap = "0";
+
+      new GuiBitmapButtonCtrl(MPExitRestart1) {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "top";
+         position = "133 80";
+         extent = "94 45";
+         minExtent = "8 8";
+         visible = "1";
+         command = "Canvas.popDialog(MPExitGameDlg); $MP::Restarting = true; commandToServer(\'RestartLevel\');";
+         helpTag = "0";
+         text = "Quick Restart";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "~/leaderboards/mp/exit/partial";
+            simpleStyle = "0";
+      };
+      new GuiBitmapButtonCtrl(MPExitDisconnect) {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "top";
+         position = "22 132";
+         extent = "114 45";
+         minExtent = "8 8";
+         visible = "1";
+         command = "Canvas.popDialog(MPExitGameDlg); $MP::Restarting = true; MPExitGameDlg.exit();";
+         accelerator = "return";
+         helpTag = "0";
+         text = "Disconnect";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "~/leaderboards/mp/exit/disconnect";
+            simpleStyle = "0";
+      };
+      new GuiBitmapButtonCtrl(MPExitReturn) {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "top";
+         position = "133 132";
+         extent = "94 45";
+         minExtent = "8 8";
+         visible = "1";
+         command = "Canvas.popDialog(MPExitGameDlg); resumeGame();";
+         accelerator = "escape";
+         helpTag = "0";
+         text = "Return to Game";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "~/leaderboards/mp/exit/resume";
+            simpleStyle = "0";
+      };
+      new GuiBitmapButtonCtrl(MPExitServer) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "top";
+         position = "195 184";
+         extent = "45 45";
+         minExtent = "8 8";
+         visible = "1";
+         command = "MPServerDlg.open();";
+         helpTag = "0";
+         text = "button";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "~/leaderboards/mp/play/settings";
+      };
+      new GuiBitmapButtonCtrl(MPExitKickUsers) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "top";
+         position = "279 184";
+         extent = "45 45";
+         minExtent = "8 8";
+         visible = "1";
+         command = "MPUserKickDlg.show();";
+         helpTag = "0";
+         text = "button";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "~/leaderboards/mp/play/kick";
+      };
+      new GuiBitmapButtonCtrl(MPExitQuickspawn) {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "top";
+         position = "224 132";
+         extent = "104 45";
+         minExtent = "8 8";
+         visible = "1";
+         command = "Canvas.popDialog(MPExitGameDlg); resumeGame(); forceRespawn(true); schedule(100, 0, forceRespawn, false);";
+         helpTag = "0";
+         text = "Quickspawn";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "~/leaderboards/mp/exit/respawn";
+            simpleStyle = "0";
+      };
+      new GuiBitmapButtonCtrl(MPExitRestart2) {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "top";
+         position = "224 80";
+         extent = "104 45";
+         minExtent = "8 8";
+         visible = "1";
+         command = "Canvas.popDialog(MPExitGameDlg); $MP::Restarting = true; commandToServer(\'LobbyRestart\');";
+         helpTag = "0";
+         text = "Slow Restart";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "~/leaderboards/mp/exit/complete";
+            simpleStyle = "0";
+      };
+      new GuiBitmapButtonCtrl(MPExitTeams) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "top";
+         position = "108 184";
+         extent = "45 45";
+         minExtent = "8 8";
+         visible = "1";
+         command = "MPTeamSelectDlg.show();";
+         helpTag = "0";
+         text = "button";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "~/leaderboards/mp/play/teaminfo";
+      };
+      new GuiBitmapButtonCtrl(MPExitMarbles) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "top";
+         position = "25 184";
+         extent = "45 45";
+         minExtent = "8 8";
+         visible = "1";
+         command = "Canvas.pushDialog(MPMarbleSelectionDlg);";
+         helpTag = "0";
+         text = "button";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "~/leaderboards/mp/play/marble";
+      };
+      new GuiMLTextCtrl(MPExitTitle) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "8 28";
+         extent = "331 30";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiMLTextCtrl(MPExitRestartTitle) {
+         profile = "GuiMLTextProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "20 88";
+         extent = "114 14";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+   };
+   new GuiBitmapButtonCtrl() {
+      profile = "GuiDefaultProfile";
+      horizSizing = "left";
+      vertSizing = "top";
+      position = "439 403";
+      extent = "187 65";
+      minExtent = "8 8";
+      visible = "1";
+      command = "Canvas.pushDialog(JukeboxDlg);";
+      helpTag = "0";
+      text = "button";
+      groupNum = "-1";
+      buttonType = "PushButton";
+      repeatPeriod = "1000";
+      repeatDecay = "1";
+      bitmap = "~/client/ui/jukebox/jb_pausemenu";
+   };
+};
+//--- OBJECT WRITE END ---
+
+
+function MPExitGameDlg::onWake(%this) {
+   if (MoveMap.isPushed())
+      $Game::DoPushMoveMap = true;
+   MoveMap.pop();
+	MPExitKickUsers.setActive($Server::Hosting);
+	MPExitTeams.setActive($MP::TeamMode);
+	MPExitServer.setActive($Server::Hosting);
+	MPExitRestart1.setActive($Server::Hosting);
+	MPExitRestart2.setActive($Server::Hosting);
+	MPExitTitle.setValue("<shadowcolor:0000007f><shadow:1:1><font:Marker Felt:38><color:ffffff><just:center>Ingame Options");
+	MPExitRestartTitle.setValue("<shadowcolor:0000007f><shadow:1:1><font:Marker Felt:32><color:ffffff><just:center>Restart:");
+	$exit2 = false;
+
+	MPExitDisconnect.setBitmap($usermods @ "/leaderboards/mp/exit/" @ ($Server::Hosting ? "levelselect" : "disconnect"));
+}
+
+
+function MPExitGameDlg::onSleep(%this) {
+   if ($Game::DoPushMoveMap) {
+      MoveMap.push();
+      $Game::DoPushMoveMap = false;
+   }
+}
+
+function MPExitGameDlg::exit(%this) {
+	if ($exit2 || !$Server::Hosting) {
+		disconnect();
+	} else {
+		$exit2 = true;
+		commandToServer('LobbyReturn');
+	}
+}

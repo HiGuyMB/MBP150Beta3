@@ -1,0 +1,90 @@
+//--- OBJECT WRITE BEGIN ---
+new GuiBitmapCtrl(errorHandlerGui) {
+   profile = "GuiDefaultProfile";
+   horizSizing = "width";
+   vertSizing = "height";
+   position = "0 0";
+   extent = "640 480";
+   minExtent = "8 8";
+   visible = "1";
+   helpTag = "0";
+   bitmap = "~/client/ui/black";
+
+   new GuiBitmapCtrl() {
+      profile = "GuiDefaultProfile";
+      horizSizing = "center";
+      vertSizing = "center";
+      position = "118 93";
+      extent = "404 294";
+      minExtent = "48 92";
+      visible = "1";
+      helpTag = "0";
+      bitmap = "./marbleSelect/marbleSelect.png";
+      wrap = "0";
+         resizeHeight = "1";
+         canMaximize = "0";
+         canMove = "1";
+         minSize = "50 50";
+         canClose = "0";
+         maxLength = "255";
+         resizeWidth = "1";
+         canMinimize = "0";
+
+      new GuiMLTextCtrl(MBErrorHandlerTitle) {
+         profile = "GuiComic24Profile";
+         horizSizing = "center";
+         vertSizing = "bottom";
+         position = "95 15";
+         extent = "213 29";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+      new GuiBitmapButtonCtrl() {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "top";
+         position = "163 233";
+         extent = "81 41";
+         minExtent = "8 8";
+         visible = "1";
+         command = "MessageCallback(errorHandlerGui,errorHandlerGui.callback); resumeGame(); $asserted = 0;";
+         accelerator = "return";
+         helpTag = "0";
+         text = "OK";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./motd/ok";
+            simpleStyle = "0";
+      };
+      new GuiMLTextCtrl(MBErrorHandlerText) {
+         profile = "GuiTextProfile";
+         horizSizing = "center";
+         vertSizing = "bottom";
+         position = "84 50";
+         extent = "236 14";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         lineSpacing = "2";
+         allowColorChars = "0";
+         maxChars = "-1";
+      };
+   };
+};
+//--- OBJECT WRITE END ---
+
+function ASSERT(%title, %message, %callback)
+{
+	$asserted = 1;
+	MBErrorHandlerTitle.setText("<font:DomCasualD:24><just:center>" @ %title);
+	MBErrorHandlerText.setText(%message);
+	Canvas.pushDialog(errorHandlerGui);
+	errorHandlerGui.callback = %callback;
+	pauseGame();
+}

@@ -1,0 +1,1596 @@
+//-----------------------------------------------------------------------------
+// LBPlayMissionDlg.gui
+// Copyright (c) The Platinum Team
+// Portions Copyright (c) GarageGames.com && TGE
+// Mainly written by Jeff
+// References from Spy47
+//-----------------------------------------------------------------------------
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(LBPlayMissionDlg) {
+   profile = "GuiDefaultProfile";
+   horizSizing = "width";
+   vertSizing = "height";
+   position = "0 0";
+   extent = "640 480";
+   minExtent = "8 8";
+   visible = "1";
+   helpTag = "0";
+
+   new GuiBitmapCtrl() {
+      profile = "GuiDefaultProfile";
+      horizSizing = "center";
+      vertSizing = "center";
+      position = "-1 7";
+      extent = "642 465";
+      minExtent = "8 8";
+      visible = "1";
+      helpTag = "0";
+      bitmap = "./play/big_window";
+      wrap = "0";
+
+      new GuiControl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "left";
+         vertSizing = "bottom";
+         position = "140 51";
+         extent = "225 177";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+
+         new GuiBitmapCtrl(LBMissionPreview) {
+            profile = "GuiDefaultProfile";
+            horizSizing = "width";
+            vertSizing = "height";
+            position = "5 4";
+            extent = "225 177";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            bitmap = "~/data/lb_custom/levelpacks1-9/ultimate_race";
+            wrap = "0";
+         };
+         new GuiBitmapCtrl() {
+            profile = "GuiDefaultProfile";
+            horizSizing = "width";
+            vertSizing = "height";
+            position = "2 0";
+            extent = "225 177";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            bitmap = "./play/level_window";
+            wrap = "0";
+         };
+      };
+      new GuiBitmapCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "left";
+         vertSizing = "bottom";
+         position = "135 9";
+         extent = "496 52";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "./play/levelname_transparency";
+         wrap = "0";
+
+         new GuiMLTextCtrl(LBMissionName) {
+            profile = "GuiMLTextProfile";
+            horizSizing = "center";
+            vertSizing = "center";
+            position = "10 13";
+            extent = "475 25";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            lineSpacing = "2";
+            allowColorChars = "0";
+            maxChars = "-1";
+         };
+         new GuiButtonBaseCtrl() {
+            profile = "GuiDefaultProfile";
+            horizSizing = "width";
+            vertSizing = "height";
+            position = "0 0";
+            extent = "496 52";
+            minExtent = "8 8";
+            visible = "1";
+            command = "LBTogglePackPanel();";
+            helpTag = "0";
+            text = "button";
+            groupNum = "-1";
+            buttonType = "PushButton";
+            repeatPeriod = "1000";
+            repeatDecay = "1";
+         };
+      };
+      new GuiBitmapButtonCtrl(LBMissionBeginner) {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "17 21";
+         extent = "131 71";
+         minExtent = "8 8";
+         visible = "1";
+         command = "LBSetMissionType(\"Beginner\");";
+         helpTag = "0";
+         text = "Beginner";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./play/tab_begin";
+      };
+      new GuiBitmapButtonCtrl(LBMissionIntermediate) {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "16 83";
+         extent = "131 71";
+         minExtent = "8 8";
+         visible = "1";
+         command = "LBSetMissionType(\"Intermediate\");";
+         helpTag = "0";
+         text = "Intermediate";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./play/tab_inter";
+      };
+      new GuiBitmapButtonCtrl(LBMissionAdvanced) {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "16 145";
+         extent = "131 71";
+         minExtent = "8 8";
+         visible = "1";
+         command = "LBSetMissionType(\"Advanced\");";
+         helpTag = "0";
+         text = "Advanced";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./play/tab_adv";
+      };
+      new GuiBitmapButtonCtrl(LBMissionExpert) {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "16 207";
+         extent = "131 71";
+         minExtent = "8 8";
+         visible = "1";
+         command = "LBSetMissionType(\"Expert\");";
+         helpTag = "0";
+         text = "Expert";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./play/tab_expert";
+      };
+      new GuiBitmapButtonCtrl(LBMissionCustom) {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "16 207";
+         extent = "131 71";
+         minExtent = "8 8";
+         visible = "0";
+         command = "LBSetMissionType(\"Custom\");";
+         helpTag = "0";
+         text = "Custom";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./play/tab_cust";
+      };
+      new GuiBitmapButtonCtrl(LBChangeGame) {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "14 340";
+         extent = "131 71";
+         minExtent = "8 8";
+         visible = "1";
+         command = "LBPlayMissionDlg.switchGame();";
+         helpTag = "0";
+         text = "Change Game";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./play/change";
+      };
+      new GuiBitmapButtonCtrl(LBPM_Friends) {
+         profile = "GuiButtonProfile";
+         horizSizing = "left";
+         vertSizing = "top";
+         position = "529 171";
+         extent = "55 55";
+         minExtent = "8 8";
+         visible = "1";
+         command = "LBUserDlg.show($LB::Username);";
+         helpTag = "0";
+         text = "Friends";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./play/friends";
+      };
+      new GuiBitmapButtonCtrl() {
+         profile = "GuiButtonProfile";
+         horizSizing = "left";
+         vertSizing = "top";
+         position = "487 171";
+         extent = "55 55";
+         minExtent = "8 8";
+         visible = "1";
+         variable = "$demoButton";
+         command = "toggleRecordDemo();";
+         helpTag = "0";
+         text = "Record Demo";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./play/record";
+      };
+      new GuiBitmapButtonCtrl() {
+         profile = "GuiButtonProfile";
+         horizSizing = "left";
+         vertSizing = "top";
+         position = "403 171";
+         extent = "55 55";
+         minExtent = "8 8";
+         visible = "1";
+         command = "Canvas.pushDialog(SearchGui);";
+         helpTag = "0";
+         text = "Search";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./play/search";
+      };
+      new GuiBitmapButtonCtrl() {
+         profile = "GuiButtonProfile";
+         horizSizing = "left";
+         vertSizing = "top";
+         position = "445 171";
+         extent = "55 55";
+         minExtent = "8 8";
+         visible = "1";
+         command = "Canvas.pushDialog(LBMarbleSelectionDlg);";
+         helpTag = "0";
+         text = "Marble Select";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./play/marble";
+      };
+      new GuiBitmapCtrl() {
+         profile = "GuiDefaultProfile";
+         horizSizing = "left";
+         vertSizing = "bottom";
+         position = "358 45";
+         extent = "278 142";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "./play/desc_transparency";
+         wrap = "0";
+
+         new GuiScrollCtrl() {
+            profile = "GuiBacklessScrollProfile";
+            horizSizing = "relative";
+            vertSizing = "relative";
+            position = "15 10";
+            extent = "252 120";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            willFirstRespond = "1";
+            hScrollBar = "alwaysOff";
+            vScrollBar = "dynamic";
+            constantThumbHeight = "0";
+            childMargin = "0 0";
+
+            new GuiMLTextCtrl(LBMissionDesc) {
+               profile = "GuiMLTextProfile";
+               horizSizing = "right";
+               vertSizing = "bottom";
+               position = "0 0";
+               extent = "250 70";
+               minExtent = "8 8";
+               visible = "1";
+               helpTag = "0";
+               lineSpacing = "2";
+               allowColorChars = "0";
+               maxChars = "-1";
+            };
+         };
+         new GuiBitmapCtrl(LBEasterEggIcon) {
+            profile = "GuiDefaultProfile";
+            horizSizing = "left";
+            vertSizing = "top";
+            position = "245 101";
+            extent = "19 27";
+            minExtent = "8 8";
+            visible = "0";
+            helpTag = "0";
+            bitmap = "~/client/ui/egg_nf";
+            wrap = "0";
+         };
+      };
+      new GuiBitmapCtrl(LBMissionTimesBox) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "left";
+         vertSizing = "top";
+         position = "138 248";
+         extent = "491 204";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         bitmap = "./play/times_transparency";
+         wrap = "0";
+
+         new GuiMLTextCtrl(LBMissionPersonalTimes) {
+            profile = "GuiMLTextProfile";
+            horizSizing = "right";
+            vertSizing = "bottom";
+            position = "15 10";
+            extent = "166 154";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            lineSpacing = "2";
+            allowColorChars = "0";
+            maxChars = "-1";
+         };
+         new GuiMLTextCtrl(LBMissionGlobalTimes) {
+            profile = "GuiMLTextProfile";
+            horizSizing = "left";
+            vertSizing = "bottom";
+            position = "193 10";
+            extent = "286 154";
+            minExtent = "8 8";
+            visible = "1";
+            helpTag = "0";
+            lineSpacing = "2";
+            allowColorChars = "0";
+            maxChars = "-1";
+         };
+         new GuiBitmapButtonCtrl(LBMissionGlobalNext) {
+            profile = "GuiDefaultProfile";
+            horizSizing = "left";
+            vertSizing = "bottom";
+            position = "457 9";
+            extent = "26 26";
+            minExtent = "8 8";
+            visible = "1";
+            command = "LBGlobalListNext();";
+            helpTag = "0";
+            text = "Next";
+            groupNum = "-1";
+            buttonType = "RepeaterButton";
+            repeatPeriod = "450";
+            repeatDecay = "0.955";
+            bitmap = "./core/rarrow";
+         };
+         new GuiBitmapButtonCtrl(LBMissionGlobalPrev) {
+            profile = "GuiDefaultProfile";
+            horizSizing = "left";
+            vertSizing = "bottom";
+            position = "435 9";
+            extent = "26 26";
+            minExtent = "8 8";
+            visible = "1";
+            command = "LBGlobalListPrev();";
+            helpTag = "0";
+            text = "Prev";
+            groupNum = "-1";
+            buttonType = "RepeaterButton";
+            repeatPeriod = "450";
+            repeatDecay = "0.955";
+            bitmap = "./core/larrow";
+         };
+      };
+      new GuiBitmapButtonCtrl() {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "top";
+         position = "27 402";
+         extent = "105 43";
+         minExtent = "8 8";
+         visible = "1";
+         command = "LBPlayMissionDlg.back();";
+         helpTag = "0";
+         text = "Back";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./play/home";
+      };
+      new GuiBitmapButtonCtrl(LBMissionNext) {
+         profile = "GuiButtonProfile";
+         horizSizing = "left";
+         vertSizing = "top";
+         position = "535 217";
+         extent = "89 45";
+         minExtent = "8 8";
+         visible = "1";
+         command = "LBSetSelected(42);";
+         accelerator = "right";
+         helpTag = "0";
+         text = "Next";
+         groupNum = "-1";
+         buttonType = "RepeaterButton";
+         repeatPeriod = "450";
+         repeatDecay = "0.95";
+         bitmap = "./play/next";
+      };
+      new GuiBitmapButtonCtrl(LBMissionPrev) {
+         profile = "GuiButtonProfile";
+         horizSizing = "left";
+         vertSizing = "top";
+         position = "363 217";
+         extent = "89 45";
+         minExtent = "8 8";
+         visible = "1";
+         command = "LBSetSelected(41);";
+         accelerator = "left";
+         helpTag = "0";
+         text = "Previous";
+         groupNum = "-1";
+         buttonType = "RepeaterButton";
+         repeatPeriod = "450";
+         repeatDecay = "0.95";
+         bitmap = "./play/prev";
+      };
+      new GuiBitmapButtonCtrl(LBMissionPlay) {
+         profile = "GuiButtonProfile";
+         horizSizing = "left";
+         vertSizing = "top";
+         position = "449 217";
+         extent = "89 45";
+         minExtent = "8 8";
+         visible = "1";
+         command = "LBPlayMissionDlg.play();";
+         helpTag = "0";
+         text = "Play";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./play/play";
+      };
+      new GuiBitmapButtonCtrl(LBPM_Achievements) {
+         profile = "GuiButtonProfile";
+         horizSizing = "left";
+         vertSizing = "top";
+         position = "361 171";
+         extent = "55 55";
+         minExtent = "8 8";
+         visible = "1";
+         helpTag = "0";
+         command = "LBAchievementsDlg.show();";
+         text = "Achievements";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./play/achiev";
+      };
+      new GuiBitmapButtonCtrl(LBPlaySuperChallenge) {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "16 281";
+         extent = "131 71";
+         minExtent = "8 8";
+         visible = "1";
+         command = "LBSuperChallengeDlg.open();";
+         helpTag = "0";
+         text = "Super Challenge";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./play/superchallenge";
+      };
+      new GuiBitmapButtonCtrl(LBPM_Stats) {
+         profile = "GuiButtonProfile";
+         horizSizing = "left";
+         vertSizing = "top";
+         position = "571 171";
+         extent = "55 55";
+         minExtent = "8 8";
+         visible = "1";
+         command = "LBStatsDlg.show();";
+         helpTag = "0";
+         text = "Stats";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./play/stats";
+      };
+      new GuiBitmapButtonCtrl(LBPlayChallenge) {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "265 217";
+         extent = "99 45";
+         minExtent = "8 8";
+         visible = "1";
+         command = "LBShowChallenge();";
+         helpTag = "0";
+         text = "challenge";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         repeatPeriod = "1000";
+         repeatDecay = "1";
+         bitmap = "./play/challenge";
+      };
+      new GuiBitmapCtrl(LBCustomPackPanel) {
+         profile = "GuiDefaultProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "155 49";
+         extent = "200 154";
+         minExtent = "8 8";
+         visible = "0";
+         helpTag = "0";
+         bitmap = "./play/levelpack_transparency";
+         wrap = "0";
+
+         new GuiScrollCtrl() {
+            profile = "GuiBacklessScrollProfile";
+            horizSizing = "right";
+            vertSizing = "bottom";
+            position = "8 0";
+            extent = "184 140";
+            minExtent = "180 8";
+            visible = "1";
+            helpTag = "0";
+            willFirstRespond = "1";
+            hScrollBar = "alwaysOff";
+            vScrollBar = "dynamic";
+            constantThumbHeight = "0";
+            childMargin = "0 0";
+               enumerate = "0";
+
+            new GuiTextListCtrl(LBCustomPackList) {
+               profile = "GuiPackListProfile";
+               horizSizing = "right";
+               vertSizing = "bottom";
+               position = "0 0";
+               extent = "184 81";
+               minExtent = "180 8";
+               visible = "1";
+               command = "LBSelectCustomPack();";
+               helpTag = "0";
+               enumerate = "0";
+               resizeCell = "1";
+               columns = "4";
+               fitParentWidth = "1";
+               clipColumnText = "0";
+            };
+         };
+      };
+   };
+};
+//--- OBJECT WRITE END ---
+
+function LBPlayMissionDlg::show(%this) {
+   Canvas.pushDialog(%this);
+   LBFixMissionType();
+}
+
+function LBPlayMissionDlg::onWake(%this) {
+   %this.determineVisibility();
+   %lastRow = $LBPref::SelectedRow;
+   LBFixMissionType();
+
+   if (%lastRow $= "")
+      %lastRow = LBQualification() - 1;
+
+   LBSetSelected(%lastRow);
+
+   // Jeff: set status
+   LBSetMode(1);
+
+   $LB::GlobalPage = 0;
+   LBGlobalListArrowUpdate();
+
+   // Jeff: if we are a guest, we can't have all the fun stuff D:
+   %active = !$LB::Guest;
+   LBPM_Friends.setActive(%active);
+   LBPM_Stats.setActive(%active);
+}
+
+function LBFixMissionType() {
+   %type = "";
+   if ($LB::MissionType $= "") {
+      if ($LBPref::MissionType $= "")
+         %type = "Beginner";
+      else
+         %type = $LBPref::MissionType;
+   } else
+      %type = $LB::MissionType;
+
+   LBSetMissionType(%type);
+}
+
+// Jeff: switch between mbp and mbg
+function LBPlayMissionDlg::switchGame(%this) {
+   $LB::LastType[$CurrentGame] = $LB::MissionType;
+   $LB::LastRow[$CurrentGame] = $LBPref::SelectedRow;
+   $CurrentGame = ($CurrentGame $= "Platinum") ? "Gold" : "Platinum";
+   %this.determineVisibility();
+   devecho("Switching LB Game to" SPC $CurrentGame);
+   if ((%type = $LB::LastType[$CurrentGame]) $= "")
+      %type = "Beginner";
+   $LB::MissionType = %type;
+   LBSetMissionType(%type);
+   if ((%row = $LB::LastRow[$CurrentGame]) $= "")
+      %row = LBQualification() - 1;
+   LBSetSelected(%row);
+}
+
+// Jeff: used for determining what to show based on gametype
+function LBPlayMissionDlg::determineVisibility(%this) {
+   if ($CurrentGame $= "Platinum") {
+      LBMissionExpert.setVisible(true);
+      LBMissionCustom.setVisible(false);
+   } else if ($CurrentGame $= "Gold") {
+      LBMissionExpert.setVisible(false);
+      LBMissionCustom.setVisible(true);
+   }
+}
+
+// Jeff: play button, checks mission redundancy and play
+function LBPlayMissionDlg::play(%this, %file) {
+   schedule(0, 0, LBMessage, "Checking Mission Consistency", "LBCRCDisconnect();");
+   %file = (%file !$= "") ? %file : $LB::MissionObj.file;
+
+   // Jeff: once checked, it will execute the playing from this method below:
+   LBStartMission(%file, $Game::Running);
+}
+
+function LBCRCDisconnect() {
+   disconnect();
+   LBRedundancyCheckNetwork.destroy();
+   cancel($LB::LevelStart);
+   cancel($LB::LevelStart2);
+}
+
+// Jeff: back button
+function LBPlayMissionDlg::back(%this) {
+   canvas.popDialog(%this);
+   LBSetMode(0); // Jeff: set mode to chat
+}
+
+// Jeff: grab current level for qualification
+function LBQualification() {
+   %type = $LB::MissionType;
+   %row = ($CurrentGame $= "Platinum") ? $pref::QualifiedLevel[%type] : $pref::MBGQualifiedLevel[%type];
+   if (%row >= $LB::PlayMissionList.rowCount())
+      %row = $LB::PlayMissionList.rowCount();
+   return %row;
+}
+
+// Jeff: set mission type
+function LBSetMissionType(%type) {
+   LBMissionPlay.setActive(0);
+
+   $LB::MissionType = %type;
+   $LBPref::MissionType = %type;
+
+   if (%type $= "Custom") {
+      if (!buildLBCustomMissionList()) return;
+      %name = "LBML_Custom";
+      $HeyWaitNo = true;
+      LBCustomPackList.setSelectedById($LB::Custom::Index);
+      $HeyWaitNo = false;
+   } else {
+      LBTogglePackPanel();
+      buildLBMissionList();
+      %name = "LBML_" @ $CurrentGame @ %type;
+   }
+
+   // Jeff: grab the level list and store it into a global variable
+   for (%i = 0; %i < LBPlayMissionGroup.getCount(); %i ++) {
+      %obj = LBPlayMissionGroup.getObject(%i);
+      if (%obj.getName() $= %name) {
+         $LB::PlayMissionList = %obj;
+         break;
+      }
+   }
+   //HiGuy: Clear scores
+   deleteVariables("$LB::GlobalName*");
+   deleteVariables("$LB::GlobalScore*");
+   LBMissionGlobalTimes.setText();
+   LBMissionPersonalTimes.setText();
+
+   LBSetSelected(LBQualification() - 1);
+}
+
+// Jeff: next/prev function
+function LBSetSelected(%row) {
+   $LBPref::SelectedRow = %row;
+   %missionList = $LB::PlayMissionList;
+   if (!isObject($LB::PlayMissionList))
+      return;
+   // Jeff: ensure mission row is not to high
+   if (%row >= %missionList.rowCount())
+      %row = (%missionList.rowCount() - 1);
+   %mission = getField(%missionList.getRowTextById(%row),0);
+   $LB::MissionObj = %mission;
+
+   %type = $LB::MissionType;
+
+   // Jeff: qualification check
+   %qualified = %row >= 0;
+   LBMissionPlay.setActive(%qualified);
+
+   $LB::PlayMissionList.setSelectedRow(%row);
+
+   // Jeff: set mission name
+   if (%row >= 0) {
+      %name = ("MB" @ (($CurrentGame $= "Platinum") ? "P" : "G")) SPC "-" SPC upperFirst(%mission.name) SPC "-" SPC upperFirst(%type);
+      if ($LB::MissionType $= "Custom")
+         %name = $LB::Custom::CategoryDisp[$LB::Custom::Index] SPC "(Custom) -" SPC upperFirst(%mission.name) SPC "-";
+      %name = %name SPC "Level" SPC (%row + 1);
+   } else {
+      %name = ("MB" @ (($CurrentGame $= "Platinum") ? "P" : "G")) SPC "-" SPC %type SPC "- No Missions";
+      if ($LB::MissionType $= "Custom")
+         %name = $LB::Custom::CategoryDisp[$LB::Custom::Index] SPC "(Custom) - No Missions";
+   }
+   LBMissionName.setText("<just:center><font:DomCasualD:24>" @ %name);
+
+   // Jeff: mission description
+   %desc = "<just:left>" @ (getSubStr(%mission.desc, 0, 1) $= "W" ? " " : "") @ %mission.desc @
+           (%mission.artist !$= "" ? "\n<font:Arial Bold:14>Author:<font:Arial:14>" SPC %mission.artist : "") NL
+           (%mission.time ? "\n<font:Arial Bold:14>Par Time:<font:Arial:14>" SPC formatTime(%mission.time) : "") @
+           (%mission.goldTime ? "\n<font:Arial Bold:14>" @ ($CurrentGame $= "Gold" ? "Gold" : "Platinum") SPC "Time:<font:Arial:14>" SPC formatTime(%mission.goldTime) : "") @
+           (%mission.ultimateTime ? "\n<font:Arial Bold:14>Ultimate Time:<font:Arial:14>" SPC formatTime(%mission.ultimateTime) : "");
+   LBMissionDesc.setText(%desc);
+
+   // Jeff: set preview image
+   LBSetPreviewImage(%mission);
+
+   // Jeff: get scores
+   %file = %mission.file;
+   cancel($LB::ScoreSchedule);
+   cancel($LB::PersonalScoreSchedule);
+
+   //HiGuy: Don't do this if the mission doesn't exist!
+   if (%row >= 0) {
+		%stripped = stripNot(strlwr(filebase(%mission.file)), "abcdefghijklmnopqrstuvwxyz0123456789");
+   	if ($LB::GlobalNames[%stripped] > 0) {
+   		$LB::GlobalUpdate[%mission.file] = true;
+			LBGlobalListUpdate();
+		} else
+			LBMissionGlobalTimes.setText("<just:left><font:DomCasualD:24>Getting scores...");
+		LBMissionPersonalTimes.setText("<just:left><font:DomCasualD:24>Getting scores...");
+
+      $LB::ScoreSchedule = schedule(500, 0, "LBGetGlobalScores", %file, 0);
+      $LB::PersonalScoreSchedule = schedule(500, 0, "LBGetPersonalScores", %file);
+   }
+
+   // Jeff: copy/pasta from playMissionGui.gui
+   %next = %row + 1;
+   LBMissionNext.setActive(%next < %missionList.rowCount());
+   if (%next >= %missionList.rowCount())
+      %next = %missionList.rowCount() - 1;
+   LBMissionNext.command = "LBSetSelected(" @ %next @ ");";
+   %prev = %row - 1;
+   LBMissionPrev.setActive(%prev >= 0);
+   if (%prev < 0)
+      %prev = 0;
+   LBMissionPrev.command = "LBSetSelected(" @ %prev @ ");";
+}
+
+// Jeff: challenge button
+function LBShowChallenge() {
+   LBChallengeDlg.setLBChallengeDlgPane("challenge");
+}
+
+// Jeff: set mission preview
+function LBSetPreviewImage(%mission) {
+   // Jeff: easter egg setting!
+   %image = $usermods @ "/client/ui/egg_nf";
+   %strippedMis = alphaNum(%mission.file);
+   //devecho("stripped:" SPC %strippedMis);
+   //devecho("EE" SPC %mission.easterEgg);
+   for (%i = 0; %i < LBEasterEggArray.getSize(); %i ++) {
+      if (LBEasterEggArray.getEntryByIndex(%i) $= %strippedMis) {
+         %image = $usermods @ "/client/ui/egg";
+         break;
+      }
+   }
+   LBEasterEggIcon.setBitmap(%image);
+   LBEasterEggIcon.setVisible(%mission.easterEgg);
+
+   LBMissionPreview.setBitmap(LBGetLevelBitmap(%mission));
+}
+
+function LBGetLevelBitmap(%mission) {
+   return getLevelBitmap(%mission);
+}
+
+// Jeff: construct mission list
+function buildLBMissionList() {
+   %missionType = $LB::MissionType;
+   %arrayType = $CurrentGame @ %missionType;
+   // Jeff: only build the mission list once per type
+   if ($LB::BuiltMissionList[%arrayType])
+      return;
+   if (!isObject(LBPlayMissionGroup)) {
+      new SimGroup(LBPlayMissionGroup);
+      RootGroup.add(LBPlayMissionGroup);
+   }
+
+   // Jeff: determine which folder the missions are stored at
+   %path = $usermods @ "/data/" @ ($CurrentGame $= "Platinum" ? "lbmissions_mbp" : "lbmissions_mbg") @ "/" @ %missionType @ "/*.mis";
+
+   devecho("Building mission list for" SPC %path);
+
+   // Jeff: this control is used for storing mission files and script objects
+   %index = 0;
+   for (%file = findFirstFile(%path); %file !$= ""; %file = findNextFile(%path)) {
+      %already = false;
+      %grp = nameToId("LBMTYPE_" @ $CurrentGame @ %missionType);
+      if (%grp != -1) {
+         for (%i = 0; %i < %grp.getCount(); %i ++) {
+            if (%grp.getObject(%i).file $= %file) {
+               %already = true;
+               break;
+            }
+         }
+//         devecho("Found mission" SPC %file);
+      }
+      if (%already)
+         continue;
+      %mission[%index] = %file;
+      getLBMissionInfo(%file,%missionType);
+      %index ++;
+   }
+
+//   devecho("Found" SPC %index SPC "missions");
+
+   // Jeff: make textlist for easy access to levels
+   while (isObject("LBML_" @ %arrayType))
+      nameToId("LBML_" @ %arrayType).delete();
+   %gui = new GuiTextListCtrl("LBML_" @ %arrayType) {
+      profile = "GuiTextlistProfile";
+      horizSizing = "relative";
+      vertSizing = "bottom";
+      position = "2 2";
+      extent = "8 8";
+      minExtent = "8 8";
+      visible = "0";
+      helpTag = "0";
+      enumerate = "0";
+      resizeCell = "0";
+      columns = "0";
+      fitParentWidth = "1";
+      clipColumnText = "0";
+   };
+   LBPlayMissionGroup.add(%gui);
+
+   // Jeff: sort levels
+   %obj = nameToId("LBMTYPE_" @ %arrayType);
+   if (isObject(%obj)) {
+      sortByLevel(%obj);
+      for (%i = 0; %i < %obj.getCount(); %i ++) {
+         %scriptObj = %obj.getObject(%i);
+         %gui.addRow(%gui.rowCount(),%scriptObj TAB %mission[%i]);
+      }
+   }
+   $LB::BuiltMissionList[%arrayType] = true;
+}
+
+// Jeff: coppied from playMissionGui.gui, creates the server and plays
+function LBPlayLevel(%mission, %code) {
+	savePrefs(true);
+	LBMarbleSelectionDlg.updateMarble();
+	$playingDemo = false; //HiGuy: For some reason, this isn't reset.
+
+   cancel($LB::RedundancySchedule);
+   LBRedundancyCheckNetwork.destroy();
+
+   //if (!$LB::SuperChallengeMode)
+      //disconnect(true); //HiGuy: Clean up anything that may have been left over
+
+   if (%code != mPow(32, 2))
+      return;
+
+   devecho("Loading level" SPC %mission.file);
+
+   //HiGuy: Get server type
+   %serverType = "SinglePlayer";
+
+   // We need to start a server if one isn't already running
+   if ($Server::ServerType $= "") {
+      //HiGuy: I don't even have to worry about recordings in MP, they simply
+      // just don't work!
+      // Spy47 : Modifying demo recording system
+      if($doRecordDemo)
+         recordDemo("~/client/demos/" @ $recordDemoName @ ".rec", %mission.file);
+      if ($Game::PlayRecording) {
+			startRecording(%mission.file);
+
+			%best = missionRecordPath(%mission.file);
+			if (isFile(%best))
+				playRecording(%best);
+		}
+
+      createServer(%serverType, %mission.file);
+      %conn = new GameConnection(ServerConnection);
+      RootGroup.add(ServerConnection);
+      %conn.setConnectArgs($LB::Username, -1, $MP::ServerPassword, LBMarbleSelectionDlg.getSelection(), "bologna");
+      %conn.connectLocal();
+      loadMission(%mission.file, true);
+   } else {
+      loadMission(%mission.file);
+   }
+   if(isObject(MissionInfo)) {
+      MissionInfo.level = %mission.level;
+   }
+}
+
+//-----------------------------------------------------------------------------
+// Jeff: scores stuff
+//-----------------------------------------------------------------------------
+
+// Jeff: global scores
+function LBGetGlobalScores(%mission,%start) {
+	devecho("Getting scores for" SPC %mission);
+   %server = $LB::server;
+   %page = $LB::serverPath @ "globalscores.php";
+   %gameType = LBGetGameMode(%mission);
+   %gg = $LB::MarbleChoice $= "GGMarble";
+   %stripped = stripNot(strlwr(filebase(%mission)), "abcdefghijklmnopqrstuvwxyz0123456789");
+   %query = LBDefaultQuery() @ "&level=" @ stripNot(strlwr(filebase(%mission)), "abcdefghijklmnopqrstuvwxyz0123456789");
+   %query = %query @ "&gametype=" @ %gameType @ "&start=" @ %start @ "&gg=" @ %gg;
+   //devecho(%query);
+   %tcp = new TCPObject(LBGlobalScoresNetwork);
+   %tcp.mission = %mission;
+   %tcp.post(%server,%page,%query);
+   %tcp.received = false;
+
+   $LB::GlobalNames[%stripped] = 0;
+}
+
+function LBGlobalScoresNetwork::onLine(%this,%line) {
+   Parent::onLine(%this,%line);
+   if (getWord(%line,0) $= "SIG") {
+      switch (getWord(%line,1)) {
+         case 0: // Jeff: server failure
+            %this.echo("Server failure");
+            //%this.disconnect();
+         case 1: // Jeff: page finish
+            %this.echo("Finish");
+            //%this.disconnect();
+	   		$LB::GlobalUpdate[%this.mission] = false;
+            if ($LB::MissionObj.file $= %this.mission)
+	            LBGlobalListFinish(%this.mission);
+         case 2: // Jeff: missing information
+            %this.echo("Missing Information");
+         case 6: // Jeff: invalid username/password
+            %this.echo("Invalid Username or Password");
+         case 9: // Jeff: not logged in
+            %this.echo("Not Logged In");
+         case 16: // Jeff: starting list
+            %this.echo("Starting list");
+				%stripped = stripNot(strlwr(filebase(%this.mission)), "abcdefghijklmnopqrstuvwxyz0123456789");
+				deleteVariables("$LB::GlobalName" @ %stripped @ "*");
+				deleteVariables("$LB::GlobalScore" @ %stripped @ "*");
+         default: // Jeff: WTF?
+            %this.echo("Unhandled Sig #" @ getWord(%line,1));
+      }
+   } else if (getWord(%line,0) $= "SCORE") {
+      //devecho("NEW SCORE" SPC getWords(%line,1));
+      %username = getWord(%line,1);
+      %time = getWord(%line,2);
+      %rating = getWord(%line,3);
+      %number = getWord(%line,4);
+
+		%stripped = stripNot(strlwr(filebase(%this.mission)), "abcdefghijklmnopqrstuvwxyz0123456789");
+      //HiGuy: All the formatting has been moved to LBGlobalListUpdate()
+      // Jeff: reworked to use less global arrays
+      if ($LB::GlobalName[%stripped, %username])
+         return;
+      $LB::GlobalName[%stripped, %username] = true;
+      $LB::GlobalScore[%stripped, %number] = %username TAB %time TAB %rating;
+      $LB::GlobalNames[%stripped] ++;
+
+      //Format!
+//		if ($LB::MissionObj.file $= %this.mission)
+//	       LBGlobalListUpdate();
+   }
+}
+
+// Jeff: reworked method to make less variables
+function LBGlobalListFinish(%mission) {
+	%stripped = stripNot(strlwr(filebase(%mission)), "abcdefghijklmnopqrstuvwxyz0123456789");
+   for (%i = $LB::GlobalNames[%stripped]; %i < 2500; %i ++)
+      $LB::GlobalScore[%stripped, %i] = $LB::DefaultHSName TAB "5998999" TAB "0";
+   LBGlobalListUpdate();
+}
+
+// Jeff: update the global score list
+function LBGlobalListUpdate() {
+	if ($LB::GlobalUpdate[$LB::MissionObj.file])
+	   LBMissionGlobalTimes.setText("<font:DomCasualD:24>Updating Best Times...\n<tab:25,160,230,250><color:000000><font:Arial Bold:14><shadow:1:1><shadowcolor:ffffff4f>" @ "#:\tUsername:\tTime:\tRating:");
+	else
+	   LBMissionGlobalTimes.setText("<font:DomCasualD:24>Global Best Times\n<tab:25,160,230,250><color:000000><font:Arial Bold:14><shadow:1:1><shadowcolor:ffffff4f>" @ "#:\tUsername:\tTime:\tRating:");
+   for (%i = ($LB::GlobalPage * 10); %i < 10 + ($LB::GlobalPage * 10); %i ++) {
+	   %stripped = stripNot(strlwr(filebase($LB::MissionObj.file)), "abcdefghijklmnopqrstuvwxyz0123456789");
+      %score = $LB::GlobalScore[%stripped, %i];
+      %username = decodeName(getField(%score,0));
+      %time  = formatTime(getField(%score,1));
+      %time = "<spush>" @ LBSCD_ScoreColor($LB::MissionObj, getField(%score,1)) @ %time @ "<spop>";
+      %rating   = formatRating(getField(%score,2));
+      %show = "<tab:25,60,160,230><spush>" @ LBSpecialColor(%i + 1) @ %i + 1 TAB clipPx("<font:Arial Bold:14>" @ %username, 135, true) @ "<spop>" TAB %time TAB "<spush>" @ LBSpecialColor(%i + 1) @ %rating @ "<spop>";
+      %show = LBMissionGlobalTimes.getValue() NL %show;
+      LBMissionGlobalTimes.setText(%show);
+   }
+}
+
+// Jeff: small previous button for paging through global scores
+function LBGlobalListPrev() {
+   $LB::GlobalPage --;
+   LBGlobalListArrowUpdate();
+   LBGlobalListUpdate();
+}
+
+// Jeff: small previous button for paging through global scores
+function LBGlobalListNext() {
+   $LB::GlobalPage ++;
+   LBGlobalListArrowUpdate();
+   LBGlobalListUpdate();
+}
+
+// Jeff: activate/deactivate arrows, and ensure a page check is done
+function LBGlobalListArrowUpdate() {
+   LBMissionGlobalNext.setActive(true);
+   LBMissionGlobalPrev.setActive(true);
+   if ($LB::GlobalPage >= 249) {
+      $LB::GlobalPage = 249;
+      LBMissionGlobalNext.setActive(false);
+   } else if ($LB::GlobalPage <= 0) {
+      $LB::GlobalPage = 0;
+      LBMissionGlobalPrev.setActive(false);
+   }
+}
+
+// Jeff: personal scores
+function LBGetPersonalScores(%mission) {
+   // Jeff: if we are a guest, we don't have personal scores
+   if ($LB::Guest) {
+      LBMissionPersonalTimes.setText("<spush><just:center><font:DomcasualD:24>Notice<spop>\n\n<just:center>Guest Accounts does not get\nPersonal Scores.\n\nYour scores will not be recorded.");
+      return;
+   }
+
+   LBMissionPersonalTimes.setText("<just:left><font:DomCasualD:24>Getting scores...");
+   %server = $LB::server;
+   %page = $LB::serverPath @ "userscores.php";
+   %gameType = LBGetGameMode(%mission);
+   %gg = $LB::MarbleChoice $= "GGMarble";
+   %level = stripNot(strlwr(filebase(%mission)), "abcdefghijklmnopqrstuvwxyz0123456789");
+   %query = LBDefaultQuery() @ "&level=" @ %level @ "&gametype=" @ %gameType @ "&gg=" @ %gg;
+   if (!isObject(LBPersonalScoresNetwork))
+      new TCPObject(LBPersonalScoresNetwork);
+   LBPersonalScoresNetwork.post(%server,%page,%query);
+   LBPersonalScoresNetwork.received = false;
+}
+
+function LBPersonalScoresNetwork::onLine(%this,%line) {
+   Parent::onLine(%this,%line);
+   if (getWord(%line,0) $= "SIG") {
+      switch (getWord(%line,1)) {
+         case 0: // Jeff: server failure
+            %this.echo("Server failure");
+            //%this.disconnect();
+         case 1: // Jeff: page finish
+            %this.echo("Finish");
+            //%this.disconnect();
+         case 2: // Jeff: missing information
+            %this.echo("Missing Information");
+         case 6: // Jeff: invalid username/password
+            %this.echo("Invalid Username or Password");
+         case 9: // Jeff: not logged in
+            %this.echo("Not Logged In");
+         case 16: // Jeff: starting list
+            %this.echo("Starting list");
+            %this.received = false;
+         default: // Jeff: WTF?
+            %this.echo("Unhandled Sig #" @ getWord(%line,1));
+      }
+   } else if (getWord(%line,0) $= "SCORE") {
+      //devecho("NEW SCORE" SPC getWords(%line,1));
+      //%username = getWord(%line,1); // Jeff: not used
+      %time = formatTime(getWord(%line,2));
+      %rating = formatRating(getWord(%line,3));
+      %number = getWord(%line,4) @ ".";
+
+      // Jeff: clear the Getting Scores... text
+      if (!%this.received) {
+         %this.received = true;
+         $LB::PersonalLatestNumber = 0;
+         // Jeff: these tab values are stupid, play with them if you dare,
+         //       but it may mess things up
+         LBMissionPersonalTimes.setText("<font:DomCasualD:24>Your Best Times\n<tab:30,100,210><shadow:1:1><color:000000><shadowcolor:ffffff4f><font:Arial Bold:14>" @ "#:\tTime:\tRating:");
+      }
+      if (%number <= $LB::PersonalLatestNumber)
+         return;
+      $LB::PersonalLatestNumber = %number;
+
+      %time = "<spush>" @ LBSCD_ScoreColor($LB::MissionObj, getWord(%line, 2)) @ %time @ "<spop>";
+
+      %show = "<tab:25,30,100><spush>" @ LBSpecialColor(%number) @ %number @ "<spop>" TAB %time TAB "<spush>" @ LBSpecialColor(%number) @ %rating @ "<spop>";
+      %show = LBMissionPersonalTimes.getValue() NL %show;
+      LBMissionPersonalTimes.setText(%show);
+   }
+}
+
+//-----------------------------------------------------------------------------
+// Jeff: mission redundancy check just incase the main one was hacked
+//       this compares the client CRC value to the server CRC value
+//-----------------------------------------------------------------------------
+
+function LBStartMission(%mission, %mode, %force) {
+	//HiGuy: In case of manual specification
+   %mission = %mission $= "" ? $LB::MissionObj : %mission;
+   if (!isObject(%mission) && isFile(%mission))
+      %mission = getMissionInfo(%mission, 1);
+   %mode = %mode $= "" ? 2 : %mode;
+
+   checkMissionRedundancy(%mission, %mode);
+
+   if (%force)
+      $LB::RedundancySchedule = schedule(4000, 0, "LBPlayLevel", %mission, mPow(32, 2));
+}
+
+function checkMissionRedundancy(%mission, %mode) {
+   LBPlayLevel(%mission, mPow(32, 2));
+   LBSetMode(%mode);
+   return;
+   $LB::CRCMission = %mission;
+
+   %server = $LB::server;
+   %page = $LB::serverPath @ "consistencycheck.php";
+   %crc = getFileCRC(%mission.file);
+   %query = LBDefaultQuery() @ "&marble=" @ LBMarbleSelectionDlg.getSelection() @ "&marbleNum=" @ $LBPref::Marble @ "&mission=" @ fileBase(%mission.file) @ "&crc=" @ %crc;
+   if (!isObject(LBRedundancyCheckNetwork))
+      new TCPObject(LBRedundancyCheckNetwork);
+   LBRedundancyCheckNetwork.mission = %mission;
+   LBRedundancyCheckNetwork.setmode = %mode;
+   LBRedundancyCheckNetwork.post(%server,%page,%query);
+   devecho("Checking Mission Consistency for:" SPC %mission.file);
+   $LB::CRCGood = false; //HiGuy: Only so we don't play it twice
+}
+
+function checkGroupMissionRedundancy(%missionlist, %mode) {
+   %server = $LB::server;
+   %page = $LB::serverPath @ "consistencycheckgroup.php";
+   %query = LBDefaultQuery();
+   //HiGuy: Build query
+   for (%i = 0; %i < getFieldCount(%missionlist); %i ++) {
+      %mission = getField(%missionList, %i);
+      %file = %mission.file;
+      %crc = getFileCRC(%file);
+      %query = %query @ "&mission[]=" @ expandEscape(fileBase(%mission.file)) @ "&crc[]=" @ %crc;
+   }
+   if (!isObject(LBRedundancyGroupCheckNetwork))
+      new TCPObject(LBRedundancyGroupCheckNetwork);
+   LBRedundancyGroupCheckNetwork.post(%server,%page,%query);
+   LBRedundancyGroupCheckNetwork.mission = getField(%missionlist, 0);
+   LBRedundancyGroupCheckNetwork.mode = %mode;
+}
+
+function LBRedundancyCheckNetwork::onLine(%this,%line) {
+   Parent::onLine(%this,%line);
+   if (%this.finished || %this.destroying)
+      return;
+   %this.parseSigs(%line);
+   if (getWord(%line,0) $= "SIG") {
+      switch (getWord(%line,1)) {
+         case 21: // Jeff: CRC good
+            // Jeff: passed redundancy check failsafe,
+            //       go ahead and play and update mode
+            //       we will reduce the time just to be nice
+            if ($LB::CRCGood)
+               return;
+            $LB::CRCGood = true;
+            cancel($LB::RedundancySchedule);
+            $LB::LevelStart = schedule(1000, 0, "LBPlayLevel", %this.mission, mPow(32, 2));
+            $LB::LevelStart2 = schedule(1100, 0, "LBSetMode", %this.setmode);
+            devecho("SETTING MODE TO" SPC %this.setmode SPC "IN LBREDUNDANCYCHECKNETWORK");
+         case 22: // Jeff: CRC bad
+            // Jeff: srsly hacker or virus...most likely a hacker
+            Canvas.setContent(LBChatGui);
+            Canvas.pushDialog(LBPlayMissionDlg);
+            //%this.disconnect();
+
+            //HiGuy: Why the crap? Just leave them at playmission
+            // Jeff: because they are a hacker, duh
+            %message = "There was an inconsistency with the current mission you are trying to play.  Because of this, you will be logged out of the leaderboards.";
+            %command = "L"@"B"@"C"@"h"@"a"@"t"@"G"@"u"@"i"@"."@"l"@"o"@"g"@"o"@"u"@"t"@"("@")"@";";
+            LBAssert("Warning!",%message,%command);
+      }
+   }
+}
+
+//-----------------------------------------------------------------------------
+
+// Jeff: direct copy from mbg's playMissionGui, used for making
+//       script objects for mission information, author, ect.
+function getLBMissionInfo(%missionFile, %type) {
+   %file = new FileObject();
+   %missionInfoObject = "";
+   %easterEgg = false;
+   if (%file.openForRead(%missionFile)) {
+		%inInfoBlock = false;
+		while (!%file.isEOF()) {
+			%line = trim(%file.readLine());
+			if (%line $= "new ScriptObject(MissionInfo) {") {
+				%line = "new ScriptObject() {";
+				%inInfoBlock = true;
+			} else if(%inInfoBlock && %line $= "};") {
+				%inInfoBlock = false;
+				%missionInfoObject = %missionInfoObject @ %line;
+				continue;
+			}
+			if (%inInfoBlock) {
+			   %missionInfoObject = %missionInfoObject @ %line @ " ";
+			   continue;
+			}
+
+			// Jeff: check for easter egg
+			if (%line $= "dataBlock = \"EasterEgg\";")
+			   %easterEgg = true;
+		}
+		%file.close();
+	}
+
+	%missionInfoObject = "%missionInfoObject = " @ %missionInfoObject;
+	eval(%missionInfoObject);
+
+   if (%type !$= "LBCustom")
+      %spec = trim($CurrentGame @ %type);
+   else
+      %spec = "LBCustom";
+   %grp = nameToId("LBMTYPE_" @ %spec);
+   if (%grp == -1) {
+      %grp = new SimGroup("LBMTYPE_" @ %spec);
+      LBPlayMissionGroup.add(%grp);
+   }
+
+   %missionInfoObject.game = LBGetGameMode(%missionFile);
+   %missionInfoObject.type = %type;
+   %grp.add(%missionInfoObject);
+	%missionInfoObject.file = %missionFile;
+
+	// Jeff: easter egg
+	%missionInfoObject.easterEgg = %easterEgg;
+   %file.delete();
+}
+
+//-----------------------------------------------------------------------------
+// Custom missions
+
+// Jeff: construct mission list
+function buildLBCustomMissionList() {
+   %category = $LB::Custom::Index;
+
+   if (!$LB::Custom::CategoryDownloaded) {
+      LBMessage("Downloading Custom Data...", "LBCancelCustomData();", true);
+      LBCustomCategoryDownload();
+      return false;
+   }
+   if (!$LB::Custom::Downloaded[%category]) {
+      LBMessage("Downloading Category Data...", "LBCancelCustomData2();", true);
+      LBCustomDataDownload(%category);
+      return false;
+   }
+
+   %missionType = "LBCustom";
+   %arrayType = "LBCustom_" @ %category;
+   %grp2 = "LBMYTPE_LBCustom" @ %category;
+   %grp = "LBMTYPE_LBCustom";
+
+   if (!isObject(LBPlayMissionGroup))
+      RootGroup.add(new SimGroup(LBPlayMissionGroup));
+
+   if (!isObject(%grp2))
+      LBPlayMissionGroup.add(new SimGroup(%grp2));
+
+   if (isObject(%grp))
+      %grp.delete();
+
+   new SimGroup(%grp);
+   LBPlayMissionGroup.add(%grp);
+
+   // Jeff: only build the mission list once per type
+   if (!$LB::BuiltMissionList[%arrayType]) {
+      if (!isObject(LBPlayMissionGroup)) {
+         new SimGroup(LBPlayMissionGroup);
+         RootGroup.add(LBPlayMissionGroup);
+      }
+
+      %categoryName = getWord($LBPref::Categories, $LB::Custom::CategoryId[%category]);
+
+      // Jeff: determine which folder the missions are stored at
+      %path = $usermods @ "/data/lb_custom/" @ %categoryName @ "/*.mis";
+
+      // Jeff: this control is used for storing mission files and script objects
+      %index = 0;
+      for (%file = findFirstFile(%path); %file !$= ""; %file = findNextFile(%path)) {
+         %already = false;
+         if (%grp != -1) {
+            for (%i = 0; %i < %grp.getCount(); %i ++) {
+               if (%grp.getObject(%i).file $= %file) {
+                  %already = true;
+                  break;
+               }
+            }
+         }
+         if (%already)
+            continue;
+         %mission[%index] = %file;
+         getLBMissionInfo(%file,%missionType);
+         %index ++;
+      }
+
+      %grp = nameToId("LBMTYPE_LBCustom");
+
+      //Move all objects out of generic list into actual list
+      while (%grp.getCount())
+         %grp2.add(%grp.getObject(0));
+   }
+
+   // Jeff: make textlist for easy access to levels
+   while (isObject(LBML_Custom))
+      LBML_Custom.delete();
+   %gui = new GuiTextListCtrl(LBML_Custom) {
+      profile = "GuiTextlistProfile";
+      horizSizing = "relative";
+      vertSizing = "bottom";
+      position = "2 2";
+      extent = "8 8";
+      minExtent = "8 8";
+      visible = "0";
+      helpTag = "0";
+      enumerate = "0";
+      resizeCell = "0";
+      columns = "0";
+      fitParentWidth = "1";
+      clipColumnText = "0";
+   };
+   LBPlayMissionGroup.add(LBML_Custom);
+
+   // Jeff: sort levels
+   if (isObject(LBML_Custom)) {
+      for (%i = 0; %i < %grp2.getCount(); %i ++) {
+         %scriptObj = %grp2.getObject(%i);
+         LBML_Custom.addRow(LBML_Custom.rowCount(),%scriptObj TAB %mission[%i]);
+      }
+      sortByLevel(LBML_Custom);
+   }
+   $LB::BuiltMissionList[%arrayType] = true;
+   return true;
+}
+
+function LBCancelCustomData() {
+   LBCustomCategoryNetwork.disconnect();
+   LBCustomCategoryNetwork.schedule(1000, "delete");
+   if ($LB::MissionType $= "Custom")
+      LBSetMissionType("Beginner");
+   Canvas.schedule(1000, popDialog, LBMessageGui);
+}
+
+function LBCancelCustomData2() {
+   LBCustomDataNetwork.disconnect();
+   LBCustomDataNetwork.schedule(1000, "delete");
+   if ($LB::MissionType $= "Custom")
+      LBSetMissionType("Beginner");
+   Canvas.schedule(1000, popDialog, LBMessageGui);
+}
+
+function LBSelectCustomPack() {
+   if ($HeyWaitNo)
+      return;
+   %selected = LBCustomPackList.getSelectedId();
+   $LB::Custom::Index = %selected;
+   LBSetMissionType("Custom");
+   LBCustomPackPanel.setVisible(0);
+}
+
+function LBTogglePackPanel() {
+   if ($LB::MissionType $= "Custom")
+      LBCustomPackPanel.setVisible(!LBCustomPackPanel.visible);
+   else
+      LBCustomPackPanel.setVisible(0);
+}
+
+function LBCustomCategoryDownload() {
+   %server = $LB::server;
+   %page = $LB::serverPath @ "customcategories.php";
+   %query = LBDefaultQuery();
+   if (!isObject(LBCustomCategoryNetwork))
+      new TCPObject(LBCustomCategoryNetwork);
+   LBCustomCategoryNetwork.post(%server,%page,%query);
+}
+
+function LBCustomCategoryNetwork::onLine(%this,%line) {
+   Parent::onLine(%this,%line);
+   if (getWord(%line,0) $= "SIG") {
+      switch (getWord(%line,1)) {
+         case 0: // Jeff: server failure
+            %this.echo("Server failure");
+            //%this.disconnect();
+         case 1: // Jeff: page finish
+            %this.echo("Finish");
+            //%this.disconnect();
+            $LB::Custom::CategoryDownloaded = true;
+
+            $HeyWaitNo = true;
+            LBCustomPackList.setSelectedById($LB::Custom::Index);
+            $HeyWaitNo = false;
+
+            LBSetMissionType("Custom");
+         case 2: // Jeff: missing information
+            %this.echo("Missing Information");
+         case 6: // Jeff: invalid username/password
+            %this.echo("Invalid Username or Password");
+         case 16: // Jeff: starting list
+            %this.echo("Starting list");
+            %this.received = false;
+         default: // Jeff: WTF?
+            %this.echo("Unhandled Sig #" @ getWord(%line,1));
+      }
+   } else if (getWord(%line,0) $= "CATEGORY") {
+      %categoryName = getWord(%line, 1);
+      %categoryId   = strReplace(getWord(%line, 2), "+", " ");
+      %categoryDisp = strReplace(getWord(%line, 3), "+", " ");
+
+      //%this.echo("New category" SPC %categoryName);
+
+      %downloaded = false;
+      %index = -1;
+
+      // HiGuy: Check if we have it
+      for (%i = 0; %i < getWordCount($LBPref::Categories); %i ++) {
+         if ((%category = getWord($LBPref::Categories, %i)) $= %categoryName) {
+            %downloaded = true;
+            %index = %i;
+            break;
+         }
+      }
+
+      //HiGuy: If we've already got it, no need to re-add it
+      if ($LB::Custom::CategoryDownloaded[%index])
+         return;
+
+      //%this.echo("Adding category" SPC %categoryName);
+
+      LBCustomPackList.addRow($LB::Custom::Categories, %categoryDisp);
+
+      $LB::Custom::CategoryDownloaded[%index] = true;
+      $LB::Custom::Category[$LB::Custom::Categories] = %categoryName;
+      $LB::Custom::CategoryID[$LB::Custom::Categories] = %index;
+      $LB::Custom::CategoryDisp[$LB::Custom::Categories] = %categoryDisp;
+      $LB::Custom::Categories ++;
+
+      //HiGuy: If we don't have it
+      if (%downloaded == false) {
+         //TODO: Notify the user of a new level pack
+         %this.echo("We do not have category" SPC %categoryName);
+         return;
+      }
+   }
+}
+
+function LBCustomDataDownload(%category) {
+   %server = $LB::server;
+   %page = $LB::serverPath @ "customlist.php";
+
+   //echo("Loading category" SPC %category);
+   //echo("ID is" SPC $LB::Custom::CategoryId[%category]);
+   //echo("Name is" SPC $LB::Custom::Category[%category]);
+   //echo("Pref Name is" SPC getWord($LBPref::Categories, $LB::Custom::CategoryID[%category]));
+
+   if (!isObject(LBCustomDataNetwork))
+      new TCPObject(LBCustomDataNetwork);
+   LBCustomDataNetwork.category = %category;
+
+   %category = getWord($LBPref::Categories, $LB::Custom::CategoryID[%category]);
+   %query = LBDefaultQuery() @ "&category=" @ %category;
+
+   //echo("Query is" SPC %query);
+
+   LBCustomDataNetwork.post(%server,%page,%query);
+}
+
+function LBCustomDataNetwork::onLine(%this,%line) {
+   Parent::onLine(%this,%line);
+   if (getWord(%line,0) $= "SIG") {
+      switch (getWord(%line,1)) {
+         case 0: // Jeff: server failure
+            %this.echo("Server failure");
+            //%this.disconnect();
+         case 1: // Jeff: page finish
+            %this.echo("Finish");
+            %this.echo("Downloaded category" SPC %this.category);
+
+            //%this.disconnect();
+            Canvas.popDialog(LBMessageGui);
+
+            $LB::Custom::Downloaded[%this.category] = true;
+            LBSetMissionType("Custom");
+         case 2: // Jeff: missing information
+            %this.echo("Missing Information");
+         case 6: // Jeff: invalid username/password
+            %this.echo("Invalid Username or Password");
+         case 16: // Jeff: starting list
+            %this.echo("Starting list");
+            %this.received = false;
+         default: // Jeff: WTF?
+            %this.echo("Unhandled Sig #" @ getWord(%line,1));
+      }
+   } else if (getWord(%line,0) $= "MISSION") {
+      %file = strReplace(getWord(%line, 1), "+", " ");
+      %category = getWord(%line, 2);
+      %display = strReplace(getWord(%line, 3), "+", " ");
+      %crc = getWord(%line, 4);
+
+      %missionFile = $usermods @ "/data/lb_custom/" @ %category @ "/" @ %file @ ".mis";
+
+      %this.echo("New Mission:" SPC %missionFile);
+
+      if ($LB::Custom::Mission[%missionFile])
+         return;
+      $LB::Custom::Mission[%missionFile] = true;
+
+      $LB::Custom::MissionMissing[%missionFile] = false;
+      if (!isFile(%missionFile)) {
+         $LB::Custom::MissionMissing[%missionFile] = true;
+         return;
+      }
+
+      $LB::Custom::MissionInvalid[%missionFile] = false;
+      if (getFileCRC(%missionFile) !$= %crc) {
+         $LB::Custom::MissionInvalid[%missionFile] = true;
+         return;
+      }
+   }
+}
+
+//      for (%i = 0; %i < getWordCount($LBPref::Categories); %i ++) {
+//         if ((%category = getWord($LBPref::Categories, %i)) $= %categoryName) {
+//            %searchDir = $usermods @ "/data/lb_custom/" @ %category @ "/*.mis";
+//            for (%file = findFirstFile(%searchDir); %file !$= ""; %file = findNextFile(%searchDir)) {
+//               if (strPos(%file, ".svn") != -1)
+//                  continue;
+//               %misfiles ++;
+//               %blob = %blob @ getFileCRC(%file);
+//            }
+//         }
+//      }
+
+$LB::Custom::Index = 0;
+$LB::Custom::CategoryDownloaded = false;
+$LB::Custom::Categories = 0;
